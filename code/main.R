@@ -4,9 +4,9 @@ names(w7) <- c("happiness", "satisfaction", "region", "gdp_pc", "country_code")
 # TODO: enlever les pays 2020-2021 comme robustness check
 # TODO: regarder si les donnees de GDP correspondent a la date de l'enquete, et le faire le cas echeant
 # TODO: creer colonne country
+# TODO: regions, couleurs
 # TODO: (poids,  avant analyse  econom.) , graphiques sur R, écrire  les mails!!, reproduire l'analyse économétrique!, (moins prioritaire que graphiques sur R) regarder les autres vagues.
 
-w7$veryHappy <- w7$happiness == 1
 # w7$region <- case_when(w7$region == 1 ~ "Europa",
 #                        )
 
