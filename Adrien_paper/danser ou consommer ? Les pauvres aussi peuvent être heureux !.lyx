@@ -1,0 +1,3028 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{indentfirst}
+\usepackage[super,sort&compress]{natbib}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language french
+\language_package auto
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 0
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language french
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Danser ou consommer ? Les pauvres aussi peuvent être heureux !
+\end_layout
+
+\begin_layout Author
+Adrien Fabre
+\end_layout
+
+\begin_layout Abstract
+La zone géographique prédit mieux le bien-être d'un pays que sa richesse
+ ; les latino-américains sont plus heureux que les slaves : voilà les principaux
+ résultats de ce petit travail.
+ Nous définissons des indicateurs de bien-être d'un pays à partir des données
+ du World Values Survey, nous répartissons les 75 pays disponibles en 6
+ zones géographiques, nous reportons pour chaque pays son PIB par habitant
+ en parité de pouvoir d'achat à la date de l'enquête, puis nous estimons
+ les parts de la variance dans les indicateurs de bien-être expliquées par
+ la consommation par tête et par l'origine géographique des pays.
+ Ces résultats sont robustes à l'utilisation de divers indicateurs pour
+ le bien-être, pour la richesse, ainsi que pour différentes méthodes de
+ comparaison entre 
+\begin_inset Quotes eld
+\end_inset
+
+prédicteurs
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Ils incitent à ne pas chercher la croissance à tout prix.
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Alors que l'Humanité, aux ressources finies, est confrontée à une crise
+ écologique due à l'explosion de la consummation depuis la révolution industriel
+le, des indicateurs alternatifs à la consommation par tête apparaissent
+ comme cible sérieuse pour guider une société.
+ Parmi eux, le bien-être subjectif, est mesuré en demandant aux gens de
+ se placer sur une échelle de bonheur ou de satisfaction.
+ En partant du principe que ces réponses sont comparables entre différents
+ pays, on est outillé pour répondre à la question : qu'est-ce qui cause
+ le bien-être d'un peuple ?
+\end_layout
+
+\begin_layout Standard
+Tout économiste a le réflexe, face à une telle question, de formuler la
+ conjecture suivante : la consommation par tête est la cause principale
+ du bien-être d'un pays.
+ C'est pour tordre le cou à ces préjugés productivistes que nous montrerons
+ que, si le PIB/hab est effectivement corrélé au bien-être d'un pays, ce
+ dernier s'explique mieux par la zone géographique du pays.
+ La modeste question à laquelle on s'attelle à répondre est donc : du PIB/hab
+ (PPP) et de la zone géographique, qu'est-ce qui prédit le mieux le bien-être
+ subjectif d'un pays ?
+\end_layout
+
+\begin_layout Section
+Les définitions du bien-être d'un pays
+\end_layout
+
+\begin_layout Standard
+Nous utilisons deux questions de l'enquête mondiale conduite par le 
+\begin_inset CommandInset href
+LatexCommand href
+name "World Values Survey"
+target "http://www.worldvaluessurvey.org/WVSContents.jsp"
+
+\end_inset
+
+ pour définir plusieurs indicateurs du bonheur d'un pays.
+\end_layout
+
+\begin_layout Standard
+Ces deux questions mesurent, à l'échelle individuelle :
+\end_layout
+
+\begin_layout Standard
+Q1.
+ le bonheur, sur une échelle de 1 à 4 (a008 : 
+\begin_inset Quotes fld
+\end_inset
+
+Feeling of happiness, Very Happy/Happy/Not very happy/Not at all happy
+\begin_inset Quotes frd
+\end_inset
+
+) ;
+\end_layout
+
+\begin_layout Standard
+Q2.
+ la satisfaction, sur une échelle de 1 à 10 (a170 : 
+\begin_inset Quotes fld
+\end_inset
+
+All things considered, how are you satisfied with your life as a whole these
+ days?
+\begin_inset Quotes frd
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+À partir de ces données, nous construisons 8 indicateurs du bien-être d'un
+ pays :
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $tresHeureux$
+\end_inset
+
+ : la proportion de gens répondant 'Very Happy' à Q1 ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $heureux$
+\end_inset
+
+ : la proportion de gens répondant 'Very Happy' ou 'Happy' à Q1 ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $tresMalheureux$
+\end_inset
+
+ : la proportion de gens répondant 'Not at all happy' à Q1 ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $ratioHappy$
+\end_inset
+
+ : le ratio du nombre de gens répondant 'VeryHappy' à Q1 sur le nombre de
+ gens répondant 'Not at all happy' à Q1 ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $satisfaits6a10$
+\end_inset
+
+ : la proportion de gens répondant 6 ou plus à Q2 ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $satisfaction$
+\end_inset
+
+ : la moyenne des réponses à Q2 ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $bonheur$
+\end_inset
+
+ : la moyenne des réponses à Q1 (en attribuant -2/-1/1/2 aux réponses respective
+s) ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $bonheurLayard$
+\end_inset
+
+ : la moyenne entre 
+\begin_inset Formula $heureux$
+\end_inset
+
+ et 
+\begin_inset Formula $satisfaits6a10$
+\end_inset
+
+ (pour reprendre l'indicateur 
+\begin_inset CommandInset href
+LatexCommand href
+name "choisi par R. Inglehart"
+target "https://www.staff.ncl.ac.uk/david.harvey/MKT3008/IntDev/happiness&GDP.gif"
+
+\end_inset
+
+ et R.
+ Layard).
+\end_layout
+
+\begin_layout Section
+La création des autres variables
+\end_layout
+
+\begin_layout Standard
+Par souci de simplicité, nous avons choisi de ne considérer que les résultats
+ de la dernière vague de l'enquête.
+ L'enquête n'ayant pas été menée les mêmes années suivant les pays, les
+ données retenues correspondent à des dates d'enquête allant de 1996 à 2009.
+ Pour mesurer les consommations par tête de chaque pays, nous avons donc
+ tout naturellement choisi d'introduire dans nos données le PIB par habitant
+ à parité de pouvoir d'achat en dollars constants de 2011, d'après les 
+\begin_inset CommandInset href
+LatexCommand href
+name "estimations de la banque mondiale"
+target "http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD"
+
+\end_inset
+
+.
+ Cette variable est dénotée 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Enfin, les zones géographiques (ZG) ont été choisies en fonction de la proximité
+ spatiale, culturelle et linguistique des pays.
+ On a ainsi partagé l'échantillon en 6 zones :
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $EuropedelEst$
+\end_inset
+
+ : 19 pays de l'ancien bloc communiste, incluant la Russie et des pays du
+ Caucase ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $AmeriqueLatine$
+\end_inset
+
+ : 11 pays ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $Afrique$
+\end_inset
+
+ : 11 pays ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $MoyenOrient$
+\end_inset
+
+ : 7 pays, dont l'Égypte ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $Occident$
+\end_inset
+
+ : 14 pays, comprenant l'Europe occidentale, l'Amérique du Nord, l'Australie
+ et la Nouvelle-Zélande ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $Asie$
+\end_inset
+
+ : 13 pays.
+\end_layout
+
+\begin_layout Standard
+Pour que l'interprétation des p-values des coefficients des ZG ait plus
+ de sens, les indicateurs de bien-être sont normalisés : pour chaque variable
+ 
+\begin_inset Formula $indicateur$
+\end_inset
+
+, une variable 
+\begin_inset Formula $indicateurNormalized=indicateur-moyenne_{indicateur}$
+\end_inset
+
+ est créée, de sorte que la valeur moyenne de 
+\begin_inset Formula $indicateurNormalized$
+\end_inset
+
+ soit nulle.
+ Ainsi, la p-value d'un coefficient de ZG s'interprète bien comme l'incertitude
+ avec laquelle le bien-être de cette ZG est différent du bien-être moyen,
+ et le signe du coefficient correspond au sens de signe de cette différence.
+\end_layout
+
+\begin_layout Standard
+Enfin, pour s'assurer de la robustesse des résultats, 6 variables alternatives
+ ont été utilisées dans les régressions à la place de 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+ 4 de ces variables sont des partitions en 
+\begin_inset Formula $k$
+\end_inset
+
+-moyennes (à 
+\begin_inset Formula $k$
+\end_inset
+
+ valeurs possibles, 
+\begin_inset Formula $k\in\{4;5;6;7\}$
+\end_inset
+
+, minimisant la variance de 
+\begin_inset Formula $Y$
+\end_inset
+
+ au sein de chaque cluster), la cinquième est une segmentation des pays
+ selon Y en 6 quantiles (pour ces partitions, la valeur de la variable est
+ croissante en 
+\begin_inset Formula $Y$
+\end_inset
+
+ et vaut 1 pour les pays aux revenus les plus bas), la dernière est 
+\begin_inset Formula $ln(Y)$
+\end_inset
+
+.
+ Utiliser ces nouvelles variables donne plus de degrés de liberté aux régression
+s et autorise une corrélation non linéaire entre le bien-être et la richesse,
+ on s'attend donc à expliquer une plus grande part de la variance avec ces
+ nouvelles variables.
+\end_layout
+
+\begin_layout Section
+Les graphes bien-être - richesse
+\end_layout
+
+\begin_layout Standard
+Un code couleur a été adopté dans ces graphiques :
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $EuropedelEst$
+\end_inset
+
+ : rouge ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $AmeriqueLatine$
+\end_inset
+
+ : vert ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $Afrique$
+\end_inset
+
+ : noir ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $MoyenOrient$
+\end_inset
+
+ : orange ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $Occident$
+\end_inset
+
+ : bleu ;
+\end_layout
+
+\begin_layout Standard
+- 
+\begin_inset Formula $Asie$
+\end_inset
+
+ : violet.
+\end_layout
+
+\begin_layout Standard
+Seules les étiquettes apparaissent sur ces graphiques.
+ Les points ont été volontairement ignorés, tant pour une raison esthétique
+ que parce que la marge d'erreur des données discrédite leur précision.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[
+\backslash
+textwidth][c]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/adrien/Google Drive/Economie/Travail/Well-being/tresHeureux Y.jpg
+	width 95page%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $tresHeureux$
+\end_inset
+
+ en fonction de 
+\begin_inset Formula $Y$
+\end_inset
+
+, 
+\emph on
+i.e.
+
+\emph default
+ proportion des gens répondants se décalarant très heureux (sur une échelle
+ à 4 valeurs) en fonction du PIB par habitant PPP (en dollars constant 2011).
+ Sources : World Values Survey, banque mondiale.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[
+\backslash
+textwidth][c]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/adrien/Google Drive/Economie/Travail/Well-being/heureux Y.jpg
+	width 95page%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $heureux$
+\end_inset
+
+en fonction de 
+\begin_inset Formula $Y$
+\end_inset
+
+, 
+\emph on
+i.e.
+
+\emph default
+ proportion des gens répondants se décalarant très heureux ou heureux (sur
+ une échelle à 4 valeurs) en fonction du PIB par habitant PPP (en dollars
+ constant 2011).
+ Sources : World Values Survey, banque mondiale.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[
+\backslash
+textwidth][c]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/adrien/Google Drive/Economie/Travail/Well-being/tresMalheureux Y.jpg
+	width 95page%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $tresMalheureux$
+\end_inset
+
+en fonction de 
+\begin_inset Formula $Y$
+\end_inset
+
+, 
+\emph on
+i.e.
+
+\emph default
+ proportion des gens répondants se décalarant malheureux (l'extrême d'une
+ échelle à 4 valeurs) en fonction du PIB par habitant PPP (en dollars constant
+ 2011).
+ Sources : World Values Survey, banque mondiale.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[
+\backslash
+textwidth][c]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/adrien/Google Drive/Economie/Travail/Well-being/ratio Y.jpg
+	width 95page%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $ratioHappy$
+\end_inset
+
+ en fonction de 
+\begin_inset Formula $Y$
+\end_inset
+
+, 
+\emph on
+i.e.
+
+\emph default
+ le ratio du nombre de gens se déclarant très heureux sur le nombre de gens
+ se déclarant malheureux (les deux extrêmes sur une échelle de 1 à 4) en
+ fonction du PIB par habitant PPP (en dollars constant 2011).
+ Sources : World Values Survey, banque mondiale.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[
+\backslash
+textwidth][c]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/adrien/Google Drive/Economie/Travail/Well-being/satisfaits6a10 Y.jpg
+	width 95page%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $satisfaits6a10$
+\end_inset
+
+ en fonction de 
+\begin_inset Formula $Y$
+\end_inset
+
+, 
+\emph on
+i.e.
+
+\emph default
+ la proportion de gens se déclarant satisfaits entre 6/10 et 10/10 en fonction
+ du PIB par habitant PPP (en dollars constant 2011).
+ Sources : World Values Survey, banque mondiale.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[
+\backslash
+textwidth][c]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/adrien/Google Drive/Economie/Travail/Well-being/satisfaction Y.jpg
+	width 95page%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $satisfaction$
+\end_inset
+
+ en fonction de 
+\begin_inset Formula $Y$
+\end_inset
+
+, 
+\emph on
+i.e.
+
+\emph default
+ moyenne de la satisfaction, mesurée sur une échelle de -5 à 5 (0 exclu),
+ en fonction du PIB par habitant PPP (en dollars constant 2011).
+ Sources : World Values Survey, banque mondiale.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[
+\backslash
+textwidth][c]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/adrien/Google Drive/Economie/Travail/Well-being/bonheur Y.jpg
+	width 95page%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $bonheur$
+\end_inset
+
+ en fonction de 
+\begin_inset Formula $Y$
+\end_inset
+
+, 
+\emph on
+i.e.
+
+\emph default
+ moyenne du bonheur, mesuré sur une échelle de -2 à 2 (0 exclu), en fonction
+ du PIB par habitant PPP (en dollars constant 2011).
+ Sources : World Values Survey, banque mondiale.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
+\end_layout
+
+\begin_layout Section
+Parts de la variance expliquée par les Zones Géographiques et par la richesse
+\end_layout
+
+\begin_layout Standard
+Pour un maximum de robustesse, plusieurs approches ont été employées pour
+ prouver que la part de la variance du bien-être expliquée par les ZG est
+ plus importante que celle expliquée par la richesse.
+ La méthode la plus naturelle consiste à effectuer deux régressions linéaires
+ (pour chaque indicateur) où la variable expliquée est le bien-être et les
+ variables explicatives sont soit les indicatrices des ZG, soit 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+ Ensuite, la comparaison des coefficients de détermination de ces deux régressio
+ns indique laquelle des deux explique la plus grande part de la variance.
+ Le résultat est sans appel : les ZG expliquent 
+\begin_inset Formula $27\pm3\%$
+\end_inset
+
+ de variance supplémentaire pour les indicateurs avec lesquels 
+\begin_inset Formula $Y$
+\end_inset
+
+ est significativement corrélé (au seuil de 1%).
+ Même en prenant des variantes 
+\begin_inset Formula $Ŷ$
+\end_inset
+
+ à la place de 
+\begin_inset Formula $Y$
+\end_inset
+
+, on trouve systématiquement plus de variance expliquée par les ZG : au
+ moins 10% de plus.
+\end_layout
+
+\begin_layout Standard
+Pour autant, cela ne signifie pas que 
+\begin_inset Formula $Y$
+\end_inset
+
+, une fois qu'on contrôle pour les ZG, n'est pas corrélé avec le bien-être
+ : au contraire, les T-tests qui estiment si l'ajout de 
+\begin_inset Formula $Y$
+\end_inset
+
+ dans le modèle (avec seulement les ZG) n'apporte aucune prédictibilité
+ additionnelle sont rejetés au seuil de 2% pour 5 indicateurs sur 8 -- 
+\emph on
+cf.
+ 
+\emph default
+les p-values de ces T-tests dans le Tableau 1 ci-dessous.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Résultats du do-file.
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang english
+
+\begin_inset Formula $r²_{ZG}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang french
+ (resp.
+ 
+\begin_inset Formula $r²_{Y}$
+\end_inset
+
+, 
+\begin_inset Formula $r²_{Ŷ}$
+\end_inset
+
+) est le coefficient de détermination de la régression linéaire du bien-être
+ par les indicatrices des ZG (resp.
+ par 
+\begin_inset Formula $Y$
+\end_inset
+
+, 
+\begin_inset Formula $Ŷ$
+\end_inset
+
+ - cette dernière correspondant à une des variables alternatives à 
+\begin_inset Formula $Y$
+\end_inset
+
+).
+ La p-value est celle du T-test sur le coefficient de 
+\begin_inset Formula $Y$
+\end_inset
+
+ dans le modèle linéaire non contraint.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[
+\backslash
+textwidth][c]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $r²_{ZG}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+p-value pour 
+\begin_inset Formula $Y$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $r²_{ZG}-r\text{²}_{Y}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $r²_{ZG}-max_{Ŷ}\{r\text{²}_{Ŷ}\}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+tresHeureux
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,57
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,25722
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,53
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,40
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+heureux
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,55
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,00981
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,29
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,21
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+tresMalheureux
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,44
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,06269
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,28
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,25
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ratioHappy
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,28
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,12694
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+satisfaits6a10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,66
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,00001
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,24
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,20
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+satisfaction
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,58
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,00025
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,26
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,20
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+bonheur
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,53
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,01572
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,39
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,32
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+bonheurLayard
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,65
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,00006
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,25
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,24
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Une autre approche, plus rudimentaire, confirme ces résultats.
+ Elle consiste à comparer des écarts-type (distance à la moyenne pour la
+ norme 
+\begin_inset Formula $L\text{²}$
+\end_inset
+
+) ou des écarts-moyen (pour la norme 
+\begin_inset Formula $L\text{¹}$
+\end_inset
+
+) : les écarts en termes de bien-être au sein de chaque ZG sont comparés
+ aux écarts au sein de groupes de pays au 
+\begin_inset Formula $Y$
+\end_inset
+
+ proche.
+ Pour former ces groupes de pays, deux méthodes ont été employées : la première
+ consiste à grouper chaque pays dans le groupe des 7 pays (lui y compris)
+ ayant le 
+\begin_inset Formula $Y$
+\end_inset
+
+ le plus proche, la deuxième consiste à grouper chaque pays avec les deux
+ pays le précédant et les deux le suivant dans le classement en fonction
+ de 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+ Ainsi, on calcule un écart(-type ou -moyen) pour chaque groupe et chaque
+ indicateur de bien-être.
+ Ensuite, on calcule la moyenne des écarts des ZG et la moyenne des écarts
+ des groupes de 
+\begin_inset Formula $Y$
+\end_inset
+
+ proche, et on compare ces deux moyennes.
+ Alors même que les groupements par 
+\begin_inset Formula $Y$
+\end_inset
+
+ ont des cardinaux moindres (respectivement 7 et 5 dans les deux méthodes
+ de groupement par 
+\begin_inset Formula $Y$
+\end_inset
+
+, contre une moyenne de 12,5 pour les ZG), ce qui aurait tendance réduire
+ les écarts au sein des groupes si la corrélation entre 
+\begin_inset Formula $Y$
+\end_inset
+
+ et le bien-être était forte, on observe quasiment tout le temps des moyennes
+ d'écarts inférieurs en terme de bien-être au sein des ZG.
+ Les seules moyennes d'écarts inférieures dans le cas des regroupements
+ par 
+\begin_inset Formula $Y$
+\end_inset
+
+ apparaissent pour les écarts-moyen des indicateurs 
+\begin_inset Formula $heureux$
+\end_inset
+
+, 
+\begin_inset Formula $tresMalheureux$
+\end_inset
+
+ et 
+\begin_inset Formula $ratioHappy$
+\end_inset
+
+ et ne sont respectivement que de 1, 4 et 8% de la moyenne des écarts-moyen
+ en question.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Comparaison des écarts-type et des écarts-moyen en termes de bien-être entre
+ des Zones Géographiques et des clusters de 
+\begin_inset Formula $Y$
+\end_inset
+
+ proche.
+ 
+\begin_inset Formula $cf.$
+\end_inset
+
+ tableur
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[
+\backslash
+textwidth][c]{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="7">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" rotate="90" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Moyenne des écarts-type par zone
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Moyenne des écarts-type par PIB/hab PPP (7 plus proches)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Moyenne des écarts-type par PIB/hab PPP (2 au-dessus, 2 en-dessous)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Moyenne des écarts-moyen par zone
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Moyenne des écarts-moyen par PIB/hab PPP (7 plus proches)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Moyenne des écarts-moyen par PIB/hab PPP (2 au-dessus, 2 en-dessous)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+tresHeureux
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,09
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,14
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,13
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+heureux
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,069
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,078
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,075
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,0873
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,0933
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,0866
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+tresMalheureux
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,016
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,019
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,018
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,0215
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,0223
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,0206
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ratioHappy
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+28
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+30
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+30
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+39
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+38
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+36
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+satisfaits6a10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,1279
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,1328
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,1285
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+satisfaction
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,58
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,69
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,67
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,70
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,78
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,75
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+bonheur
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,16
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,19
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,19
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,23
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,22
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+bonheurLayard
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,08
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,09
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,09
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,098
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,103
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,099
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Deux questions annexes
+\end_layout
+
+\begin_layout Standard
+Suite aux résultats précédents, nous allons nous intéresser à deux questions
+ annexes : y a-t-il une relation positive entre richesse et bien-être au
+ sein de chaque Zone Géographique ? Qui, de l'Amérique latine ou de l'Occident,
+ est la zone la plus heureuse ?
+\end_layout
+
+\begin_layout Subsection
+Corrélation au sein de chaque Zone Géographique entre bien-être et richesse
+\end_layout
+
+\begin_layout Standard
+Le fait que la Zone Géographique n'explique pas toute la variance du bien-être
+ (
+\emph on
+i.e.
+ 
+\emph default
+qu'en contrôlant par la ZG, le revenu par habitant reste significativement
+ corrélé au bien-être) laisse penser qu'il y a une corrélation entre bien-être
+ et richesse d'un pays au sein de chaque ZG.
+\end_layout
+
+\begin_layout Standard
+C'est ce que nous avons tester, en effectuant 96 régressions du bien-être
+ sur le revenu par habitant, une pour chaque combinaison possible d'une
+ des 6 Zones Géographiques, d'un des 8 indicateurs de bien-être et d'un
+ des deux mesures du revenu par habitant : 
+\emph on
+Y
+\emph default
+ et 
+\emph on
+lnY
+\emph default
+.
+ Généralement, la corrélation entre bien-être et richesse est positive mais
+ plutôt faible et non significative.
+ Il se pourrait qu'une corrélation significative apparaisse si on disposait
+ de plus d'observations, mais les magnitudes des coefficients de la régression
+ seraient alors sans doute très faibles.
+ Les résultats, présentés dans le Tableau 3, montrent que c'est l'Europe
+ de l'Est, et dans une moindre mesure le Moyen-Orient et l'Asie, qui contiennent
+ l'essentiel de la corrélation intra-zone.
+ En effet, sur les 18 régressions (resp.
+ 7) pour lesquelles la richesse est significative au seuil de 5% (resp.
+ 1%), 9 (resp.
+ 6) portent sur l'Europe de l'Est, 4 (resp.
+ 1) sur l'Asie et 5 (resp.
+ 0) sur le Moyen-Orient.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Corrélation moyenne et nombre de corrélations significatives pour les 16
+ régressions du bien-être sur le revenu par habitant à PPA, pour chaque
+ Zone Géographique (soit 96 régressions au total).
+ Source : World Values Survey, banque mondiale.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[
+\backslash
+textwidth][c]{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="3cm">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="4cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Zone Géographique
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Corrélation moyenne
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Nombre de corrélations significatives à 1%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Nombre de corrélations significatives à 5%
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Nombre de corrélations significatives à 10%
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Afrique
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,25
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Amérique latine
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0,02
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Moyen-Orient
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,75
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Occident
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,33
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Asie
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,47
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Europe de l'Est
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,58
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+11
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+total
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0,29
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+18
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+26
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Qui sont les plus heureux entre l'Amérique latine et l'Occident
+\end_layout
+
+\begin_layout Standard
+Pour répondre à cette question, il suffit d'étudier le signe et la significativi
+té du coefficient de l'indicatrice 
+\emph on
+Occident 
+\emph default
+dans les régressions linéaires du bien-être par rapport à cette indicatrice
+ (restreintes aux deux seules ZG d'intérêt).
+ Le résultat est sans appel : la corrélation est significative au seuil
+ de 1% (resp.
+ 20%) pour seulement 2 (resp.
+ 3) indicateurs du bien-être sur 8 (à savoir 
+\emph on
+bonheurLayard 
+\emph default
+et 
+\emph on
+heureux
+\emph default
+) (resp.
+ 
+\emph on
+idem 
+\emph default
+et 
+\emph on
+satisfaits6a10
+\emph default
+), et l'effet (positif) de l'Occident sur le bien-être disparaît systématiquemen
+t quand on contrôle pour la richesse.
+ Ainsi, on peut conclure que les deux ZG affichant les meilleurs scores
+ de bien-être sont à égalité.
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+L'analyse des données du WVS conduit à prendre du recul face aux classements
+ des pays en termes de bien-être, véhiculés par les médias, et qui présentent
+ systématiquement des pays nordiques (et plus généralement, occidentaux)
+ en tête.
+ En réalité, suivant l'indicateur qu'on choisit, on ne trouve jamais le
+ même pays en tête du classement : le Nigeria pour 
+\begin_inset Formula $tresHeureux$
+\end_inset
+
+ et 
+\begin_inset Formula $bonheur$
+\end_inset
+
+, la Nouvelle-Zélande pour 
+\begin_inset Formula $tresMalheureux$
+\end_inset
+
+ et 
+\begin_inset Formula $heureux$
+\end_inset
+
+, la Colombie pour 
+\begin_inset Formula $satisfaction$
+\end_inset
+
+, les Pays-Bas pour 
+\begin_inset Formula $satisfaits6a10$
+\end_inset
+
+, la Malaisie pour 
+\begin_inset Formula $ratioHappy$
+\end_inset
+
+...
+ Aussi, la corrélation entre la production par tête et le bien-être n'est
+ pas aussi forte que ce qu'on pourrait croire 
+\emph on
+a priori
+\emph default
+, puisque 
+\begin_inset Formula $Y$
+\end_inset
+
+ n'explique en général pas plus de 30% de la variance du bien-être.
+ On observe ainsi que la zone géographico-culturelle est davantage liée
+ au bien-être : les pays d'Europe de l'Est souffrent notamment d'un déficit
+ de bien-être comparé aux autres, tandis que l'Amérique latine apparaît
+ plus heureuse.
+ En fait, le seul lien tangible entre 
+\begin_inset Formula $Y$
+\end_inset
+
+ et le bien-être est un lien d'impossibilité : à notre époque, il n'existe
+ pas de pays malheureux et riche (c'est-à-dire avec 
+\begin_inset Formula $Y>20000\$/hab/an$
+\end_inset
+
+ - ce chiffre pouvant être abaissé à 10000 si on exclut les pays de l'Est).
+ Ce constat devrait être intégré par les planificateurs sociaux, qui recherchent
+ peut-être trop souvent les ressorts de la croissance au détriment d'un
+ travail de psychologie sociale qui permettrait de comprendre les causes
+ (culturelles ? sociétales ?) des variations de bien-être entre, par exemple,
+ les slaves et les latino-américains, afin de s'inspirer des paradigmes
+ qui fonctionnent et d'éviter ceux qui échouent.
+ Ainsi, peut-être que proposer des cours de salsa dès l'école plutôt que
+ d'investir dans l'extraction gazière, offrirait à la Russie un avenir plus
+ sympathique.
+\end_layout
+
+\begin_layout Standard
+Ce travail suggère donc un champ de recherche passionnant, puisqu'il permet,
+ en acceptant l'hypothèse certes discutable que les échelles subjectives
+ de bien-être ne dépendent pas du pays et que la compréhension des questions
+ est insensible à la langue dans laquelle elles sont posées, de distinguer
+ des zones géographiques plus heureuses que d'autres, sans qu'on sache l'expliqu
+er.
+ Des études plus poussées de pays à bas revenus mais heureux, par exemple
+ en commençant par demander aux gens ce qui les rend heureux, nous enseignerait
+ peut-être beaucoup : ainsi, pourquoi pas apprendre à être équanimes comme
+ les tanzaniens ? En effet, l'exemple de la Tanzanie est saisissant : c'est
+ un des pays avec la plus forte proportion de personnes se déclarant heureux
+ (
+\begin_inset Formula $heureux=95\%$
+\end_inset
+
+) et, dans le même temps, celui avec le plus de personnes insatisfaites
+ (
+\begin_inset Formula $satisfaits6a10=24\%$
+\end_inset
+
+) -- 23% des sondés se déclarant à la fois très heureux et complètement
+ insatisfait (c'est-à-dire 1/10 à Q2, la note la plus basse).
+ Même si on peut comprendre que les tanzaniens, malgré une insatisfaction
+ découlant de leur situation économique, se sentent mieux lotis que leurs
+ voisins, puisqu'ils vivent -- contrairement à eux -- dans un pays où la
+ démocratie fonctionne à peu près, et qui ne connaît pas la guerre, leur
+ taux de bonheur pourrait cacher une philosophie de vie qui mériterait d'être
+ explorer.
+\end_layout
+
+\end_body
+\end_document
