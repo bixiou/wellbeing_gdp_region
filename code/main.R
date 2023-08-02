@@ -174,7 +174,7 @@ for (i in happiness_variables) {
 # )
 
 result_tables <- list()
-combined_results <- data.frame() # Peut-être qu'il faut indiquer les noms des colonnes dans data.frame()
+combined_results <- data.frame() 
 for (j in names(regressions[[1]])) {
   result_tables[[j]] <- list()
   for (i in happiness_variables) {
