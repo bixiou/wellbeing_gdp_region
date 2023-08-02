@@ -164,7 +164,12 @@ happiness_meanGDPcluster7 <- lm(a7$happiness_mean ~ a7$gdp_cluster7)
 happiness_LayardGDPcluster7 <- lm(a7$happiness_Layard ~ a7$gdp_cluster7)
 View(a7)
 
-result_tables <- combined_results <- data.frame() # Peut-être qu'il faut indiquer les noms des colonnes dans data.frame()
+happiness_variables <- c(
+  "very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy",
+  "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard"
+)
+
+result_tables <- combined_results <- data.frame("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy",  "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard") # Peut-être qu'il faut indiquer les noms des colonnes dans data.frame()
 for (j in names(regressions)) {
   result_tables[[j]] <- list()
   for (i in happiness_variables) {
@@ -172,6 +177,31 @@ for (j in names(regressions)) {
   }
   if (grepl("gdp_", j)) combined_results <- rbind(combined_results, result_tables[[j]])
 }
+
+
+happiness_variables <- c(
+  "very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy",
+  "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard"
+)
+
+result_tables <- data.frame(
+  Dependent_Variable = character(),
+  Independent_Variable = character(),
+  r.squared = numeric(),
+  p.value = numeric()
+)
+
+for (j in names(regressions)) {
+  for (i in happiness_variables) {
+    regression_result <- glance(eval(parse(text = paste0(i, j)))) %>%
+      mutate(Dependent_Variable = i, Independent_Variable = j)
+    
+    result_tables <- rbind(result_tables, regression_result)
+  }
+}
+
+combined_results <- result_tables[grepl("gdp_|GDPgroup|GDPcluster", result_tables$Independent_Variable), ]
+
 # bind_rows(
 #   glance(very_happyGDP) %>% mutate(Dependent_Variable = "happy", Independent_Variable = "log_gdp"),
 #   glance(happyGDP) %>% mutate(Dependent_Variable = "very_happy", Independent_Variable = "log_gdp"),
@@ -275,7 +305,27 @@ for (j in names(regressions)) {
 #   gdp_group = result_table_gdp_group
 # )
 
+#result_tables <- list()
+#for (j in names(regressions)) {
+#  result_table <- data.frame()
+#  for (i in happiness_variables) {
+#    result_table <- rbind(result_table, glance(eval(parse(text = i))) %>% mutate(Dependent_Variable = i, Independent_Variable = j))
+#  }
+#  result_tables[[j]] <- result_table
+#  if (grepl("gdp_", j)) {
+#    if (exists("combined_results")) {
+#      combined_results <- rbind(combined_results, result_table)
+#    } else {
+#      combined_results <- result_table
+#    }
+#  }
+#}
+#print(lapply(result_tables, head))
+#print(head(combined_results))
+
 combined_results_max <- combined_results %>%
 group_by(Dependent_Variable) %>%
 slice(which.max(r.squared))
 print(combined_results_max)
+
+write.csv(w7, "../data/WVS7.csv", row.names = FALSE)
