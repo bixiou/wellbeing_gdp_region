@@ -329,8 +329,7 @@ combined_results <- result_tables[grepl("gdp_|GDPgroup|GDPcluster", result_table
 #print(head(combined_results))
 
 combined_results_max <- combined_results %>%
-group_by(Dependent_Variable) %>%
-slice(which.max(r.squared))
+  group_by(Dependent_Variable) %>%
+  slice(which.max(r.squared))
 print(combined_results_max)
 
-write.csv(w7, "../data/WVS7.csv", row.names = FALSE)
