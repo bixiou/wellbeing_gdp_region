@@ -136,12 +136,23 @@ library(ggplot2)
 library(ggrepel)
 
 # Graphs with country names
-create_scatter_plot <- function(y_var, y_label) {
-  p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
-    geom_point() +
-    labs(x = "Log GDP", y = y_label, color = "Region") +
-    theme_minimal() +
-    theme(legend.position = "none")
+create_scatter_plot <- function(y_var, y_label, log_scale = FALSE) {
+  if (log_scale && y_var == "very_unhappy") {
+    a7_with_rsquared_log <- a7_with_rsquared %>%
+      mutate(very_unhappy = log(very_unhappy + 1))  
+    
+    p <- ggplot(a7_with_rsquared_log, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
+      geom_point() +
+      labs(x = "Log GDP", y = y_label, color = "Region") +
+      theme_minimal() +
+      theme(legend.position = "none")
+  } else {
+    p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
+      geom_point() +
+      labs(x = "Log GDP", y = y_label, color = "Region") +
+      theme_minimal() +
+      theme(legend.position = "none")
+  }
   
   p <- p + geom_text_repel(
     segment.size = 0.2,
@@ -157,8 +168,9 @@ create_scatter_plot <- function(y_var, y_label) {
 
 scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
 for (var in scatter_plot_vars) {
-  p <- create_scatter_plot(var, var)
-  filename <- paste("scatter_", var, "_vs_log_gdp", sep = "")
+  log_scale <- var == "very_unhappy"
+  p <- create_scatter_plot(var, var, log_scale)
+  filename <- paste("scatter_", var, "_vs_log_gdp", ifelse(log_scale, "_logscale", ""), sep = "")
   save_plot(p, filename = filename, folder = "../figures") 
 }
 
@@ -229,10 +241,10 @@ create_scatter_plot <- function(y_var, y_label) {
   print(p)
 }
 
-scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisified_mean", "happiness_mean")
+scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
 for (var in scatter_plot_vars) {
   p <- create_scatter_plot(var, var)
-  filename <- paste("scatter_", var, "_vs_log_gdp", sep="")
+  filename <- paste("scatter_", var, "_vs_log_gdp_error", sep="")
   save_plot(p, filename = filename, folder = "../figures") 
 }
 
@@ -260,16 +272,8 @@ create_scatter_plot <- function(y_var, y_label) {
   print(p)
 }
 
-scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisified_mean", "happiness_mean")
 for (var in scatter_plot_vars) {
   p <- create_scatter_plot(var, var)
-  filename <- paste("scatter_", var, "_vs_log_gdp", sep="")
+  filename <- paste("scatter_", var, "_vs_log_gdp_rsquared", sep="")
   save_plot(p, filename = filename, folder = "../figures") 
 }
-
-# Different graphs per region
-ggplot(a7, aes(x = log_gdp, y = satisfied_mean)) +
-  geom_point(aes(color = region)) +
-  facet_wrap(~ region, scales = "free") +
-  labs(x = "Log GDP", y = "Satisfied Mean", color = "Region") +
-  theme_minimal()
