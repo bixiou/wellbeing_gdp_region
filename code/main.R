@@ -136,6 +136,9 @@ library(ggplot2)
 library(ggrepel)
 
 # Graphs with country names
+region_colors <- c("Africa" = "black", "Latin America" = "green", "Ex-Eastern Block" = "red",
+                   "Middle East" = "orange", "Western" = "light blue", "Asia" = "purple")
+
 create_scatter_plot <- function(y_var, y_label, log_scale = FALSE) {
   if (log_scale && y_var == "very_unhappy") {
     a7_with_rsquared_log <- a7_with_rsquared %>%
@@ -149,6 +152,7 @@ create_scatter_plot <- function(y_var, y_label, log_scale = FALSE) {
   } else {
     p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
       geom_point() +
+      scale_color_manual(values = region_colors) +
       labs(x = "Log GDP", y = y_label, color = "Region") +
       theme_minimal() +
       theme(legend.position = "none")
@@ -224,6 +228,7 @@ create_scatter_plot <- function(y_var, y_label) {
   
   p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region)) +
     geom_point() +
+    scale_color_manual(values = region_colors) +
     labs(x = "Log GDP", y = y_label, color = "Region") +
     theme_minimal() +
     theme(legend.position = "none")
@@ -255,6 +260,7 @@ create_scatter_plot <- function(y_var, y_label) {
   
   p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region)) +
     geom_point() +
+    scale_color_manual(values = region_colors) +
     labs(x = "Log GDP", y = y_label, color = "Region") +
     theme_minimal() +
     theme(legend.position = "none")
