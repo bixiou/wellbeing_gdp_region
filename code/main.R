@@ -57,8 +57,7 @@ names(info) <- c("country", "country_code", "year")
 a7 <- merge(a7, info)
 
 #new column region
-a7 <- a7 %>%
-  mutate(region = sapply(country_code, get_country_region))
+a7 <- a7 %>%  mutate(region = sapply(country_code, get_country_region))
 
 names(wb)[names(wb) %in% c("Country.Name", "Country.Code")] <- c("country", "country_code")
 
@@ -167,7 +166,7 @@ scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_v
 for (var in scatter_plot_vars) {
   p <- create_scatter_plot(var, var)
   filename <- paste("scatter_", var, "_vs_log_gdp", sep = "")
-  save_plot(p, filename = filename, folder = "~/Desktop/wellbeing_gdp_region/figures") 
+  save_plot(p, filename = filename, folder = "../figures") 
 }
 
 # Robustness check
@@ -248,7 +247,7 @@ scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_v
 for (var in scatter_plot_vars) {
   p <- create_scatter_plot(var, var)
   filename <- paste("scatter_", var, "_vs_log_gdp", sep="")
-  save_plot(p, filename = filename, folder = "~/Desktop/wellbeing_gdp_region/figures") 
+  save_plot(p, filename = filename, folder = "../figures") 
 }
 
 # Graphs with the rsquared
@@ -286,7 +285,7 @@ scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_v
 for (var in scatter_plot_vars) {
   p <- create_scatter_plot(var, var)
   filename <- paste("scatter_", var, "_vs_log_gdp", sep="")
-  save_plot(p, filename = filename, folder = "~/Desktop/wellbeing_gdp_region/figures") 
+  save_plot(p, filename = filename, folder = "../figures") 
 }
 
 # Different graphs per region
