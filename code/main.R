@@ -1,4 +1,4 @@
-# TODO: enlever les pays 2020-2021 comme robustness check (et ponderer les pays par leur population dans les regressions)
+# TODO: ponderer les pays par leur population dans les regressions
 # TODO: (moins prioritaire que graphiques sur R) regarder les autres vagues.
 # TODO: trouver définitions de region qui correspondent aux nôtres
 
@@ -148,20 +148,13 @@ create_scatter_plot <- function(y_var, y_label) {
     segment.size = 0.2,
     force = 4,
     point.padding = unit(0.2, "lines"),
-    nudge_x = 0.1,
-    nudge_y = 0.1
+    nudge_x = 0.005,
+    nudge_y = 0.005,
+    size = 2
   )
   
   print(p)
 }
-
-create_scatter_plot("very_happy", "Very Happy")
-create_scatter_plot("happy", "Happy")
-create_scatter_plot("very_unhappy", "Very Unhappy")
-create_scatter_plot("very_happy_over_very_unhappy", "Very Happy / Very Unhappy")
-create_scatter_plot("satisfied", "Satisfied")
-create_scatter_plot("satisfied_mean", "Satisfied Mean")
-create_scatter_plot("happiness_mean", "Happiness Mean")
 
 scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
 for (var in scatter_plot_vars) {
@@ -229,20 +222,13 @@ create_scatter_plot <- function(y_var, y_label) {
     segment.size = 0.2,
     force = 4,
     point.padding = unit(0.2, "lines"),
-    nudge_x = 0.1,
-    nudge_y = 0.1
+    nudge_x = 0.005,
+    nudge_y = 0.005,
+    size = 2
   )
   
   print(p)
 }
-
-create_scatter_plot("very_happy", "Very Happy")
-create_scatter_plot("happy", "Happy")
-create_scatter_plot("very_unhappy", "Very Unhappy")
-create_scatter_plot("very_happy_over_very_unhappy", "Very Happy / Very Unhappy")
-create_scatter_plot("satisfied", "Satisfied")
-create_scatter_plot("satisfied_mean", "Satisfied Mean")
-create_scatter_plot("happiness_mean", "Happiness Mean")
 
 scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisified_mean", "happiness_mean")
 for (var in scatter_plot_vars) {
@@ -267,20 +253,13 @@ create_scatter_plot <- function(y_var, y_label) {
     segment.size = 0.2,
     force = 4,
     point.padding = unit(0.2, "lines"),
-    nudge_x = 0.1,
-    nudge_y = 0.1
+    nudge_x = 0.005,
+    nudge_y = 0.005,
+    size = 2
   )
   
   print(p)
 }
-
-create_scatter_plot("very_happy", "Very Happy")
-create_scatter_plot("happy", "Happy")
-create_scatter_plot("very_unhappy", "Very Unhappy")
-create_scatter_plot("very_happy_over_very_unhappy", "Very Happy / Very Unhappy")
-create_scatter_plot("satisfied", "Satisfied")
-create_scatter_plot("satisfied_mean", "Satisfied Mean")
-create_scatter_plot("happiness_mean", "Happiness Mean")
 
 scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisified_mean", "happiness_mean")
 for (var in scatter_plot_vars) {
