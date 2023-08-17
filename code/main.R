@@ -1,8 +1,3 @@
-# TODO: analyse variance (anova, r2 total ≠ r2y + r2reg): reg_tot<- lm(b ~ y + r, data = a7)
-# variance_reg_tot <- calc.relimp(reg_tot, type = c("lmg"), rela = F, rank= F)
-# plot: requires function "barres". Not so useful in our case as we have only two variables
-# (plot_variance_reg_tot <- barres(data = unname(t(as.matrix(variance_reg_tot @lmg))), labels = names(variance_main_policies_C_all@lmg)], legend = "% of response variances", show_ticks = F, rev = F, digits = 1))
-
 # TODO: graphiques sur R
 # TODO: enlever les pays 2020-2021 comme robustness check (et ponderer les pays par leur population dans les regressions)
 # TODO: (moins prioritaire que graphiques sur R) regarder les autres vagues.
@@ -10,12 +5,8 @@
 
 WVS7 <- read_csv("WVS7.csv")
 w7 <- WVS7[, c("Q46", "Q49", "GDPpercap2", "B_COUNTRY_ALPHA", "W_WEIGHT")]
+decrit("region", w7)
 names(w7) <- c("happiness", "satisfaction", "gdp_pc", "country_code", "weight")
-View(w7)
-
-# new column "region"
-w7 <- w7 %>%
-   mutate(region = sapply(country_code, get_country_region))
 
 # adding missing values
 w7$gdp_pc[w7$country_code == "AND"] <- 42903
@@ -25,7 +16,6 @@ w7$gdp_pc[w7$country_code == "TWN"] <- 25903
 w7$gdp_pc[w7$country_code == "VEN"] <- 6106
 w7$region[w7$country_code == "NIR"] <- "Western"
 w7$region[w7$country_code == "MAC"] <- "Asia"
-decrit("region", w7)
 write.csv(w7, "../data/WVS7.csv", row.names = FALSE)
 
 # defining the regions
@@ -66,6 +56,10 @@ a7$happiness_Layard <- (a7$happy + a7$satisfied)/2
 all (sort(a7$country_code) == sort(info$ISO))
 names(info) <- c("country", "country_code", "year")
 a7 <- merge(a7, info)
+
+#new column region
+a7 <- a7 %>%
+  mutate(region = sapply(country_code, get_country_region))
 
 names(wb)[names(wb) %in% c("Country.Name", "Country.Code")] <- c("country", "country_code")
 
@@ -132,10 +126,131 @@ for (j in names(regressions[[1]])) if (grepl("region_", j)) {
 rownames(var_explained) <- NULL
 var_explained
 
-reg_tot<- lm( ~ log_gdp + (region == "Africa") + (region == "Latin  America") + (region == "Ex-Eastern Block") + (region == "Middle East") + (region == "Western") + (region == "Asia"), data = a7)
+reg_tot<- lm(satisfied ~ log_gdp + (region == "Africa") + (region == "Latin  America") + (region == "Ex-Eastern Block") + (region == "Middle East") + (region == "Western") + (region == "Asia"), data = a7)
 reg_tot<- lm(happy ~ gdp_pc + as.factor(region), data = a7)
 variance_reg_tot <- calc.relimp(reg_tot, type = c("lmg"), rela = F, rank= F)
 # plot: requires function "barres". Not so useful in our case as we have only two variables
 # (plot_variance_reg_tot <- barres(data = unname(t(as.matrix(variance_reg_tot @lmg))), labels = names(variance_main_policies_C_all@lmg)], legend = "% of response variances", show_ticks = F, rev = F, digits = 1))
 variance_reg_tot$lmg[1]
 variance_reg_tot$lmg[2]
+
+library(ggplot2)
+library(ggrepel)
+
+# Graphs with country names
+create_scatter_plot <- function(y_var, y_label) {
+  p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
+    geom_point() +
+    labs(x = "Log GDP", y = y_label, color = "Region") +
+    theme_minimal() +
+    theme(legend.position = "none")
+  
+  p <- p + geom_text_repel(
+    segment.size = 0.2,
+    force = 4,
+    point.padding = unit(0.2, "lines"),
+    nudge_x = 0.1,
+    nudge_y = 0.1
+  )
+  
+  print(p)
+}
+
+create_scatter_plot("very_happy", "Very Happy")
+create_scatter_plot("happy", "Happy")
+create_scatter_plot("very_unhappy", "Very Unhappy")
+create_scatter_plot("very_happy_over_very_unhappy", "Very Happy / Very Unhappy")
+create_scatter_plot("satisfied", "Satisfied")
+create_scatter_plot("satisfied_mean", "Satisfied Mean")
+create_scatter_plot("happiness_mean", "Happiness Mean")
+
+scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
+for (var in scatter_plot_vars) {
+  p <- create_scatter_plot(var, var)
+  filename <- paste("scatter_", var, "_vs_log_gdp", sep = "")
+  save_plot(p, filename = filename, folder = "~/Desktop/wellbeing_gdp_region/figures") 
+}
+
+# Annexe
+# Graphs with error term
+create_scatter_plot <- function(y_var, y_label) {
+  model <- lm(get(y_var) ~ log_gdp, data = a7_with_rsquared)
+  residuals <- resid(model)
+  
+  p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region)) +
+    geom_point() +
+    labs(x = "Log GDP", y = y_label, color = "Region") +
+    theme_minimal() +
+    theme(legend.position = "none")
+  
+  p <- p + geom_text_repel(
+    aes(label = round(residuals, 3)),
+    segment.size = 0.2,
+    force = 4,
+    point.padding = unit(0.2, "lines"),
+    nudge_x = 0.1,
+    nudge_y = 0.1
+  )
+  
+  print(p)
+}
+
+create_scatter_plot("very_happy", "Very Happy")
+create_scatter_plot("happy", "Happy")
+create_scatter_plot("very_unhappy", "Very Unhappy")
+create_scatter_plot("very_happy_over_very_unhappy", "Very Happy / Very Unhappy")
+create_scatter_plot("satisfied", "Satisfied")
+create_scatter_plot("satisfied_mean", "Satisfied Mean")
+create_scatter_plot("happiness_mean", "Happiness Mean")
+
+scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisified_mean", "happiness_mean")
+for (var in scatter_plot_vars) {
+  p <- create_scatter_plot(var, var)
+  filename <- paste("scatter_", var, "_vs_log_gdp", sep="")
+  save_plot(p, filename = filename, folder = "~/Desktop/wellbeing_gdp_region/figures") 
+}
+
+# Graphs with the rsquared
+create_scatter_plot <- function(y_var, y_label) {
+  model <- lm(get(y_var) ~ log_gdp, data = a7_with_rsquared)
+  rsquared <- summary(model)$r.squared
+  
+  p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region)) +
+    geom_point() +
+    labs(x = "Log GDP", y = y_label, color = "Region") +
+    theme_minimal() +
+    theme(legend.position = "none")
+  
+  p <- p + geom_text_repel(
+    aes(label = paste("R^2 =", round(rsquared, 3))),
+    segment.size = 0.2,
+    force = 4,
+    point.padding = unit(0.2, "lines"),
+    nudge_x = 0.1,
+    nudge_y = 0.1
+  )
+  
+  print(p)
+}
+
+create_scatter_plot("very_happy", "Very Happy")
+create_scatter_plot("happy", "Happy")
+create_scatter_plot("very_unhappy", "Very Unhappy")
+create_scatter_plot("very_happy_over_very_unhappy", "Very Happy / Very Unhappy")
+create_scatter_plot("satisfied", "Satisfied")
+create_scatter_plot("satisfied_mean", "Satisfied Mean")
+create_scatter_plot("happiness_mean", "Happiness Mean")
+
+scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisified_mean", "happiness_mean")
+for (var in scatter_plot_vars) {
+  p <- create_scatter_plot(var, var)
+  filename <- paste("scatter_", var, "_vs_log_gdp", sep="")
+  save_plot(p, filename = filename, folder = "~/Desktop/wellbeing_gdp_region/figures") 
+}
+
+# Different graphs per region
+ggplot(a7, aes(x = log_gdp, y = satisfied_mean)) +
+  geom_point(aes(color = region)) +
+  facet_wrap(~ region, scales = "free") +
+  labs(x = "Log GDP", y = "Satisfied Mean", color = "Region") +
+  theme_minimal()

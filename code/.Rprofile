@@ -30,6 +30,8 @@ package("stats")
 package("DescTools")
 package("broom")
 package("relaimpo")
+package("ggplot2")
+
 
 decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FALSE, which = NULL, weight = T) { # TODO!: allow for boolean weights
   # if (!missing(data)) variable <- data[[variable]]
