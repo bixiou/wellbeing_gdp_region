@@ -1,4 +1,3 @@
-# TODO: graphiques sur R
 # TODO: enlever les pays 2020-2021 comme robustness check (et ponderer les pays par leur population dans les regressions)
 # TODO: (moins prioritaire que graphiques sur R) regarder les autres vagues.
 # TODO: trouver définitions de region qui correspondent aux nôtres
@@ -170,6 +169,48 @@ for (var in scatter_plot_vars) {
   filename <- paste("scatter_", var, "_vs_log_gdp", sep = "")
   save_plot(p, filename = filename, folder = "~/Desktop/wellbeing_gdp_region/figures") 
 }
+
+# Robustness check
+years_to_keep <- c(2017, 2018, 2019, 2022)
+a7_wo_pandemic <- a7 %>% filter(year %in% years_to_keep)
+view(a7_wo_pandemic)
+# Econometric regressions without pandemic years
+a7_wo_pandemic$log_gdp <- log10(a7_wo_pandemic$gdp_pc)
+a7_wo_pandemic$ranked_gdp <- rank(a7_wo_pandemic$gdp_pc)
+a7_wo_pandemic$gdp_group <- as.character(cut(a7_wo_pandemic$ranked_gdp, breaks = 6, labels = FALSE))
+k_values <- c(4, 5, 6, 7)
+cluster_assignments <- list()
+for (k in k_values) {
+  kmeans_result <- kmeans(a7_wo_pandemic$log_gdp, centers = k)
+  a7_wo_pandemic[[paste0("gdp_cluster", k)]] <- as.character(kmeans_result$cluster)
+}
+happiness_variables_pandemic <- c("very_happy", "happy", "very_unhappy", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard")
+regressions_pandemic <- list()
+for (i in happiness_variables_pandemic) {
+  regressions_pandemic[[i]] <- list("region" = lm(as.formula(paste(i, "~ region")), data = a7_wo_pandemic),
+                           "log_gdp" = lm(as.formula(paste(i, "~ log_gdp")), data = a7_wo_pandemic),
+                           "log_gdp_quadratic" = lm(as.formula(paste(i, "~ log_gdp + I(log_gdp^2)")), data = a7_wo_pandemic),
+                           "gdp_group" = lm(as.formula(paste(i, "~ gdp_group")), data = a7_wo_pandemic), 
+                           "region_log_gdp" = lm(as.formula(paste(i, "~ log_gdp + as.factor(region)")), data = a7_wo_pandemic),
+                           "region_log_gdp_quadratic" = lm(as.formula(paste(i, "~ log_gdp + I(log_gdp^2) + as.factor(region)")), data = a7_wo_pandemic),
+                           "region_gdp_group" = lm(as.formula(paste(i, "~ gdp_group + as.factor(region)")), data = a7_wo_pandemic))
+  for (k in 4:7) regressions[[i]][[paste0("gdp_cluster", k)]] <- lm(as.formula(paste0(i, "~ gdp_cluster", k)), data = a7_wo_pandemic)
+  for (k in 4:7) regressions[[i]][[paste0("region_gdp_cluster", k)]] <- lm(as.formula(paste0(i, "~ gdp_cluster", k, " + as.factor(region)")), data = a7_wo_pandemic)
+}
+
+result_tables_pandemic <- list()
+combined_results_pandemic <- data.frame() 
+for (j in names(regressions_pandemic[[1]])) if (!grepl("region_", j)) {
+  result_tables_pandemic[[j]] <- list()
+  for (i in happiness_variables_pandemic) {
+    result_tables_pandemic[[j]] <- rbind(result_tables_pandemic[[j]], glance(regressions_pandemic[[i]][[j]]) %>% mutate(Dependent_Variable = i, Independent_Variable = j))
+  }
+  if (!grepl("region", j)) combined_results_pandemic <- rbind(combined_results_pandemic, result_tables_pandemic[[j]])
+}
+combined_results_max_pandemic <- combined_results_pandemic %>%
+  group_by(Dependent_Variable) %>%
+  slice(which.max(r.squared))
+print(combined_results_max_pandemic)
 
 # Annexe
 # Graphs with error term
