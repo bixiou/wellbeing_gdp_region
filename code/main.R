@@ -52,6 +52,7 @@ a7 <- w7 %>% group_by(country_code) %>%
                    gdp_pc = unique(gdp_pc), region = unique(region))
 a7$happiness_Layard <- (a7$happy + a7$satisfied)/2
 a7$very_unhappy_log <- log(a7$very_unhappy + 1e-6)
+a7$very_happy_over_very_unhappy_log <- log(a7$very_happy_over_very_unhappy + 1e-6)
 
 all (sort(a7$country_code) == sort(info$ISO))
 names(info) <- c("country", "country_code", "year")
@@ -83,7 +84,7 @@ for (k in k_values) {
 }
 
 # regressions
-happiness_variables <- c("very_happy", "happy", "very_unhappy_log", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard")
+happiness_variables <- c("very_happy", "happy", "very_unhappy", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard")
 regressions <- list()
 for (i in happiness_variables) {
   regressions[[i]] <- list("region" = lm(as.formula(paste(i, "~ region")), data = a7),
@@ -171,7 +172,7 @@ create_scatter_plot <- function(y_var, y_label) {
   print(p)
 }
 
-scatter_plot_vars <- c("very_happy", "happy", "very_unhappy_log", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
+scatter_plot_vars <- c("very_happy", "happy", "very_unhappy_log", "very_happy_over_very_unhappy_log", "satisfied", "satisfied_mean", "happiness_mean")
 for (var in scatter_plot_vars) {
   p <- create_scatter_plot(var, var)
   filename <- paste("scatter_", var, "_vs_log_gdp.png", sep = "")
@@ -220,34 +221,3 @@ combined_results_max_pandemic <- combined_results_pandemic %>%
   group_by(Dependent_Variable) %>%
   slice(which.max(r.squared))
 print(combined_results_max_pandemic)
-
-
-# Annexe
-# Graphs with error term
-create_scatter_plot <- function(y_var, y_label) {
-  p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region)) +
-    geom_point() +
-    scale_color_manual(values = region_colors) +
-    labs(x = "Log GDP", y = y_label, color = "Region") +
-    theme_minimal() +
-    theme(legend.position = "none")
-  
-  p <- p + geom_text_repel(
-    aes(label = round(residuals, 3)),
-    segment.size = 0.2,
-    force = 4,
-    point.padding = unit(0.2, "lines"),
-    nudge_x = 0.005,
-    nudge_y = 0.005,
-    size = 2
-  )
-  
-  print(p)
-}
-
-scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
-for (var in scatter_plot_vars) {
-  p <- create_scatter_plot(var, var)
-  filename <- paste("scatter_", var, "_vs_log_gdp_error", sep="")
-  save_plot(p, filename = filename, folder = "../figures") 
-}
