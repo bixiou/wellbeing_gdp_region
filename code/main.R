@@ -135,28 +135,29 @@ variance_reg_tot$lmg[2]
 library(ggplot2)
 library(ggrepel)
 
-# Graphs with country names
+# Graphs with country names and R² in legend
 region_colors <- c("Africa" = "black", "Latin America" = "green", "Ex-Eastern Block" = "red",
                    "Middle East" = "orange", "Western" = "light blue", "Asia" = "purple")
 
 create_scatter_plot <- function(y_var, y_label, log_scale = FALSE) {
-  if (log_scale && y_var == "very_unhappy") {
-    a7_with_rsquared_log <- a7_with_rsquared %>%
-      mutate(very_unhappy = log(very_unhappy + 1))  
-    
-    p <- ggplot(a7_with_rsquared_log, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
+  if (log_scale) {
+    p <- ggplot(a7, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
       geom_point() +
       labs(x = "Log GDP", y = y_label, color = "Region") +
       theme_minimal() +
-      theme(legend.position = "none")
+      theme(legend.position = "bottom") 
   } else {
-    p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
+    p <- ggplot(a7, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
       geom_point() +
       scale_color_manual(values = region_colors) +
       labs(x = "Log GDP", y = y_label, color = "Region") +
       theme_minimal() +
-      theme(legend.position = "none")
+      theme(legend.position = "bottom") 
   }
+  
+  model <- lm(get(y_var) ~ log_gdp, data = a7)
+  rsquared <- summary(model)$r.squared
+  p <- p + labs(color = paste("Region (R² =", round(rsquared, 3), ")"))
   
   p <- p + geom_text_repel(
     segment.size = 0.2,
@@ -166,22 +167,23 @@ create_scatter_plot <- function(y_var, y_label, log_scale = FALSE) {
     nudge_y = 0.005,
     size = 2
   )
+  p <- p + theme(panel.background = element_rect(fill = "white"))
   
   print(p)
 }
 
 scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
 for (var in scatter_plot_vars) {
-  log_scale <- var == "very_unhappy"
-  p <- create_scatter_plot(var, var, log_scale)
-  filename <- paste("scatter_", var, "_vs_log_gdp", ifelse(log_scale, "_logscale", ""), sep = "")
-  save_plot(p, filename = filename, folder = "../figures") 
+  p <- create_scatter_plot(var, var)
+  filename <- paste("scatter_", var, "_vs_log_gdp.png", sep = "")
+  ggsave(filename = filename, plot = p, path = "../figures", width = 6, height = 4, dpi = 300)
 }
-
+  
 # Robustness check
 years_to_keep <- c(2017, 2018, 2019, 2022)
 a7_wo_pandemic <- a7 %>% filter(year %in% years_to_keep)
 view(a7_wo_pandemic)
+
 # Econometric regressions without pandemic years
 a7_wo_pandemic$log_gdp <- log10(a7_wo_pandemic$gdp_pc)
 a7_wo_pandemic$ranked_gdp <- rank(a7_wo_pandemic$gdp_pc)
@@ -196,12 +198,12 @@ happiness_variables_pandemic <- c("very_happy", "happy", "very_unhappy", "satisf
 regressions_pandemic <- list()
 for (i in happiness_variables_pandemic) {
   regressions_pandemic[[i]] <- list("region" = lm(as.formula(paste(i, "~ region")), data = a7_wo_pandemic),
-                           "log_gdp" = lm(as.formula(paste(i, "~ log_gdp")), data = a7_wo_pandemic),
-                           "log_gdp_quadratic" = lm(as.formula(paste(i, "~ log_gdp + I(log_gdp^2)")), data = a7_wo_pandemic),
-                           "gdp_group" = lm(as.formula(paste(i, "~ gdp_group")), data = a7_wo_pandemic), 
-                           "region_log_gdp" = lm(as.formula(paste(i, "~ log_gdp + as.factor(region)")), data = a7_wo_pandemic),
-                           "region_log_gdp_quadratic" = lm(as.formula(paste(i, "~ log_gdp + I(log_gdp^2) + as.factor(region)")), data = a7_wo_pandemic),
-                           "region_gdp_group" = lm(as.formula(paste(i, "~ gdp_group + as.factor(region)")), data = a7_wo_pandemic))
+                                    "log_gdp" = lm(as.formula(paste(i, "~ log_gdp")), data = a7_wo_pandemic),
+                                    "log_gdp_quadratic" = lm(as.formula(paste(i, "~ log_gdp + I(log_gdp^2)")), data = a7_wo_pandemic),
+                                    "gdp_group" = lm(as.formula(paste(i, "~ gdp_group")), data = a7_wo_pandemic), 
+                                    "region_log_gdp" = lm(as.formula(paste(i, "~ log_gdp + as.factor(region)")), data = a7_wo_pandemic),
+                                    "region_log_gdp_quadratic" = lm(as.formula(paste(i, "~ log_gdp + I(log_gdp^2) + as.factor(region)")), data = a7_wo_pandemic),
+                                    "region_gdp_group" = lm(as.formula(paste(i, "~ gdp_group + as.factor(region)")), data = a7_wo_pandemic))
   for (k in 4:7) regressions[[i]][[paste0("gdp_cluster", k)]] <- lm(as.formula(paste0(i, "~ gdp_cluster", k)), data = a7_wo_pandemic)
   for (k in 4:7) regressions[[i]][[paste0("region_gdp_cluster", k)]] <- lm(as.formula(paste0(i, "~ gdp_cluster", k, " + as.factor(region)")), data = a7_wo_pandemic)
 }
@@ -220,12 +222,10 @@ combined_results_max_pandemic <- combined_results_pandemic %>%
   slice(which.max(r.squared))
 print(combined_results_max_pandemic)
 
+
 # Annexe
 # Graphs with error term
 create_scatter_plot <- function(y_var, y_label) {
-  model <- lm(get(y_var) ~ log_gdp, data = a7_with_rsquared)
-  residuals <- resid(model)
-  
   p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region)) +
     geom_point() +
     scale_color_manual(values = region_colors) +
@@ -250,36 +250,5 @@ scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_v
 for (var in scatter_plot_vars) {
   p <- create_scatter_plot(var, var)
   filename <- paste("scatter_", var, "_vs_log_gdp_error", sep="")
-  save_plot(p, filename = filename, folder = "../figures") 
-}
-
-# Graphs with the rsquared
-create_scatter_plot <- function(y_var, y_label) {
-  model <- lm(get(y_var) ~ log_gdp, data = a7_with_rsquared)
-  rsquared <- summary(model)$r.squared
-  
-  p <- ggplot(a7_with_rsquared, aes(x = log_gdp, y = get(y_var), color = region)) +
-    geom_point() +
-    scale_color_manual(values = region_colors) +
-    labs(x = "Log GDP", y = y_label, color = "Region") +
-    theme_minimal() +
-    theme(legend.position = "none")
-  
-  p <- p + geom_text_repel(
-    aes(label = paste("R^2 =", round(rsquared, 3))),
-    segment.size = 0.2,
-    force = 4,
-    point.padding = unit(0.2, "lines"),
-    nudge_x = 0.005,
-    nudge_y = 0.005,
-    size = 2
-  )
-  
-  print(p)
-}
-
-for (var in scatter_plot_vars) {
-  p <- create_scatter_plot(var, var)
-  filename <- paste("scatter_", var, "_vs_log_gdp_rsquared", sep="")
   save_plot(p, filename = filename, folder = "../figures") 
 }
