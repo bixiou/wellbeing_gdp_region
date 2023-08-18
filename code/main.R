@@ -51,8 +51,6 @@ a7 <- w7 %>% group_by(country_code) %>%
                    happiness_mean = weighted.mean(((5 - happiness[happiness > 0] * 2) - 5), weight[happiness > 0]),
                    gdp_pc = unique(gdp_pc), region = unique(region))
 a7$happiness_Layard <- (a7$happy + a7$satisfied)/2
-a7$very_unhappy_log <- log(a7$very_unhappy + 1e-6)
-a7$very_happy_over_very_unhappy_log <- log(a7$very_happy_over_very_unhappy + 1e-6)
 
 all (sort(a7$country_code) == sort(info$ISO))
 names(info) <- c("country", "country_code", "year")
@@ -137,15 +135,16 @@ variance_reg_tot$lmg[2]
 library(ggplot2)
 library(ggrepel)
 
-# Graphs with country names and R² in legend
+# Graphs with country names, R² in legend, and log scale for both x and specific y-variables
 region_colors <- c("Africa" = "black", "Latin America" = "#4CAF50", "Ex-Eastern Block" = "red",
                    "Middle East" = "#FFA000", "Western" = "#64B5F6", "Asia" = "purple")
 
-create_scatter_plot <- function(y_var, y_label) {
-  p <- ggplot(a7, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
+create_scatter_plot <- function(y_var, y_label, log_scale_y = FALSE) {
+  p <- ggplot(a7, aes(x = gdp_pc, y = get(y_var), color = region, label = country)) +
     geom_point() +
     scale_color_manual(values = region_colors) +
-    labs(x = "Log GDP", y = y_label, color = "Region") +
+    scale_x_log10() + 
+    labs(x = "GDP", y = y_label, color = "Region") +
     theme_minimal() +
     theme(legend.position = "bottom",
           plot.background = element_rect(fill = "white"),
@@ -155,7 +154,11 @@ create_scatter_plot <- function(y_var, y_label) {
           axis.title = element_text(size = 8),
           plot.caption = element_text(size = 8))
   
-  model <- lm(get(y_var) ~ log_gdp, data = a7)
+  if (log_scale_y) {
+    p <- p + scale_y_log10()
+  }
+  
+  model <- lm(get(y_var) ~ gdp_pc, data = a7)
   rsquared <- summary(model)$r.squared
   
   p <- p + labs(color = paste("Region (R² =", round(rsquared, 3), ")"))
@@ -172,13 +175,14 @@ create_scatter_plot <- function(y_var, y_label) {
   print(p)
 }
 
-scatter_plot_vars <- c("very_happy", "happy", "very_unhappy_log", "very_happy_over_very_unhappy_log", "satisfied", "satisfied_mean", "happiness_mean")
+scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
 for (var in scatter_plot_vars) {
-  p <- create_scatter_plot(var, var)
-  filename <- paste("scatter_", var, "_vs_log_gdp.png", sep = "")
+  log_scale_y <- var %in% c("very_unhappy", "very_happy_over_very_unhappy")
+  p <- create_scatter_plot(var, var, log_scale_y)
+  filename <- paste("scatter_", var, "_vs_gdp.png", sep = "")
   ggsave(filename = filename, plot = p, path = "../figures", width = 6, height = 4, dpi = 300)
 }
-  
+
 # Robustness check
 years_to_keep <- c(2017, 2018, 2019, 2022)
 a7_wo_pandemic <- a7 %>% filter(year %in% years_to_keep)
