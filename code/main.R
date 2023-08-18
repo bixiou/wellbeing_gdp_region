@@ -51,6 +51,7 @@ a7 <- w7 %>% group_by(country_code) %>%
                    happiness_mean = weighted.mean(((5 - happiness[happiness > 0] * 2) - 5), weight[happiness > 0]),
                    gdp_pc = unique(gdp_pc), region = unique(region))
 a7$happiness_Layard <- (a7$happy + a7$satisfied)/2
+a7$very_unhappy_log <- log(a7$very_unhappy + 1e-6)
 
 all (sort(a7$country_code) == sort(info$ISO))
 names(info) <- c("country", "country_code", "year")
@@ -82,7 +83,7 @@ for (k in k_values) {
 }
 
 # regressions
-happiness_variables <- c("very_happy", "happy", "very_unhappy", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard")
+happiness_variables <- c("very_happy", "happy", "very_unhappy_log", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard")
 regressions <- list()
 for (i in happiness_variables) {
   regressions[[i]] <- list("region" = lm(as.formula(paste(i, "~ region")), data = a7),
@@ -170,7 +171,7 @@ create_scatter_plot <- function(y_var, y_label) {
   print(p)
 }
 
-scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
+scatter_plot_vars <- c("very_happy", "happy", "very_unhappy_log", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
 for (var in scatter_plot_vars) {
   p <- create_scatter_plot(var, var)
   filename <- paste("scatter_", var, "_vs_log_gdp.png", sep = "")
