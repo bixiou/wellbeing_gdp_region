@@ -136,27 +136,26 @@ library(ggplot2)
 library(ggrepel)
 
 # Graphs with country names and R² in legend
-region_colors <- c("Africa" = "black", "Latin America" = "green", "Ex-Eastern Block" = "red",
-                   "Middle East" = "orange", "Western" = "light blue", "Asia" = "purple")
+region_colors <- c("Africa" = "black", "Latin America" = "#4CAF50", "Ex-Eastern Block" = "red",
+                   "Middle East" = "#FFA000", "Western" = "#64B5F6", "Asia" = "purple")
 
-create_scatter_plot <- function(y_var, y_label, log_scale = FALSE) {
-  if (log_scale) {
-    p <- ggplot(a7, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
-      geom_point() +
-      labs(x = "Log GDP", y = y_label, color = "Region") +
-      theme_minimal() +
-      theme(legend.position = "bottom") 
-  } else {
-    p <- ggplot(a7, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
-      geom_point() +
-      scale_color_manual(values = region_colors) +
-      labs(x = "Log GDP", y = y_label, color = "Region") +
-      theme_minimal() +
-      theme(legend.position = "bottom") 
-  }
+create_scatter_plot <- function(y_var, y_label) {
+  p <- ggplot(a7, aes(x = log_gdp, y = get(y_var), color = region, label = country)) +
+    geom_point() +
+    scale_color_manual(values = region_colors) +
+    labs(x = "Log GDP", y = y_label, color = "Region") +
+    theme_minimal() +
+    theme(legend.position = "bottom",
+          plot.background = element_rect(fill = "white"),
+          legend.background = element_rect(fill = "white"),
+          axis.text = element_text(size = 7),
+          legend.text = element_text(size = 7),
+          axis.title = element_text(size = 8),
+          plot.caption = element_text(size = 8))
   
   model <- lm(get(y_var) ~ log_gdp, data = a7)
   rsquared <- summary(model)$r.squared
+  
   p <- p + labs(color = paste("Region (R² =", round(rsquared, 3), ")"))
   
   p <- p + geom_text_repel(
@@ -167,7 +166,6 @@ create_scatter_plot <- function(y_var, y_label, log_scale = FALSE) {
     nudge_y = 0.005,
     size = 2
   )
-  p <- p + theme(panel.background = element_rect(fill = "white"))
   
   print(p)
 }
