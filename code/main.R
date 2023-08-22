@@ -144,7 +144,7 @@ create_scatter_plot <- function(y_var, y_label, log_scale_y = FALSE) {
     geom_point() +
     scale_color_manual(values = region_colors) +
     scale_x_log10() + 
-    labs(x = "GDP", y = y_label, color = "Region") +
+    labs(x = "GDP PC", y = y_label, color = "Region") +
     theme_minimal() +
     theme(legend.position = "bottom",
           plot.background = element_rect(fill = "white"),
@@ -183,7 +183,7 @@ for (var in scatter_plot_vars) {
   ggsave(filename = filename, plot = p, path = "../figures", width = 6, height = 4, dpi = 300)
 }
 
-# Robustness check
+# Robustness check: taking out the pandemic years
 years_to_keep <- c(2017, 2018, 2019, 2022)
 a7_wo_pandemic <- a7 %>% filter(year %in% years_to_keep)
 view(a7_wo_pandemic)
@@ -225,3 +225,49 @@ combined_results_max_pandemic <- combined_results_pandemic %>%
   group_by(Dependent_Variable) %>%
   slice(which.max(r.squared))
 print(combined_results_max_pandemic)
+
+# Robustness check: weighting countries by population
+population_data <- data.frame(
+  country_code = c("AND", "ARG", "ARM", "AUS", "BGD", "BOL", "BRA", "CAN", "CHL", "CHN", "COL", "CYP", "CZE", "DEU", "ECU", "EGY", "ETH", "GBR", "GRC", "GTM", "HKG", "IDN", "IRN", "IRQ", "JOR", "JPN", "KAZ", "KEN", "KGZ", "KOR", "LEB", "LYB", "MAC", "MAR", "MDV", "MEX", "MMR", "MNG", "MYS", "NGA", "NIC", "NIR", "NLD", "NZL", "PAK", "PER", "PHL", "PRI", "ROU", "RUS", "SGP", "SRB", "SVK", "THA", "TJK", "TUN", "TUR", "TWN", "UKR", "URY", "USA", "VEN", "VNM", "ZWE" ),
+  population = c(75013, 44044811, 2790974, 24966643, 163683958, 11435533, 210166592, 38007166, 18701450, 1402760000, 49276961, 1228836, 10526073, 82905782, 17015672, 103740765, 117190911, 66971411, 10754679, 16604026, 7452600, 267066843, 87290193, 40590700, 10459865, 126633000, 18276452, 53005614, 6579900, 51585058, 5950839, 6812341, 663653, 37076584, 521457, 124013861, 53423198, 3347782, 32399271, 198387623, 6755895, 5086988, 17703090, 5124100, 219731479, 32203944, 110380804, 3325286, 19473970, 144496739, 5685807, 7020858, 5431752, 71127802, 9543207, 12049314, 82809304, 23777737, 44132049, 3422794, 325122128, 28199867, 96648685, 15669666)
+)
+a7 <- a7 %>%
+  left_join(population_data, by = "country_code")
+view(a7)
+
+# Regressions with the weights by population by country
+happiness_variables <- c("very_happy", "happy", "very_unhappy", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard")
+
+regressions <- list()
+
+for (i in happiness_variables) {
+  regressions[[i]] <- list("region" = lm(as.formula(paste(i, "~ region")), data = a7, weights = a7$population),
+                           "log_gdp" = lm(as.formula(paste(i, "~ log_gdp")), data = a7, weights = a7$population),
+                           "log_gdp_quadratic" = lm(as.formula(paste(i, "~ log_gdp + I(log_gdp^2)")), data = a7, weights = a7$population),
+                           "gdp_group" = lm(as.formula(paste(i, "~ gdp_group")), data = a7, weights = a7$population), 
+                           "region_log_gdp" = lm(as.formula(paste(i, "~ log_gdp + as.factor(region)")), data = a7, weights = a7$population),
+                           "region_log_gdp_quadratic" = lm(as.formula(paste(i, "~ log_gdp + I(log_gdp^2) + as.factor(region)")), data = a7, weights = a7$population),
+                           "region_gdp_group" = lm(as.formula(paste(i, "~ gdp_group + as.factor(region)")), data = a7, weights = a7$population))
+  for (k in 4:7) regressions[[i]][[paste0("gdp_cluster", k)]] <- lm(as.formula(paste0(i, "~ gdp_cluster", k)), data = a7, weights = a7$population)
+  for (k in 4:7) regressions[[i]][[paste0("region_gdp_cluster", k)]] <- lm(as.formula(paste0(i, "~ gdp_cluster", k, " + as.factor(region)")), data = a7, weights = a7$population)
+}
+
+result_tables_robust <- list()
+combined_results_robust <- data.frame() 
+
+for (j in names(regressions[[1]])) if (!grepl("region_", j)) {
+  result_tables_robust[[j]] <- list()
+  for (i in happiness_variables) {
+    result_tables_robust[[j]] <- rbind(result_tables_robust[[j]], glance(regressions[[i]][[j]]) %>% 
+                                  mutate(Dependent_Variable = i, Independent_Variable = j))
+  }
+  if (!grepl("region", j)) combined_results_robust <- rbind(combined_results_robust, result_tables_robust[[j]])
+}
+
+combined_results_max_robust <- combined_results_robust %>%
+  group_by(Dependent_Variable) %>%
+  slice(which.max(r.squared))
+
+print(combined_results_max_robust)
+
+
