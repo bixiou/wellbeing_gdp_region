@@ -1,4 +1,3 @@
-# TODO: ponderer les pays par leur population dans les regressions
 # TODO: (moins prioritaire que graphiques sur R) regarder les autres vagues.
 # TODO: trouver définitions de region qui correspondent aux nôtres
 
