@@ -31,6 +31,7 @@ package("DescTools")
 package("broom")
 package("relaimpo")
 package("ggplot2")
+package("tidyr")
 
 
 decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FALSE, which = NULL, weight = T) { # TODO!: allow for boolean weights
