@@ -1,4 +1,12 @@
 # TODO: trouver définitions de region qui correspondent aux nôtres
+# TODO: latex tables
+# TODO: (non urgent) ajouter d'autres variables explicatives, e.g. croissance
+# NOW: traiter les autres vagues
+# DONE: enlever les pays 2020-2021 comme robustness check
+# DONE: regarder si les donnees de GDP correspondent a la date de l'enquete, et le faire le cas echeant
+# DONE: poids
+# DONE: graphiques
+# DONE: reproduire l'analyse économétrique
 
 WVS7 <- read_csv("WVS7.csv")
 w7 <- WVS7[, c("Q46", "Q49", "GDPpercap2", "B_COUNTRY_ALPHA", "W_WEIGHT")]
@@ -225,6 +233,7 @@ combined_results_max_pandemic <- combined_results_pandemic %>%
 print(combined_results_max_pandemic)
 
 # Robustness check: weighting countries by population
+# TODO: where does this data come from? It needs to be automatized (and with the URL of the data source)
 population_data <- data.frame(
   country_code = c("AND", "ARG", "ARM", "AUS", "BGD", "BOL", "BRA", "CAN", "CHL", "CHN", "COL", "CYP", "CZE", "DEU", "ECU", "EGY", "ETH", "GBR", "GRC", "GTM", "HKG", "IDN", "IRN", "IRQ", "JOR", "JPN", "KAZ", "KEN", "KGZ", "KOR", "LEB", "LYB", "MAC", "MAR", "MDV", "MEX", "MMR", "MNG", "MYS", "NGA", "NIC", "NIR", "NLD", "NZL", "PAK", "PER", "PHL", "PRI", "ROU", "RUS", "SGP", "SRB", "SVK", "THA", "TJK", "TUN", "TUR", "TWN", "UKR", "URY", "USA", "VEN", "VNM", "ZWE" ),
   population = c(75013, 44044811, 2790974, 24966643, 163683958, 11435533, 210166592, 38007166, 18701450, 1402760000, 49276961, 1228836, 10526073, 82905782, 17015672, 103740765, 117190911, 66971411, 10754679, 16604026, 7452600, 267066843, 87290193, 40590700, 10459865, 126633000, 18276452, 53005614, 6579900, 51585058, 5950839, 6812341, 663653, 37076584, 521457, 124013861, 53423198, 3347782, 32399271, 198387623, 6755895, 5086988, 17703090, 5124100, 219731479, 32203944, 110380804, 3325286, 19473970, 144496739, 5685807, 7020858, 5431752, 71127802, 9543207, 12049314, 82809304, 23777737, 44132049, 3422794, 325122128, 28199867, 96648685, 15669666)
