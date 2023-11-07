@@ -1,6 +1,6 @@
 # TODO: trouver définitions de region qui correspondent aux nôtres
 # TODO: latex tables
-# TODO: (non urgent) ajouter d'autres variables explicatives, e.g. croissance
+# TODO: (non urgent) ajouter d'autres variables explicatives, e.g. croissance, revenu médian
 # NOW: traiter les autres vagues
 # DONE: enlever les pays 2020-2021 comme robustness check
 # DONE: regarder si les donnees de GDP correspondent a la date de l'enquete, et le faire le cas echeant
