@@ -50,22 +50,14 @@ get_country_region <- function(country_code) {
 }
 
 w7 <- read.csv("../data/WVS7.csv")
-GDPpcPPP <- read.csv("../data/GDPpcPPP17.csv" , sep = ",", skip = 4) # GDP pc PPP constant 2017 $, World Bank (2023) NY.GDP.PCAP.PP.KD
 info7 <- read.csv2("../data/WVSinfo7.csv")
 
-GDPpc <- read.csv("../data/GDPpc15.csv" , sep = ",", skip = 4) # GDP pc nominal constant 2015 $, World Bank (2023) NY.GDP.PCAP.KD
-GDPpc <- GDPpc[, c("Country.Code", "X2010", "X2011", "X2012", "X2013", "X2014", "X2015")]
-names(GDPpc) <- c("country_code", "2010", "2011", "2012", "2013", "2014", "2015")
+w6 <- read_csv("../data/WVS6.csv")
+w6$weight <- 1
 info6 <- read.csv2("../data/WVSinfo6.csv")
 
-w6 <- WVS6 <- read_csv("../data/WVS6.csv")
-# w6 <- WVS6[, c("V10", "V23", "B_COUNTRY_ALPHA", "V258A")] # there was no variable for GDP in this survey, we add it later on the code
-# names(w6) <- c("happiness", "satisfaction", "country_code", "weight")
-
-gdp_long <- GDPpc %>% pivot_longer(cols = starts_with("20"), names_to = "year", values_to = "gdp") %>% mutate(year = as.integer(year))
-merged_data <- info6 %>% left_join(gdp_long, by = c("country_code", "year"))
-w6 <- w6 %>% left_join(merged_data, by = "country_code") %>% mutate(gdp = ifelse(is.na(gdp), 0, gdp))
-w6$weight <- 1
+GDPpcPPP <- read.csv("../data/GDPpcPPP17.csv" , sep = ",", skip = 4) # GDP pc PPP constant 2017 $, World Bank (2023) NY.GDP.PCAP.PP.KD
+GDPpc <- read.csv("../data/GDPpc15.csv" , sep = ",", skip = 4) # GDP pc nominal constant 2015 $, World Bank (2023) NY.GDP.PCAP.KD
 
 # adding the weights and calculating the means
 create_happiness_vars <- function(wave = 7) {
@@ -84,7 +76,8 @@ create_happiness_vars <- function(wave = 7) {
                      satisfied = weighted.mean(satisfaction[satisfaction > 0] > 5, weight[satisfaction > 0]),
                      satisfied_mean = weighted.mean(satisfaction[satisfaction > 0], weight[satisfaction > 0]),
                      happiness_mean = weighted.mean(((5 - happiness[happiness > 0]) * 2 - 5), weight[happiness > 0]), # -3/-1/1/3
-                     gdp = unique(gdp), region = unique(region))
+                     # gdp = unique(gdp), region = unique(region)
+                     )
   a$happiness_Layard <- (a$happy + a$satisfied)/2
   a <- a %>%  mutate(region = sapply(country_code, get_country_region))
   a <- merge(a, info)
@@ -93,24 +86,6 @@ create_happiness_vars <- function(wave = 7) {
 a7 <- create_happiness_vars(7)
 a6 <- create_happiness_vars(6)
 
-
-# all (sort(a7$country_code) == sort(info7$ISO))
-# names(info7) <- c("country", "country_code", "year")
-# a7 <- merge(a7, info7)
-
-#new column region
-# a7 <- a7 %>%  mutate(region = sapply(country_code, get_country_region))
-
-# names(GDPpcPPP)[names(GDPpcPPP) %in% c("Country.Name", "Country.Code")] <- c("country", "country_code")
-
-# for (c in intersect(a7$country_code, wb$country_code)) {
-#   gdp_pc_ppp_c <- GDPpcPPP[GDPpcPPP$country_code == c, paste0("X",  a7$year[a7$country_code == c])]
-#   if (!is.na(gdp_pc_c)) a7$gdp_ppp[a7$country_code == c]  <- gdp_pc_ppp_c
-# }
-# # for (c in intersect(a6$country_code, wb$country_code)) {
-# #   gdp_pc_ppp_c <- GDPpcPPP[GDPpcPPP$country_code == c, paste0("X",  a6$year[a6$country_code == c])]
-# #   if (!is.na(gdp_pc_c)) a6$gdp_ppp[a6$country_code == c]  <- gdp_pc_ppp_c
-# # }
 
 # TODO: where does this data come from? It needs to be automatized (and with the URL of the data source)
 population_data <- data.frame(
@@ -123,20 +98,27 @@ a7 <- a7 %>% left_join(population_data, by = "country_code")
 
 # econometric analysis
 # rearranging alternative GDP variable  (Y^)
-create_gdp_vars <- function(wave = 7, k_values = 4:7) {
+create_gdp_vars <- function(wave = 7, k_values = 4:7, pandemic_years = TRUE) {
   if (wave == 7) data <- a7
   else if (wave == 6) data <- a6
+  if (!pandemic_years) data <- data[!data$year %in% c(2020, 2021), ]
   for (c in intersect(data$country_code, GDPpcPPP$Country.Code)) {
     gdp_pc_ppp_c <- GDPpcPPP[GDPpcPPP$Country.Code == c, paste0("X",  unique(data$year[data$country_code == c]))]
     if (!is.na(gdp_pc_ppp_c)) data$gdp_ppp[data$country_code == c]  <- gdp_pc_ppp_c
   }
+  for (c in intersect(data$country_code, GDPpc$Country.Code)) {
+    gdp_pc_c <- GDPpc[GDPpc$Country.Code == c, paste0("X",  unique(data$year[data$country_code == c]))]
+    if (!is.na(gdp_pc_c)) data$gdp[data$country_code == c]  <- gdp_pc_c
+  }
   if (wave == 6) {
     data$gdp[data$country_code == "TWN"] <- 21256
     data$gdp[data$country_code == "LBN"] <- 8255
+    data$gdp[data$country_code == "YEM"] <- 8255 # TODO
     data$gdp_ppp[data$country_code == "TWN"] <- 21256 # TODO
     data$gdp_ppp[data$country_code == "YEM"] <- 8255 # TODO
   } else if (wave == 7) {
     data$gdp_ppp[data$country_code %in% c("AND", "NIR", "TWN", "VEN")] <- 999 # TODO
+    data$gdp[data$country_code %in% c("NIR", "TWN", "VEN")] <- 999 # TODO
   }
   for (var in intersect(c("gdp_ppp", "gdp"), names(data))) {
     data[[paste0("log_", var)]] <- log10(data[[var]])
@@ -161,7 +143,7 @@ happiness_variables <- c("very_happy", "happy", "very_unhappy", "satisfied", "sa
 hapiness_names <- setNames(c("Very Happy", "Happy", "Very Unhappy", "Satisfied", "Satisfaction (mean)", "Happiness (mean)", "Happiness Layard"), happiness_variables)
 
 run_regressions <- function(happiness_vars = happiness_variables, weight = FALSE, pandemic_years = TRUE, data = a7, return = "var_explained", PPP = T) {
-  if (!pandemic_years) data <- create_gdp_vars(data[!data$year %in% c(2020, 2021), ])
+  if (!pandemic_years) data <- create_gdp_vars(pandemic_years = FALSE)
   
   weights <- if (weight) data$population else NULL
   
@@ -230,13 +212,20 @@ var7_weighted <- run_regressions(weight = T, pandemic_years = T)
 var7_weighted_wo_pandemic_years <- run_regressions(weight = T, pandemic_years = F)
 var6 <- run_regressions(data = a6, weight = F, pandemic_years = T)
 
+run_all <- function(wave = 7, happiness_vars = happiness_variables, weight = FALSE, pandemic_years = TRUE, return = "var_explained", PPP = T) {
+  a <- create_happiness_vars(wave)
+  a <- create_gdp_vars(wave)
+  res <- run_regressions(happiness_vars = happiness_vars, weight = weight, pandemic_years = pandemic_years, data = a, return = return, PPP = PPP)
+  return(res)
+}
+
 
 ##### Plot #####
 # Graphs with country names, R² in legend, and log scale for both x and specific y-variables
 region_colors <- c("Africa" = "black", "Latin America" = "#4CAF50", "Ex-Eastern Block" = "red", "Middle East" = "#FFA000", "Western" = "#64B5F6", "Asia" = "purple")
 
 create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a7, PPP = T, wave = "7") { # TODO: size dot function of pop
-  p <- ggplot(data, aes(x = gdp_pc, y = get(y_var), color = region, label = country)) +
+  p <- ggplot(data, aes(x = if (PPP) gdp_ppp else gdp, y = get(y_var), color = region, label = country)) +
     geom_point() + scale_color_manual(values = region_colors) + scale_x_log10() + labs(x = paste("GDP pc", if (PPP) "(PPP)" else ""), y = hapiness_names[y_var], color = "Region") +
     theme_minimal() + theme(legend.position = "bottom", plot.background = element_rect(fill = "white"),
           legend.background = element_rect(fill = "white"), axis.text = element_text(size = 7), legend.text = element_text(size = 7),
@@ -244,7 +233,7 @@ create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a7, PPP = T, 
   
   if (log_scale_y) p <- p + scale_y_log10()
   
-  model <- lm(get(y_var) ~ gdp_pc, data = data)
+  model <- lm(as.formula(paste(y_var, "~", if (PPP) "gdp_ppp" else "gdp")), data = data)
   rsquared <- summary(model)$r.squared
   
   p <- p + labs(color = paste0("Region (Wave = ", wave, ", R² = ", round(rsquared, 3), ")"))
