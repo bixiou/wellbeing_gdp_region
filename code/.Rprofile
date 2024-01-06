@@ -31,6 +31,7 @@ package("DescTools")
 package("broom")
 package("relaimpo")
 package("ggplot2")
+package("ggrepel")
 package("tidyr")
 
 
@@ -63,3 +64,4 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
       else describe(variable[variable!="" & !is.missing(variable)], weights = weights[variable!="" & !is.missing(variable)], descript=paste(length(which(is.missing(variable))), "missing obs.", Label(variable)))
     } else describe(variable[variable!=""], weights = weights[variable!=""])  }
 }
+

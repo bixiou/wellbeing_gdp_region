@@ -1,6 +1,6 @@
-WVS6 <- read_csv2("WVS6.csv")
-w6 <- WVS6[, c("V10", "V23", "B_COUNTRY_ALPHA", "V258A")] # there was no variable for GDP in this survey, so ill add it later on the code
-names(w6) <- c("happiness", "satisfaction", "country_code", "weight")
+WVS6 <- read_csv("../data/WVS6.csv")
+# w6 <- WVS6[, c("V10", "V23", "B_COUNTRY_ALPHA", "V258A")] # there was no variable for GDP in this survey, we add it later on the code
+# names(w6) <- c("happiness", "satisfaction", "country_code", "weight")
 
 # defining the regions
 w6$region <- NA
