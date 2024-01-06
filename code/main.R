@@ -1,3 +1,6 @@
+# TODO: trouver définitions de region qui correspondent aux nôtres
+# TODO: latex tables
+# TODO: (non urgent) ajouter d'autres variables explicatives, e.g. croissance, revenu médian
 # NOW: traiter les autres vagues
 # TODO: latex tables
 # TODO: (non urgent) ajouter d'autres variables explicatives, e.g. croissance, revenu médian
