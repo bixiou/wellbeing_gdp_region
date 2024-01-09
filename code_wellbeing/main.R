@@ -30,15 +30,24 @@
 # w7 <- w7 %>%  mutate(region = sapply(country_code, get_country_region))
 # write.csv(w7, "../data/WVS7.csv", row.names = FALSE)
 
-# defining the regions
+country_mapping <- read.csv("../data/country_code_mapping.csv")
+country <- setNames(country_mapping$country, country_mapping$alpha.2)
+code <- setNames(country_mapping$code, country_mapping$alpha.2)
+wvs <- readRDS("../data/WVS.rds") # All waves concatenated https://www.worldvaluessurvey.org/WVSEVStrend.jsp
+wvs <- wvs %>% rename(s002 = wave, s020 = year, s009 = alpha.2, a008 = happiness, a170 = satisfaction, c006 = financial_satisfaction, d002 = home_satisfaction, s018 = weight, pwght = pop_weight) # cow_alpha = code, 
+wvs$country <- country[wvs$alpha.2]
+wvs$code <- code[wvs$alpha.2]
 region <- list(
-  "Africa" = c("ETH", "MAR", "LBY", "NGA", "TUN", "ZWE", "KEN", "DZA", "GHA", "RWA", "ZAF"), # 11
-  "Latin America" = c("ARG", "BOL", "BRA", "CHL", "NIC", "PRI", "URY", "COL", "ECU", "GTM", "MEX", "PER", "HTI", "TTO", "VEN"), # 15
-  "Ex-Eastern Block" = c("ARM", "CZE", "KAZ", "ROU", "SRB", "TJK", "KGZ", "SVK", "RUS", "UKR", "AZE", "BLR", "EST", "SVN", "UZB", "POL"), # 16
-  "Middle East" = c("EGY", "GEO", "IRN", "IRQ", "TUR", "JOR", "LBN", "KWT", "PSE", "QAT", "YEM"), # 11
-  "Western" = c("CAN", "CYP", "USA", "DEU", "ESP", "SWE", "NIR", "NZL", "GRC", "GBR", "AUS", "AND", "NLD"), # 13
-  "Asia" = c("THA", "PHL", "VNM", "SGP", "HKG", "TWN", "BGD", "CHN", "MYS", "KOR", "IND", "IDN", "PAK", "JPN", "MNG", "MMR", "MDV", "MAC") # 18
+  "Africa" = c("BFA", "DZA", "ETH", "GHA", "KEN", "LBY", "MAR", "MLI", "NGA", "RWA", "TUN", "TZA", "UGA", "ZAF", "ZMB", "ZWE"), # 16
+  "Latin America" = c("ARG", "BOL", "BRA", "CHL", "COL", "DOM", "ECU", "GTM", "HTI", "MEX", "NIC", "PER", "PRI", "SLV", "TTO", "URY", "VEN"), # 17
+  "Ex-Eastern Block" = c("ALB", "ARM", "AZE", "BIH", "BGR", "BLR", "CZE", "EST", "HRV", "HUN", "KAZ", "KGZ", "LTU", "LVA", "MDA", "MKD", "MNE", "POL", "ROU", "RUS", "SRB", "SVK", "SVN", "TJK", "UKR", "UZB"), # 26
+  "Middle East" = c("EGY", "GEO", "IRN", "IRQ", "ISR", "JOR", "KWT", "LBN", "PSE", "QAT", "SAU", "TUR", "YEM"), # 13 Israel in it?
+  "Western" = c("AND", "AUS", "CAN", "CHE", "CYP", "DEU", "ESP", "FIN", "FRA", "GBR", "GRC", "ITA", "NIR", "NLD", "NOR", "NZL", "SWE", "USA"), # 18
+  "Asia" = c("BGD", "CHN", "HKG", "IDN", "IND", "JPN", "KOR", "MAC", "MDV", "MMR", "MNG", "MYS", "PAK", "PHL", "SGP", "THA", "TWN", "VNM") # 18
 )
+region_mapping <- c()
+for (reg in names(region)) for (i in region[[reg]]) region_mapping <- c(region_mapping, setNames(reg, i))
+wvs$region <- region_mapping[wvs$code]
 
 get_country_region <- function(country_code) {
   for (region_name in names(region)) {

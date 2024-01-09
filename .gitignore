@@ -6,3 +6,5 @@ raw_data/*
 .Rproj.user
 *.history
 *.Rhistory
+
+data/~$IVS_dictionary.xlsx
