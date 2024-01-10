@@ -1,7 +1,3 @@
-# TODO: trouver définitions de region qui correspondent aux nôtres
-# TODO: latex tables
-# TODO: (non urgent) ajouter d'autres variables explicatives, e.g. croissance, revenu médian
-# NOW: traiter les autres vagues
 # TODO: latex tables
 # TODO: (non urgent) ajouter d'autres variables explicatives, e.g. croissance, revenu médian
 # TODO: robustness check: redo analysis with UN regional groups; without Latin America and Ex-Eastern Block
@@ -90,14 +86,19 @@ for (c in unique(a$code)) for (y in a$year[a$code == c]) {
 
 for (var in c("gdp_ppp", "gdp", "gdp_ppp_na", "gdp_na")) {
   a[[paste0("log_", var)]] <- log10(a[[var]])
-  a[[paste0("ranked_", var)]] <- rank(a[[var]])
-  a[[paste0(var, "_group")]] <- as.character(cut(a[[paste0("ranked_", var)]], breaks = 6, labels = FALSE))
+  a[[paste0("total_ranked_", var)]] <- rank(a[[var]])
+  for (w in unique(a$wave)) a[[paste0("wave_ranked_", var)]][a$wave == w] <- rank(a[[var]][a$wave == w])
+  a[[paste0("total_group_", var)]] <- as.character(cut(a[[paste0("total_ranked_", var)]], breaks = 6, labels = FALSE))
+  for (w in unique(a$wave)) a[[paste0("wave_group_", var)]][a$wave == w] <- as.character(cut(a[[paste0("wave_ranked_", var)]][a$wave == w], breaks = 6, labels = FALSE))
   #1 being the lowest and 6 being the highest gdp group (corresponding to the y_6ile variable in the previous paper)
   # clustered Y variables (corresponding to Y_clus4, Y_clus5, Y_clus6 and Y_clus7 in the previous paper)
-  cluster_assignments <- list()
-  for (k in k_values) {
-    kmeans_result <- kmeans(a[[paste0("log_", var)]], centers = k)
-    a[[paste0(var, "_cluster", k)]] <- as.character(kmeans_result$cluster)
+  for (k in 4:7) {
+    kmeans_total <- kmeans(a[[paste0("log_", var)]][!is.na(a[[paste0("log_", var)]])], centers = k)
+    a[[paste0("total_kmeans_", var, "_", k)]][!is.na(a[[paste0("log_", var)]])] <- as.character(kmeans_total$cluster)
+    for (w in unique(a$wave)) if (sum(!is.na(a[[paste0("log_", var)]]) & a$wave == w) > k) {
+      kmeans_wave <- kmeans(a[[paste0("log_", var)]][!is.na(a[[paste0("log_", var)]]) & a$wave == w], centers = k)
+      a[[paste0("wave_kmeans_", var, "_", k)]][!is.na(a[[paste0("log_", var)]]) & a$wave == w] <- as.character(kmeans_wave$cluster)
+    }
   }
 }
 
@@ -208,7 +209,7 @@ run_regressions <- function(happiness_vars = happiness_variables, weight = FALSE
   weights <- if (weight) data$population else NULL
   
   regressions <- list()
-  for (i in happiness_vars) { # TODO non-PPP
+  for (i in happiness_vars) { 
     regressions[[i]] <- list("region" = lm(as.formula(paste(i, "~ region")), data = data, weights = weights),
                              "log_gdp" = lm(as.formula(paste(i, "~ log_gdp")), data = data, weights = weights),
                              "log_gdp_quadratic" = lm(as.formula(paste(i, "~ log_gdp + I(log_gdp^2)")), data = data, weights = weights),
