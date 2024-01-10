@@ -67,7 +67,7 @@ a <- wvs %>% group_by(code, year) %>%
   dplyr::summarize(very_happy = weighted.mean(happiness[happiness > 0] == 1, weight[happiness > 0]),
                    happy = weighted.mean(happiness[happiness > 0] < 3, weight[happiness > 0]),
                    very_unhappy = weighted.mean(happiness[happiness > 0] == 4, weight[happiness > 0]),
-                   very_happy_over_very_unhappy = sum((happiness[happiness > 0] == 1) * weight[happiness > 0]) / sum((happiness[happiness > 0] == 4) * weight[happiness > 0]),
+                   very_happy_over_very_unhappy = min(1000, sum((happiness[happiness > 0] == 1) * weight[happiness > 0]) / sum((happiness[happiness > 0] == 4) * weight[happiness > 0])),
                    satisfied = weighted.mean(satisfaction[satisfaction > 0] > 5, weight[satisfaction > 0]),
                    satisfied_mean = weighted.mean(satisfaction[satisfaction > 0], weight[satisfaction > 0]),
                    happiness_mean = weighted.mean(((5 - happiness[happiness > 0]) * 2 - 5), weight[happiness > 0]), # -3/-1/1/3
@@ -208,17 +208,17 @@ create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a, PPP = T, w
   df <- data[data$wave %in% waves,]
   df$lab <- df[[label]] # country or code
 
-  model <- lm(as.formula(paste(y_var, "~", paste0(if (log_scale_y) "log_" else "", if (PPP) "gdp_ppp" else "gdp"))), data = df, weights = if (size_pop) pop else NULL)
+  model <- lm(as.formula(paste(y_var, "~", paste0(if (log_scale_y) "log_" else "", if (PPP) "gdp_ppp" else "gdp"))), data = df, weights = if (size_pop) df$pop else NULL)
   rsquared <- summary(model)$r.squared
   name_legend <- paste0("Wave", if (length(waves)>1) "s" else "", " = ", wave, " (R² = ", round(rsquared, 2), ") ")
   
   p <- qplot(if (PPP) gdp_ppp else gdp, get(y_var), data = df, color = region, shape = if (shape_region) region else NULL,
              label = if (label == "code" & length(waves) > 2) paste0(lab, substr(year, 3, 4)) else {if (length(waves)>1) paste(lab, year) else lab}, 
              size = if (size_pop) pop else NULL, show.legend = T) + 
-    geom_point() + scale_color_manual(values = region_colors, name = name_legend) + scale_x_log10() + 
+    geom_point() + scale_color_manual(values = region_colors, name = name_legend) + scale_x_log10(breaks = 10^(-10:10), minor_breaks = rep(1:9, 21)*(10^rep(-10:10, each=9))) + 
     labs(x = paste("GDP pc", if (PPP) "(PPP)" else ""), y = hapiness_names[y_var]) +
     theme_minimal() + theme(legend.position = if (legend) "bottom" else "none", plot.background = element_rect(fill = "white"), #legend.background = element_rect(fill = "white"), 
-          axis.text = element_text(size = fontsize), legend.text = element_text(size = fontsize), legend.title = element_text(size = fontsize), axis.title = element_text(size = fontsize), plot.caption = element_text(size = fontsize))
+          axis.text = element_text(size = fontsize), legend.text = element_text(size = fontsize), legend.title = element_text(size = fontsize), axis.title = element_text(size = fontsize+2), plot.caption = element_text(size = fontsize))
   if (shape_region) p <- p + scale_shape_manual(values = region_shapes, labels = names(region_shapes), name = name_legend)
   if (log_scale_y) p <- p + scale_y_log10()
   
@@ -228,6 +228,7 @@ create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a, PPP = T, w
   print(p)
   return(p)
 }
+# plot_all(waves = 7, vars = "happy")
 
 scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
 plot_all <- function(waves = 7, PPP = T, size_pop = FALSE, data = a, legend = TRUE, label = "country", fontsize = 7, labelsize = 2, shape_region = TRUE, vars = scatter_plot_vars, width = 6, height = 4, format = "all") {
@@ -241,6 +242,22 @@ plot_all <- function(waves = 7, PPP = T, size_pop = FALSE, data = a, legend = TR
   }
 }
 plot_all(waves = 7)
+plot_all(waves = 6)
+plot_all(waves = 5)
+plot_all(waves = 4)
+plot_all(waves = 3)
+plot_all(waves = 1:2)
+plot_all(waves = 1:7)
+plot_all(waves = 7, PPP = FALSE)
+plot_all(waves = 6, PPP = FALSE)
+plot_all(waves = 5, PPP = FALSE)
+plot_all(waves = 4, PPP = FALSE)
+plot_all(waves = 3, PPP = FALSE)
+plot_all(waves = 1:2, PPP = FALSE)
+plot_all(waves = 1:7, PPP = FALSE)
+plot_all(waves = 1:7, size_pop = T)
+plot_all(waves = 7, size_pop = T)
+beep()
 
 decrit("wave", a, weight = F) # 1:8(81-84) 2:18(89-91) 3:56(95-99) 4:40(99-04) 5:58(04-09) 6:60(10-16) 7:64(17-22) 
 # for (i in 1:7) print(paste(min(a$year[a$wave == i]), max(a$year[a$wave == i])))
