@@ -102,8 +102,8 @@ for (var in c("gdp", "gdp_ppp", "gdp_na", "gdp_ppp_na")) a <- create_gdp_vars(va
 
 
 ##### regressions #####
-happiness_variables <- c("very_happy", "happy", "very_unhappy", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard")
-hapiness_names <- setNames(c("Very Happy", "Happy", "Very Unhappy", "Satisfied", "Satisfaction (mean)", "Happiness (mean)", "Happiness Layard"), happiness_variables)
+happiness_variables <- c("very_happy", "happy", "very_unhappy", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard", "very_happy_over_very_unhappy")
+hapiness_names <- setNames(c("Very Happy", "Happy", "Very Unhappy", "Satisfied", "Satisfaction (mean)", "Happiness (mean)", "Happiness Layard", "Very Happy over Very Unhappy"), happiness_variables)
 
 run_regressions <- function(var_gdp = "gdp_ppp", waves = 1:7, weight = FALSE, pandemic_years = TRUE, happiness_vars = happiness_variables, data = a, return = "var_explained") {
   # if (!pandemic_years) data <- create_gdp_vars(pandemic_years = FALSE)
@@ -230,8 +230,7 @@ create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a, PPP = T, w
 }
 # plot_all(waves = 7, vars = "happy")
 
-scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
-plot_all <- function(waves = 7, PPP = T, size_pop = FALSE, data = a, legend = TRUE, label = "country", fontsize = 7, labelsize = 2, shape_region = TRUE, vars = scatter_plot_vars, width = 6, height = 4, format = "all") {
+plot_all <- function(waves = 7, PPP = T, size_pop = FALSE, data = a, legend = TRUE, label = "country", fontsize = 7, labelsize = 2, shape_region = TRUE, vars = happiness_variables, width = 6, height = 4, format = "all") {
   for (v in vars) {
     p <- create_scatter_plot(y_var = v, log_scale_y = v %in% c("very_unhappy", "very_happy_over_very_unhappy"), data = data, PPP = PPP, waves = waves, size_pop = size_pop, legend = legend, label = label, fontsize = fontsize, labelsize = labelsize, shape_region = shape_region)
     filename <- paste0(v, "_vs_GDP", if (PPP) "ppp" else "", if (!all(waves == 1:7)) paste(c("_wave", waves), collapse = "") else "", if (size_pop) "_weighted." else ".")
@@ -241,6 +240,7 @@ plot_all <- function(waves = 7, PPP = T, size_pop = FALSE, data = a, legend = TR
     } else ggsave(filename = paste0(filename, format), plot = p, path = "../figures", width = width, height = height, device = format)
   }
 }
+start <- Sys.time() # 11 min
 plot_all(waves = 7)
 plot_all(waves = 6)
 plot_all(waves = 5)
@@ -257,6 +257,7 @@ plot_all(waves = 1:2, PPP = FALSE)
 plot_all(waves = 1:7, PPP = FALSE)
 plot_all(waves = 1:7, size_pop = T)
 plot_all(waves = 7, size_pop = T)
+Sys.time() - start
 beep()
 
 decrit("wave", a, weight = F) # 1:8(81-84) 2:18(89-91) 3:56(95-99) 4:40(99-04) 5:58(04-09) 6:60(10-16) 7:64(17-22) 
