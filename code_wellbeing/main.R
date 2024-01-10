@@ -201,23 +201,21 @@ r12 <- run_regressions(var_gdp = "gdp", waves = 1:2, weight = FALSE)
 ##### Plot #####
 # Graphs with country names, R² in legend, and log scale for both x and specific y-variables
 region_colors <- c("Africa" = "black", "Asia" = "purple", "Ex-Eastern Block" = "red", "Latin America" = "#4CAF50", "Middle East" = "#FFA000", "Western" = "#64B5F6")
-region_symbols <- c("Africa" = "●", "Asia" = "▲", "Ex-Eastern Block" = "■", "Latin America" = "○", "Middle East" = "△", "Western" = "□") # , 3: +, 4: x
-region_shapes <- c("Africa" = 15, "Asia" = 16, "Ex-Eastern Block" = 17, "Latin America" = 0, "Middle East" = 1, "Western" = 2) # , 3: +, 4: x
-region_shapes <- c("Africa" = "	&#9675;", "Asia" = "&#9679;	&#x25CF;", "Ex-Eastern Block" = "U+2B24", "Latin America" = "U+1F518", "Middle East" = "triangle open", "Western" = "square open") # , 3: +, 4: x
+region_shapes <- c("Africa" = 15, "Asia" = 16, "Ex-Eastern Block" = 17, "Latin America" = 0, "Middle East" = 1, "Western" = 2) # , 3: +, 4: x ●▲■○△□
 
 create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a, PPP = T, waves = 7, size_pop = FALSE, legend = TRUE, label = "country", fontsize = 7, labelsize = 2, shape_region = TRUE) { 
   wave <- if (length(waves)>1) paste0(min(waves), " to ", max(waves)) else waves 
   df <- data[data$wave %in% waves,]
-  df$label <- df[[label]] # country or code
+  df$lab <- df[[label]] # country or code
 
   model <- lm(as.formula(paste(y_var, "~", paste0(if (log_scale_y) "log_" else "", if (PPP) "gdp_ppp" else "gdp"))), data = df, weights = if (size_pop) pop else NULL)
   rsquared <- summary(model)$r.squared
   name_legend <- paste0("Wave", if (length(waves)>1) "s" else "", " = ", wave, " (R² = ", round(rsquared, 2), ") ")
   
   p <- qplot(if (PPP) gdp_ppp else gdp, get(y_var), data = df, color = region, shape = if (shape_region) region else NULL,
-             label = if (length(waves)>1) paste(label, year) else label, 
+             label = if (label == "code" & length(waves) > 2) paste0(lab, substr(year, 3, 4)) else {if (length(waves)>1) paste(lab, year) else lab}, 
              size = if (size_pop) pop else NULL, show.legend = T) + 
-    geom_point(show.legend = T) + scale_color_manual(values = region_colors, name = name_legend) + scale_x_log10() + 
+    geom_point() + scale_color_manual(values = region_colors, name = name_legend) + scale_x_log10() + 
     labs(x = paste("GDP pc", if (PPP) "(PPP)" else ""), y = hapiness_names[y_var]) +
     theme_minimal() + theme(legend.position = if (legend) "bottom" else "none", plot.background = element_rect(fill = "white"), #legend.background = element_rect(fill = "white"), 
           axis.text = element_text(size = fontsize), legend.text = element_text(size = fontsize), legend.title = element_text(size = fontsize), axis.title = element_text(size = fontsize), plot.caption = element_text(size = fontsize))
@@ -226,13 +224,10 @@ create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a, PPP = T, w
   
   p <- p + labs(color = paste0("Wave", if (length(waves)>1) "s" else "", " = ", wave, " (R² = ", round(rsquared, 2), ") "))
   p <- p + geom_text_repel(show.legend = FALSE, segment.size = 0.2, force = 4, point.padding = unit(0.2, "lines"), nudge_x = 0.005, nudge_y = 0.005, size = labelsize)
-  p <- p + guides(color = guide_legend(nrow = 1))
+  p <- p + guides(color = guide_legend(nrow = 1)) + scale_size(guide = FALSE)
   print(p)
   return(p)
 }
-plot_all(waves = 7, vars = "happy")
-test <- create_scatter_plot(v, log_scale_y, waves = 7)
-save_plot(test)
 
 scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
 plot_all <- function(waves = 7, PPP = T, size_pop = FALSE, data = a, legend = TRUE, label = "country", fontsize = 7, labelsize = 2, shape_region = TRUE, vars = scatter_plot_vars, width = 6, height = 4, format = "all") {
