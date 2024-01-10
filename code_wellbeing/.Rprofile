@@ -65,3 +65,10 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
     } else describe(variable[variable!=""], weights = weights[variable!=""])  }
 }
 
+no.na <- function(vec, num_as_char = T, rep = "na") {
+  if (num_as_char) {
+    if (is.numeric(vec) | is.logical(vec)) return(replace_na(as.character(as.vector(vec)), rep))
+    else return(replace_na(as.vector(vec), rep))
+  } else if (is.logical(c(vec, rep))) { replace_na(as.vector(vec), rep)
+  } else return(vec)
+}

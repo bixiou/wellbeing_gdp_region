@@ -17,17 +17,17 @@
 # WVS7 <- read_csv("../data/WVS7.csv")
 # w7 <- WVS7[, c("Q46", "Q49", "GDPpercap2", "B_COUNTRY_ALPHA", "W_WEIGHT")]
 # decrit("region", w7)
-# names(w7) <- c("happiness", "satisfaction", "gdp", "country_code", "weight")
+# names(w7) <- c("happiness", "satisfaction", "gdp", "code", "weight")
 # 
 # # adding missing values
-# w7$gdp_pc[w7$country_code == "AND"] <- 42903
-# w7$gdp_pc[w7$country_code == "IRN"] <- 13338
-# w7$gdp_pc[w7$country_code == "NIR"] <- 32226
-# w7$gdp_pc[w7$country_code == "TWN"] <- 25903
-# w7$gdp_pc[w7$country_code == "VEN"] <- 6106
-# w7$region[w7$country_code == "NIR"] <- "Western"
-# w7$region[w7$country_code == "MAC"] <- "Asia"
-# w7 <- w7 %>%  mutate(region = sapply(country_code, get_country_region))
+# w7$gdp_pc[w7$code == "AND"] <- 42903
+# w7$gdp_pc[w7$code == "IRN"] <- 13338
+# w7$gdp_pc[w7$code == "NIR"] <- 32226
+# w7$gdp_pc[w7$code == "TWN"] <- 25903
+# w7$gdp_pc[w7$code == "VEN"] <- 6106
+# w7$region[w7$code == "NIR"] <- "Western"
+# w7$region[w7$code == "MAC"] <- "Asia"
+# w7 <- w7 %>%  mutate(region = sapply(code, get_country_region))
 # write.csv(w7, "../data/WVS7.csv", row.names = FALSE)
 
 country_mapping <- read.csv("../data/country_code_mapping.csv")
@@ -48,103 +48,154 @@ region <- list(
 region_mapping <- c()
 for (reg in names(region)) for (i in region[[reg]]) region_mapping <- c(region_mapping, setNames(reg, i))
 wvs$region <- region_mapping[wvs$code]
+wvs <- wvs[, c("wave", "alpha.2", "weight", "pop_weight", "year", "happiness", "satisfaction", "financial_satisfaction", "home_satisfaction", "country", "code", "region")]
 
-get_country_region <- function(country_code) {
-  for (region_name in names(region)) {
-    if (country_code %in% region[[region_name]]) {
-      return(region_name)
-    }
+# /!\ Imputations (esp. for pre-90 PPP) use IMF data which are not in 17$ but in current $, hence they are lower than WB estimates => perhaps it's better to exclude missing data rather than using imputed one.
+GDPpcPPP <- read.csv("../data/GDPpcPPP17.csv" , sep = ",") # GDP pc PPP constant 2017 $, World Bank (2023-07-25) NY.GDP.PCAP.PP.KD Completed from IMF for pre-1990, YEM14, AND, TWN and VEN. https://en.wikipedia.org/wiki/List_of_countries_by_past_and_projected_GDP_(PPP)_per_capita - in /deprecated there is the original data without manual imputations (for AND05 I use HKG05 instead, SVK90: 8k, MNE96: MNE97, POL89: 7k)
+GDPpc <- read.csv("../data/GDPpc15.csv" , sep = ",") # GDP pc nominal constant 2015 $, World Bank (2023-07-25) NY.GDP.PCAP.KD, completed manually for missing data (see below) - in /deprecated there is the original data without manual imputations TODO: compute and automatize IMF constant nominal $ (for the moment we use current nominal $ instead), cf. deprecated/IMF23
+
+for (c in intersect(wvs$code, GDPpcPPP$Country.Code)) for (y in unique(wvs$year[wvs$code == c])) {
+  gdp_pc_ppp_c <- GDPpcPPP[GDPpcPPP$Country.Code == c, paste0("X",  y)]
+  if (!is.na(gdp_pc_ppp_c)) wvs$gdp_ppp[wvs$code ==  c & wvs$year == y]  <- gdp_pc_ppp_c
+  else print(paste(c, y, "ppp")) # (c, y) with missing data are printed (cf. below)
+  gdp_pc_c <- GDPpc[GDPpc$Country.Code == c, paste0("X",  y)]
+  if (!is.na(gdp_pc_c)) wvs$gdp[wvs$code ==  c & wvs$year == y]  <- gdp_pc_c
+  else print(paste(c, y)) # (c, y) with missing data are printed: SVK90, VEN96,00,21, HUN82, MNE96, POL89 completed with first year available except for VEN: with IMF GDP pc at current prices https://www.imf.org/external/datamapper/PPPPC@WEO/OEMDC/ADVEC/WEOWORLD/VEN
+} 
+wvs$gdp_na <- wvs$gdp # Version of GDP pc (PPP) where we take out missing data (instead of using imputed one)
+wvs$gdp_na[paste0(wvs$code, wvs$year) %in% c("SVK1990", "VEN2021", "VEN1996", "VEN2000", "HUN1982", "MNE1996", "POL1989", "TWN1998", "TWN2006", "TWN2012", "TWN2019", "NIR2022")] <- NA
+wvs$gdp_ppp_na <- wvs$gdp_ppp
+wvs$gdp_ppp_na[paste0(wvs$code, wvs$year) %in% c("AND2018", "AND2005", "ARG1984", "AUS1981", "JPN1981", "KOR1982", "MEX1981", "SVK1990", "VEN2021", "VEN1996", "VEN2000", "FIN1981", "HUN1982", "MNE1996", "POL1989", "ZAF1982", "CHE1989", "YEM2014", "TWN1998", "TWN2006", "TWN2012", "TWN2019", "NIR2022")] <- NA
+
+a <- wvs %>% group_by(code, year) %>% 
+  dplyr::summarize(very_happy = weighted.mean(happiness[happiness > 0] == 1, weight[happiness > 0]),
+                   happy = weighted.mean(happiness[happiness > 0] < 3, weight[happiness > 0]),
+                   very_unhappy = weighted.mean(happiness[happiness > 0] == 4, weight[happiness > 0]),
+                   very_happy_over_very_unhappy = sum((happiness[happiness > 0] == 1) * weight[happiness > 0]) / sum((happiness[happiness > 0] == 4) * weight[happiness > 0]),
+                   satisfied = weighted.mean(satisfaction[satisfaction > 0] > 5, weight[satisfaction > 0]),
+                   satisfied_mean = weighted.mean(satisfaction[satisfaction > 0], weight[satisfaction > 0]),
+                   happiness_mean = weighted.mean(((5 - happiness[happiness > 0]) * 2 - 5), weight[happiness > 0]), # -3/-1/1/3
+                   financial_satisfaction = weighted.mean(financial_satisfaction[financial_satisfaction > 0] > 5, weight[financial_satisfaction > 0]), home_satisfaction = weighted.mean(home_satisfaction[home_satisfaction > 0] > 5, weight[home_satisfaction > 0]),
+                   gdp = unique(gdp), gdp_ppp = unique(gdp_ppp), gdp_na = unique(gdp_na), gdp_ppp_na = unique(gdp_ppp_na), region = unique(region), wave = unique(wave), alpha.2 = unique(alpha.2), 
+  )
+a$happiness_Layard <- (a$happy + a$satisfied)/2
+a$non_pandemic <- !a$year %in% c(2020, 2021)
+
+pop <- read.xlsx("../data/pop.xlsx") # UN World Population Prospect 2022 GEN/01/REV1 https://population.un.org/wpp/Download/Standard/MostUsed/ I have manually copied 2022 figures into the spreadsheet (from the sheet medium projection to past estimate's): CZE, GBR, LBY, NIR, NLD, SVK, URY
+for (c in unique(a$code)) for (y in a$year[a$code == c]) {
+  pop_cy <- 1e3 * as.numeric(pop$pop[no.na(pop$code) == c & no.na(pop$year) == y])
+  if (length(pop_cy)) a$pop[a$code == c & a$year == y] <- pop_cy
+  else print(paste(c, y)) # (c, y) with missing data are printed
+} 
+
+for (var in c("gdp_ppp", "gdp", "gdp_ppp_na", "gdp_na")) {
+  a[[paste0("log_", var)]] <- log10(a[[var]])
+  a[[paste0("ranked_", var)]] <- rank(a[[var]])
+  a[[paste0(var, "_group")]] <- as.character(cut(a[[paste0("ranked_", var)]], breaks = 6, labels = FALSE))
+  #1 being the lowest and 6 being the highest gdp group (corresponding to the y_6ile variable in the previous paper)
+  # clustered Y variables (corresponding to Y_clus4, Y_clus5, Y_clus6 and Y_clus7 in the previous paper)
+  cluster_assignments <- list()
+  for (k in k_values) {
+    kmeans_result <- kmeans(a[[paste0("log_", var)]], centers = k)
+    a[[paste0(var, "_cluster", k)]] <- as.character(kmeans_result$cluster)
   }
-  return("Other")
 }
 
-w7 <- read.csv("../data/WVS7.csv")
-info7 <- read.csv2("../data/WVSinfo7.csv")
+# get_country_region <- function(code) {
+#   for (region_name in names(region)) {
+#     if (code %in% region[[region_name]]) {
+#       return(region_name)
+#     }
+#   }
+#   return("Other")
+# }
+# 
+# w7 <- read.csv("../data/WVS7.csv")
+# info7 <- read.csv2("../data/WVSinfo7.csv")
+# 
+# w6 <- read_csv("../data/WVS6.csv")
+# w6$weight <- 1
+# info6 <- read.csv2("../data/WVSinfo6.csv")
 
-w6 <- read_csv("../data/WVS6.csv")
-w6$weight <- 1
-info6 <- read.csv2("../data/WVSinfo6.csv")
-
-GDPpcPPP <- read.csv("../data/GDPpcPPP17.csv" , sep = ",", skip = 4) # GDP pc PPP constant 2017 $, World Bank (2023) NY.GDP.PCAP.PP.KD
-GDPpc <- read.csv("../data/GDPpc15.csv" , sep = ",", skip = 4) # GDP pc nominal constant 2015 $, World Bank (2023) NY.GDP.PCAP.KD
 
 # adding the weights and calculating the means
-create_happiness_vars <- function(wave = 7) {
-  if (wave == 7) {
-    data <- w7
-    info <- info7
-  } else {
-    data <- w6
-    info <- info6
-  }
-  a <- data %>% group_by(country_code) %>% 
-    dplyr::summarize(very_happy = weighted.mean(happiness[happiness > 0] == 1, weight[happiness > 0]),
-                     happy = weighted.mean(happiness[happiness > 0] < 3, weight[happiness > 0]),
-                     very_unhappy = weighted.mean(happiness[happiness > 0] == 4, weight[happiness > 0]),
-                     very_happy_over_very_unhappy = sum((happiness[happiness > 0] == 1) * weight[happiness > 0]) / sum((happiness[happiness > 0] == 4) * weight[happiness > 0]),
-                     satisfied = weighted.mean(satisfaction[satisfaction > 0] > 5, weight[satisfaction > 0]),
-                     satisfied_mean = weighted.mean(satisfaction[satisfaction > 0], weight[satisfaction > 0]),
-                     happiness_mean = weighted.mean(((5 - happiness[happiness > 0]) * 2 - 5), weight[happiness > 0]), # -3/-1/1/3
-                     # gdp = unique(gdp), region = unique(region)
-                     )
-  a$happiness_Layard <- (a$happy + a$satisfied)/2
-  a <- a %>%  mutate(region = sapply(country_code, get_country_region))
-  a <- merge(a, info)
-  return(a)
-}
-a7 <- create_happiness_vars(7)
-a6 <- create_happiness_vars(6)
+# create_happiness_vars <- function(wave = 7) {
+#   if (wave == 7) {
+#     data <- w7
+#     info <- info7
+#   } else {
+#     data <- w6
+#     info <- info6
+#   }
+#   a <- data %>% group_by(code) %>% 
+#     dplyr::summarize(very_happy = weighted.mean(happiness[happiness > 0] == 1, weight[happiness > 0]),
+#                      happy = weighted.mean(happiness[happiness > 0] < 3, weight[happiness > 0]),
+#                      very_unhappy = weighted.mean(happiness[happiness > 0] == 4, weight[happiness > 0]),
+#                      very_happy_over_very_unhappy = sum((happiness[happiness > 0] == 1) * weight[happiness > 0]) / sum((happiness[happiness > 0] == 4) * weight[happiness > 0]),
+#                      satisfied = weighted.mean(satisfaction[satisfaction > 0] > 5, weight[satisfaction > 0]),
+#                      satisfied_mean = weighted.mean(satisfaction[satisfaction > 0], weight[satisfaction > 0]),
+#                      happiness_mean = weighted.mean(((5 - happiness[happiness > 0]) * 2 - 5), weight[happiness > 0]), # -3/-1/1/3
+#                      # gdp = unique(gdp), region = unique(region)
+#                      )
+#   a$happiness_Layard <- (a$happy + a$satisfied)/2
+#   a$region <- region_mapping[a$code]
+#   # a <- a %>%  mutate(region = sapply(code, get_country_region))
+#   a <- merge(a, info)
+#   return(a)
+# }
+# a7 <- create_happiness_vars(7)
+# a6 <- create_happiness_vars(6)
 
 
 # TODO: where does this data come from? It needs to be automatized (and with the URL of the data source)
-population_data <- data.frame(
-  country_code = c("AND", "ARG", "ARM", "AUS", "BGD", "BOL", "BRA", "CAN", "CHL", "CHN", "COL", "CYP", "CZE", "DEU", "ECU", "EGY", "ETH", "GBR", "GRC", "GTM", "HKG", "IDN", "IRN", "IRQ", "JOR", "JPN", "KAZ", "KEN", "KGZ", "KOR", "LEB", "LYB", "MAC", "MAR", "MDV", "MEX", "MMR", "MNG", "MYS", "NGA", "NIC", "NIR", "NLD", "NZL", "PAK", "PER", "PHL", "PRI", "ROU", "RUS", "SGP", "SRB", "SVK", "THA", "TJK", "TUN", "TUR", "TWN", "UKR", "URY", "USA", "VEN", "VNM", "ZWE" ),
-  population = c(75013, 44044811, 2790974, 24966643, 163683958, 11435533, 210166592, 38007166, 18701450, 1402760000, 49276961, 1228836, 10526073, 82905782, 17015672, 103740765, 117190911, 66971411, 10754679, 16604026, 7452600, 267066843, 87290193, 40590700, 10459865, 126633000, 18276452, 53005614, 6579900, 51585058, 5950839, 6812341, 663653, 37076584, 521457, 124013861, 53423198, 3347782, 32399271, 198387623, 6755895, 5086988, 17703090, 5124100, 219731479, 32203944, 110380804, 3325286, 19473970, 144496739, 5685807, 7020858, 5431752, 71127802, 9543207, 12049314, 82809304, 23777737, 44132049, 3422794, 325122128, 28199867, 96648685, 15669666)
-)
-a7 <- a7 %>% left_join(population_data, by = "country_code")
+# population_data <- data.frame(
+#   code = c("AND", "ARG", "ARM", "AUS", "BGD", "BOL", "BRA", "CAN", "CHL", "CHN", "COL", "CYP", "CZE", "DEU", "ECU", "EGY", "ETH", "GBR", "GRC", "GTM", "HKG", "IDN", "IRN", "IRQ", "JOR", "JPN", "KAZ", "KEN", "KGZ", "KOR", "LEB", "LYB", "MAC", "MAR", "MDV", "MEX", "MMR", "MNG", "MYS", "NGA", "NIC", "NIR", "NLD", "NZL", "PAK", "PER", "PHL", "PRI", "ROU", "RUS", "SGP", "SRB", "SVK", "THA", "TJK", "TUN", "TUR", "TWN", "UKR", "URY", "USA", "VEN", "VNM", "ZWE" ),
+#   population = c(75013, 44044811, 2790974, 24966643, 163683958, 11435533, 210166592, 38007166, 18701450, 1402760000, 49276961, 1228836, 10526073, 82905782, 17015672, 103740765, 117190911, 66971411, 10754679, 16604026, 7452600, 267066843, 87290193, 40590700, 10459865, 126633000, 18276452, 53005614, 6579900, 51585058, 5950839, 6812341, 663653, 37076584, 521457, 124013861, 53423198, 3347782, 32399271, 198387623, 6755895, 5086988, 17703090, 5124100, 219731479, 32203944, 110380804, 3325286, 19473970, 144496739, 5685807, 7020858, 5431752, 71127802, 9543207, 12049314, 82809304, 23777737, 44132049, 3422794, 325122128, 28199867, 96648685, 15669666)
+# )
+# a7 <- a7 %>% left_join(population_data, by = "code")
 # write.csv(a7, "../data/a7.csv", row.names = FALSE)
 # a7 <- read.csv("../data/a7.csv")
 
 # econometric analysis
 # rearranging alternative GDP variable  (Y^)
-create_gdp_vars <- function(wave = 7, k_values = 4:7, pandemic_years = TRUE) {
-  if (wave == 7) data <- a7
-  else if (wave == 6) data <- a6
-  if (!pandemic_years) data <- data[!data$year %in% c(2020, 2021), ]
-  for (c in intersect(data$country_code, GDPpcPPP$Country.Code)) {
-    gdp_pc_ppp_c <- GDPpcPPP[GDPpcPPP$Country.Code == c, paste0("X",  unique(data$year[data$country_code == c]))]
-    if (!is.na(gdp_pc_ppp_c)) data$gdp_ppp[data$country_code == c]  <- gdp_pc_ppp_c
-  }
-  for (c in intersect(data$country_code, GDPpc$Country.Code)) {
-    gdp_pc_c <- GDPpc[GDPpc$Country.Code == c, paste0("X",  unique(data$year[data$country_code == c]))]
-    if (!is.na(gdp_pc_c)) data$gdp[data$country_code == c]  <- gdp_pc_c
-  }
-  if (wave == 6) {
-    data$gdp[data$country_code == "TWN"] <- 21256
-    data$gdp[data$country_code == "LBN"] <- 8255
-    data$gdp[data$country_code == "YEM"] <- 8255 # TODO
-    data$gdp_ppp[data$country_code == "TWN"] <- 21256 # TODO
-    data$gdp_ppp[data$country_code == "YEM"] <- 8255 # TODO
-  } else if (wave == 7) {
-    data$gdp_ppp[data$country_code %in% c("AND", "NIR", "TWN", "VEN")] <- 999 # TODO
-    data$gdp[data$country_code %in% c("NIR", "TWN", "VEN")] <- 999 # TODO
-  }
-  for (var in intersect(c("gdp_ppp", "gdp"), names(data))) {
-    data[[paste0("log_", var)]] <- log10(data[[var]])
-    data[[paste0("ranked_", var)]] <- rank(data[[var]])
-    data[[paste0(var, "_group")]] <- as.character(cut(data[[paste0("ranked_", var)]], breaks = 6, labels = FALSE))
-    #1 being the lowest and 6 being the highest gdp group (corresponding to the y_6ile variable in the previous paper)
-    # clustered Y variables (corresponding to Y_clus4, Y_clus5, Y_clus6 and Y_clus7 in the previous paper)
-    cluster_assignments <- list()
-    for (k in k_values) {
-      kmeans_result <- kmeans(data[[paste0("log_", var)]], centers = k)
-      data[[paste0(var, "_cluster", k)]] <- as.character(kmeans_result$cluster)
-    }
-  }
-  return(data)
-}
-a7 <- create_gdp_vars(7)
-a6 <- create_gdp_vars(6)
+# create_gdp_vars <- function(wave = 7, k_values = 4:7, pandemic_years = TRUE) {
+#   if (wave == 7) data <- a7
+#   else if (wave == 6) data <- a6
+#   if (!pandemic_years) data <- data[!data$year %in% c(2020, 2021), ]
+#   for (c in intersect(data$code, GDPpcPPP$Country.Code)) {
+#     gdp_pc_ppp_c <- GDPpcPPP[GDPpcPPP$Country.Code == c, paste0("X",  unique(data$year[data$code == c]))]
+#     if (!is.na(gdp_pc_ppp_c)) data$gdp_ppp[data$code == c]  <- gdp_pc_ppp_c
+#   }
+#   for (c in intersect(data$code, GDPpc$Country.Code)) {
+#     gdp_pc_c <- GDPpc[GDPpc$Country.Code == c, paste0("X",  unique(data$year[data$code == c]))]
+#     if (!is.na(gdp_pc_c)) data$gdp[data$code == c]  <- gdp_pc_c
+#   }
+#   if (wave == 6) {
+#     data$gdp[data$code == "TWN"] <- 21256
+#     data$gdp[data$code == "LBN"] <- 8255
+#     data$gdp[data$code == "YEM"] <- 8255 # TODO
+#     data$gdp_ppp[data$code == "TWN"] <- 21256 # TODO
+#     data$gdp_ppp[data$code == "YEM"] <- 8255 # TODO
+#   } else if (wave == 7) {
+#     data$gdp_ppp[data$code %in% c("AND", "NIR", "TWN", "VEN")] <- 999 # TODO
+#     data$gdp[data$code %in% c("NIR", "TWN", "VEN")] <- 999 # TODO
+#   }
+#   for (var in intersect(c("gdp_ppp", "gdp"), names(data))) {
+#     data[[paste0("log_", var)]] <- log10(data[[var]])
+#     data[[paste0("ranked_", var)]] <- rank(data[[var]])
+#     data[[paste0(var, "_group")]] <- as.character(cut(data[[paste0("ranked_", var)]], breaks = 6, labels = FALSE))
+#     #1 being the lowest and 6 being the highest gdp group (corresponding to the y_6ile variable in the previous paper)
+#     # clustered Y variables (corresponding to Y_clus4, Y_clus5, Y_clus6 and Y_clus7 in the previous paper)
+#     cluster_assignments <- list()
+#     for (k in k_values) {
+#       kmeans_result <- kmeans(data[[paste0("log_", var)]], centers = k)
+#       data[[paste0(var, "_cluster", k)]] <- as.character(kmeans_result$cluster)
+#     }
+#   }
+#   return(data)
+# }
+# a7 <- create_gdp_vars(7)
+# a6 <- create_gdp_vars(6)
 
 
 ##### regressions #####
