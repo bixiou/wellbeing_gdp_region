@@ -98,6 +98,7 @@ create_gdp_vars <- function(var = "gdp_ppp", waves = 1:7, k_values = 4:7, pandem
   }
   return(a)
 }
+for (var in c("gdp", "gdp_ppp", "gdp_na", "gdp_ppp_na")) a <- create_gdp_vars(var, waves = 1:7, k_values = 4:7, pandemic_years = TRUE, data = a)
 
 
 ##### regressions #####
@@ -200,40 +201,51 @@ r12 <- run_regressions(var_gdp = "gdp", waves = 1:2, weight = FALSE)
 ##### Plot #####
 # Graphs with country names, R² in legend, and log scale for both x and specific y-variables
 region_colors <- c("Africa" = "black", "Asia" = "purple", "Ex-Eastern Block" = "red", "Latin America" = "#4CAF50", "Middle East" = "#FFA000", "Western" = "#64B5F6")
-region_shapes <- c("Africa" = "●", "Asia" = "▲", "Ex-Eastern Block" = "■", "Latin America" = "○", "Middle East" = "△", "Western" = "□") # , 3: +, 4: x
+region_symbols <- c("Africa" = "●", "Asia" = "▲", "Ex-Eastern Block" = "■", "Latin America" = "○", "Middle East" = "△", "Western" = "□") # , 3: +, 4: x
+region_shapes <- c("Africa" = 15, "Asia" = 16, "Ex-Eastern Block" = 17, "Latin America" = 0, "Middle East" = 1, "Western" = 2) # , 3: +, 4: x
+region_shapes <- c("Africa" = "	&#9675;", "Asia" = "&#9679;	&#x25CF;", "Ex-Eastern Block" = "U+2B24", "Latin America" = "U+1F518", "Middle East" = "triangle open", "Western" = "square open") # , 3: +, 4: x
 
 create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a, PPP = T, waves = 7, size_pop = FALSE, legend = TRUE, label = "country", fontsize = 7, labelsize = 2, shape_region = TRUE) { 
   wave <- if (length(waves)>1) paste0(min(waves), " to ", max(waves)) else waves 
   df <- data[data$wave %in% waves,]
   df$label <- df[[label]] # country or code
-  p <- qplot(if (PPP) gdp_ppp else gdp, get(y_var), data = df, color = region, shape = if (shape_region) region else NULL,
-             label = if (length(waves)>1) paste(label, year) else label, 
-             size = if (size_pop) pop else NULL, show.legend = FALSE) + scale_shape_manual(values = region_shapes, labels = names(region_shapes)) + 
-    geom_point(show.legend = FALSE) + scale_color_manual(values = region_colors) + scale_x_log10() + labs(x = paste("GDP pc", if (PPP) "(PPP)" else ""), y = hapiness_names[y_var]) +
-    theme_minimal() + theme(legend.position = if (legend) "bottom" else "none", plot.background = element_rect(fill = "white"), #legend.background = element_rect(fill = "white"), 
-          axis.text = element_text(size = fontsize), legend.text = element_text(size = fontsize), legend.title = element_text(size = fontsize),
-          axis.title = element_text(size = fontsize), plot.caption = element_text(size = fontsize))
-  
-  if (log_scale_y) p <- p + scale_y_log10()
-  
+
   model <- lm(as.formula(paste(y_var, "~", paste0(if (log_scale_y) "log_" else "", if (PPP) "gdp_ppp" else "gdp"))), data = df, weights = if (size_pop) pop else NULL)
   rsquared <- summary(model)$r.squared
+  name_legend <- paste0("Wave", if (length(waves)>1) "s" else "", " = ", wave, " (R² = ", round(rsquared, 2), ") ")
   
-  p <- p + labs(color = paste0("Wave", if (length(waves)>1) "s" else "", " = ", wave, "  (R² = ", round(rsquared, 2), ")  Regions:"))
-  p <- p + geom_text_repel(segment.size = 0.2, force = 4, point.padding = unit(0.2, "lines"), nudge_x = 0.005, nudge_y = 0.005, size = labelsize)
-  p <- p + guides(color = guide_legend(override.aes = list(shape = NULL, labels = region_shapes), nrow = 1))
+  p <- qplot(if (PPP) gdp_ppp else gdp, get(y_var), data = df, color = region, shape = if (shape_region) region else NULL,
+             label = if (length(waves)>1) paste(label, year) else label, 
+             size = if (size_pop) pop else NULL, show.legend = T) + 
+    geom_point(show.legend = T) + scale_color_manual(values = region_colors, name = name_legend) + scale_x_log10() + 
+    labs(x = paste("GDP pc", if (PPP) "(PPP)" else ""), y = hapiness_names[y_var]) +
+    theme_minimal() + theme(legend.position = if (legend) "bottom" else "none", plot.background = element_rect(fill = "white"), #legend.background = element_rect(fill = "white"), 
+          axis.text = element_text(size = fontsize), legend.text = element_text(size = fontsize), legend.title = element_text(size = fontsize), axis.title = element_text(size = fontsize), plot.caption = element_text(size = fontsize))
+  if (shape_region) p <- p + scale_shape_manual(values = region_shapes, labels = names(region_shapes), name = name_legend)
+  if (log_scale_y) p <- p + scale_y_log10()
+  
+  p <- p + labs(color = paste0("Wave", if (length(waves)>1) "s" else "", " = ", wave, " (R² = ", round(rsquared, 2), ") "))
+  p <- p + geom_text_repel(show.legend = FALSE, segment.size = 0.2, force = 4, point.padding = unit(0.2, "lines"), nudge_x = 0.005, nudge_y = 0.005, size = labelsize)
+  p <- p + guides(color = guide_legend(nrow = 1))
   print(p)
+  return(p)
 }
-create_scatter_plot(v, log_scale_y, waves = 7)
+plot_all(waves = 7, vars = "happy")
+test <- create_scatter_plot(v, log_scale_y, waves = 7)
+save_plot(test)
 
 scatter_plot_vars <- c("very_happy", "happy", "very_unhappy", "very_happy_over_very_unhappy", "satisfied", "satisfied_mean", "happiness_mean")
-for (v in scatter_plot_vars) {
-  log_scale_y <- v %in% c("very_unhappy", "very_happy_over_very_unhappy")
-  p <- create_scatter_plot(v, log_scale_y)
-  filename <- paste("scatter_", v, "_vs_gdp.png", sep = "")
-  ggsave(filename = filename, plot = p, path = "../figures", width = 6, height = 4, dpi = 300)
+plot_all <- function(waves = 7, PPP = T, size_pop = FALSE, data = a, legend = TRUE, label = "country", fontsize = 7, labelsize = 2, shape_region = TRUE, vars = scatter_plot_vars, width = 6, height = 4, format = "all") {
+  for (v in vars) {
+    p <- create_scatter_plot(y_var = v, log_scale_y = v %in% c("very_unhappy", "very_happy_over_very_unhappy"), data = data, PPP = PPP, waves = waves, size_pop = size_pop, legend = legend, label = label, fontsize = fontsize, labelsize = labelsize, shape_region = shape_region)
+    filename <- paste0(v, "_vs_GDP", if (PPP) "ppp" else "", if (!all(waves == 1:7)) paste(c("_wave", waves), collapse = "") else "", if (size_pop) "_weighted." else ".")
+    if (format == "all") {
+      ggsave(filename = paste0(filename, "pdf"), plot = p, path = "../figures", width = width, height = height, device = "pdf")
+      ggsave(filename = paste0(filename, "png"), plot = p, path = "../figures", width = width, height = height, device = "png")
+    } else ggsave(filename = paste0(filename, format), plot = p, path = "../figures", width = width, height = height, device = format)
+  }
 }
-
+plot_all(waves = 7)
 
 decrit("wave", a, weight = F) # 1:8(81-84) 2:18(89-91) 3:56(95-99) 4:40(99-04) 5:58(04-09) 6:60(10-16) 7:64(17-22) 
 # for (i in 1:7) print(paste(min(a$year[a$wave == i]), max(a$year[a$wave == i])))

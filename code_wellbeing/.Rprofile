@@ -33,6 +33,8 @@ package("relaimpo")
 package("ggplot2")
 package("ggrepel")
 package("tidyr")
+# package("magick")
+# package("knitr")
 
 
 decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FALSE, which = NULL, weight = T) { # TODO!: allow for boolean weights
@@ -72,3 +74,28 @@ no.na <- function(vec, num_as_char = T, rep = "na") {
   } else if (is.logical(c(vec, rep))) { replace_na(as.vector(vec), rep)
   } else return(vec)
 }
+# save_plot <- function(plot=NULL, filename = deparse(substitute(plot)), folder = '../figures/', width = dev.size('px')[1], height = dev.size('px')[2], method='dev', trim = T, format = 'pdf') {
+#   if (any(class(plot) %in% c("data.frame", "array"))) {
+#     # file <- paste(folder, "xls/", filename, ".xlsx", sep='')
+#     file <- paste(sub("figures", "xlsx", folder), filename, ".xlsx", sep='') # xlsx
+#     write.xlsx(as.data.frame(plot), file, row.names = T, overwrite = T)
+#   } else {
+#     file <- paste0(folder, filename, ".", format)
+#     # print(file)
+#     if (grepl('dev', method)) {
+#       if (format == 'png') {
+#         dev.copy(png, filename = file, width = width, height = height) # save plot from R (not plotly)
+#         dev.off() }
+#       else if (format == 'svg') {
+#         dev.copy(svg, filename = file, width = width/100, height = height/100) # save plot from R (not plotly)
+#         dev.off() } # TODO choose width height with PDF
+#       else if (format == 'pdf') dev.print(pdf, file = file) # because dev.size('px')[1]/dev.size('in')[1] = 105 , width = width/105, height = height/105
+#     }
+#     else {
+#       server <- orca_serve() # doesn't work within a function because requires admin rights
+#       server$export(plot, file = file, width = width, height = height)
+#       server$close()
+#     }
+#     if (trim & format %in% c('png')) image_write(image_trim(image_read(file)), file) # , 'svg'
+#     if (trim & format == 'pdf') plot_crop(file) } # to crop pdf, see also code_oecd/crop_pdf.sh and run it in the desired folder
+# }
