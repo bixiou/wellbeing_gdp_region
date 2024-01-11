@@ -26,6 +26,7 @@
 # w7 <- w7 %>%  mutate(region = sapply(code, get_country_region))
 # write.csv(w7, "../data/WVS7.csv", row.names = FALSE)
 
+start <- Sys.time()
 kvalues <- 5:7
 country_mapping <- read.csv("../data/country_code_mapping.csv")
 country <- setNames(country_mapping$country, country_mapping$alpha.2)
@@ -312,7 +313,7 @@ plot_all <- function(waves = 7, PPP = T, size_pop = FALSE, only_last = FALSE, da
     } else ggsave(filename = paste0(filename, format), plot = p, path = "../figures", width = width, height = height, device = format)
   }
 }
-start <- Sys.time() # 11 min
+# start <- Sys.time() # 11 min
 plot_all(waves = 7)
 plot_all(waves = 6)
 plot_all(waves = 5)
