@@ -1,3 +1,4 @@
+library(utils)
 package <- function(p, version = NULL, remove = FALSE, github = '') {
   if (remove) {
     detach(paste0("package:", p), unload = T)
