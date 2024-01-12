@@ -62,7 +62,7 @@
 
 \begin{frame}{What makes a country happy?}
     \bbvsp
-    \ip Which country is the happiest?
+    \ip \blue{Which country is the happiest?}
     \ip The answer is often in Scandinavia. % TODO: magazine pic
     \ip What do we mean by ``happy''? \pause Subjective well-being.
     \ee
@@ -85,9 +85,9 @@
 
 \begin{frame}{Primer of the results}
     \bbvsp
-    \ip Income is only weakly correlated with national well-being.
+    \ip \rose{Income is only weakly correlated with national well-being}.
     \ip The relationship heavily depends on the well-being indicator chosen. \pause \\ For some indicators, the happiest country is in Africa or Latin America.\pause
-    \ip Another simple variable, the country's (macro) region, is a better predictor of national well-being.
+    \ip Another simple variable, the country's (macro) \rose{region}, \rose{is a better predictor} of national well-being.
     \ee
 \end{frame}
 
@@ -95,37 +95,37 @@
 
 \begin{frame}{Data}
     \bbvsp
-    \ip World Values Survey (WVS): representative surveys on 440,000 respondents over 108 countries.
+    \ip \blue{World Values Survey} (\blue{WVS}): representative surveys on 440,000 respondents over 108 countries.
     \ip 304 country $\times$ year observations among 7 waves from 1981 to 2022.
     \ip Two subjective well-being questions:
     \bbvsp 
-    \ip Happiness: ``Taking all things together, would you say you are:'' \\ ~\textit{Very happy}; \textit{Quite happy}; \textit{Not very happy}; \textit{Not at all happy}; PNR % Q46
-    \ip Satisfaction: ``All things considered, how satisfied are you with your life as a whole these days?'' \textit{1-Completely dissatisfied} -- \textit{10-Completeley satisfied}; PNR % Please use this card to help with your answer.
+    \ip \rose{Happiness}: ``Taking all things together, \blue{would you say you are}:'' \\ ~\textit{\blue{Very happy}}; \textit{\blue{Quite happy}}; \textit{\blue{Not very happy}}; \textit{\blue{Not at all happy}}; PNR % Q46
+    \ip \rose{Satisfaction}: ``All things considered, \blue{how satisfied are you with your life as a whole these days?}'' \textit{\blue{1}-Completely dissatisfied} -- \textit{\blue{10}-Completeley satisfied}; PNR % Please use this card to help with your answer.
     \ee
     \ee
-    \centering \includegraphics[height=.5\textheight]{../figures/WVS_countries}
+    \centering \includegraphics[height=.5\textheight]{../figures/WVS_countries_regions}
 \end{frame}
 
 \begin{frame}{What is national well-being?}
-    With the two well-being questions, we can define various national indicators (all weighted using survey weights, all excluding PNR).
+    With the two well-being questions, \blue{we can define various} national \blue{indicators} (all weighted using survey weights, all excluding PNR).
     \bbvsp
-    \ip \textbf{Happiness (mean)}: mean happiness recoded into $-$3; $-$1; +1; +3
-    \ip \textbf{Happy}: share answering \textit{Quite} or \textit{Very happy}
-    \ip \textbf{Very Happy}: share answering \textit{Very happy}
-    \ip \textbf{Very Unhappy}: share answering \textit{Very unhappy}
-    \ip \textbf{Very Happy over Very Unhappy}: ratio of \textbf{Very Happy} over \textbf{Very Unhappy}
-    \ip \textbf{Satisfaction (mean)}: mean satisfaction
-    \ip \textbf{Satisfied}: share answering 6 to 10 at satisfaction
-    \ip \textbf{Happy--Satisfied}: average of \textbf{Happy} and \textbf{Satisfied}\\ ~\quad This is the variable used by Inglehart \& Klingemann (2000) % https://www.staff.ncl.ac.uk/david.harvey/MKT3008/IntDev/happiness&GDP.gif SWB index by Inglehart & Klingemann (00)
+    \ip \textbf{\blue{Happy}}: share answering \textit{Quite} or \textit{Very happy}
+    \ip \textbf{\blue{Very Happy}}: share answering \textit{Very happy}
+    \ip \textbf{\blue{Very Unhappy}}: share answering \textit{Very unhappy}
+    \ip \textbf{\blue{V. Happy -- V. Unhappy}}: difference \textbf{Very Happy} minus \textbf{Very Unhappy}
+    \ip \textbf{\blue{Happiness (mean)}}: mean happiness recoded into $-$3; $-$1; +1; +3
+    \ip \textbf{\blue{Satisfaction (mean)}}: mean satisfaction
+    \ip \textbf{\blue{Satisfied}}: share answering 6 to 10 at satisfaction
+    \ip \textbf{\blue{Happy + Satisfied}}: average of \textbf{Happy} and \textbf{Satisfied}\\ ~\quad This is the variable used by Inglehart \& Klingemann (2000) % https://www.staff.ncl.ac.uk/david.harvey/MKT3008/IntDev/happiness&GDP.gif SWB index by Inglehart & Klingemann (00)
     \ee 
 \end{frame}
 % TODO: plot happy against satisfied
 
 \begin{frame}{How we measure income}    
     \bbvsp % As usual in this literature, 
-    \ip Our preferred \textit{income} indicator is the \textbf{log} GDP per capita (pc) in \textbf{PPP} (constant 2017 \$, World Bank) \pause \\ We also use discrete indicators: \pause \bbvsp
-    \ip \textbf{Income group}: quantile of income (6 quantiles)
-    \ip \textbf{Income cluster} (\textit{k} = \textbf{5}, \textbf{6} or \textbf{7}): income cluster, with the \textit{k} clusters found by the \textit{k}-means algorithm
+    \ip Our benchmark \textit{income} indicator is the \blue{\textbf{log} GDP per capita (pc) in \textbf{PPP}} (constant 2017 \$, World Bank) \pause \\ We also use discrete indicators: \pause \bbvsp
+    \ip \textbf{\blue{Income sextile}}: quantile of income (6 quantiles)
+    \ip \textbf{\blue{Income cluster}} (\textit{k} = \textbf{5}, \textbf{6} or \textbf{7}): income cluster, with the \textit{k} clusters found by the \textit{k}-means algorithm
     \ee
     \ip For robustness, we also run our analyses using the log \textit{nominal} GDP pc (constant 2015 \$, World Bank) and corresponding income group and clusters.
     \ip We manually impute missing income data using IMF data.
@@ -138,84 +138,139 @@
 
 \begin{frame}{Graphical evidence}
 \begin{figure}
-    \only<+>{\caption{Caption} 
-    \centering \includegraphics[height=.8\textheight]{../figures/WVS_countries}}
-    \only<+>{\caption{Caption}  
-    \centering \includegraphics[height=.8\textheight]{../figures/WVS_countries_regions}}
-    \only<+>{\caption{Caption}  
-    \centering \includegraphics[height=.8\textheight]{../figures/region_groupings}}
+    \only<+>{\caption{\textbf{Happy} vs. log GDP p.c. (PPP) --- All waves of WVS.} \vspace{-.3cm}
+    \centering \includegraphics[height=.9\textheight]{../figures/happy_vs_GDPppp.pdf}}
+    \only<+>{\caption{\textbf{Very Happy} vs. log GDP p.c. (PPP) --- All waves of WVS.}  \vspace{-.3cm}
+    \centering \includegraphics[height=.9\textheight]{../figures/very_happy_vs_GDPppp.pdf}}
+    \only<+>{\caption{\textbf{Very Unhappy} vs. log GDP p.c. (PPP) --- All waves of WVS.}  \vspace{-.3cm}
+    \centering \includegraphics[height=.9\textheight]{../figures/very_unhappy_vs_GDPppp.pdf}}
+    \only<+>{\caption{\textbf{V. Happy -- V. Unhappy} vs. log GDP p.c. (PPP) --- All waves of WVS.} \vspace{-.3cm}
+    \centering \includegraphics[height=.9\textheight]{../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf}}
+    \only<+>{\caption{\textbf{Happiness (mean)} vs. log GDP p.c. (PPP) --- All waves of WVS.}  \vspace{-.3cm}
+    \centering \includegraphics[height=.9\textheight]{../figures/happiness_mean_vs_GDPppp.pdf}}
+    \only<+>{\caption{\textbf{Satisfaction (mean)} vs. log GDP p.c. (PPP) --- All waves of WVS.}  \vspace{-.3cm}
+    \centering \includegraphics[height=.9\textheight]{../figures/satisfied_mean_vs_GDPppp.pdf}}
+    \only<+>{\caption{\textbf{Satisfied} vs. log GDP p.c. (PPP) --- All waves of WVS.} 
+    \centering \vspace{-.3cm} \includegraphics[height=.9\textheight]{../figures/satisfied_vs_GDPppp.pdf}}
+    \only<+>{\caption{\textbf{Happy + Satisfied} vs. log GDP p.c. (PPP) --- All waves of WVS.}  \vspace{-.3cm}
+    \centering \includegraphics[height=.9\textheight]{../figures/happiness_Layard_vs_GDPppp.pdf}}
+    \only<+>{\caption{\textbf{Happy} vs. log DP p.c. (nominal) --- Wave 7 (2017-22) of WVS, weighted by population.}  \vspace{-.3cm}
+    \centering \includegraphics[height=.9\textheight]{../figures/happy_vs_GDP_wave7_weighted.pdf}}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Share of the variance explained by GDP pc}
-    % \bbvs
-    % \ip For different \textit{well-being} and \textit{income} indicators, we compute the $R^2$ of the regression: $$well\text{-}being_i = \alpha + \beta income_i + u_i$$
-    % \ee
-    \input{../tables/gdp.tex}
+\begin{frame}{Variance explained by GDP p.c.\label{gdp} \hyperlink{gdp_add}{\beamergotobutton{More results}}}
+    \only<2>{\input{../tables/gdp.tex}}
+    \only<1,3->{
+    \bbvsp
+    \ip For different \textit{well-being} and \textit{income} indicators, we compute the $R^2$ of the regression: $$well\text{-}being_i = \alpha + \beta\, income_i + u_i$$ \pause
+    \ip \rose{\textbf{Nominal income clustered into 7 groups}} is the income indicator that \rose{explains best well-being}.
+    \ip On average over well-being indicators, \blue{this indicator explains 13\% of the variance}.
+    \ip \blue{\textbf{Satisfied} is the well-being indicator that is best explained }by income (19\% to 24\%).
+    \ip \textbf{Happy + Satisfied} ---chosen by Ingelhart et al. (2008)--- comes close (17\% to 23\%).
+    \ip \blue{\textbf{Happiness (mean)} is poorly explained} by income (8\% at best).
+    \ee
+    }
 \end{frame}
 
-\begin{frame}{Share of the variance explained by GDP pc}
-    % \bbvs
-    % \ip For different \textit{well-being} and \textit{income} indicators, we compute the $R^2$ of the regression: $$well\text{-}being_i = \alpha + \beta income_i + u_i$$
-    % \ee
-    \input{../tables/gdp_add.tex}
+\begin{frame}{What are the happiest countries?}
+    \bbvsp
+    \ip \blue{What is the happiest country?}
+    \ip Looking at all waves combined, \rose{Kyrgyzstan}--2020 is the happiest country--year according to 3 indicators\\Finland, Malaysia, Mexico, Qatar, Vietnam according to other indicators.
+    \ip Counting the occurrences of countries for each wave--indicator (including all waves combined), \blue{Switzerland} is the happiest (10 occurrences) followed by \blue{Mexico} (9) and \blue{Kyrgyzstan} (6).
+    \ip The happiest countries are Western (24), in Latin America (19) or elsewhere (21).
+    \ee
 \end{frame}
 
-\begin{frame}{Share of the variance explained by GDP pc}
-    % \bbvs
-    % \ip For different \textit{well-being} and \textit{income} indicators, we compute the $R^2$ of the regression: $$well\text{-}being_i = \alpha + \beta income_i + u_i$$
-    % \ee
+% Results: TODO Some indicators are not significantly related with GDP per capita, while some others (like the share of very happy people) are even decreasing with GDP per capita
+% Results: TODO table of happiest countries
+
+\section{Region vs. GDP per capita\\as predictor of well-being}
+
+\begin{frame}{Region grouping}
+    \begin{figure}
+        \caption{WVS countries grouped into six world regions.}  
+        \centering \includegraphics[height=.8\textheight]{../figures/region_groupings} % region_groupings
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Comparing the share of variance explained by income vs. region}
+    % \only<6>{\input{../tables/share_gdp.tex}}
+    % \only<1-5,7->{
+    \bbvsp
+    \ip For different \textit{well-being} and \textit{income} indicators, we run regressions and compute corresponding $R^2$:
+    % \ee    
+    % \makebox[.7\textwidth][c]{
+    \begin{align} 
+        well\text{-}being_i &= \alpha_1 + \beta_1\, income_i + u_i\\
+        well\text{-}being_i &= \alpha_2 + \gamma_2\, region_i + e_i\\
+        well\text{-}being_i &= \alpha_3 + \beta_3\, income_i + \gamma_3\, region_i + \varepsilon_i 
+    \end{align}
+    % }
+    % \bbvsp
+    \ip \blue{$R^2_3$} is the \blue{share of variance explained} by income and region (3).
+    \ip \blue{$R^2_1$} (resp. $R^2_2$) is the \blue{share} of variance \blue{explained by income} (resp. region) \blue{alone}.
+    \ip \blue{$R^2_3-R^2_2$} is the \blue{additional share} of variance \blue{explained by income}, \blue{after} adding it alongside \blue{region}. %to the model with region.
+    \ip $\rose{s_i} = \frac{R^2_1 + (R^2_3-R^2_2)}{R^2_3}$ is the \rose{share of explained variance that is explained by income}.
+    \ip This follows the LMG methodoly (Lindeman, Merenda \& Gold, 1980; Grömping, 2007).
+    \ee
+    % }
+\end{frame}
+              
+% Share of the variance explained by income rather than region
+\begin{frame}{Share of explained variance that is explained by income\label{share_gdp} \hyperlink{share_gdp_add}{\beamergotobutton{More results}}}
     \input{../tables/share_gdp.tex}
 \end{frame}
 
-\begin{frame}{Share of the variance explained by GDP pc}
+\begin{frame}{Region is a better predictor of national well-being than income}
+    \bbvsp
+    \ip \rose{Income is never a better predictor than region} ($s_i < 50\%$)
+    \ip For the best-predicting income indicator, \rose{income explains 31\% of the explained variance}, on average over all well-being indicators
+    \ip This indicator explains 22\% of the explained variance for \textbf{Happiness} and 34\% for \textbf{Satisfaction}.
+    \ip \rose{Region is a better predictor than region in 95\% of alternative specifications}: looking at each wave separately, weighting countries by population, dropping pandemic years... \\(including 86\% of 88 specifications involving the best-predicting income variable) \hyperlink{share_gdp_add}{\beamergotobutton{More results}}
+    \ee
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}{Take away and future research}
+    \bbvsp
+    \ip \rose{National well-being is more correlated with the world region than with the GDP p.c.}
+    \ip Richest countries are not necessarily the happiest.
+    \ip If there is a link between income and well-being, it is that rich countries do not experience low well-being.
+    \ip Poor countries can be happy too. Growth is not necessarily the best goal.
+    \ip ~$\Rightarrow$ \blue{Absolute income is not} as \blue{determining} for well-being as is often thought.
+    \ip ~$\Rightarrow$ We should seek reforms that improve well-being rather than growth.
+    \ip Non-material dimensions seem key to well-being $\Rightarrow$ \blue{Need to study mechanisms}. % dance/social bonds in LatAm vs. recession/loss of meaning after USSR => need to study mechanisms
+    \ip Despite evidence against translation issues (Sandvik et al., 93; Diener \& Lucas, 99; Scollon et al., 05), \\\blue{ We should check whether emotions are better predicted by region than income}.
+    \ee
+\end{frame}
+% Conclusion: 
+% - small correlation with GDP, larger with region
+% - richest countries are not necessarily the happiest; link is only that rich country are not sad
+% - absolute income is not as determining for one's subjective well-being as is commonly thought
+% > perhaps regional differences due to cultural differences in way to express feelings but feelings are same => future research: extend this to emotional well-being [if this is the case, can we use well-being indicator? we may not rule out that culture / question interpretation evolves with GDP] cf. Sacks, Stevenson, Wolfers
+%     evidence against translation differences: Sandvik et al., 1993; Diener and Lucas, 1999; Scollon et al. 2005
+% - probably non-material dimensions are key: dance/social bonds in LatAm vs. recession/loss of meaning after USSR => need to study mechanisms
+% - poor countries can be happy too, growth not necessarily the best way to go
+% - rather than regress WB on GDP, we should look for reforms that increase WB
+% > would be easier to ask people what makes them happy [national well-being accounts] rather than rely on an indicator (GDP) tha barely correlates with what they want [“There should be a new rule: each and every new regulation and tax should be judged against how it will affect the UK’s GDP” Allister Heath, The Telegraph]
+
+\appendix
+
+\section{Robustness checks}
+
+\begin{frame}{Variance explained by PPP income cluster (k = 7) \label{gdp_add}\hyperlink{gdp}{\beamergotobutton{Go back}}}
+    % 1:8(81-84) 2:18(89-91) 3:56(95-99) 4:40(99-04) 5:58(04-09) 6:60(10-16) 7:64(17-22) 
+    \input{../tables/gdp_add.tex}
+\end{frame}
+
+% Share of the variance explained by PPP income cluster (k = 7) rather than region 
+\begin{frame}{Share of explained variance that is explained by PPP income cluster (k = 7)\label{share_gdp_add}\hyperlink{share_gdp}{\beamergotobutton{Go back}}} % TODO make this hyperlink work
     % \bbvs
     % \ip For different \textit{well-being} and \textit{income} indicators, we compute the $R^2$ of the regression: $$well\text{-}being_i = \alpha + \beta income_i + u_i$$
     % \ee
     \input{../tables/share_gdp_add.tex}
 \end{frame}
-
-\begin{frame}{What are the happiest countries?}
-    \bbvs
-    \ip 
-    \ip 
-    \ee
-\end{frame}
-
-% Results: variance explained by the GDP per capita is low at best
-% Results: largest correlation with (log) GDP per capita is found for the average life satisfaction, the most commonly used indicator
-% Results: Some indicators are not significantly related with GDP per capita, while some others (like the share of very happy people) are even decreasing with GDP per capita
-% Results: set of happiest countries (with number of occurrences)
-
-\section{Region vs. GDP per capita as predictor of well-being}
-
-\begin{frame}{Region grouping}
-    \begin{figure}
-        \caption{WVS countries grouped into six world regions.}  
-        \centering \includegraphics[height=.8\textheight]{../figures/WVS_countries_regions} % region_groupings
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Region is a better predictor of national well-being than income}
-    \bbvs
-    \ip 
-    \ip 
-    \ee
-\end{frame}
-% Region grouping
-% Results: national well-being is better explained by the country's world region than by its GDP per capita
-% Results: results hold true in each separate wave of the World Values Survey as well as in the combined dataset
-
-\section{Conclusion}
-% Conclusion: 
-% - small correlation with GDP, larger with region
-% - richest countries are not necessarily the happiest; link is only that rich country are not sad
-% - absolute income is not as determining for one's subjective well-being as is commonly thought
-% - perhaps regional differences due to cultural differences in way to express feelings but feelings are same => future research: extend this to emotional well-being [if this is the case, can we use well-being indicator? we may not rule out that culture / question interpretation evolves with GDP] cf. Sacks, Stevenson, Wolfers
-%     evidence against translation differences: Sandvik et al., 1993; Diener and Lucas, 1999; Scollon et al. 2005
-% - probably non-material dimensions are key: dance/social bonds in LatAm vs. recession/loss of meaning after USSR => need to study mechanisms
-% - poor countries can be happy too, growth not necessarily the best way to go
-% - rather than regress WB on GDP, we should look for reforms that increase WB
-% - would be easier to ask people what makes them happy [national well-being accounts] rather than rely on an indicator (GDP) tha barely correlates with what they want [“There should be a new rule: each and every new regulation and tax should be judged against how it will affect the UK’s GDP” Allister Heath, The Telegraph]
 
 \end{document}

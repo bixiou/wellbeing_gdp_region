@@ -1,5 +1,6 @@
 # TODO: latex tables
 # TODO: (non urgent) ajouter d'autres variables explicatives, e.g. croissance, revenu médian
+# TODO: first factor in regression tree with region and income
 # TODO: robustness check: redo analysis with UN regional groups (i.e. with Middle East and Central Asia in Asia); without Latin America and Ex-Eastern Block
 # DONE: (not found) trouver définitions de region qui correspondent aux nôtres. UN regional groups: 5 regions (Middle East and Central Asia in Asia) https://en.wikipedia.org/wiki/United_Nations_Regional_Groups
 # DONE: enlever les pays 2020-2021 comme robustness check
@@ -210,11 +211,15 @@ reg_tables$r345p_only_last_na <- run_regressions(var_gdp = "gdp_ppp_na", waves =
 reg_tables$r345_only_last <- run_regressions(var_gdp = "gdp", waves = 3:5, weight = FALSE, only_last = T)
 reg_tables$r345p_only_last <- run_regressions(var_gdp = "gdp_ppp", waves = 3:5, weight = FALSE, only_last = T) # reproduction of my original work
 reg_tables$r_only_last <- run_regressions(var_gdp = "gdp", waves = 1:7, weight = FALSE, only_last = T)
+reg_tables$r_weighted <- run_regressions(var_gdp = "gdp", waves = 1:7, weight = T, pandemic_years = T)
+reg_tables$r_na <- run_regressions(var_gdp = "gdp_na", waves = 1:7, weight = FALSE, pandemic_years = T)
+reg_tables$r7_wo_pandemic_years <- run_regressions(var_gdp = "gdp", waves = 7, weight = FALSE, pandemic_years = F)
 
 (max_share_var_explained_by_gdp <- round(sapply(names(reg_tables), function(n) n = max(reg_tables[[n]]$share_var_explained_by_gdp)), 3))
 (argmax_share_var_explained_by_gdp <- sapply(names(reg_tables), function(n) n = paste(reg_tables[[n]]$var_happiness, reg_tables[[n]]$var_gdp)[which.max(reg_tables[[n]]$share_var_explained_by_gdp)]))
 (mean_share_var_explained_by_gdp <- round(sapply(names(reg_tables), function(n) n = mean(reg_tables[[n]]$share_var_explained_by_gdp)), 3))
 (share_var_explained_more_by_gdp <- round(sapply(names(reg_tables), function(n) n = mean(reg_tables[[n]]$share_var_explained_by_gdp > 0.5)), 3))
+mean(share_var_explained_more_by_gdp) # 5% Used in prez
 (mean_var_explained_by_gdp <- round(sapply(names(reg_tables), function(n) n = mean(reg_tables[[n]]$var_explained_by_gdp)), 3))
 mean(mean_share_var_explained_by_gdp[grepl("p", names(mean_share_var_explained_by_gdp))]) # 23%
 mean(mean_share_var_explained_by_gdp[!grepl("p", names(mean_share_var_explained_by_gdp))]) # 29%: nominal explains better
@@ -232,6 +237,7 @@ mean(mean_share_var_explained_by_gdp[!grepl("p", names(mean_share_var_explained_
 ##### Table Variance explained by GDP #####
 gdp_variables <- c("log_gdp", "log_gdp_nominal", "gdp_group", "gdp_cluster5", "gdp_cluster6", "gdp_cluster7", "gdp_cluster7_nominal") # , c("log GDP p.c. PPP", "GDP sextile", "GDP cluster (k=5)"
 supp_specs <- c("rp_weighted", "rp_na", "rp_only_last", "r12p", "r3p", "r4p", "r5p", "r6p", "r7p", "r7p_wo_pandemic_years") 
+supp_specs_nominal <- c("r_weighted", "r_na", "r_only_last", "r12", "r3", "r4", "r5", "r6", "r7", "r7_wo_pandemic_years") 
 add_specs <- c("rp_weighted", "r12p", "r3p", "r4p", "r5p", "r6p", "r7p") 
 add2_specs <- c("rp_weighted", "rp_na", "rp_only_last", "r7p_wo_pandemic_years") # not_log quadratic
 
@@ -251,6 +257,7 @@ latex_short_names <- c("log_gdp" = "\\makecell{\\,\\\\PPP}", "log_gdp_nominal" =
                        "r3p" = "\\makecell{3}", "r4p" = "\\makecell{4}", "r5p" = "\\makecell{5}", 
                        "r6p" = "\\makecell{6}", "r7p" = "\\makecell{7}", "r7p_wo_pandemic_years" = "\\makecell{Wave 7\\\\without pandemic\\\\(2020-2021)}", latex_names)
 
+# NB: it is max of mean and not mean of max.
 mean_max_table <- function(out_var, col_vars, default_gdp = "gdp_cluster7", happiness_vars = happiness_variables, n_obs = T, export = TRUE, filename = NULL, caption = NULL) {
   table <- matrix(nrow = length(happiness_vars)+2, ncol = length(col_vars)+2, dimnames = list(c(happiness_vars, "mean", "max"), c(col_vars, "mean", "max")))
   Ns <- c()
@@ -272,7 +279,7 @@ mean_max_table <- function(out_var, col_vars, default_gdp = "gdp_cluster7", happ
     latex <- table
     row.names(latex) <- latex_short_names[rownames(table)]
     if (deparse(substitute(col_vars)) == "gdp_variables") toprule <- "toprule Happiness variable & \\\\multicolumn{2}{c}{log GDP p.c.} & \\\\multicolumn{5}{c}{Income cluster} & & \\\\\\\\"
-    else if (deparse(substitute(col_vars)) == "add_specs") toprule <- "toprule & All waves & \\\\multicolumn{6}{c}{Only selected waves} &  & \\\\\\\\"
+    else if (deparse(substitute(col_vars)) == "add_specs") toprule <- "toprule Happiness variable & All waves & \\\\multicolumn{6}{c}{Only selected waves} &  & \\\\\\\\"
     else toprule <- "toprule "
     if (is.null(filename)) filename <- paste0(if (grepl("^share_", out_var)) "share_" else "", "gdp", 
             if (deparse(substitute(col_vars)) == "add_specs") "_add" else { if (deparse(substitute(col_vars)) == "supp_specs") "_supp" else "" } )
@@ -291,7 +298,13 @@ mean_max_table <- function(out_var, col_vars, default_gdp = "gdp_cluster7", happ
 (table_share_gdp_supp <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = supp_specs, happiness_vars = happiness_variables))
 (table_gdp_add <- mean_max_table(out_var = "var_explained_by_gdp", col_vars = add_specs, happiness_vars = happiness_variables))
 (table_share_gdp_add <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = add_specs, happiness_vars = happiness_variables))
+(table_gdp_supp_nominal <- mean_max_table(out_var = "var_explained_by_gdp", col_vars = supp_specs_nominal, happiness_vars = happiness_variables))
+(table_share_gdp_supp_nominal <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = supp_specs_nominal, happiness_vars = happiness_variables))
 
+# In 14% of specifications with the best-predicting income variable, region predicts better than income
+all_specs_gdp_ppp_cluster7 <- as.numeric(c(table_share_gdp[happiness_variables, "gdp_cluster7_nominal"], table_share_gdp_supp_nominal[happiness_variables, supp_specs_nominal]))
+mean(all_specs_gdp_ppp_cluster7 > 0.5) # 14%
+length(all_specs_gdp_ppp_cluster7)
 # DONE: Share of variance explained by GDP pc: by happiness variable x gdp variables; DONE then showing it holds for other defs and waves
 # DONE: Happiest countries by indicator/wave => Table of occurrences by country
 # DONE: Table Region is a better predictor of national well-being than income
@@ -343,8 +356,9 @@ create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a, PPP = T, w
   print(p)
   return(p)
 }
-plot_all(waves = 1:2, vars = "happy")
+plot_all(waves = 7, size_pop = T, PPP = F)
 
+# TODO remove square border
 plot_all <- function(waves = 7, PPP = T, size_pop = FALSE, only_last = FALSE, data = a, legend = TRUE, label = "country", fontsize = 7, labelsize = 2, shape_region = TRUE, vars = happiness_variables, width = 6, height = 4, format = "all") {
   for (v in vars) {
     p <- create_scatter_plot(y_var = v, log_scale_y = v %in% c("very_unhappy", "very_happy_over_very_unhappy"), data = data, PPP = PPP, waves = waves, only_last = only_last, size_pop = size_pop, legend = legend, label = label, fontsize = fontsize, labelsize = labelsize, shape_region = shape_region)

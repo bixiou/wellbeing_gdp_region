@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  12 JAN 2024 14:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  12 JAN 2024 20:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -790,90 +790,34 @@ Package: eurosym 1998/08/06 v1.1 European currency symbol ``Euro''
 Package: gensymb 2003/07/02 v1.0 (WaS)
 ) (c:/texlive/2022/texmf-dist/tex/latex/doublestroke/dsfont.sty
 Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
-) (c:/texlive/2022/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (c:/texlive/2022/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
-Package: pgf 2021/05/15 v3.1.9a (3.1.9a)
- (c:/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
-File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfnodeparttextbox=\box85
-) (c:/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
-File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-) (c:/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
-Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@nodesepstart=\dimen356
-\pgf@nodesepend=\dimen357
-) (c:/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
-Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
-)) (c:/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
-Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
- (c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
-\pgffor@iter=\dimen358
-\pgffor@skip=\dimen359
-\pgffor@stack=\toks56
-\pgffor@toks=\toks57
-)) (c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
-Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
- (c:/texlive/2022/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
-File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@plot@mark@count=\count360
-\pgfplotmarksize=\dimen360
-)
-\tikz@lastx=\dimen361
-\tikz@lasty=\dimen362
-\tikz@lastxsaved=\dimen363
-\tikz@lastysaved=\dimen364
-\tikz@lastmovetox=\dimen365
-\tikz@lastmovetoy=\dimen366
-\tikzleveldistance=\dimen367
-\tikzsiblingdistance=\dimen368
-\tikz@figbox=\box86
-\tikz@figbox@bg=\box87
-\tikz@tempbox=\box88
-\tikz@tempbox@bg=\box89
-\tikztreelevel=\count361
-\tikznumberofchildren=\count362
-\tikznumberofcurrentchild=\count363
-\tikz@fig@count=\count364
- (c:/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
-File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfmatrixcurrentrow=\count365
-\pgfmatrixcurrentcolumn=\count366
-\pgf@matrix@numberofcolumns=\count367
-)
-\tikz@expandcount=\count368
- (c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
-File: tikzlibrarytopaths.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-))) (c:/texlive/2022/texmf-dist/tex/latex/wasysym/wasysym.sty
-Package: wasysym 2020/01/19 v2.4 Wasy-2 symbol support package
-\symwasy=\mathgroup7
-LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
-(Font)                  U/wasy/m/n --> U/wasy/b/n on input line 93.
-) (c:/texlive/2022/texmf-dist/tex/latex/environ/environ.sty
-Package: environ 2014/05/04 v0.3 A new way to define environments
- (c:/texlive/2022/texmf-dist/tex/latex/trimspaces/trimspaces.sty
-Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
-))) (c:/texlive/2022/texmf-dist/tex/latex/tools/multicol.sty
+) (c:/texlive/2022/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2021/11/30 v1.9d multicolumn formatting (FMi)
-\c@tracingmulticols=\count369
-\mult@box=\box90
-\multicol@leftmargin=\dimen369
-\c@unbalance=\count370
-\c@collectmore=\count371
-\doublecol@number=\count372
-\multicoltolerance=\count373
-\multicolpretolerance=\count374
-\full@width=\dimen370
-\page@free=\dimen371
-\premulticols=\dimen372
-\postmulticols=\dimen373
+\c@tracingmulticols=\count360
+\mult@box=\box85
+\multicol@leftmargin=\dimen356
+\c@unbalance=\count361
+\c@collectmore=\count362
+\doublecol@number=\count363
+\multicoltolerance=\count364
+\multicolpretolerance=\count365
+\full@width=\dimen357
+\page@free=\dimen358
+\premulticols=\dimen359
+\postmulticols=\dimen360
 \multicolsep=\skip70
 \multicolbaselineskip=\skip71
-\partial@page=\box91
-\last@line=\box92
-\maxbalancingoverflow=\dimen374
-\mult@rightbox=\box93
-\mult@grightbox=\box94
-\mult@firstbox=\box95
-\mult@gfirstbox=\box96
+\partial@page=\box86
+\last@line=\box87
+\maxbalancingoverflow=\dimen361
+\mult@rightbox=\box88
+\mult@grightbox=\box89
+\mult@firstbox=\box90
+\mult@gfirstbox=\box91
+\@tempa=\box92
+\@tempa=\box93
+\@tempa=\box94
+\@tempa=\box95
+\@tempa=\box96
 \@tempa=\box97
 \@tempa=\box98
 \@tempa=\box99
@@ -905,21 +849,77 @@ Package: multicol 2021/11/30 v1.9d multicolumn formatting (FMi)
 \@tempa=\box125
 \@tempa=\box126
 \@tempa=\box127
-\@tempa=\box128
-\@tempa=\box129
-\@tempa=\box130
-\@tempa=\box131
-\@tempa=\box132
-\c@minrows=\count375
-\c@columnbadness=\count376
-\c@finalcolumnbadness=\count377
-\last@try=\dimen375
-\multicolovershoot=\dimen376
-\multicolundershoot=\dimen377
-\mult@nat@firstbox=\box133
-\colbreak@box=\box134
-\mc@col@check@num=\count378
+\c@minrows=\count366
+\c@columnbadness=\count367
+\c@finalcolumnbadness=\count368
+\last@try=\dimen362
+\multicolovershoot=\dimen363
+\multicolundershoot=\dimen364
+\mult@nat@firstbox=\box128
+\colbreak@box=\box129
+\mc@col@check@num=\count369
+) (c:/texlive/2022/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (c:/texlive/2022/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+Package: pgf 2021/05/15 v3.1.9a (3.1.9a)
+ (c:/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfnodeparttextbox=\box130
+) (c:/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+) (c:/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
+Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@nodesepstart=\dimen365
+\pgf@nodesepend=\dimen366
+) (c:/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
+Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
+)) (c:/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
+ (c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
+\pgffor@iter=\dimen367
+\pgffor@skip=\dimen368
+\pgffor@stack=\toks56
+\pgffor@toks=\toks57
+)) (c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
+ (c:/texlive/2022/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@plot@mark@count=\count370
+\pgfplotmarksize=\dimen369
 )
+\tikz@lastx=\dimen370
+\tikz@lasty=\dimen371
+\tikz@lastxsaved=\dimen372
+\tikz@lastysaved=\dimen373
+\tikz@lastmovetox=\dimen374
+\tikz@lastmovetoy=\dimen375
+\tikzleveldistance=\dimen376
+\tikzsiblingdistance=\dimen377
+\tikz@figbox=\box131
+\tikz@figbox@bg=\box132
+\tikz@tempbox=\box133
+\tikz@tempbox@bg=\box134
+\tikztreelevel=\count371
+\tikznumberofchildren=\count372
+\tikznumberofcurrentchild=\count373
+\tikz@fig@count=\count374
+ (c:/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfmatrixcurrentrow=\count375
+\pgfmatrixcurrentcolumn=\count376
+\pgf@matrix@numberofcolumns=\count377
+)
+\tikz@expandcount=\count378
+ (c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+))) (c:/texlive/2022/texmf-dist/tex/latex/wasysym/wasysym.sty
+Package: wasysym 2020/01/19 v2.4 Wasy-2 symbol support package
+\symwasy=\mathgroup7
+LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
+(Font)                  U/wasy/m/n --> U/wasy/b/n on input line 93.
+) (c:/texlive/2022/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+ (c:/texlive/2022/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+)))
 LaTeX Font Info:    Trying to load font information for T1+ptm on input line 5.
  (c:/texlive/2022/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
@@ -1158,10 +1158,10 @@ File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 ] [15
 
 ]
-<../figures/WVS_countries.png, id=117, 1376.9844pt x 754.9806pt>
-File: ../figures/WVS_countries.png Graphic file (type png)
-<use ../figures/WVS_countries.png>
-Package pdftex.def Info: ../figures/WVS_countries.png  used on input line 107.
+<../figures/WVS_countries_regions.png, id=125, 1376.9844pt x 754.9806pt>
+File: ../figures/WVS_countries_regions.png Graphic file (type png)
+<use ../figures/WVS_countries_regions.png>
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 107.
 (pdftex.def)             Requested size: 223.3686pt x 122.47346pt.
 
 Overfull \vbox (9.181pt too high) detected at line 107
@@ -1169,10 +1169,10 @@ Overfull \vbox (9.181pt too high) detected at line 107
 
 [16
 
- <../figures/WVS_countries.png>]
-File: ../figures/WVS_countries.png Graphic file (type png)
-<use ../figures/WVS_countries.png>
-Package pdftex.def Info: ../figures/WVS_countries.png  used on input line 107.
+ <../figures/WVS_countries_regions.png>]
+File: ../figures/WVS_countries_regions.png Graphic file (type png)
+<use ../figures/WVS_countries_regions.png>
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 107.
 (pdftex.def)             Requested size: 223.3686pt x 122.47346pt.
 
 Overfull \vbox (9.181pt too high) detected at line 107
@@ -1181,9 +1181,9 @@ Overfull \vbox (9.181pt too high) detected at line 107
 [17
 
 ]
-File: ../figures/WVS_countries.png Graphic file (type png)
-<use ../figures/WVS_countries.png>
-Package pdftex.def Info: ../figures/WVS_countries.png  used on input line 107.
+File: ../figures/WVS_countries_regions.png Graphic file (type png)
+<use ../figures/WVS_countries_regions.png>
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 107.
 (pdftex.def)             Requested size: 223.3686pt x 122.47346pt.
 
 Overfull \vbox (9.181pt too high) detected at line 107
@@ -1192,9 +1192,9 @@ Overfull \vbox (9.181pt too high) detected at line 107
 [18
 
 ]
-File: ../figures/WVS_countries.png Graphic file (type png)
-<use ../figures/WVS_countries.png>
-Package pdftex.def Info: ../figures/WVS_countries.png  used on input line 107.
+File: ../figures/WVS_countries_regions.png Graphic file (type png)
+<use ../figures/WVS_countries_regions.png>
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 107.
 (pdftex.def)             Requested size: 223.3686pt x 122.47346pt.
 
 Overfull \vbox (9.181pt too high) detected at line 107
@@ -1203,9 +1203,9 @@ Overfull \vbox (9.181pt too high) detected at line 107
 [19
 
 ]
-File: ../figures/WVS_countries.png Graphic file (type png)
-<use ../figures/WVS_countries.png>
-Package pdftex.def Info: ../figures/WVS_countries.png  used on input line 107.
+File: ../figures/WVS_countries_regions.png Graphic file (type png)
+<use ../figures/WVS_countries_regions.png>
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 107.
 (pdftex.def)             Requested size: 223.3686pt x 122.47346pt.
 
 Overfull \vbox (9.181pt too high) detected at line 107
@@ -1248,92 +1248,283 @@ Overfull \vbox (9.181pt too high) detected at line 107
 ] [37
 
 ]
-File: ../figures/WVS_countries.png Graphic file (type png)
-<use ../figures/WVS_countries.png>
-Package pdftex.def Info: ../figures/WVS_countries.png  used on input line 148.
-(pdftex.def)             Requested size: 357.39818pt x 195.95828pt.
+<../figures/happy_vs_GDPppp.pdf, id=245, 433.62pt x 289.08pt>
+File: ../figures/happy_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/happy_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/happy_vs_GDPppp.pdf  used on input line 160.
+(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (5.42082pt too high) detected at line 148
+Overfull \vbox (21.37737pt too high) detected at line 160
  []
 
 [38
 
-]
-<../figures/WVS_countries_regions.png, id=242, 1376.9844pt x 754.9806pt>
-File: ../figures/WVS_countries_regions.png Graphic file (type png)
-<use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 148.
-(pdftex.def)             Requested size: 357.39818pt x 195.95828pt.
+ <../figures/happy_vs_GDPppp.pdf>]
+<../figures/very_happy_vs_GDPppp.pdf, id=256, 433.62pt x 289.08pt>
+File: ../figures/very_happy_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/very_happy_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/very_happy_vs_GDPppp.pdf  used on input line 160.
+(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (5.42082pt too high) detected at line 148
+Overfull \vbox (21.37737pt too high) detected at line 160
  []
 
 [39
 
- <../figures/WVS_countries_regions.png>]
-<../figures/region_groupings.png, id=249, 1374.5754pt x 756.1851pt>
-File: ../figures/region_groupings.png Graphic file (type png)
-<use ../figures/region_groupings.png>
-Package pdftex.def Info: ../figures/region_groupings.png  used on input line 148.
-(pdftex.def)             Requested size: 356.20662pt x 195.95828pt.
+ <../figures/very_happy_vs_GDPppp.pdf>]
+<../figures/very_unhappy_vs_GDPppp.pdf, id=267, 433.62pt x 289.08pt>
+File: ../figures/very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/very_unhappy_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/very_unhappy_vs_GDPppp.pdf  used on input line 160.
+(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (5.42082pt too high) detected at line 148
+Overfull \vbox (21.37737pt too high) detected at line 160
  []
 
 [40
 
- <../figures/region_groupings.png>] (../tables/gdp.tex)
-Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--155
-[][] 
- []
+ <../figures/very_unhappy_vs_GDPppp.pdf>]
+<../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf, id=278, 433.62pt x 289.08pt>
+File: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf  used on input line 160.
+(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-
-Overfull \vbox (3.29666pt too high) detected at line 155
+Overfull \vbox (21.37737pt too high) detected at line 160
  []
 
 [41
 
-] (../tables/gdp_add.tex)
-Overfull \vbox (2.29666pt too high) detected at line 162
+ <../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>]
+<../figures/happiness_mean_vs_GDPppp.pdf, id=290, 433.62pt x 289.08pt>
+File: ../figures/happiness_mean_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/happiness_mean_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/happiness_mean_vs_GDPppp.pdf  used on input line 160.
+(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
+
+Overfull \vbox (21.37737pt too high) detected at line 160
  []
 
 [42
 
-] (../tables/share_gdp.tex)
-Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--169
-[][] 
- []
+ <../figures/happiness_mean_vs_GDPppp.pdf>]
+<../figures/satisfied_mean_vs_GDPppp.pdf, id=301, 433.62pt x 289.08pt>
+File: ../figures/satisfied_mean_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/satisfied_mean_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/satisfied_mean_vs_GDPppp.pdf  used on input line 160.
+(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-
-Overfull \vbox (3.29666pt too high) detected at line 169
+Overfull \vbox (21.37737pt too high) detected at line 160
  []
 
 [43
 
-] (../tables/share_gdp_add.tex)
-Overfull \vbox (2.29666pt too high) detected at line 176
+ <../figures/satisfied_mean_vs_GDPppp.pdf>]
+<../figures/satisfied_vs_GDPppp.pdf, id=313, 433.62pt x 289.08pt>
+File: ../figures/satisfied_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/satisfied_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/satisfied_vs_GDPppp.pdf  used on input line 160.
+(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
+
+Overfull \vbox (21.37737pt too high) detected at line 160
  []
 
 [44
 
-] [45
+ <../figures/satisfied_vs_GDPppp.pdf>]
+<../figures/happiness_Layard_vs_GDPppp.pdf, id=324, 433.62pt x 289.08pt>
+File: ../figures/happiness_Layard_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/happiness_Layard_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/happiness_Layard_vs_GDPppp.pdf  used on input line 160.
+(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-] [46
-
-]
-File: ../figures/WVS_countries_regions.png Graphic file (type png)
-<use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 197.
-(pdftex.def)             Requested size: 357.39818pt x 195.95828pt.
-
-Overfull \vbox (5.42082pt too high) detected at line 197
+Overfull \vbox (21.37737pt too high) detected at line 160
  []
 
-[47
+[45
 
-] [48
+ <../figures/happiness_Layard_vs_GDPppp.pdf>]
+<../figures/happy_vs_GDP_wave7_weighted.pdf, id=335, 433.62pt x 289.08pt>
+File: ../figures/happy_vs_GDP_wave7_weighted.pdf Graphic file (type pdf)
+<use ../figures/happy_vs_GDP_wave7_weighted.pdf>
+Package pdftex.def Info: ../figures/happy_vs_GDP_wave7_weighted.pdf  used on input line 160.
+(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
+
+Overfull \vbox (21.37737pt too high) detected at line 160
+ []
+
+[46
+
+ <../figures/happy_vs_GDP_wave7_weighted.pdf>] [47
+
+] (../tables/gdp.tex)
+Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--174
+[][] 
+ []
+
+
+Overfull \vbox (3.29666pt too high) detected at line 174
+ []
+
+[48
 
 ] [49
+
+] [50
+
+] [51
+
+] [52
+
+] [53
+
+] [54
+
+] [55
+
+] [56
+
+] [57
+
+] [58
+
+]
+<../figures/region_groupings.png, id=422, 1374.5754pt x 756.1851pt>
+File: ../figures/region_groupings.png Graphic file (type png)
+<use ../figures/region_groupings.png>
+Package pdftex.def Info: ../figures/region_groupings.png  used on input line 195.
+(pdftex.def)             Requested size: 356.20662pt x 195.95828pt.
+
+Overfull \vbox (5.42082pt too high) detected at line 195
+ []
+
+[59
+
+ <../figures/region_groupings.png>]
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
+<recently read> \halign 
+                        
+l.218 \end{frame}
+                 
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+So I've deleted the formulas that preceded this alignment.
+
+[60
+
+]
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
+<recently read> \halign 
+                        
+l.218 \end{frame}
+                 
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+So I've deleted the formulas that preceded this alignment.
+
+[61
+
+]
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
+<recently read> \halign 
+                        
+l.218 \end{frame}
+                 
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+So I've deleted the formulas that preceded this alignment.
+
+[62
+
+]
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
+<recently read> \halign 
+                        
+l.218 \end{frame}
+                 
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+So I've deleted the formulas that preceded this alignment.
+
+[63
+
+]
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
+<recently read> \halign 
+                        
+l.218 \end{frame}
+                 
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+So I've deleted the formulas that preceded this alignment.
+
+[64
+
+]
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
+<recently read> \halign 
+                        
+l.218 \end{frame}
+                 
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+So I've deleted the formulas that preceded this alignment.
+
+[65
+
+
+
+pdfTeX warning: pdflatex.exe: pop empty color page stack 0
+] (../tables/share_gdp.tex)
+Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--223
+[][] 
+ []
+
+
+Overfull \vbox (3.29666pt too high) detected at line 223
+ []
+
+[66
+
+] [67
+
+] [68
+
+] [69
+
+] [70
+
+] [71
+
+] [72
+
+] [73
+
+] [74
+
+] [75
+
+] [76
+
+] [77
+
+] [78
+
+] [79
+
+] [80
+
+] (../tables/gdp_add.tex)
+Overfull \vbox (2.29666pt too high) detected at line 266
+ []
+
+[81
+
+] (../tables/share_gdp_add.tex)
+Overfull \vbox (2.29666pt too high) detected at line 274
+ []
+
+[82
 
 ]
 \tf@nav=\write6
@@ -1347,21 +1538,24 @@ Overfull \vbox (5.42082pt too high) detected at line 197
 
  (build/wellbeing_prez.aux)
 Package rerunfilecheck Info: File `wellbeing_prez.out' has not changed.
-(rerunfilecheck)             Checksum: 89C7A85E17C081A93AFEFE354234B33D;798.
+(rerunfilecheck)             Checksum: EBEC5A8B7913F8BB59EEA1DB2AC32EE0;1018.
  ) 
 Here is how much of TeX's memory you used:
- 33834 strings out of 475075
- 672591 string characters out of 5783001
- 992149 words of memory out of 5000000
- 54387 multiletter control sequences out of 15000+600000
- 518312 words of font info for 85 fonts, out of 8000000 for 9000
+ 34038 strings out of 475075
+ 677376 string characters out of 5783001
+ 991331 words of memory out of 5000000
+ 54502 multiletter control sequences out of 15000+600000
+ 526387 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,15n,104p,622b,640s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on build/wellbeing_prez.pdf (49 pages, 4112228 bytes).
+ 99i,15n,104p,622b,694s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{share_gdp_add} has been referenced but does not exist, replaced by a fixed one
+
+{c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on build/wellbeing_prez.pdf (82 pages, 3015478 bytes).
 PDF statistics:
- 353 PDF objects out of 1000 (max. 8388607)
- 278 compressed objects within 3 object streams
- 104 named destinations out of 1000 (max. 500000)
- 102 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 640 PDF objects out of 1000 (max. 8388607)
+ 505 compressed objects within 6 object streams
+ 176 named destinations out of 1000 (max. 500000)
+ 158 words of extra memory for PDF output out of 10000 (max. 10000000)
 
