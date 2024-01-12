@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1705088722 "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" "build/wellbeing_prez.pdf" "wellbeing_prez" 1705088722
+["pdflatex"] 1705089105 "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" "build/wellbeing_prez.pdf" "wellbeing_prez" 1705089105
   "../figures/WVS_countries_regions.png" 1704988069 1883156 e93db2090586dae71adeebcbbd402bec ""
   "../figures/happiness_Layard_vs_GDPppp.pdf" 1705003607 15864 58e4feace1f0da104d2da58cb5f7234d ""
   "../figures/happiness_mean_vs_GDPppp.pdf" 1705003600 15614 95fe33c0571da917a7e5b6ce1d5c77ff ""
@@ -15,10 +15,10 @@
   "../tables/gdp_add.tex" 1705070132 1159 891db47b873d28c69e0b586a67ed4817 ""
   "../tables/share_gdp.tex" 1705088345 1236 ec8248cb0900d94b36ba6a259a5459ab ""
   "../tables/share_gdp_add.tex" 1705070132 1156 b3c4884c21f65eb0983d83dc9f2cdc5c ""
-  "build/wellbeing_prez.aux" 1705088471 6891 6e6b786204a309c2e81a2b36ef13852e "pdflatex"
-  "build/wellbeing_prez.nav" 1705088471 3763 a40cfe4d3b63e78007edcb5dfddaf3ff "pdflatex"
-  "build/wellbeing_prez.out" 1705088471 1018 ebec5a8b7913f8bb59eea1db2ac32ee0 "pdflatex"
-  "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" 1705088654 17544 1dc80a58171ebfb89c3468a1f4590790 ""
+  "build/wellbeing_prez.aux" 1705089102 6891 6e6b786204a309c2e81a2b36ef13852e "pdflatex"
+  "build/wellbeing_prez.nav" 1705089102 3763 a40cfe4d3b63e78007edcb5dfddaf3ff "pdflatex"
+  "build/wellbeing_prez.out" 1705089102 1018 ebec5a8b7913f8bb59eea1db2ac32ee0 "pdflatex"
+  "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" 1705089077 17544 1dc80a58171ebfb89c3468a1f4590790 ""
   "c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1663542048 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1663542332 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplr7t.tfm" 1663543501 1804 7b5f73028f6509167f47ace9d69509ed ""
@@ -302,7 +302,7 @@
   "c:/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1663545077 3059215 8f99df6ed72caaaf55d8f9d041927bea ""
   "c:/texlive/2022/texmf.cnf" 1663544940 713 e69b156964470283e0530f5060668171 ""
   "preamble_slides.tex" 1705081358 16342 6f83c1e59b4e8dd185a265a0d115ae07 ""
-  "wellbeing_prez.tex" 1705088654 17544 1dc80a58171ebfb89c3468a1f4590790 ""
+  "wellbeing_prez.tex" 1705089077 17544 1dc80a58171ebfb89c3468a1f4590790 ""
   (generated)
   "build/wellbeing_prez.aux"
   "build/wellbeing_prez.log"
