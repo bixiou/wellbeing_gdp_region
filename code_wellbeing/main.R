@@ -69,6 +69,7 @@ a <- wvs %>% group_by(code, year) %>%
   dplyr::summarize(very_happy = weighted.mean(happiness[happiness > 0] == 1, weight[happiness > 0]),
                    happy = weighted.mean(happiness[happiness > 0] < 3, weight[happiness > 0]),
                    very_unhappy = weighted.mean(happiness[happiness > 0] == 4, weight[happiness > 0]),
+                   very_happy_minus_very_unhappy = min(1000, sum((happiness[happiness > 0] == 1) * weight[happiness > 0]) - sum((happiness[happiness > 0] == 4) * weight[happiness > 0])),
                    very_happy_over_very_unhappy = min(1000, sum((happiness[happiness > 0] == 1) * weight[happiness > 0]) / sum((happiness[happiness > 0] == 4) * weight[happiness > 0])),
                    satisfied = weighted.mean(satisfaction[satisfaction > 0] > 5, weight[satisfaction > 0]),
                    satisfied_mean = weighted.mean(satisfaction[satisfaction > 0], weight[satisfaction > 0]),
@@ -104,8 +105,8 @@ for (var in c("gdp", "gdp_ppp", "gdp_na", "gdp_ppp_na")) a <- create_gdp_vars(va
 
 
 ##### regressions #####
-happiness_variables <- c("very_happy", "happy", "very_unhappy", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard", "very_happy_over_very_unhappy")
-hapiness_names <- setNames(c("Very Happy", "Happy", "Very Unhappy", "Satisfied", "Satisfaction (mean)", "Happiness (mean)", "Happy-Satisfied", "Very Happy over Very Unhappy"), happiness_variables)
+happiness_variables <- c("very_happy", "happy", "very_unhappy", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard", "very_happy_minus_very_unhappy") 
+hapiness_names <- setNames(c("Very Happy", "Happy", "Very Unhappy", "Satisfied", "Satisfaction (mean)", "Happiness (mean)", "Happy-Satisfied", "Very Happy minus Very Unhappy"), happiness_variables)
 
 run_regressions <- function(var_gdp = "gdp_ppp", waves = 1:7, weight = FALSE, pandemic_years = TRUE, only_last = FALSE, happiness_vars = happiness_variables, data = a, return = "var_explained") {
   # if (!pandemic_years) data <- create_gdp_vars(pandemic_years = FALSE)
@@ -199,12 +200,16 @@ for (w in c(2:7, list(c(1:7), c(1:2), c(3:5)))) for (var_gdp in c("gdp", "gdp_pp
   table_name <- paste0("r", if (length(w)==7) "" else paste0(w, collapse = ""), if (var_gdp=="gdp_ppp") "p" else "")
   reg_tables[[table_name]] <- run_regressions(var_gdp = var_gdp, waves = w, weight = FALSE)
 }
+reg_tables$rp_weighted <- run_regressions(var_gdp = "gdp_ppp", waves = 1:7, weight = T, pandemic_years = T)
+reg_tables$rp_na <- run_regressions(var_gdp = "gdp_ppp_na", waves = 1:7, weight = FALSE, pandemic_years = T)
+reg_tables$rp_only_last <- run_regressions(var_gdp = "gdp_ppp", waves = 1:7, weight = FALSE, only_last = T) 
 reg_tables$r7p_wo_pandemic_years <- run_regressions(var_gdp = "gdp_ppp", waves = 7, weight = FALSE, pandemic_years = F)
 reg_tables$r7p_weighted <- run_regressions(var_gdp = "gdp_ppp", waves = 7, weight = T, pandemic_years = T)
 reg_tables$r7p_na <- run_regressions(var_gdp = "gdp_ppp_na", waves = 7, weight = FALSE, pandemic_years = T)
 reg_tables$r345p_only_last_na <- run_regressions(var_gdp = "gdp_ppp_na", waves = 3:5, weight = FALSE, only_last = T)
 reg_tables$r345_only_last <- run_regressions(var_gdp = "gdp", waves = 3:5, weight = FALSE, only_last = T)
 reg_tables$r345p_only_last <- run_regressions(var_gdp = "gdp_ppp", waves = 3:5, weight = FALSE, only_last = T) # reproduction of my original work
+reg_tables$r_only_last <- run_regressions(var_gdp = "gdp", waves = 1:7, weight = FALSE, only_last = T)
 
 (max_share_var_explained_by_gdp <- round(sapply(names(reg_tables), function(n) n = max(reg_tables[[n]]$share_var_explained_by_gdp)), 3))
 (argmax_share_var_explained_by_gdp <- sapply(names(reg_tables), function(n) n = paste(reg_tables[[n]]$var_happiness, reg_tables[[n]]$var_gdp)[which.max(reg_tables[[n]]$share_var_explained_by_gdp)]))
@@ -225,18 +230,72 @@ mean(mean_share_var_explained_by_gdp[!grepl("p", names(mean_share_var_explained_
 
 
 ##### Table Variance explained by GDP #####
-gdp_variables <- c("log_gdp", "gdp_group", "gdp_cluster5", "gdp_cluster6", "gdp_cluster7", "log_gdp_nominal", "gdp_cluster7_nominal")
-table_var_explained_by_gdp <- matrix(nrow = length(happiness_variables)+2, ncol = length(gdp_variables)+2, dimnames = list(c(happiness_variables, "mean", "max"), c(gdp_variables, "mean", "max")))
-for (g in gdp_variables) {
-  tab <- if (grepl("nominal", g)) "r" else "rp"
-  var_name <- paste0("region_", if (grepl("nominal", g)) sub("_nominal", "", g) else g)
-  table_var_explained_by_gdp[happiness_variables, g] <- round(sapply(happiness_variables, function(h) reg_tables[[tab]]$var_explained_by_gdp[reg_tables[[tab]]$var_gdp == var_name & reg_tables[[tab]]$var_happiness == h]), 3)
+gdp_variables <- c("log_gdp", "log_gdp_nominal", "gdp_group", "gdp_cluster5", "gdp_cluster6", "gdp_cluster7", "gdp_cluster7_nominal") # , c("log GDP p.c. PPP", "GDP sextile", "GDP cluster (k=5)"
+supp_specs <- c("rp_weighted", "rp_na", "rp_only_last", "r12p", "r3p", "r4p", "r5p", "r6p", "r7p", "r7p_wo_pandemic_years") 
+add_specs <- c("rp_weighted", "r12p", "r3p", "r4p", "r5p", "r6p", "r7p") 
+add2_specs <- c("rp_weighted", "rp_na", "rp_only_last", "r7p_wo_pandemic_years") # not_log quadratic
+
+latex_names <- c("very_happy_minus_very_unhappy" = "V. Happy -- V. Unhappy", "happiness_Layard" = "Happy + Satisfied", hapiness_names, 
+                       "log_gdp" = "\\makecell{log GDP p.c.\\\\PPP}", "gdp_group" = "\\makecell{quantile\\\\(sextile)}",
+                       "gdp_cluster5" = "k = 5", "gdp_cluster6" = "k = 6", "gdp_cluster7" = "k = 7", "log_gdp_nominal" = "\\makecell{log GDP p.c.\\\\nominal}",
+                       "gdp_cluster7_nominal" = "\\makecell{cluster (k = 7)\\\\nominal}",
+                       "mean" = "Mean", "max" = "Max", "Number of country $\\times$ wave",
+                       "rp_weighted" = "\\makecell{All waves\\\\Population\\\\weighted}", "rp_na" = "\\makecell{All waves\\\\Without missing\\\\GDP imputation}", 
+                       "rp_only_last" = "\\makecell{Only last\\\\wave for\\\\each country}", "r12p" = "\\makecell{Waves 1 \\& 2\\\\(1981-1991)}", 
+                       "r3p" = "\\makecell{Wave 3\\\\(1995-1999)}", "r4p" = "\\makecell{Wave 4\\\\(1999-2004)}", "r5p" = "\\makecell{Wave 5\\\\(2004-2009)}", 
+                       "r6p" = "\\makecell{Wave 6\\\\(2010-2016)}", "r7p" = "\\makecell{Wave 7\\\\(2017-2022)}", "r7p_wo_pandemic_years" = "\\makecell{Wave 7\\\\without pandemic\\\\(2020-2021)}")
+latex_short_names <- c("log_gdp" = "\\makecell{\\,\\\\PPP}", "log_gdp_nominal" = "\\makecell{\\,\\\\nominal}", "gdp_group" = "\\makecell{sextile\\\\PPP}", 
+                       "gdp_cluster5" = "\\makecell{k = 5\\\\PPP}", "gdp_cluster6" = "\\makecell{k = 6\\\\PPP}", "gdp_cluster7" = "\\makecell{k = 7\\\\PPP}", 
+                       "n_obs" = "Number of obs.", "gdp_cluster7_nominal" = "\\makecell{k = 7\\\\nominal}", 
+                       "rp_weighted" = "\\makecell{Pop.\\\\weight}", "r12p" = "\\makecell{1 \\& 2}", 
+                       "r3p" = "\\makecell{3}", "r4p" = "\\makecell{4}", "r5p" = "\\makecell{5}", 
+                       "r6p" = "\\makecell{6}", "r7p" = "\\makecell{7}", "r7p_wo_pandemic_years" = "\\makecell{Wave 7\\\\without pandemic\\\\(2020-2021)}", latex_names)
+
+mean_max_table <- function(out_var, col_vars, default_gdp = "gdp_cluster7", happiness_vars = happiness_variables, n_obs = T, export = TRUE, filename = NULL, caption = NULL) {
+  table <- matrix(nrow = length(happiness_vars)+2, ncol = length(col_vars)+2, dimnames = list(c(happiness_vars, "mean", "max"), c(col_vars, "mean", "max")))
+  Ns <- c()
+  for (g in col_vars) {
+    tab <- if (grepl("gdp", g)) { if (grepl("nominal", g)) "r" else "rp" } else g
+    waves <- str_split_1(gsub("\\D", "", tab), pattern = "")
+    if (length(waves) == 0) waves <- 1:7
+    Ns <- c(Ns, sum(a$wave %in% waves & (if (grepl("wo_pandemic", g)) a$non_pandemic else T) & (if (grepl("_na", g)) { if (grepl("p_", g)) !is.na(a$gdp_ppp_na) else !is.na(a$gdp_na)} else T)))
+    var_name <- if (grepl("gdp", g)) { if (grepl("nominal", g)) sub("_nominal", "", g) else g } else default_gdp
+    table[happiness_vars, g] <- round(sapply(happiness_vars, function(h) reg_tables[[tab]][[out_var]][reg_tables[[tab]]$var_gdp == paste0("region_", var_name) & reg_tables[[tab]]$var_happiness == h]), 3)
+  }
+  table["mean",] <- round(colMeans(table, na.rm = T), 3)
+  table[,"mean"] <- round(rowMeans(table, na.rm = T), 3)
+  table["max",] <- sapply(1:ncol(table), function(j) max(table[1:(nrow(table)-2),j], na.rm = T))
+  table[,"max"] <- sapply(1:nrow(table), function(i) max(table[i,1:(ncol(table)-2)], na.rm = T))
+  if (n_obs) table <- rbind(round(table, 2), "n_obs" = c(Ns, "", ""))
+  
+  if (export) {
+    latex <- table
+    row.names(latex) <- latex_short_names[rownames(table)]
+    if (deparse(substitute(col_vars)) == "gdp_variables") toprule <- "toprule Happiness variable & \\\\multicolumn{2}{c}{log GDP p.c.} & \\\\multicolumn{5}{c}{Income cluster} & & \\\\\\\\"
+    else if (deparse(substitute(col_vars)) == "add_specs") toprule <- "toprule & All waves & \\\\multicolumn{6}{c}{Only selected waves} &  & \\\\\\\\"
+    else toprule <- "toprule "
+    if (is.null(filename)) filename <- paste0(if (grepl("^share_", out_var)) "share_" else "", "gdp", 
+            if (deparse(substitute(col_vars)) == "add_specs") "_add" else { if (deparse(substitute(col_vars)) == "supp_specs") "_supp" else "" } )
+    
+    cat(sub("toprule", toprule, sub("\\nMean", " \\\\midrule \nMean", sub("\nNumber", " \\\\midrule \nNumber", paste(
+      kbl(latex, "latex", caption = caption, label = filename, position = "h", escape = F, booktabs = T, align = "c",
+          col.names = latex_short_names[colnames(latex)], linesep = rep("", nrow(latex)-1))
+      , collapse=" \n")))), file = paste0("../tables/", filename, ".tex")) 
+  }
+  
+  return(table)  
 }
-table_var_explained_by_gdp["mean",] <- round(colMeans(table_var_explained_by_gdp, na.rm = T), 3)
-table_var_explained_by_gdp[,"mean"] <- round(rowMeans(table_var_explained_by_gdp, na.rm = T), 3)
-table_var_explained_by_gdp["max",] <- sapply(1:ncol(table_var_explained_by_gdp), function(j) max(table_var_explained_by_gdp[1:(nrow(table_var_explained_by_gdp)-2),j], na.rm = T))
-table_var_explained_by_gdp[,"max"] <- sapply(1:nrow(table_var_explained_by_gdp), function(i) max(table_var_explained_by_gdp[i,1:(ncol(table_var_explained_by_gdp)-2)], na.rm = T))
-table_var_explained_by_gdp
+(table_gdp <- mean_max_table(out_var = "var_explained_by_gdp", col_vars = gdp_variables, happiness_vars = happiness_variables))
+(table_share_gdp <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = gdp_variables, happiness_vars = happiness_variables))
+(table_gdp_supp <- mean_max_table(out_var = "var_explained_by_gdp", col_vars = supp_specs, happiness_vars = happiness_variables))
+(table_share_gdp_supp <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = supp_specs, happiness_vars = happiness_variables))
+(table_gdp_add <- mean_max_table(out_var = "var_explained_by_gdp", col_vars = add_specs, happiness_vars = happiness_variables))
+(table_share_gdp_add <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = add_specs, happiness_vars = happiness_variables))
+
+# DONE: Share of variance explained by GDP pc: by happiness variable x gdp variables; DONE then showing it holds for other defs and waves
+# DONE: Happiest countries by indicator/wave => Table of occurrences by country
+# DONE: Table Region is a better predictor of national well-being than income
+# DONE: Table showing that results holds with other variables or waves
 
 happiest_region <- happiest_country <- matrix(nrow = length(happiness_variables), ncol = 8, dimnames = list(happiness_variables, c(1:7, "all")))
 for (h in happiness_variables) for (w in colnames(happiest_country)) {
@@ -251,23 +310,6 @@ sort(table(unlist(happiest_region)), decreasing = T)
 sort(table(unlist(happiest_country[,3:ncol(happiest_country)])), decreasing = T)
 sort(table(unlist(happiest_region[,3:ncol(happiest_region)])), decreasing = T)
 sort(table(unlist(happiest_region[,"all"])), decreasing = T)
-
-table_share_var_explained_by_gdp <- matrix(nrow = length(happiness_variables)+2, ncol = length(gdp_variables)+2, dimnames = list(c(happiness_variables, "mean", "max"), c(gdp_variables, "mean", "max")))
-for (g in gdp_variables) {
-  tab <- if (grepl("nominal", g)) "r" else "rp"
-  var_name <- paste0("region_", if (grepl("nominal", g)) sub("_nominal", "", g) else g)
-  table_share_var_explained_by_gdp[happiness_variables, g] <- round(sapply(happiness_variables, function(h) reg_tables[[tab]]$share_var_explained_by_gdp[reg_tables[[tab]]$var_gdp == var_name & reg_tables[[tab]]$var_happiness == h]), 3)
-}
-table_share_var_explained_by_gdp["mean",] <- round(colMeans(table_share_var_explained_by_gdp, na.rm = T), 3)
-table_share_var_explained_by_gdp[,"mean"] <- round(rowMeans(table_share_var_explained_by_gdp, na.rm = T), 3)
-table_share_var_explained_by_gdp["max",] <- sapply(1:ncol(table_share_var_explained_by_gdp), function(j) max(table_share_var_explained_by_gdp[1:(nrow(table_share_var_explained_by_gdp)-2),j], na.rm = T))
-table_share_var_explained_by_gdp[,"max"] <- sapply(1:nrow(table_share_var_explained_by_gdp), function(i) max(table_share_var_explained_by_gdp[i,1:(ncol(table_share_var_explained_by_gdp)-2)], na.rm = T))
-table_share_var_explained_by_gdp
-
-# DONE: Share of variance explained by GDP pc: by happiness variable x gdp variables; TODO then showing it holds for other defs and waves
-# DONE: Happiest countries by indicator/wave => Table of occurrences by country
-# DONE: Table Region is a better predictor of national well-being than income
-# TODO: Table showing that results holds with other variables or waves
 
 
 ##### Plot #####
@@ -450,3 +492,50 @@ decrit("wave", a, weight = F) # 1:8(81-84) 2:18(89-91) 3:56(95-99) 4:40(99-04) 5
 # }
 # a7 <- create_gdp_vars(7)
 # a6 <- create_gdp_vars(6)
+
+# table_var_explained_by_gdp <- matrix(nrow = length(happiness_variables)+2, ncol = length(gdp_variables)+2, dimnames = list(c(happiness_variables, "mean", "max"), c(gdp_variables, "mean", "max")))
+# for (g in gdp_variables) {
+#   tab <- if (grepl("nominal", g)) "r" else "rp"
+#   var_name <- paste0("region_", if (grepl("nominal", g)) sub("_nominal", "", g) else g)
+#   table_var_explained_by_gdp[happiness_variables, g] <- round(sapply(happiness_variables, function(h) reg_tables[[tab]]$var_explained_by_gdp[reg_tables[[tab]]$var_gdp == var_name & reg_tables[[tab]]$var_happiness == h]), 3)
+# }
+# table_var_explained_by_gdp["mean",] <- round(colMeans(table_var_explained_by_gdp, na.rm = T), 3)
+# table_var_explained_by_gdp[,"mean"] <- round(rowMeans(table_var_explained_by_gdp, na.rm = T), 3)
+# table_var_explained_by_gdp["max",] <- sapply(1:ncol(table_var_explained_by_gdp), function(j) max(table_var_explained_by_gdp[1:(nrow(table_var_explained_by_gdp)-2),j], na.rm = T))
+# table_var_explained_by_gdp[,"max"] <- sapply(1:nrow(table_var_explained_by_gdp), function(i) max(table_var_explained_by_gdp[i,1:(ncol(table_var_explained_by_gdp)-2)], na.rm = T))
+# table_var_explained_by_gdp
+
+# table_share_var_explained_by_gdp <- matrix(nrow = length(happiness_variables)+2, ncol = length(gdp_variables)+2, dimnames = list(c(happiness_variables, "mean", "max"), c(gdp_variables, "mean", "max")))
+# for (g in gdp_variables) {
+#   tab <- if (grepl("nominal", g)) "r" else "rp"
+#   var_name <- paste0("region_", if (grepl("nominal", g)) sub("_nominal", "", g) else g)
+#   table_share_var_explained_by_gdp[happiness_variables, g] <- round(sapply(happiness_variables, function(h) reg_tables[[tab]]$share_var_explained_by_gdp[reg_tables[[tab]]$var_gdp == var_name & reg_tables[[tab]]$var_happiness == h]), 3)
+# }
+# table_share_var_explained_by_gdp["mean",] <- round(colMeans(table_share_var_explained_by_gdp, na.rm = T), 3)
+# table_share_var_explained_by_gdp[,"mean"] <- round(rowMeans(table_share_var_explained_by_gdp, na.rm = T), 3)
+# table_share_var_explained_by_gdp["max",] <- sapply(1:ncol(table_share_var_explained_by_gdp), function(j) max(table_share_var_explained_by_gdp[1:(nrow(table_share_var_explained_by_gdp)-2),j], na.rm = T))
+# table_share_var_explained_by_gdp[,"max"] <- sapply(1:nrow(table_share_var_explained_by_gdp), function(i) max(table_share_var_explained_by_gdp[i,1:(ncol(table_share_var_explained_by_gdp)-2)], na.rm = T))
+# table_share_var_explained_by_gdp # happiness_Layard is the highest
+
+# cat(sub("toprule", "toprule Happiness variable & \\\\textit{Income}: & Income & \\\\multicolumn{3}{c}{Income cluster} & & Income & & \\\\\\\\", sub("\\nMean", " \\\\midrule \nMean", sub("\nNumber", " \\\\midrule \nNumber", paste(
+#   kbl(table, "latex", caption = NULL, label = NULL, position = "h", escape = F, booktabs = T, align = "c",
+#       col.names = latex_short_names[colnames(table)], linesep = rep("", nrow(table)-1))
+#   , collapse=" \n")))), file = "../tables/allocation.tex") 
+
+# row.names(table) <- latex_short_names[rownames(table_gdp)]
+# cat(sub("toprule", "toprule Happiness variable & \\\\multicolumn{2}{c}{log GDP p.c.} & \\\\multicolumn{5}{c}{Income cluster} & & \\\\\\\\", sub("\\nMean", " \\\\midrule \nMean", sub("\nNumber", " \\\\midrule \nNumber", paste(
+#   kbl(table, "latex", caption = NULL, label = "gdp", position = "h", escape = F, booktabs = T, align = "c",
+#       col.names = latex_short_names[colnames(table)], linesep = rep("", nrow(table)-1))
+#   , collapse=" \n")))), file = "../tables/gdp.tex") 
+# 
+# row.names(table) <- latex_short_names[rownames(table_gdp_supp)]
+# cat(sub("toprule", "toprule ", sub("\\nMean", " \\\\midrule \nMean", sub("\nNumber", " \\\\midrule \nNumber", paste(
+#   kbl(table, "latex", caption = NULL, label = NULL, position = "h", escape = F, booktabs = T, align = "c",
+#       col.names = latex_short_names[colnames(table)], linesep = rep("", nrow(table)-1))
+#   , collapse=" \n")))), file = "../tables/gdp_supp.tex") 
+# 
+# row.names(table) <- latex_short_names[rownames(table_gdp_add)]
+# cat(sub("toprule", "toprule & All waves & \\\\multicolumn{6}{c}{Only selected waves} &  & \\\\\\\\", sub("\\nMean", " \\\\midrule \nMean", sub("\nNumber", " \\\\midrule \nNumber", paste(
+#   kbl(table, "latex", caption = NULL, label = NULL, position = "h", escape = F, booktabs = T, align = "c",
+#       col.names = latex_short_names[colnames(table)], linesep = rep("", nrow(table)-1))
+#   , collapse=" \n")))), file = "../tables/gdp_add.tex") 

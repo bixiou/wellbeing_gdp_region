@@ -1,12 +1,16 @@
 # Fdb version 3
-["pdflatex"] 1704997480 "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" "build/wellbeing_prez.pdf" "wellbeing_prez" 1704997493
+["pdflatex"] 1705065127 "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" "build/wellbeing_prez.pdf" "wellbeing_prez" 1705065138
   "../figures/WVS_countries.png" 1704988832 1804881 2ca9d78388ecba75950a691689fd9eef ""
   "../figures/WVS_countries_regions.png" 1704988069 1883156 e93db2090586dae71adeebcbbd402bec ""
   "../figures/region_groupings.png" 1704988388 1826644 1fdb5332d381b6efa632d607e097de8b ""
-  "build/wellbeing_prez.aux" 1704997493 4700 781e5ab7b6ce4a1afd1dc7533454deaf "pdflatex"
-  "build/wellbeing_prez.nav" 1704997493 2672 392a3f1ba70dffa93bb43b1a9c4d94c0 "pdflatex"
-  "build/wellbeing_prez.out" 1704997493 798 89c7a85e17c081a93afefe354234b33d "pdflatex"
-  "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" 1704997464 10798 f052d94197a187af37d5d470dda7c157 ""
+  "../tables/gdp.tex" 1705065100 1221 1fcd55e75aa55614d97d37cf4bb9ef2d ""
+  "../tables/gdp_add.tex" 1705065100 1140 19d4ef9097e105323d02670a5165f1d8 ""
+  "../tables/share_gdp.tex" 1705065100 1236 ec8248cb0900d94b36ba6a259a5459ab ""
+  "../tables/share_gdp_add.tex" 1705065100 1137 f3c2b8921f266c840a9efecd912f8162 ""
+  "build/wellbeing_prez.aux" 1705065137 5084 5c872d80cd3903729dad835746e92855 "pdflatex"
+  "build/wellbeing_prez.nav" 1705065137 2948 2866e791da227520f5e5c3a39e0a562d "pdflatex"
+  "build/wellbeing_prez.out" 1705065137 798 89c7a85e17c081a93afefe354234b33d "pdflatex"
+  "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" 1705065125 11909 eb2739738ebf82d92cab9227e3228b3d ""
   "c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1663542048 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1663542332 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplr7t.tfm" 1663543501 1804 7b5f73028f6509167f47ace9d69509ed ""
@@ -280,7 +284,7 @@
   "c:/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1663545077 3059215 8f99df6ed72caaaf55d8f9d041927bea ""
   "c:/texlive/2022/texmf.cnf" 1663544940 713 e69b156964470283e0530f5060668171 ""
   "preamble_slides.tex" 1696429465 16320 3bb20db3fedbccfeaf03839a15509259 ""
-  "wellbeing_prez.tex" 1704997464 10798 f052d94197a187af37d5d470dda7c157 ""
+  "wellbeing_prez.tex" 1705065125 11909 eb2739738ebf82d92cab9227e3228b3d ""
   (generated)
   "build/wellbeing_prez.aux"
   "build/wellbeing_prez.log"

@@ -7,5 +7,6 @@ raw_data/*
 *.history
 *.Rhistory
 *.RDataTmp
+*/build/*
 
 data/~$IVS_dictionary.xlsx

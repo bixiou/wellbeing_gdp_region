@@ -35,6 +35,7 @@ package("ggplot2")
 package("ggrepel")
 package("tidyr")
 package("beepr")
+package("kableExtra") # kbl (latex table)
 
 
 decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FALSE, which = NULL, weight = T) { # TODO!: allow for boolean weights
