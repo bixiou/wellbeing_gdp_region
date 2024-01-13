@@ -8,6 +8,9 @@
 # DONE: poids
 # DONE: graphiques
 # DONE: reproduire l'analyse économétrique
+# TODO: appendix table (xlsx?) with WB indicator values for each country-wave
+# TODO: variance explained by religiosity, tolerance, free choice, democracy, GDP, growth
+# Outlet: Journal of Happiness Studies (IF: 4.6)
 
 
 ##### Data preparation #####
@@ -49,6 +52,7 @@ for (reg in names(region)) for (i in region[[reg]]) region_mapping <- c(region_m
 wvs$region <- region_mapping[wvs$code]
 wvs <- wvs[, c("wave", "alpha.2", "weight", "pop_weight", "year", "happiness", "satisfaction", "financial_satisfaction", "home_satisfaction", "country", "code", "region")]
 
+# TODO: try WB's Global Economic Prospects?
 # /!\ Imputations (esp. for pre-90 PPP) use IMF data which are not in 17$ but in current $, hence they are lower than WB estimates => perhaps it's better to exclude missing data rather than using imputed one.
 GDPpcPPP <- read.csv("../data/GDPpcPPP17.csv" , sep = ",") # GDP pc PPP constant 2017 $, World Bank (2023-07-25) NY.GDP.PCAP.PP.KD Completed from IMF for pre-1990, YEM14, AND, TWN and VEN. https://en.wikipedia.org/wiki/List_of_countries_by_past_and_projected_GDP_(PPP)_per_capita - in /deprecated there is the original data without manual imputations (for AND05 I use HKG05 instead, SVK90: 8k, MNE96: MNE97, POL89: 7k)
 GDPpc <- read.csv("../data/GDPpc15.csv" , sep = ",") # GDP pc nominal constant 2015 $, World Bank (2023-07-25) NY.GDP.PCAP.KD, completed manually for missing data (see below) - in /deprecated there is the original data without manual imputations TODO: compute and automatize IMF constant nominal $ (for the moment we use current nominal $ instead), cf. deprecated/IMF23
@@ -79,6 +83,7 @@ a <- wvs %>% group_by(code, year) %>%
                    gdp = unique(gdp), gdp_ppp = unique(gdp_ppp), gdp_na = unique(gdp_na), gdp_ppp_na = unique(gdp_ppp_na), region = unique(region), wave = unique(wave), alpha.2 = unique(alpha.2), country = unique(country),
   )
 a$happiness_Layard <- (a$happy + a$satisfied)/2
+a$happiness_Inglehart <- (((a$happiness_mean + 3) * 3/2 + 1) + a$satisfied_mean)/2 # TODO!
 a$non_pandemic <- !a$year %in% c(2020, 2021)
 
 pop <- read.xlsx("../data/pop.xlsx") # UN World Population Prospect 2022 GEN/01/REV1 https://population.un.org/wpp/Download/Standard/MostUsed/ I have manually copied 2022 figures into the spreadsheet (from the sheet medium projection to past estimate's): CZE, GBR, LBY, NIR, NLD, SVK, URY
@@ -247,7 +252,7 @@ latex_names <- c("very_happy_minus_very_unhappy" = "V. Happy -- V. Unhappy", "ha
                        "gdp_cluster7_nominal" = "\\makecell{cluster (k = 7)\\\\nominal}",
                        "mean" = "Mean", "max" = "Max", "Number of country $\\times$ wave",
                        "rp_weighted" = "\\makecell{All waves\\\\Population\\\\weighted}", "rp_na" = "\\makecell{All waves\\\\Without missing\\\\GDP imputation}", 
-                       "rp_only_last" = "\\makecell{Only last\\\\wave for\\\\each country}", "r12p" = "\\makecell{Waves 1 \\& 2\\\\(1981-1991)}", 
+                       "rp_only_last" = "\\makecell{Only latest\\\\wave for\\\\each country}", "r12p" = "\\makecell{Waves 1 \\& 2\\\\(1981-1991)}", 
                        "r3p" = "\\makecell{Wave 3\\\\(1995-1999)}", "r4p" = "\\makecell{Wave 4\\\\(1999-2004)}", "r5p" = "\\makecell{Wave 5\\\\(2004-2009)}", 
                        "r6p" = "\\makecell{Wave 6\\\\(2010-2016)}", "r7p" = "\\makecell{Wave 7\\\\(2017-2022)}", "r7p_wo_pandemic_years" = "\\makecell{Wave 7\\\\without pandemic\\\\(2020-2021)}")
 latex_short_names <- c("log_gdp" = "\\makecell{\\,\\\\PPP}", "log_gdp_nominal" = "\\makecell{\\,\\\\nominal}", "gdp_group" = "\\makecell{sextile\\\\PPP}", 
