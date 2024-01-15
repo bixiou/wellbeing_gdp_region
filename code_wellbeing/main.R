@@ -1,14 +1,10 @@
-# TODO: (non urgent) ajouter d'autres variables explicatives, e.g. croissance, revenu médian
 # TODO: first factor in regression tree with region and income
-# TODO: robustness check: redo analysis with UN regional groups (i.e. with Middle East and Central Asia in Asia); without Latin America and Ex-Eastern Block
-# DONE: (not found) trouver définitions de region qui correspondent aux nôtres. UN regional groups: 5 regions (Middle East and Central Asia in Asia) https://en.wikipedia.org/wiki/United_Nations_Regional_Groups
-# DONE: enlever les pays 2020-2021 comme robustness check
-# DONE: regarder si les donnees de GDP correspondent a la date de l'enquete, et le faire le cas echeant
-# DONE: poids
-# DONE: graphiques
-# DONE: reproduire l'analyse économétrique
+# TODO: robustness check: redo analysis without Latin America and Ex-Eastern Block
 # TODO: appendix table (xlsx?) with WB indicator values for each country-wave
+# TODO? Use happiness_Inglehart?
+# TODO? ajouter d'autres variables explicatives, e.g. croissance, revenu médian
 # TODO: variance explained by religiosity, tolerance, free choice, democracy, GDP, growth
+# TODO: Automatize recovery of missing GDP data (from IMF or WB's Global Economic Prospects)
 # Outlet: Journal of Happiness Studies (IF: 4.6)
 
 
@@ -56,7 +52,6 @@ wvs$region <- region_mapping[wvs$code]
 wvs$region6 <- region6_mapping[wvs$code]
 wvs <- wvs[, c("wave", "alpha.2", "weight", "pop_weight", "year", "happiness", "satisfaction", "financial_satisfaction", "home_satisfaction", "country", "code", "region", "region6")]
 
-# TODO: try WB's Global Economic Prospects?
 # /!\ Imputations (esp. for pre-90 PPP) use IMF data which are not in 17$ but in current $, hence they are lower than WB estimates => perhaps it's better to exclude missing data rather than using imputed one.
 GDPpcPPP <- read.csv("../data/GDPpcPPP17.csv" , sep = ",") # GDP pc PPP constant 2017 $, World Bank (2023-07-25) NY.GDP.PCAP.PP.KD Completed from IMF for pre-1990, YEM14, AND, TWN and VEN. https://en.wikipedia.org/wiki/List_of_countries_by_past_and_projected_GDP_(PPP)_per_capita - in /deprecated there is the original data without manual imputations (for AND05 I use HKG05 instead, SVK90: 8k, MNE96: MNE97, POL89: 7k)
 GDPpc <- read.csv("../data/GDPpc15.csv" , sep = ",") # GDP pc nominal constant 2015 $, World Bank (2023-07-25) NY.GDP.PCAP.KD, completed manually for missing data (see below) - in /deprecated there is the original data without manual imputations TODO: compute and automatize IMF constant nominal $ (for the moment we use current nominal $ instead), cf. deprecated/IMF23
@@ -87,7 +82,7 @@ a <- wvs %>% group_by(code, year) %>%
                    gdp = unique(gdp), gdp_ppp = unique(gdp_ppp), gdp_na = unique(gdp_na), gdp_ppp_na = unique(gdp_ppp_na), region = unique(region), region6 = unique(region6), wave = unique(wave), alpha.2 = unique(alpha.2), country = unique(country),
   )
 a$happiness_Layard <- (a$happy + a$satisfied)/2
-a$happiness_Inglehart <- (((a$happiness_mean + 3) * 3/2 + 1) + a$satisfied_mean)/2 # TODO!
+a$happiness_Inglehart <- (((a$happiness_mean + 3) * 3/2 + 1) + a$satisfied_mean)/2 # TODO? Use?
 a$non_pandemic <- !a$year %in% c(2020, 2021)
 
 pop <- read.xlsx("../data/pop.xlsx") # UN World Population Prospect 2022 GEN/01/REV1 https://population.un.org/wpp/Download/Standard/MostUsed/ I have manually copied 2022 figures into the spreadsheet (from the sheet medium projection to past estimate's): CZE, GBR, LBY, NIR, NLD, SVK, URY
@@ -352,7 +347,6 @@ create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a, PPP = T, w
 create_scatter_plot("happy")
 plot_all(waves = 7, size_pop = T, PPP = F)
 
-# TODO remove square border
 plot_all <- function(waves = 7, PPP = T, size_pop = FALSE, only_last = FALSE, region6 = FALSE, data = a, legend = TRUE, label = "country", fontsize = 7, labelsize = 2, shape_region = TRUE, vars = happiness_variables, width = 6, height = 4, format = "all") {
   for (v in vars) {
     p <- create_scatter_plot(y_var = v, log_scale_y = v %in% c("very_unhappy", "very_happy_over_very_unhappy"), data = data, PPP = PPP, waves = waves, only_last = only_last, region6 = region6, size_pop = size_pop, legend = legend, label = label, fontsize = fontsize, labelsize = labelsize, shape_region = shape_region)
