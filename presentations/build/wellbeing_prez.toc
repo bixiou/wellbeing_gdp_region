@@ -1,7 +1,7 @@
 \babel@toc {english}{}\relax 
 \beamer@sectionintoc {1}{Introduction}{2}{0}{1}
 \beamer@sectionintoc {2}{Design}{15}{0}{2}
-\beamer@sectionintoc {3}{National well-being and income}{37}{0}{3}
-\beamer@sectionintoc {4}{Region vs. GDP per capita\\as predictor of well-being}{58}{0}{4}
-\beamer@sectionintoc {5}{Conclusion}{71}{0}{5}
-\beamer@sectionintoc {6}{Robustness checks}{80}{1}{6}
+\beamer@sectionintoc {3}{National well-being and income}{38}{0}{3}
+\beamer@sectionintoc {4}{Region vs. GDP per capita\\as predictor of well-being}{60}{0}{4}
+\beamer@sectionintoc {5}{Conclusion}{73}{0}{5}
+\beamer@sectionintoc {6}{Robustness checks}{82}{1}{6}

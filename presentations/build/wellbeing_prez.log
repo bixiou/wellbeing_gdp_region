@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  12 JAN 2024 20:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  15 JAN 2024 19:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1158,13 +1158,13 @@ File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 ] [15
 
 ]
-<../figures/WVS_countries_regions.png, id=125, 1376.9844pt x 754.9806pt>
+<../figures/WVS_countries_regions.png, id=125, 1383.7296pt x 752.5716pt>
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 107.
-(pdftex.def)             Requested size: 223.3686pt x 122.47346pt.
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 115.
+(pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
-Overfull \vbox (9.181pt too high) detected at line 107
+Overfull \vbox (9.181pt too high) detected at line 115
  []
 
 [16
@@ -1172,10 +1172,10 @@ Overfull \vbox (9.181pt too high) detected at line 107
  <../figures/WVS_countries_regions.png>]
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 107.
-(pdftex.def)             Requested size: 223.3686pt x 122.47346pt.
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 115.
+(pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
-Overfull \vbox (9.181pt too high) detected at line 107
+Overfull \vbox (9.181pt too high) detected at line 115
  []
 
 [17
@@ -1183,10 +1183,10 @@ Overfull \vbox (9.181pt too high) detected at line 107
 ]
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 107.
-(pdftex.def)             Requested size: 223.3686pt x 122.47346pt.
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 115.
+(pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
-Overfull \vbox (9.181pt too high) detected at line 107
+Overfull \vbox (9.181pt too high) detected at line 115
  []
 
 [18
@@ -1194,10 +1194,10 @@ Overfull \vbox (9.181pt too high) detected at line 107
 ]
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 107.
-(pdftex.def)             Requested size: 223.3686pt x 122.47346pt.
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 115.
+(pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
-Overfull \vbox (9.181pt too high) detected at line 107
+Overfull \vbox (9.181pt too high) detected at line 115
  []
 
 [19
@@ -1205,10 +1205,10 @@ Overfull \vbox (9.181pt too high) detected at line 107
 ]
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 107.
-(pdftex.def)             Requested size: 223.3686pt x 122.47346pt.
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 115.
+(pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
-Overfull \vbox (9.181pt too high) detected at line 107
+Overfull \vbox (9.181pt too high) detected at line 115
  []
 
 [20
@@ -1247,128 +1247,128 @@ Overfull \vbox (9.181pt too high) detected at line 107
 
 ] [37
 
+] [38
+
 ]
-<../figures/happy_vs_GDPppp.pdf, id=245, 433.62pt x 289.08pt>
+<../figures/happy_vs_GDPppp.pdf, id=250, 433.62pt x 289.08pt>
 File: ../figures/happy_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/happy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/happy_vs_GDPppp.pdf  used on input line 160.
+Package pdftex.def Info: ../figures/happy_vs_GDPppp.pdf  used on input line 169.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 160
- []
-
-[38
-
- <../figures/happy_vs_GDPppp.pdf>]
-<../figures/very_happy_vs_GDPppp.pdf, id=256, 433.62pt x 289.08pt>
-File: ../figures/very_happy_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/very_happy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/very_happy_vs_GDPppp.pdf  used on input line 160.
-(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
-
-Overfull \vbox (21.37737pt too high) detected at line 160
+Overfull \vbox (21.37737pt too high) detected at line 169
  []
 
 [39
 
- <../figures/very_happy_vs_GDPppp.pdf>]
-<../figures/very_unhappy_vs_GDPppp.pdf, id=267, 433.62pt x 289.08pt>
-File: ../figures/very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/very_unhappy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/very_unhappy_vs_GDPppp.pdf  used on input line 160.
+ <../figures/happy_vs_GDPppp.pdf>]
+<../figures/very_happy_vs_GDPppp.pdf, id=261, 433.62pt x 289.08pt>
+File: ../figures/very_happy_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/very_happy_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/very_happy_vs_GDPppp.pdf  used on input line 169.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 160
+Overfull \vbox (21.37737pt too high) detected at line 169
  []
 
 [40
 
- <../figures/very_unhappy_vs_GDPppp.pdf>]
-<../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf, id=278, 433.62pt x 289.08pt>
-File: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf  used on input line 160.
+ <../figures/very_happy_vs_GDPppp.pdf>]
+<../figures/very_unhappy_vs_GDPppp.pdf, id=272, 433.62pt x 289.08pt>
+File: ../figures/very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/very_unhappy_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/very_unhappy_vs_GDPppp.pdf  used on input line 169.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 160
+Overfull \vbox (21.37737pt too high) detected at line 169
  []
 
 [41
 
- <../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>]
-<../figures/happiness_mean_vs_GDPppp.pdf, id=290, 433.62pt x 289.08pt>
-File: ../figures/happiness_mean_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/happiness_mean_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/happiness_mean_vs_GDPppp.pdf  used on input line 160.
+ <../figures/very_unhappy_vs_GDPppp.pdf>]
+<../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf, id=283, 433.62pt x 289.08pt>
+File: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf  used on input line 169.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 160
+Overfull \vbox (21.37737pt too high) detected at line 169
  []
 
 [42
 
- <../figures/happiness_mean_vs_GDPppp.pdf>]
-<../figures/satisfied_mean_vs_GDPppp.pdf, id=301, 433.62pt x 289.08pt>
-File: ../figures/satisfied_mean_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/satisfied_mean_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/satisfied_mean_vs_GDPppp.pdf  used on input line 160.
+ <../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>]
+<../figures/happiness_mean_vs_GDPppp.pdf, id=295, 433.62pt x 289.08pt>
+File: ../figures/happiness_mean_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/happiness_mean_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/happiness_mean_vs_GDPppp.pdf  used on input line 169.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 160
+Overfull \vbox (21.37737pt too high) detected at line 169
  []
 
 [43
 
- <../figures/satisfied_mean_vs_GDPppp.pdf>]
-<../figures/satisfied_vs_GDPppp.pdf, id=313, 433.62pt x 289.08pt>
-File: ../figures/satisfied_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/satisfied_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/satisfied_vs_GDPppp.pdf  used on input line 160.
+ <../figures/happiness_mean_vs_GDPppp.pdf>]
+<../figures/satisfied_mean_vs_GDPppp.pdf, id=307, 433.62pt x 289.08pt>
+File: ../figures/satisfied_mean_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/satisfied_mean_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/satisfied_mean_vs_GDPppp.pdf  used on input line 169.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 160
+Overfull \vbox (21.37737pt too high) detected at line 169
  []
 
 [44
 
- <../figures/satisfied_vs_GDPppp.pdf>]
-<../figures/happiness_Layard_vs_GDPppp.pdf, id=324, 433.62pt x 289.08pt>
-File: ../figures/happiness_Layard_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/happiness_Layard_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/happiness_Layard_vs_GDPppp.pdf  used on input line 160.
+ <../figures/satisfied_mean_vs_GDPppp.pdf>]
+<../figures/satisfied_vs_GDPppp.pdf, id=318, 433.62pt x 289.08pt>
+File: ../figures/satisfied_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/satisfied_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/satisfied_vs_GDPppp.pdf  used on input line 169.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 160
+Overfull \vbox (21.37737pt too high) detected at line 169
  []
 
 [45
 
- <../figures/happiness_Layard_vs_GDPppp.pdf>]
-<../figures/happy_vs_GDP_wave7_weighted.pdf, id=335, 433.62pt x 289.08pt>
-File: ../figures/happy_vs_GDP_wave7_weighted.pdf Graphic file (type pdf)
-<use ../figures/happy_vs_GDP_wave7_weighted.pdf>
-Package pdftex.def Info: ../figures/happy_vs_GDP_wave7_weighted.pdf  used on input line 160.
+ <../figures/satisfied_vs_GDPppp.pdf>]
+<../figures/happiness_Layard_vs_GDPppp.pdf, id=329, 433.62pt x 289.08pt>
+File: ../figures/happiness_Layard_vs_GDPppp.pdf Graphic file (type pdf)
+<use ../figures/happiness_Layard_vs_GDPppp.pdf>
+Package pdftex.def Info: ../figures/happiness_Layard_vs_GDPppp.pdf  used on input line 169.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 160
+Overfull \vbox (21.37737pt too high) detected at line 169
  []
 
 [46
 
- <../figures/happy_vs_GDP_wave7_weighted.pdf>] [47
+ <../figures/happiness_Layard_vs_GDPppp.pdf>]
+<../figures/happy_vs_GDP_wave7_weighted.pdf, id=340, 433.62pt x 289.08pt>
+File: ../figures/happy_vs_GDP_wave7_weighted.pdf Graphic file (type pdf)
+<use ../figures/happy_vs_GDP_wave7_weighted.pdf>
+Package pdftex.def Info: ../figures/happy_vs_GDP_wave7_weighted.pdf  used on input line 169.
+(pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
+
+Overfull \vbox (21.37737pt too high) detected at line 169
+ []
+
+[47
+
+ <../figures/happy_vs_GDP_wave7_weighted.pdf>] [48
 
 ] (../tables/gdp.tex)
-Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--174
+Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--183
 [][] 
  []
 
 
-Overfull \vbox (3.29666pt too high) detected at line 174
+Overfull \vbox (3.29666pt too high) detected at line 183
  []
 
-[48
-
-] [49
+[49
 
 ] [50
 
@@ -1388,47 +1388,27 @@ Overfull \vbox (3.29666pt too high) detected at line 174
 
 ] [58
 
+] [59
+
+] [60
+
 ]
-<../figures/region_groupings.png, id=422, 1374.5754pt x 756.1851pt>
+<../figures/region_groupings.png, id=432, 1381.0797pt x 754.9806pt>
 File: ../figures/region_groupings.png Graphic file (type png)
 <use ../figures/region_groupings.png>
-Package pdftex.def Info: ../figures/region_groupings.png  used on input line 195.
-(pdftex.def)             Requested size: 356.20662pt x 195.95828pt.
+Package pdftex.def Info: ../figures/region_groupings.png  used on input line 205.
+(pdftex.def)             Requested size: 358.46112pt x 195.95828pt.
 
-Overfull \vbox (5.42082pt too high) detected at line 195
+Overfull \vbox (5.42082pt too high) detected at line 205
  []
-
-[59
-
- <../figures/region_groupings.png>]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
-<recently read> \halign 
-                        
-l.218 \end{frame}
-                 
-Displays can use special alignments (like \eqalignno)
-only if nothing but the alignment itself is between $$'s.
-So I've deleted the formulas that preceded this alignment.
-
-[60
-
-]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
-<recently read> \halign 
-                        
-l.218 \end{frame}
-                 
-Displays can use special alignments (like \eqalignno)
-only if nothing but the alignment itself is between $$'s.
-So I've deleted the formulas that preceded this alignment.
 
 [61
 
-]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
+ <../figures/region_groupings.png>]
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:228: Improper \halign inside $$'s.
 <recently read> \halign 
                         
-l.218 \end{frame}
+l.228 \end{frame}
                  
 Displays can use special alignments (like \eqalignno)
 only if nothing but the alignment itself is between $$'s.
@@ -1437,10 +1417,10 @@ So I've deleted the formulas that preceded this alignment.
 [62
 
 ]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:228: Improper \halign inside $$'s.
 <recently read> \halign 
                         
-l.218 \end{frame}
+l.228 \end{frame}
                  
 Displays can use special alignments (like \eqalignno)
 only if nothing but the alignment itself is between $$'s.
@@ -1449,10 +1429,10 @@ So I've deleted the formulas that preceded this alignment.
 [63
 
 ]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:228: Improper \halign inside $$'s.
 <recently read> \halign 
                         
-l.218 \end{frame}
+l.228 \end{frame}
                  
 Displays can use special alignments (like \eqalignno)
 only if nothing but the alignment itself is between $$'s.
@@ -1461,10 +1441,10 @@ So I've deleted the formulas that preceded this alignment.
 [64
 
 ]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:218: Improper \halign inside $$'s.
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:228: Improper \halign inside $$'s.
 <recently read> \halign 
                         
-l.218 \end{frame}
+l.228 \end{frame}
                  
 Displays can use special alignments (like \eqalignno)
 only if nothing but the alignment itself is between $$'s.
@@ -1472,23 +1452,43 @@ So I've deleted the formulas that preceded this alignment.
 
 [65
 
+]
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:228: Improper \halign inside $$'s.
+<recently read> \halign 
+                        
+l.228 \end{frame}
+                 
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+So I've deleted the formulas that preceded this alignment.
+
+[66
+
+]
+c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:228: Improper \halign inside $$'s.
+<recently read> \halign 
+                        
+l.228 \end{frame}
+                 
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+So I've deleted the formulas that preceded this alignment.
+
+[67
+
 
 
 pdfTeX warning: pdflatex.exe: pop empty color page stack 0
 ] (../tables/share_gdp.tex)
-Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--223
+Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--233
 [][] 
  []
 
 
-Overfull \vbox (3.29666pt too high) detected at line 223
+Overfull \vbox (3.29666pt too high) detected at line 233
  []
 
-[66
-
-] [67
-
-] [68
+[68
 
 ] [69
 
@@ -1514,17 +1514,21 @@ Overfull \vbox (3.29666pt too high) detected at line 223
 
 ] [80
 
+] [81
+
+] [82
+
 ] (../tables/gdp_add.tex)
-Overfull \vbox (2.29666pt too high) detected at line 266
+Overfull \vbox (2.29666pt too high) detected at line 277
  []
 
-[81
+[83
 
 ] (../tables/share_gdp_add.tex)
-Overfull \vbox (2.29666pt too high) detected at line 274
+Overfull \vbox (2.29666pt too high) detected at line 285
  []
 
-[82
+[84
 
 ]
 \tf@nav=\write6
@@ -1541,8 +1545,8 @@ Package rerunfilecheck Info: File `wellbeing_prez.out' has not changed.
 (rerunfilecheck)             Checksum: EBEC5A8B7913F8BB59EEA1DB2AC32EE0;1018.
  ) 
 Here is how much of TeX's memory you used:
- 34038 strings out of 475075
- 677376 string characters out of 5783001
+ 34042 strings out of 475075
+ 677414 string characters out of 5783001
  991331 words of memory out of 5000000
  54502 multiletter control sequences out of 15000+600000
  526387 words of font info for 97 fonts, out of 8000000 for 9000
@@ -1552,10 +1556,10 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{share_gdp_add} has been referenced but does not exist, replaced by a fixed one
 
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on build/wellbeing_prez.pdf (82 pages, 3015478 bytes).
+Output written on build/wellbeing_prez.pdf (84 pages, 3091956 bytes).
 PDF statistics:
- 640 PDF objects out of 1000 (max. 8388607)
- 505 compressed objects within 6 object streams
- 176 named destinations out of 1000 (max. 500000)
+ 650 PDF objects out of 1000 (max. 8388607)
+ 513 compressed objects within 6 object streams
+ 180 named destinations out of 1000 (max. 500000)
  158 words of extra memory for PDF output out of 10000 (max. 10000000)
 
