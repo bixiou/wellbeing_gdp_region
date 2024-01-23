@@ -7,6 +7,8 @@
 # TODO: Automatize recovery of missing GDP data (from IMF or WB's Global Economic Prospects)
 # Outlet: Journal of Happiness Studies (IF: 4.6)
 
+# Cite Guriev & Zhuravskaya (09)
+
 
 ##### Data preparation #####
 # WVS7 <- read_csv("../data/WVS7.csv")
