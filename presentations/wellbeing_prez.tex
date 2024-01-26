@@ -65,23 +65,25 @@
     \ip \blue{What country is the happiest?} $\Rightarrow$ Answer on: \textbf{\href{https://sli.do/2601}{sli.do/2601}}
     \ip \centering \only<2>{\includegraphics[height=.9\textheight]{../figures/finland_happy.jpg}}
     \only<3->{\includegraphics[height=.65\textheight]{../figures/happiest_countries.jpg}}
-    \ip The answer is often in Scandinavia. 
-    \ip What do we mean by ``happy''? \pause Subjective well-being.
+    \ip The answer is often a \rose{Scandinavian}, \blue{high-income country}. 
+    % \ip What do we mean by ``happy''? \pause Subjective well-being.
+    \ip Is money really buying happiness?
     \ee
 \end{frame}
 
 \begin{frame}{Literature}
     \bbvsp
-    \ip \centering \only<1>{Inglehart \& Klingemann (WVS, 2000) \\
+    \ip \centering \only<1>{World Values Survey, $R^2=.49$ (Inglehart \& Klingemann, 2000) \\
     \includegraphics[height=.8\textheight]{../figures/Inglehart_Klingemann}}
     \only<2>{World Happiness Report (Gallup, 2023) \\
     \includegraphics[height=.8\textheight]{../figures/owid_satisfaction_gdp}}
-    \ip The literature finds an increasing relationship between GDP pc and well-being.
+    \ip The literature finds an \blue{increasing relationship between GDP pc and well-being}.
     \ip Deaton (2008) finds a log-linear relation between average satisfaction and GDP pc PPP using Gallup data ($R^2=.71$).
-    \ip National income is more correlated to satisfaction than happiness (Deaton, 2008; Inglehart et al., 2008).
+    \ip Latin America (Eastern Europe) is (un)happier than predicted (Inglehart et al., 2008).
     \ip 
-    Gallup data shows stronger correlation than World Values Survey (Deaton, 2008).
-    \ip Blanchflower & Bryson (2023)
+    Gallup question shows stronger correlation than World Values Survey's (Deaton, 2008).
+    \ip National income is more correlated to satisfaction than happiness (Deaton, 2008; Inglehart et al., 2008).
+    \ip Blanchflower \& Bryson (2023) documents different countries' rankings in terms of positive and negative affects.
     % Original graph is Inglehart & Klingemann (00)
     % https://ourworldindata.org/grapher/gdp-vs-happiness World Happiness Report
     % https://www.digitalinformationworld.com/2023/04/data-shows-correlation-between-gdp-per.html same source
@@ -89,8 +91,7 @@
     % World Happiness Index and GDP per capita have correlation of .84, "same thing" for Salvatores Babones https://twitter.com/ProfBabones/status/1638924519510519809
     % various references https://www.maxroser.com/roser/notebook/happiness/
     % Great article: https://ourworldindata.org/happiness-and-life-satisfaction (already showing specificity of Latin America)
-    % TODO read Inglehart et al. (08), which already points out Latin America vs. Ex-Communist
-    \ip We challenge this finding.
+    \ip \rose{We} study new indicators and \rose{challenge the view that national income is the best predictor of well-being}.
     % CITE: 
     % Deaton (08): log-linear relation satisfaction - GDP pc PPP using Gallup (r = .84)
     % WHR (23)
@@ -215,28 +216,28 @@
     \end{figure}
 \end{frame}
 
-% \begin{frame}{Comparing the share of variance explained by income vs. region}
-%     % \only<6>{\input{../tables/share_gdp.tex}}
-%     % \only<1-5,7->{
-%     \bbvsp
-%     \ip For different \textit{well-being} and \textit{income} indicators, we run regressions and compute corresponding $R^2$:
-%     % \ee    
-%     % \makebox[.7\textwidth][c]{
-%     \begin{align} 
-%         well\text{-}being_i &= \alpha_1 + \beta_1\, income_i + u_i\\
-%         well\text{-}being_i &= \alpha_2 + \gamma_2\, region_i + e_i\\
-%         well\text{-}being_i &= \alpha_3 + \beta_3\, income_i + \gamma_3\, region_i + \varepsilon_i 
-%     \end{align} % TODO solve error
-%     % }
-%     % \bbvsp
-%     \ip \blue{$R^2_3$} is the \blue{share of variance explained} by income and region (3).
-%     \ip \blue{$R^2_1$} (resp. $R^2_2$) is the \blue{share} of variance \blue{explained by income} (resp. region) \blue{alone}.
-%     \ip \blue{$R^2_3-R^2_2$} is the \blue{additional share} of variance \blue{explained by income}, \blue{after} adding it alongside \blue{region}. %to the model with region.
-%     \ip $\rose{s_i} = \frac{R^2_1 + (R^2_3-R^2_2)}{R^2_3}$ is the \rose{share of explained variance that is explained by income}.
-%     \ip This follows the LMG methodoly (Lindeman, Merenda \& Gold, 1980; Grömping, 2007).
-%     \ee
-%     % }
-% \end{frame} % TODO put back
+\begin{frame}{Comparing the share of variance explained by income vs. region}
+    % \only<6>{\input{../tables/share_gdp.tex}}
+    % \only<1-5,7->{
+    \bbvsp
+    \ip For different \textit{well-being} and \textit{income} indicators, we run regressions and compute corresponding $R^2$:
+    % \ee    
+    % \makebox[.7\textwidth][c]{
+    \begin{align} 
+        well\text{-}being_i &= \alpha_1 + \beta_1\, income_i + u_i\\
+        well\text{-}being_i &= \alpha_2 + \gamma_2\, region_i + e_i\\
+        well\text{-}being_i &= \alpha_3 + \beta_3\, income_i + \gamma_3\, region_i + \varepsilon_i 
+    \end{align} % TODO solve error
+    % }
+    % \bbvsp
+    \ip \blue{$R^2_3$} is the \blue{share of variance explained} by income and region (3).
+    \ip \blue{$R^2_1$} (resp. $R^2_2$) is the \blue{share} of variance \blue{explained by income} (resp. region) \blue{alone}.
+    \ip \blue{$R^2_3-R^2_2$} is the \blue{additional share} of variance \blue{explained by income}, \blue{after} adding it alongside \blue{region}. %to the model with region.
+    \ip $\rose{s_i} = \frac{R^2_1 + (R^2_3-R^2_2)}{R^2_3}$ is the \rose{share of explained variance that is explained by income}.
+    \ip This follows the LMG methodoly (Lindeman, Merenda \& Gold, 1980; Grömping, 2007).
+    \ee
+    % }
+\end{frame} % TODO put back
               
 % Share of the variance explained by income rather than region
 \begin{frame}{Share of explained variance that is explained by income \label{share_gdp} \hyperlink{share_gdp_add}{\beamergotobutton{More results}}}
@@ -245,10 +246,10 @@
 
 \begin{frame}{Region is a better predictor of national well-being than income}
     \bbvsp
-    \ip From the previous table, \rose{income is never a better predictor than region} ($s_i < 50\%$)
-    \ip For the best-predicting income indicator, \rose{income explains 30\% of the explained variance}, on average over all well-being indicators
+    \ip From the previous table, \rose{income is never a better predictor than region} ($s_i < 50\%$).
+    \ip For the best-predicting income indicator, \rose{income explains 30\% of the explained variance}, on average over all well-being indicators.
     \ip This indicator explains 19\% of the explained variance for \textbf{Happiness} and 32\% for \textbf{Satisfaction}.
-    \ip \rose{Region is a better predictor than region in 94\% of alternative specifications}: looking at each wave separately, weighting countries by population, dropping pandemic years... \\(including 86\% of 88 specifications involving the best-predicting income variable) \hyperlink{share_gdp_add}{\beamergotobutton{More results}}
+    \ip \rose{Region is a better predictor than region in 94\% of alternative specifications}: looking at each wave separately, weighting countries by population, dropping pandemic years... \\(including 86\% of 88 specifications involving the best-predicting income variable). \hyperlink{share_gdp_add}{\beamergotobutton{More results}}
     \ee
 \end{frame}
 

@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 \beamer@slide {gdp}{54}
 \beamer@slide {share_gdp}{68}
 \beamer@slide {gdp_add}{83}
 \beamer@slide {share_gdp_add}{84}
+=======
+\beamer@slide {gdp}{53}
+\beamer@slide {share_gdp}{73}
+\beamer@slide {gdp_add}{88}
+\beamer@slide {share_gdp_add}{89}
+>>>>>>> origin/main
