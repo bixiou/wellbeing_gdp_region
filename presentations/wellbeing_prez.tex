@@ -72,7 +72,7 @@
 \end{frame}
 
 \begin{frame}{Literature}
-    \bbvsp
+    \bbsp
     \ip \centering \only<1>{World Values Survey, $R^2=.49$ (Inglehart \& Klingemann, 2000) \\
     \includegraphics[height=.8\textheight]{../figures/Inglehart_Klingemann}}
     \only<2>{World Happiness Report (Gallup, 2023) \\
@@ -82,8 +82,8 @@
     \ip Latin America (Eastern Europe) is (un)happier than predicted (Inglehart et al., 2008).
     \ip 
     Gallup question shows stronger correlation than World Values Survey's (Deaton, 2008).
-    \ip National income is more correlated to satisfaction than happiness (Deaton, 2008; Inglehart et al., 2008).
-    \ip Blanchflower \& Bryson (2023) documents different countries' rankings in terms of positive and negative affects.
+    \ip National income is more correlated to satisfaction than to happiness (Deaton, 08).% Inglehart et al., 2008
+    \ip Blanchflower \& Bryson (2023) document different countries' rankings in terms of positive and negative affects.
     % Original graph is Inglehart & Klingemann (00)
     % https://ourworldindata.org/grapher/gdp-vs-happiness World Happiness Report
     % https://www.digitalinformationworld.com/2023/04/data-shows-correlation-between-gdp-per.html same source
@@ -91,7 +91,7 @@
     % World Happiness Index and GDP per capita have correlation of .84, "same thing" for Salvatores Babones https://twitter.com/ProfBabones/status/1638924519510519809
     % various references https://www.maxroser.com/roser/notebook/happiness/
     % Great article: https://ourworldindata.org/happiness-and-life-satisfaction (already showing specificity of Latin America)
-    \ip \rose{We} study new indicators and \rose{challenge the view that national income is the best predictor of well-being}.
+    \ip \rose{We} study new indicators and \\ \rose{challenge the view that national income is the best predictor of well-being}.
     % CITE: 
     % Deaton (08): log-linear relation satisfaction - GDP pc PPP using Gallup (r = .84)
     % WHR (23)
@@ -104,7 +104,7 @@
 \end{frame}
 
 \begin{frame}{Primer of the results}
-    \bbvsp
+    \bbsp
     \ip \rose{Income is only weakly correlated with national well-being}.
     \ip The relationship heavily depends on the well-being indicator chosen. \pause \\ For some indicators, the happiest country is in Africa or Latin America.\pause
     \ip Another simple variable, the country's (macro) \rose{region}, \rose{is a better predictor} of national well-being.
@@ -143,14 +143,14 @@
 % TODO: plot happy against satisfied
 
 \begin{frame}{How we measure income}    
-    \bbvsp % As usual in this literature, (e.g. WHR23, Inglehart 08)
-    \ip Our benchmark \textit{income} indicator is the \blue{\textbf{log} GDP per capita (pc) in \textbf{PPP}} (constant 2017 \$, World Bank) \pause \\ We also use discrete indicators: \pause \bbvsp
+    \bbsp % As usual in this literature, (e.g. WHR23, Inglehart 08)
+    \ip Our benchmark \textit{income} indicator is the \blue{\textbf{log} GDP per capita (pc) in \textbf{PPP}} (constant 2017 \$, World Bank) \pause \\ We also use discrete indicators: \pause \bbsp
     \ip \textbf{\blue{Income sextile}}: quantile of income (6 quantiles)
     \ip \textbf{\blue{Income cluster}} (\textit{k} = \textbf{5}, \textbf{6} or \textbf{7}): income cluster, with the \textit{k} clusters found by the \textit{k}-means algorithm
     \ee
     \ip For robustness, we also run our analyses using the log \textit{nominal} GDP pc (constant 2015 \$, World Bank) and corresponding income group and clusters.
     \ip We manually impute missing income data using IMF data.
-    \bbvsp \ip For robustness, we also run our analyses without this imputation (excluding countries with missing GDP data).
+    \bbsp \ip For robustness, we also run our analyses without this imputation (excluding countries with missing GDP data).
     \ee
     \ee 
 \end{frame}
@@ -175,7 +175,7 @@
     \centering \vspace{-.3cm} \includegraphics[height=.9\textheight]{../figures/satisfied_vs_GDPppp.pdf}}
     \only<+>{\caption{\textbf{Happy + Satisfied} vs. log GDP p.c. (PPP) --- All waves of WVS.}  \vspace{-.3cm}
     \centering \includegraphics[height=.9\textheight]{../figures/happiness_Layard_vs_GDPppp.pdf}}
-    \only<+>{\caption{\textbf{Happy} vs. log DP p.c. (nominal) --- Wave 7 (2017-22) of WVS, weighted by population.}  \vspace{-.3cm}
+    \only<+>{\caption{\textbf{Happy} vs. log GDP p.c. (nominal) --- Wave 7 (2017-22) of WVS, weighted by population.}  \vspace{-.3cm}
     \centering \includegraphics[height=.9\textheight]{../figures/happy_vs_GDP_wave7_weighted.pdf}}
 \end{figure}
 \end{frame}
@@ -183,7 +183,7 @@
 \begin{frame}{Variance explained by GDP p.c.\label{gdp} \hyperlink{gdp_add}{\beamergotobutton{More results}}}
     \only<2>{\input{../tables/gdp.tex}}
     \only<1,3->{
-    \bbvsp
+    \bbsp
     \ip For different \textit{well-being} and \textit{income} indicators, we compute the $R^2$ of the regression: $$well\text{-}being_i = \alpha + \beta\, income_i + u_i$$ \pause
     \ip \rose{\textbf{Nominal income clustered into 7 groups}} is the income indicator that \rose{explains best well-being}.
     \ip On average over well-being indicators, \blue{this indicator explains 13\% of the variance}.
@@ -245,7 +245,7 @@
 \end{frame}
 
 \begin{frame}{Region is a better predictor of national well-being than income}
-    \bbvsp
+    \bbsp
     \ip From the previous table, \rose{income is never a better predictor than region} ($s_i < 50\%$).
     \ip For the best-predicting income indicator, \rose{income explains 30\% of the explained variance}, on average over all well-being indicators.
     \ip This indicator explains 19\% of the explained variance for \textbf{Happiness} and 32\% for \textbf{Satisfaction}.
@@ -256,11 +256,11 @@
 \section{Conclusion}
 
 \begin{frame}{Take away and future research}
-    \bbvsp
+    \bbsp
     \ip \rose{National well-being is more correlated with the world region than with the GDP p.c.}
     \ip Richest countries are not necessarily the happiest.
     \ip If there is a link between income and well-being, it is that rich countries do not experience low well-being.
-    \ip Poor countries can be happy too. Growth is not necessarily the best goal.
+    \ip Low-income countries can be happy too. Growth is not necessarily the best goal.
     \ip ~$\Rightarrow$ \blue{Absolute income is not} as \blue{determining} for well-being as is often thought.
     \ip ~$\Rightarrow$ We should seek reforms that improve well-being rather than growth. % Also, Deaton 08 finds negative effect of growth on satisfaction
     \ip Non-material dimensions seem key to well-being $\Rightarrow$ \blue{Need to study mechanisms}. % dance/social bonds in LatAm vs. recession/loss of meaning after USSR => need to study mechanisms

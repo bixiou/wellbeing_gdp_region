@@ -1,16 +1,12 @@
-<<<<<<< HEAD
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.6)  26 JAN 2024 11:27
-=======
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  25 JAN 2024 16:31
->>>>>>> origin/main
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.6)  26 JAN 2024 14:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
 **c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex
 (c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex
-LaTeX2e <2022-06-01> patch level 5
-L3 programming layer <2022-08-30> (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamer.cls
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2022-11-02> (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2022/09/13 v3.68 A class for typesetting presentations
 (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbasemodes.sty (c:/texlive/2022/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
@@ -29,23 +25,23 @@ Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 ) (c:/texlive/2022/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 )
-\headdp=\dimen138
-\footheight=\dimen139
-\sidebarheight=\dimen140
-\beamer@tempdim=\dimen141
-\beamer@finalheight=\dimen142
-\beamer@animht=\dimen143
-\beamer@animdp=\dimen144
-\beamer@animwd=\dimen145
-\beamer@leftmargin=\dimen146
-\beamer@rightmargin=\dimen147
-\beamer@leftsidebar=\dimen148
-\beamer@rightsidebar=\dimen149
-\beamer@boxsize=\dimen150
-\beamer@vboxoffset=\dimen151
-\beamer@descdefault=\dimen152
-\beamer@descriptionwidth=\dimen153
-\beamer@lastskip=\skip47
+\headdp=\dimen140
+\footheight=\dimen141
+\sidebarheight=\dimen142
+\beamer@tempdim=\dimen143
+\beamer@finalheight=\dimen144
+\beamer@animht=\dimen145
+\beamer@animdp=\dimen146
+\beamer@animwd=\dimen147
+\beamer@leftmargin=\dimen148
+\beamer@rightmargin=\dimen149
+\beamer@leftsidebar=\dimen150
+\beamer@rightsidebar=\dimen151
+\beamer@boxsize=\dimen152
+\beamer@vboxoffset=\dimen153
+\beamer@descdefault=\dimen154
+\beamer@descriptionwidth=\dimen155
+\beamer@lastskip=\skip48
 \beamer@areabox=\box54
 \beamer@animcurrent=\box55
 \beamer@animshowbox=\box56
@@ -76,8 +72,8 @@ Package: iftex 2022/02/03 v1.0f TeX engine tests
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 ))
-\beamer@paperwidth=\skip48
-\beamer@paperheight=\skip49
+\beamer@paperwidth=\skip49
+\beamer@paperheight=\skip50
  (c:/texlive/2022/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
  (c:/texlive/2022/texmf-dist/tex/generic/iftex/ifvtex.sty
@@ -86,19 +82,19 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@cnth=\count277
 \Gm@cntv=\count278
 \c@Gm@tempcnt=\count279
-\Gm@bindingoffset=\dimen154
-\Gm@wd@mp=\dimen155
-\Gm@odd@mp=\dimen156
-\Gm@even@mp=\dimen157
-\Gm@layoutwidth=\dimen158
-\Gm@layoutheight=\dimen159
-\Gm@layouthoffset=\dimen160
-\Gm@layoutvoffset=\dimen161
+\Gm@bindingoffset=\dimen156
+\Gm@wd@mp=\dimen157
+\Gm@odd@mp=\dimen158
+\Gm@even@mp=\dimen159
+\Gm@layoutwidth=\dimen160
+\Gm@layoutheight=\dimen161
+\Gm@layouthoffset=\dimen162
+\Gm@layoutvoffset=\dimen163
 \Gm@dimlist=\toks17
 ) (c:/texlive/2022/texmf-dist/tex/latex/pgf/math/pgfmath.sty (c:/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
 \pgfutil@everybye=\toks18
-\pgfutil@tempdima=\dimen162
-\pgfutil@tempdimb=\dimen163
+\pgfutil@tempdima=\dimen164
+\pgfutil@tempdimb=\dimen165
  (c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.tex)) (c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
 \pgfutil@abb=\box60
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (c:/texlive/2022/texmf-dist/tex/generic/pgf/pgf.revision.tex)
@@ -109,20 +105,20 @@ Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
  (c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
 \pgfkeys@tmptoks=\toks21
 ))) (c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex (c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex
-\pgf@x=\dimen164
-\pgf@xa=\dimen165
-\pgf@xb=\dimen166
-\pgf@xc=\dimen167
-\pgf@y=\dimen168
-\pgf@ya=\dimen169
-\pgf@yb=\dimen170
-\pgf@yc=\dimen171
+\pgf@x=\dimen166
+\pgf@xa=\dimen167
+\pgf@xb=\dimen168
+\pgf@xc=\dimen169
+\pgf@y=\dimen170
+\pgf@ya=\dimen171
+\pgf@yb=\dimen172
+\pgf@yc=\dimen173
 \c@pgf@counta=\count280
 \c@pgf@countb=\count281
 \c@pgf@countc=\count282
 \c@pgf@countd=\count283
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen172
+\pgfmath@dimen=\dimen174
 \pgfmath@count=\count284
 \pgfmath@box=\box61
 \pgfmath@toks=\toks22
@@ -135,7 +131,7 @@ Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
 Class beamer Warning: ``mathserif'' is obsolete. Use font theme ``serif'' with option ``onlymath'' on input line 357.
 
 (c:/texlive/2022/texmf-dist/tex/latex/base/size11.clo
-File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+File: size11.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 ) (c:/texlive/2022/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (c:/texlive/2022/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
  (c:/texlive/2022/texmf-dist/tex/latex/graphics/graphics.sty
@@ -147,23 +143,23 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
  (c:/texlive/2022/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen173
-\Gin@req@width=\dimen174
+\Gin@req@height=\dimen175
+\Gin@req@width=\dimen176
 ) (c:/texlive/2022/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (c:/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
  (c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
-\pgf@x=\dimen175
-\pgf@y=\dimen176
-\pgf@xa=\dimen177
-\pgf@ya=\dimen178
-\pgf@xb=\dimen179
-\pgf@yb=\dimen180
-\pgf@xc=\dimen181
-\pgf@yc=\dimen182
-\pgf@xd=\dimen183
-\pgf@yd=\dimen184
+\pgf@x=\dimen177
+\pgf@y=\dimen178
+\pgf@xa=\dimen179
+\pgf@ya=\dimen180
+\pgf@xb=\dimen181
+\pgf@yb=\dimen182
+\pgf@xc=\dimen183
+\pgf@yc=\dimen184
+\pgf@xd=\dimen185
+\pgf@yd=\dimen186
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
 \c@pgf@counta=\count286
@@ -210,28 +206,28 @@ File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
  (c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex) (c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@picminx=\dimen185
-\pgf@picmaxx=\dimen186
-\pgf@picminy=\dimen187
-\pgf@picmaxy=\dimen188
-\pgf@pathminx=\dimen189
-\pgf@pathmaxx=\dimen190
-\pgf@pathminy=\dimen191
-\pgf@pathmaxy=\dimen192
-\pgf@xx=\dimen193
-\pgf@xy=\dimen194
-\pgf@yx=\dimen195
-\pgf@yy=\dimen196
-\pgf@zx=\dimen197
-\pgf@zy=\dimen198
+\pgf@picminx=\dimen187
+\pgf@picmaxx=\dimen188
+\pgf@picminy=\dimen189
+\pgf@picmaxy=\dimen190
+\pgf@pathminx=\dimen191
+\pgf@pathmaxx=\dimen192
+\pgf@pathminy=\dimen193
+\pgf@pathmaxy=\dimen194
+\pgf@xx=\dimen195
+\pgf@xy=\dimen196
+\pgf@yx=\dimen197
+\pgf@yy=\dimen198
+\pgf@zx=\dimen199
+\pgf@zy=\dimen256
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@path@lastx=\dimen199
-\pgf@path@lasty=\dimen256
+\pgf@path@lastx=\dimen257
+\pgf@path@lasty=\dimen258
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@shorten@end@additional=\dimen257
-\pgf@shorten@start@additional=\dimen258
+\pgf@shorten@end@additional=\dimen259
+\pgf@shorten@start@additional=\dimen260
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfpic=\box62
@@ -240,12 +236,12 @@ File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@picture@serial@count=\count293
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgflinewidth=\dimen259
+\pgflinewidth=\dimen261
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
 File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@pt@x=\dimen260
-\pgf@pt@y=\dimen261
-\pgf@pt@temp=\dimen262
+\pgf@pt@x=\dimen262
+\pgf@pt@y=\dimen263
+\pgf@pt@temp=\dimen264
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
@@ -254,10 +250,10 @@ File: pgfcoreobjects.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
 File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfarrowsep=\dimen263
+\pgfarrowsep=\dimen265
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@max=\dimen264
+\pgf@max=\dimen266
 \pgf@sys@shading@range@num=\count294
 \pgf@shadingcount=\count295
 ) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
@@ -281,7 +277,7 @@ Package: xxcolor 2003/10/24 ver 0.1
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 ) (c:/texlive/2022/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2022-06-20 v7.00s Hypertext links for LaTeX
+Package: hyperref 2022-11-13 v7.00u Hypertext links for LaTeX
  (c:/texlive/2022/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
 ) (c:/texlive/2022/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
@@ -292,8 +288,8 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-) (c:/texlive/2022/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
-Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+) (c:/texlive/2022/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 ) (c:/texlive/2022/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 ) (c:/texlive/2022/texmf-dist/tex/generic/pdfescape/pdfescape.sty
@@ -315,11 +311,11 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count298
 )
-\@linkdim=\dimen265
+\@linkdim=\dimen267
 \Hy@linkcounter=\count299
 \Hy@pagecounter=\count300
  (c:/texlive/2022/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2022-06-20 v7.00s Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2022-11-13 v7.00u Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 ) (c:/texlive/2022/texmf-dist/tex/generic/intcalc/intcalc.sty
@@ -329,7 +325,7 @@ Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count301
  (c:/texlive/2022/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2022-06-20 v7.00s Hyperref: PDF Unicode definition (HO)
+File: puenc.def 2022-11-13 v7.00u Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
@@ -342,29 +338,29 @@ Package hyperref Info: Hyper index ON on input line 4170.
 Package hyperref Info: Plain pages OFF on input line 4177.
 Package hyperref Info: Backreferencing OFF on input line 4182.
 Package hyperref Info: Implicit mode OFF; no redefinition of LaTeX internals.
-Package hyperref Info: Bookmarks ON on input line 4408.
+Package hyperref Info: Bookmarks ON on input line 4410.
 \c@Hy@tempcnt=\count302
  (c:/texlive/2022/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4746.
-\XeTeXLinkMargin=\dimen266
+LaTeX Info: Redefining \url on input line 4748.
+\XeTeXLinkMargin=\dimen268
  (c:/texlive/2022/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
  (c:/texlive/2022/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count303
-\Field@Width=\dimen267
-\Fld@charsize=\dimen268
-Package hyperref Info: Hyper figures OFF on input line 6024.
-Package hyperref Info: Link nesting OFF on input line 6029.
-Package hyperref Info: Hyper index ON on input line 6032.
-Package hyperref Info: backreferencing OFF on input line 6039.
-Package hyperref Info: Link coloring OFF on input line 6044.
-Package hyperref Info: Link coloring with OCG OFF on input line 6049.
-Package hyperref Info: PDF/A mode OFF on input line 6054.
+\Field@Width=\dimen269
+\Fld@charsize=\dimen270
+Package hyperref Info: Hyper figures OFF on input line 6027.
+Package hyperref Info: Link nesting OFF on input line 6032.
+Package hyperref Info: Hyper index ON on input line 6035.
+Package hyperref Info: backreferencing OFF on input line 6042.
+Package hyperref Info: Link coloring OFF on input line 6047.
+Package hyperref Info: Link coloring with OCG OFF on input line 6052.
+Package hyperref Info: PDF/A mode OFF on input line 6057.
 \Hy@abspage=\count304
 
 
@@ -373,7 +369,7 @@ Package hyperref Message: Stopped early.
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
  (c:/texlive/2022/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2022-06-20 v7.00s Hyperref driver for pdfTeX
+File: hpdftex.def 2022-11-13 v7.00u Hyperref driver for pdfTeX
  (c:/texlive/2022/texmf-dist/tex/latex/base/atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
@@ -400,7 +396,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 Package: translator 2021-05-31 v1.12d Easy translation of strings in LaTeX
 )) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbasemisc.sty) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbasetwoscreens.sty) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbaseoverlay.sty
 \beamer@argscount=\count307
-\beamer@lastskipcover=\skip50
+\beamer@lastskipcover=\skip51
 \beamer@trivlistdepth=\count308
 ) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbasetitle.sty) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbasesection.sty
 \c@lecture=\count309
@@ -414,21 +410,21 @@ Package: translator 2021-05-31 v1.12d Easy translation of strings in LaTeX
 \beamer@zoombox=\box68
 \beamer@zoomcount=\count314
 \beamer@zoomframecount=\count315
-\beamer@frametextheight=\dimen269
+\beamer@frametextheight=\dimen271
 \c@subsectionslide=\count316
-\beamer@frametopskip=\skip51
-\beamer@framebottomskip=\skip52
-\beamer@frametopskipautobreak=\skip53
-\beamer@framebottomskipautobreak=\skip54
+\beamer@frametopskip=\skip52
+\beamer@framebottomskip=\skip53
+\beamer@frametopskipautobreak=\skip54
+\beamer@framebottomskipautobreak=\skip55
 \beamer@envbody=\toks29
-\framewidth=\dimen270
+\framewidth=\dimen272
 \c@framenumber=\count317
 ) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbaseverbatim.sty
 \beamer@verbatimfileout=\write4
 ) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbaseframesize.sty
 \beamer@splitbox=\box69
 \beamer@autobreakcount=\count318
-\beamer@autobreaklastheight=\dimen271
+\beamer@autobreaklastheight=\dimen273
 \beamer@frametitletoks=\toks30
 \beamer@framesubtitletoks=\toks31
 ) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbaseframecomponents.sty
@@ -440,29 +436,29 @@ Package: translator 2021-05-31 v1.12d Easy translation of strings in LaTeX
  (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbaseauxtemplates.sty (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbaseboxes.sty
 \bmb@box=\box72
 \bmb@colorbox=\box73
-\bmb@boxwidth=\dimen272
-\bmb@boxheight=\dimen273
-\bmb@prevheight=\dimen274
-\bmb@temp=\dimen275
-\bmb@dima=\dimen276
-\bmb@dimb=\dimen277
-\bmb@prevheight=\dimen278
+\bmb@boxwidth=\dimen274
+\bmb@boxheight=\dimen275
+\bmb@prevheight=\dimen276
+\bmb@temp=\dimen277
+\bmb@dima=\dimen278
+\bmb@dimb=\dimen279
+\bmb@prevheight=\dimen280
 )
-\beamer@blockheadheight=\dimen279
+\beamer@blockheadheight=\dimen281
 )) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbaselocalstructure.sty (c:/texlive/2022/texmf-dist/tex/latex/tools/enumerate.sty
 Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
 \@enLab=\toks33
 )
-\beamer@bibiconwidth=\skip55
+\beamer@bibiconwidth=\skip56
 \c@figure=\count319
 \c@table=\count320
-\abovecaptionskip=\skip56
-\belowcaptionskip=\skip57
+\abovecaptionskip=\skip57
+\belowcaptionskip=\skip58
 ) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbasenavigation.sty
-\beamer@section@min@dim=\dimen280
+\beamer@section@min@dim=\dimen282
 ) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbasetheorems.sty (c:/texlive/2022/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2022/04/08 v2.17n AMS math features
-\@mathmargin=\skip58
+\@mathmargin=\skip59
 
 For additional information on amsmath, use the `?' option.
 (c:/texlive/2022/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -470,10 +466,10 @@ Package: amstext 2021/08/26 v2.01 AMS text
  (c:/texlive/2022/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks34
-\ex@=\dimen281
+\ex@=\dimen283
 )) (c:/texlive/2022/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen282
+\pmbraise@=\dimen284
 ) (c:/texlive/2022/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
@@ -494,7 +490,7 @@ LaTeX Info: Redefining \big on input line 722.
 LaTeX Info: Redefining \Big on input line 723.
 LaTeX Info: Redefining \bigg on input line 724.
 LaTeX Info: Redefining \Bigg on input line 725.
-\big@size=\dimen283
+\big@size=\dimen285
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \macc@depth=\count326
@@ -512,15 +508,15 @@ LaTeX Info: Redefining \Relbar on input line 971.
 \column@=\count331
 \maxfields@=\count332
 \andhelp@=\toks36
-\eqnshift@=\dimen284
-\alignsep@=\dimen285
-\tagshift@=\dimen286
-\tagwidth@=\dimen287
-\totwidth@=\dimen288
-\lineht@=\dimen289
+\eqnshift@=\dimen286
+\alignsep@=\dimen287
+\tagshift@=\dimen288
+\tagwidth@=\dimen289
+\totwidth@=\dimen290
+\lineht@=\dimen291
 \@envbody=\toks37
-\multlinegap=\skip59
-\multlinetaggap=\skip60
+\multlinegap=\skip60
+\multlinetaggap=\skip61
 \mathdisplay@stack=\toks38
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
@@ -531,19 +527,19 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@headfont=\toks41
 \thm@notefont=\toks42
 \thm@headpunct=\toks43
-\thm@preskip=\skip61
-\thm@postskip=\skip62
-\thm@headsep=\skip63
+\thm@preskip=\skip62
+\thm@postskip=\skip63
+\thm@headsep=\skip64
 \dth@everypar=\toks44
 )
 \c@theorem=\count333
 ) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerbasethemes.sty)) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerthemedefault.sty (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerfontthemedefault.sty) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamercolorthemedefault.sty) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerinnerthemedefault.sty
-\beamer@dima=\dimen290
-\beamer@dimb=\dimen291
+\beamer@dima=\dimen292
+\beamer@dimb=\dimen293
 ) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerouterthemedefault.sty))) (./preamble_slides.tex (c:/texlive/2022/texmf-dist/tex/latex/appendixnumberbeamer/appendixnumberbeamer.sty) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerthemeBoadilla.sty (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamercolorthemerose.sty) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerinnerthemerounded.sty) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamercolorthemedolphin.sty) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamerouterthemeinfolines.sty)) (c:/texlive/2022/texmf-dist/tex/latex/beamer/beamercolorthemelily.sty)
 Package hyperref Info: Option `colorlinks' set `false' on input line 42.
  (c:/texlive/2022/texmf-dist/tex/latex/setspace/setspace.sty
-Package: setspace 2011/12/19 v6.7a set line spacing
+Package: setspace 2022/12/04 v6.7b set line spacing
 ) (c:/texlive/2022/texmf-dist/tex/latex/changepage/changepage.sty
 Package: changepage 2009/10/20 v1.0c check page and change page layout
 \c@cp@cntr=\count334
@@ -558,13 +554,13 @@ Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
 )
 \mm@movie=\count336
 ) (c:/texlive/2022/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2022/08/29 3.79 The Babel package
+Package: babel 2022/11/30 3.83 The Babel package
 \babel@savecnt=\count337
-\U@D=\dimen292
+\U@D=\dimen294
 \l@unhyphenated=\language87
  (c:/texlive/2022/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read3
-LaTeX Info: Redefining \textlatin on input line 4079.
+LaTeX Info: Redefining \textlatin on input line 4118.
 \bbl@dirlevel=\count338
  (c:/texlive/2022/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
@@ -581,14 +577,14 @@ Package babel Info: Importing font and identification data for english
 Package: caption 2022/03/01 v3.6b Customizing captions (AR)
  (c:/texlive/2022/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
-\caption@tempdima=\dimen293
-\captionmargin=\dimen294
-\caption@leftmargin=\dimen295
-\caption@rightmargin=\dimen296
-\caption@width=\dimen297
-\caption@indent=\dimen298
-\caption@parindent=\dimen299
-\caption@hangindent=\dimen300
+\caption@tempdima=\dimen295
+\captionmargin=\dimen296
+\caption@leftmargin=\dimen297
+\caption@rightmargin=\dimen298
+\caption@width=\dimen299
+\caption@indent=\dimen300
+\caption@parindent=\dimen301
+\caption@hangindent=\dimen302
 Package caption Info: beamer document class detected.
  (c:/texlive/2022/texmf-dist/tex/latex/caption/caption-beamer.sto
 File: caption-beamer.sto 2022/01/06 v2.0c Adaption of the caption package to the beamer document classes (AR)
@@ -596,8 +592,8 @@ File: caption-beamer.sto 2022/01/06 v2.0c Adaption of the caption package to the
 \c@caption@flags=\count339
 \c@continuedfloat=\count340
 Package caption Info: changepage package is loaded.
-\caption@adjustwidth@hsize=\dimen301
-\caption@adjustwidth@linewidth=\dimen302
+\caption@adjustwidth@hsize=\dimen303
+\caption@adjustwidth@linewidth=\dimen304
 Package caption Info: hyperref package is loaded.
 Package caption Info: Hyperref support is turned off
 (caption)             because hyperref has stopped early.
@@ -616,7 +612,7 @@ Package subfloat Warning: Numbers of floats not counted:
 ) (c:/texlive/2022/texmf-dist/tex/latex/datetime2/datetime2.sty
 Package: datetime2 2021/03/21 v1.5.7 (NLCT) date and time formats
  (c:/texlive/2022/texmf-dist/tex/latex/tracklang/tracklang.sty
-Package: tracklang 2020/06/30 v1.5 (NLCT) Track Languages
+Package: tracklang 2022/10/29 v1.6 (NLCT) Track Languages
  (c:/texlive/2022/texmf-dist/tex/generic/tracklang/tracklang.tex)) (c:/texlive/2022/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
  (c:/texlive/2022/texmf-dist/tex/generic/xkeyval/xkeyval.tex (c:/texlive/2022/texmf-dist/tex/generic/xkeyval/xkvutils.tex
@@ -634,53 +630,53 @@ File: datetime2-en-US.ldf 2019/10/21 v1.05 (NLCT)
 )) (c:/texlive/2022/texmf-dist/tex/latex/tabulary/tabulary.sty
 Package: tabulary 2014/06/11 v0.10 tabulary package (DPC)
  (c:/texlive/2022/texmf-dist/tex/latex/tools/array.sty
-Package: array 2022/03/10 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen303
+Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen305
 \ar@mcellbox=\box76
-\extrarowheight=\dimen304
+\extrarowheight=\dimen306
 \NC@list=\toks47
-\extratabsurround=\skip64
-\backup@length=\skip65
+\extratabsurround=\skip65
+\backup@length=\skip66
 \ar@cellbox=\box77
 )
 \TY@count=\count342
-\TY@linewidth=\dimen305
-\tymin=\dimen306
-\tymax=\dimen307
-\TY@tablewidth=\dimen308
+\TY@linewidth=\dimen307
+\tymin=\dimen308
+\tymax=\dimen309
+\TY@tablewidth=\dimen310
 ) (c:/texlive/2022/texmf-dist/tex/latex/tools/tabularx.sty
 Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
-\TX@col@width=\dimen309
-\TX@old@table=\dimen310
-\TX@old@col=\dimen311
-\TX@target=\dimen312
-\TX@delta=\dimen313
+\TX@col@width=\dimen311
+\TX@old@table=\dimen312
+\TX@old@col=\dimen313
+\TX@target=\dimen314
+\TX@delta=\dimen315
 \TX@cols=\count343
 \TX@ftn=\toks48
 ) (c:/texlive/2022/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen314
+\rotheadsize=\dimen316
 \c@nlinenum=\count344
 \TeXr@lab=\toks49
 ) (c:/texlive/2022/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen315
-\lightrulewidth=\dimen316
-\cmidrulewidth=\dimen317
-\belowrulesep=\dimen318
-\belowbottomsep=\dimen319
-\aboverulesep=\dimen320
-\abovetopsep=\dimen321
-\cmidrulesep=\dimen322
-\cmidrulekern=\dimen323
-\defaultaddspace=\dimen324
+\heavyrulewidth=\dimen317
+\lightrulewidth=\dimen318
+\cmidrulewidth=\dimen319
+\belowrulesep=\dimen320
+\belowbottomsep=\dimen321
+\aboverulesep=\dimen322
+\abovetopsep=\dimen323
+\cmidrulesep=\dimen324
+\cmidrulekern=\dimen325
+\defaultaddspace=\dimen326
 \@cmidla=\count345
 \@cmidlb=\count346
-\@aboverulesep=\dimen325
-\@belowrulesep=\dimen326
+\@aboverulesep=\dimen327
+\@belowrulesep=\dimen328
 \@thisruleclass=\count347
 \@lastruleclass=\count348
-\@thisrulewidth=\dimen327
+\@thisrulewidth=\dimen329
 ) (c:/texlive/2022/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+ppl on input line 112.
@@ -697,48 +693,48 @@ Package: textpos 2022/07/23 v1.10.1
 Package textpos Info: choosing support for LaTeX3 on input line 60.
 \TP@textbox=\box78
 \TP@holdbox=\box79
-\TPHorizModule=\dimen328
-\TPVertModule=\dimen329
-\TP@margin=\dimen330
-\TP@absmargin=\dimen331
+\TPHorizModule=\dimen330
+\TPVertModule=\dimen331
+\TP@margin=\dimen332
+\TP@absmargin=\dimen333
 
 Grid set 16 x 16 = 28.45274pt x 16.00467pt
-\TPboxrulesize=\dimen332
-\TP@ox=\dimen333
-\TP@oy=\dimen334
+\TPboxrulesize=\dimen334
+\TP@ox=\dimen335
+\TP@oy=\dimen336
 \TP@tbargs=\toks52
 TextBlockOrigin set to 0pt x 0pt
 ) (c:/texlive/2022/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2022/06/20 v1.0f Color table columns (DPC)
 \everycr=\toks53
-\minrowclearance=\skip66
+\minrowclearance=\skip67
 \rownum=\count349
 ) (c:/texlive/2022/texmf-dist/tex/latex/pdfpages/pdfpages.sty
-Package: pdfpages 2022/05/22 v0.5v Insert pages of external PDF documents (AM)
+Package: pdfpages 2022/10/09 v0.5w Insert pages of external PDF documents (AM)
  (c:/texlive/2022/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 ) (c:/texlive/2022/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count350
 \calc@Bcount=\count351
-\calc@Adimen=\dimen335
-\calc@Bdimen=\dimen336
-\calc@Askip=\skip67
-\calc@Bskip=\skip68
+\calc@Adimen=\dimen337
+\calc@Bdimen=\dimen338
+\calc@Askip=\skip68
+\calc@Bskip=\skip69
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count352
-\calc@Cskip=\skip69
+\calc@Cskip=\skip70
 ) (c:/texlive/2022/texmf-dist/tex/latex/eso-pic/eso-pic.sty
 Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
-\ESO@tempdima=\dimen337
-\ESO@tempdimb=\dimen338
+\ESO@tempdima=\dimen339
+\ESO@tempdimb=\dimen340
 )
-\AM@pagewidth=\dimen339
-\AM@pageheight=\dimen340
-\AM@fboxrule=\dimen341
+\AM@pagewidth=\dimen341
+\AM@pageheight=\dimen342
+\AM@fboxrule=\dimen343
  (c:/texlive/2022/texmf-dist/tex/latex/pdfpages/pppdftex.def
-File: pppdftex.def 2022/05/22 v0.5v Pdfpages driver for pdfTeX (AM)
+File: pppdftex.def 2022/10/09 v0.5w Pdfpages driver for pdfTeX (AM)
 )
 \pdfpages@includegraphics@status=\count353
 \AM@pagebox=\box80
@@ -752,67 +748,67 @@ Package: subcaption 2022/01/07 v1.5 Sub-captions (AR)
 \c@subfigure=\count356
 \c@subtable=\count357
 ) (c:/texlive/2022/texmf-dist/tex/latex/adjustbox/adjustbox.sty
-Package: adjustbox 2020/08/19 v1.3 Adjusting TeX boxes (trim, clip, ...)
+Package: adjustbox 2022/10/17 v1.3a Adjusting TeX boxes (trim, clip, ...)
  (c:/texlive/2022/texmf-dist/tex/latex/adjustbox/adjcalc.sty
 Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back-ends (calc, etex, pgfmath)
 ) (c:/texlive/2022/texmf-dist/tex/latex/adjustbox/trimclip.sty
 Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
  (c:/texlive/2022/texmf-dist/tex/latex/collectbox/collectbox.sty
-Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
+Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
 \collectedbox=\box82
 )
-\tc@llx=\dimen342
-\tc@lly=\dimen343
-\tc@urx=\dimen344
-\tc@ury=\dimen345
+\tc@llx=\dimen344
+\tc@lly=\dimen345
+\tc@urx=\dimen346
+\tc@ury=\dimen347
 Package trimclip Info: Using driver 'tc-pdftex.def'.
  (c:/texlive/2022/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
 File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 ))
-\adjbox@Width=\dimen346
-\adjbox@Height=\dimen347
-\adjbox@Depth=\dimen348
-\adjbox@Totalheight=\dimen349
-\adjbox@pwidth=\dimen350
-\adjbox@pheight=\dimen351
-\adjbox@pdepth=\dimen352
-\adjbox@ptotalheight=\dimen353
+\adjbox@Width=\dimen348
+\adjbox@Height=\dimen349
+\adjbox@Depth=\dimen350
+\adjbox@Totalheight=\dimen351
+\adjbox@pwidth=\dimen352
+\adjbox@pheight=\dimen353
+\adjbox@pdepth=\dimen354
+\adjbox@ptotalheight=\dimen355
  (c:/texlive/2022/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
-Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
 \c@checkoddpage=\count358
 LaTeX Info: Redefining \checkoddpage on input line 45.
 ) (c:/texlive/2022/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box83
 \sift@deathcycles=\count359
-\@vwid@loff=\dimen354
-\@vwid@roff=\dimen355
+\@vwid@loff=\dimen356
+\@vwid@roff=\dimen357
 )) (c:/texlive/2022/texmf-dist/tex/latex/eurosym/eurosym.sty
 Package: eurosym 1998/08/06 v1.1 European currency symbol ``Euro''
 \@eurobox=\box84
-) (c:/texlive/2022/texmf-dist/tex/latex/was/gensymb.sty
-Package: gensymb 2003/07/02 v1.0 (WaS)
+) (c:/texlive/2022/texmf-dist/tex/latex/gensymb/gensymb.sty
+Package: gensymb 2022/10/17 v1.0.2 (KJH)
 ) (c:/texlive/2022/texmf-dist/tex/latex/doublestroke/dsfont.sty
 Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
 ) (c:/texlive/2022/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2021/11/30 v1.9d multicolumn formatting (FMi)
 \c@tracingmulticols=\count360
 \mult@box=\box85
-\multicol@leftmargin=\dimen356
+\multicol@leftmargin=\dimen358
 \c@unbalance=\count361
 \c@collectmore=\count362
 \doublecol@number=\count363
 \multicoltolerance=\count364
 \multicolpretolerance=\count365
-\full@width=\dimen357
-\page@free=\dimen358
-\premulticols=\dimen359
-\postmulticols=\dimen360
-\multicolsep=\skip70
-\multicolbaselineskip=\skip71
+\full@width=\dimen359
+\page@free=\dimen360
+\premulticols=\dimen361
+\postmulticols=\dimen362
+\multicolsep=\skip71
+\multicolbaselineskip=\skip72
 \partial@page=\box86
 \last@line=\box87
-\maxbalancingoverflow=\dimen361
+\maxbalancingoverflow=\dimen363
 \mult@rightbox=\box88
 \mult@grightbox=\box89
 \mult@firstbox=\box90
@@ -856,9 +852,9 @@ Package: multicol 2021/11/30 v1.9d multicolumn formatting (FMi)
 \c@minrows=\count366
 \c@columnbadness=\count367
 \c@finalcolumnbadness=\count368
-\last@try=\dimen362
-\multicolovershoot=\dimen363
-\multicolundershoot=\dimen364
+\last@try=\dimen364
+\multicolovershoot=\dimen365
+\multicolundershoot=\dimen366
 \mult@nat@firstbox=\box128
 \colbreak@box=\box129
 \mc@col@check@num=\count369
@@ -871,15 +867,15 @@ File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 ) (c:/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@nodesepstart=\dimen365
-\pgf@nodesepend=\dimen366
+\pgf@nodesepstart=\dimen367
+\pgf@nodesepend=\dimen368
 ) (c:/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
 )) (c:/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
  (c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
-\pgffor@iter=\dimen367
-\pgffor@skip=\dimen368
+\pgffor@iter=\dimen369
+\pgffor@skip=\dimen370
 \pgffor@stack=\toks56
 \pgffor@toks=\toks57
 )) (c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
@@ -887,16 +883,16 @@ Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
  (c:/texlive/2022/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@plot@mark@count=\count370
-\pgfplotmarksize=\dimen369
+\pgfplotmarksize=\dimen371
 )
-\tikz@lastx=\dimen370
-\tikz@lasty=\dimen371
-\tikz@lastxsaved=\dimen372
-\tikz@lastysaved=\dimen373
-\tikz@lastmovetox=\dimen374
-\tikz@lastmovetoy=\dimen375
-\tikzleveldistance=\dimen376
-\tikzsiblingdistance=\dimen377
+\tikz@lastx=\dimen372
+\tikz@lasty=\dimen373
+\tikz@lastxsaved=\dimen374
+\tikz@lastysaved=\dimen375
+\tikz@lastmovetox=\dimen376
+\tikz@lastmovetoy=\dimen377
+\tikzleveldistance=\dimen378
+\tikzsiblingdistance=\dimen379
 \tikz@figbox=\box131
 \tikz@figbox@bg=\box132
 \tikz@tempbox=\box133
@@ -928,7 +924,7 @@ LaTeX Font Info:    Trying to load font information for T1+ptm on input line 5.
  (c:/texlive/2022/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 ) (c:/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-08-30 L3 backend support: PDF output (pdfTeX)
+File: l3backend-pdftex.def 2022-10-26 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count379
 \l__pdf_internal_box=\box135
 ) (build/wellbeing_prez.aux)
@@ -990,13 +986,13 @@ LaTeX Font Info:    ... okay on input line 5.
 (c:/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count380
-\scratchdimen=\dimen378
+\scratchdimen=\dimen380
 \scratchbox=\box136
 \nofMPsegments=\count381
 \nofMParguments=\count382
 \everyMPshowfont=\toks58
 \MPscratchCnt=\count383
-\MPscratchDim=\dimen379
+\MPscratchDim=\dimen381
 \MPnumerator=\count384
 \makeMPintoPDFobject=\count385
 \everyMPtoPDFconversion=\toks59
@@ -1065,12 +1061,14 @@ Dictionary: translator-theorem-dictionary, Language: English
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
  (c:/texlive/2022/texmf-dist/tex/latex/pdflscape/pdflscape.sty
-Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
+Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
+ (c:/texlive/2022/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PDF (HO)
  (c:/texlive/2022/texmf-dist/tex/latex/graphics/lscape.sty
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
-)
+))
 LaTeX Info: Redefining \celsius on input line 5.
 Package gensymb Info: Faking symbols for \degree and \celsius on input line 5.
 
@@ -1165,173 +1163,66 @@ Package pdftex.def Info: ../figures/happiest_countries.jpg  used on input line 7
  [6
 
 ]
-<<<<<<< HEAD
-File: ../figures/happiest_countries.jpg Graphic file (type jpg)
-<use ../figures/happiest_countries.jpg>
-Package pdftex.def Info: ../figures/happiest_countries.jpg  used on input line 71.
-(pdftex.def)             Requested size: 185.84094pt x 159.16718pt.
- [7
-
-]
-File: ../figures/happiest_countries.jpg Graphic file (type jpg)
-<use ../figures/happiest_countries.jpg>
-Package pdftex.def Info: ../figures/happiest_countries.jpg  used on input line 71.
-(pdftex.def)             Requested size: 185.84094pt x 159.16718pt.
- [8
-
-]
-<../figures/Inglehart_Klingemann.png, id=97, 422.32782pt x 469.00218pt>
-File: ../figures/Inglehart_Klingemann.png Graphic file (type png)
-<use ../figures/Inglehart_Klingemann.png>
-Package pdftex.def Info: ../figures/Inglehart_Klingemann.png  used on input line 103.
-(pdftex.def)             Requested size: 176.4034pt x 195.90065pt.
-
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:103: Misplaced alignment tab character &.
-\beamer@doifinframe ..., 2008). \ip Blanchflower &
-                                                   Bryson (2023) \ip We chal...
-l.103 \end{frame}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-
-Overfull \vbox (123.57643pt too high) detected at line 103
- []
-
-[9
-
- <../figures/Inglehart_Klingemann.PNG>]
-<../figures/owid_satisfaction_gdp.png, id=107, 2486.53969pt x 1733.72719pt>
-File: ../figures/owid_satisfaction_gdp.png Graphic file (type png)
-<use ../figures/owid_satisfaction_gdp.png>
-Package pdftex.def Info: ../figures/owid_satisfaction_gdp.png  used on input line 103.
-(pdftex.def)             Requested size: 280.95674pt x 195.90065pt.
-
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:103: Misplaced alignment tab character &.
-\beamer@doifinframe ..., 2008). \ip Blanchflower &
-                                                   Bryson (2023) \ip We chal...
-l.103 \end{frame}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-
-Overfull \vbox (123.57643pt too high) detected at line 103
-=======
-<../figures/Inglehart_Klingemann.png, id=79, 422.32782pt x 469.00218pt>
+<../figures/Inglehart_Klingemann.png, id=84, 422.32782pt x 469.00218pt>
 File: ../figures/Inglehart_Klingemann.png Graphic file (type png)
 <use ../figures/Inglehart_Klingemann.png>
 Package pdftex.def Info: ../figures/Inglehart_Klingemann.png  used on input line 104.
 (pdftex.def)             Requested size: 176.45494pt x 195.95828pt.
 
-Overfull \vbox (167.36205pt too high) detected at line 104
->>>>>>> origin/main
+Overfull \vbox (202.76204pt too high) detected at line 104
  []
 
 [7
 
-<<<<<<< HEAD
- <../figures/owid_satisfaction_gdp.png>]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:103: Misplaced alignment tab character &.
-\beamer@doifinframe ..., 2008). \ip Blanchflower &
-                                                   Bryson (2023) \ip We chal...
-l.103 \end{frame}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-=======
  <../figures/Inglehart_Klingemann.PNG>]
-<../figures/owid_satisfaction_gdp.png, id=90, 2486.53969pt x 1733.72719pt>
+<../figures/owid_satisfaction_gdp.png, id=95, 2486.53969pt x 1733.72719pt>
 File: ../figures/owid_satisfaction_gdp.png Graphic file (type png)
 <use ../figures/owid_satisfaction_gdp.png>
 Package pdftex.def Info: ../figures/owid_satisfaction_gdp.png  used on input line 104.
 (pdftex.def)             Requested size: 281.03262pt x 195.95828pt.
 
-Overfull \vbox (167.36205pt too high) detected at line 104
+Overfull \vbox (202.76204pt too high) detected at line 104
  []
 
 [8
 
- <../figures/owid_satisfaction_gdp.png>] [9
+ <../figures/owid_satisfaction_gdp.png>]
+Overfull \vbox (3.43318pt too high) detected at line 104
+ []
 
-] [10
+[9
 
-] [11
->>>>>>> origin/main
+]
+Overfull \vbox (3.43318pt too high) detected at line 104
+ []
+
+[10
+
+]
+Overfull \vbox (3.43318pt too high) detected at line 104
+ []
 
 [11
 
 ]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:103: Misplaced alignment tab character &.
-\beamer@doifinframe ..., 2008). \ip Blanchflower &
-                                                   Bryson (2023) \ip We chal...
-l.103 \end{frame}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
+Overfull \vbox (3.43318pt too high) detected at line 104
+ []
 
 [12
 
 ]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:103: Misplaced alignment tab character &.
-\beamer@doifinframe ..., 2008). \ip Blanchflower &
-                                                   Bryson (2023) \ip We chal...
-l.103 \end{frame}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
+Overfull \vbox (3.43318pt too high) detected at line 104
+ []
 
 [13
 
 ]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:103: Misplaced alignment tab character &.
-\beamer@doifinframe ..., 2008). \ip Blanchflower &
-                                                   Bryson (2023) \ip We chal...
-l.103 \end{frame}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
+Overfull \vbox (3.43318pt too high) detected at line 104
+ []
 
 [14
 
-]
-c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex:103: Misplaced alignment tab character &.
-\beamer@doifinframe ..., 2008). \ip Blanchflower &
-                                                   Bryson (2023) \ip We chal...
-l.103 \end{frame}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-[15
+] [15
 
 ] [16
 
@@ -1342,22 +1233,9 @@ might try typing `S' now just to see what is salvageable.
 ] [19
 
 ] [20
-<<<<<<< HEAD
-
-] [21
 
 ]
-<../figures/WVS_countries_regions.png, id=173, 1383.7296pt x 752.5716pt>
-File: ../figures/WVS_countries_regions.png Graphic file (type png)
-<use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 126.
-(pdftex.def)             Requested size: 225.11732pt x 122.43744pt.
-
-Overfull \vbox (9.21701pt too high) detected at line 126
-=======
-
-]
-<../figures/WVS_countries_regions.png, id=161, 1383.7296pt x 752.5716pt>
+<../figures/WVS_countries_regions.png, id=166, 1383.7296pt x 752.5716pt>
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
 Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 127.
@@ -1375,23 +1253,10 @@ Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input lin
 (pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
 Overfull \vbox (9.181pt too high) detected at line 127
->>>>>>> origin/main
  []
 
 [22
 
-<<<<<<< HEAD
- <../figures/WVS_countries_regions.png>]
-File: ../figures/WVS_countries_regions.png Graphic file (type png)
-<use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 126.
-(pdftex.def)             Requested size: 225.11732pt x 122.43744pt.
-
-Overfull \vbox (9.21701pt too high) detected at line 126
- []
-
-[23
-=======
 ]
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
@@ -1424,40 +1289,8 @@ Overfull \vbox (9.181pt too high) detected at line 127
  []
 
 [25
->>>>>>> origin/main
 
-]
-File: ../figures/WVS_countries_regions.png Graphic file (type png)
-<use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 126.
-(pdftex.def)             Requested size: 225.11732pt x 122.43744pt.
-
-Overfull \vbox (9.21701pt too high) detected at line 126
- []
-
-[24
-
-]
-File: ../figures/WVS_countries_regions.png Graphic file (type png)
-<use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 126.
-(pdftex.def)             Requested size: 225.11732pt x 122.43744pt.
-
-Overfull \vbox (9.21701pt too high) detected at line 126
- []
-
-[25
-
-]
-File: ../figures/WVS_countries_regions.png Graphic file (type png)
-<use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 126.
-(pdftex.def)             Requested size: 225.11732pt x 122.43744pt.
-
-Overfull \vbox (9.21701pt too high) detected at line 126
- []
-
-[26
+] [26
 
 ] [27
 
@@ -1493,20 +1326,8 @@ Overfull \vbox (9.21701pt too high) detected at line 126
 
 ] [43
 
-<<<<<<< HEAD
-] [44
-
 ]
-<../figures/happy_vs_GDPppp.pdf, id=296, 433.62pt x 289.08pt>
-File: ../figures/happy_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/happy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/happy_vs_GDPppp.pdf  used on input line 180.
-(pdftex.def)             Requested size: 330.57356pt x 220.3859pt.
-
-Overfull \vbox (21.38457pt too high) detected at line 180
-=======
-]
-<../figures/happy_vs_GDPppp.pdf, id=284, 433.62pt x 289.08pt>
+<../figures/happy_vs_GDPppp.pdf, id=288, 433.62pt x 289.08pt>
 File: ../figures/happy_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/happy_vs_GDPppp.pdf>
 Package pdftex.def Info: ../figures/happy_vs_GDPppp.pdf  used on input line 181.
@@ -1518,171 +1339,91 @@ Overfull \vbox (21.37737pt too high) detected at line 181
 [44
 
  <../figures/happy_vs_GDPppp.pdf>]
-<../figures/very_happy_vs_GDPppp.pdf, id=296, 433.62pt x 289.08pt>
+<../figures/very_happy_vs_GDPppp.pdf, id=300, 433.62pt x 289.08pt>
 File: ../figures/very_happy_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/very_happy_vs_GDPppp.pdf>
 Package pdftex.def Info: ../figures/very_happy_vs_GDPppp.pdf  used on input line 181.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
 Overfull \vbox (21.37737pt too high) detected at line 181
->>>>>>> origin/main
  []
 
 [45
 
-<<<<<<< HEAD
- <../figures/happy_vs_GDPppp.pdf>]
-<../figures/very_happy_vs_GDPppp.pdf, id=307, 433.62pt x 289.08pt>
-File: ../figures/very_happy_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/very_happy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/very_happy_vs_GDPppp.pdf  used on input line 180.
-(pdftex.def)             Requested size: 330.57356pt x 220.3859pt.
-
-Overfull \vbox (21.38457pt too high) detected at line 180
-=======
  <../figures/very_happy_vs_GDPppp.pdf>]
-<../figures/very_unhappy_vs_GDPppp.pdf, id=307, 433.62pt x 289.08pt>
+<../figures/very_unhappy_vs_GDPppp.pdf, id=311, 433.62pt x 289.08pt>
 File: ../figures/very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/very_unhappy_vs_GDPppp.pdf>
 Package pdftex.def Info: ../figures/very_unhappy_vs_GDPppp.pdf  used on input line 181.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
 Overfull \vbox (21.37737pt too high) detected at line 181
->>>>>>> origin/main
  []
 
 [46
 
-<<<<<<< HEAD
- <../figures/very_happy_vs_GDPppp.pdf>]
-<../figures/very_unhappy_vs_GDPppp.pdf, id=318, 433.62pt x 289.08pt>
-File: ../figures/very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/very_unhappy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/very_unhappy_vs_GDPppp.pdf  used on input line 180.
-(pdftex.def)             Requested size: 330.57356pt x 220.3859pt.
-
-Overfull \vbox (21.38457pt too high) detected at line 180
-=======
  <../figures/very_unhappy_vs_GDPppp.pdf>]
-<../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf, id=318, 433.62pt x 289.08pt>
+<../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf, id=322, 433.62pt x 289.08pt>
 File: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>
 Package pdftex.def Info: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf  used on input line 181.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
 Overfull \vbox (21.37737pt too high) detected at line 181
->>>>>>> origin/main
  []
 
 [47
 
-<<<<<<< HEAD
- <../figures/very_unhappy_vs_GDPppp.pdf>]
-<../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf, id=329, 433.62pt x 289.08pt>
-File: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf  used on input line 180.
-(pdftex.def)             Requested size: 330.57356pt x 220.3859pt.
-
-Overfull \vbox (21.38457pt too high) detected at line 180
-=======
  <../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>]
-<../figures/happiness_mean_vs_GDPppp.pdf, id=329, 433.62pt x 289.08pt>
+<../figures/happiness_mean_vs_GDPppp.pdf, id=333, 433.62pt x 289.08pt>
 File: ../figures/happiness_mean_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/happiness_mean_vs_GDPppp.pdf>
 Package pdftex.def Info: ../figures/happiness_mean_vs_GDPppp.pdf  used on input line 181.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
 Overfull \vbox (21.37737pt too high) detected at line 181
->>>>>>> origin/main
  []
 
 [48
 
-<<<<<<< HEAD
- <../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>]
-<../figures/happiness_mean_vs_GDPppp.pdf, id=340, 433.62pt x 289.08pt>
-File: ../figures/happiness_mean_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/happiness_mean_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/happiness_mean_vs_GDPppp.pdf  used on input line 180.
-(pdftex.def)             Requested size: 330.57356pt x 220.3859pt.
-
-Overfull \vbox (21.38457pt too high) detected at line 180
-=======
  <../figures/happiness_mean_vs_GDPppp.pdf>]
-<../figures/satisfied_mean_vs_GDPppp.pdf, id=340, 433.62pt x 289.08pt>
+<../figures/satisfied_mean_vs_GDPppp.pdf, id=344, 433.62pt x 289.08pt>
 File: ../figures/satisfied_mean_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/satisfied_mean_vs_GDPppp.pdf>
 Package pdftex.def Info: ../figures/satisfied_mean_vs_GDPppp.pdf  used on input line 181.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
 Overfull \vbox (21.37737pt too high) detected at line 181
->>>>>>> origin/main
  []
 
 [49
 
-<<<<<<< HEAD
- <../figures/happiness_mean_vs_GDPppp.pdf>]
-<../figures/satisfied_mean_vs_GDPppp.pdf, id=352, 433.62pt x 289.08pt>
-File: ../figures/satisfied_mean_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/satisfied_mean_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/satisfied_mean_vs_GDPppp.pdf  used on input line 180.
-(pdftex.def)             Requested size: 330.57356pt x 220.3859pt.
-
-Overfull \vbox (21.38457pt too high) detected at line 180
-=======
  <../figures/satisfied_mean_vs_GDPppp.pdf>]
-<../figures/satisfied_vs_GDPppp.pdf, id=352, 433.62pt x 289.08pt>
+<../figures/satisfied_vs_GDPppp.pdf, id=356, 433.62pt x 289.08pt>
 File: ../figures/satisfied_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/satisfied_vs_GDPppp.pdf>
 Package pdftex.def Info: ../figures/satisfied_vs_GDPppp.pdf  used on input line 181.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
 Overfull \vbox (21.37737pt too high) detected at line 181
->>>>>>> origin/main
  []
 
 [50
 
-<<<<<<< HEAD
- <../figures/satisfied_mean_vs_GDPppp.pdf>]
-<../figures/satisfied_vs_GDPppp.pdf, id=363, 433.62pt x 289.08pt>
-File: ../figures/satisfied_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/satisfied_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/satisfied_vs_GDPppp.pdf  used on input line 180.
-(pdftex.def)             Requested size: 330.57356pt x 220.3859pt.
-
-Overfull \vbox (21.38457pt too high) detected at line 180
-=======
  <../figures/satisfied_vs_GDPppp.pdf>]
-<../figures/happiness_Layard_vs_GDPppp.pdf, id=363, 433.62pt x 289.08pt>
+<../figures/happiness_Layard_vs_GDPppp.pdf, id=367, 433.62pt x 289.08pt>
 File: ../figures/happiness_Layard_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/happiness_Layard_vs_GDPppp.pdf>
 Package pdftex.def Info: ../figures/happiness_Layard_vs_GDPppp.pdf  used on input line 181.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
 Overfull \vbox (21.37737pt too high) detected at line 181
->>>>>>> origin/main
  []
 
 [51
 
-<<<<<<< HEAD
- <../figures/satisfied_vs_GDPppp.pdf>]
-<../figures/happiness_Layard_vs_GDPppp.pdf, id=374, 433.62pt x 289.08pt>
-File: ../figures/happiness_Layard_vs_GDPppp.pdf Graphic file (type pdf)
-<use ../figures/happiness_Layard_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/happiness_Layard_vs_GDPppp.pdf  used on input line 180.
-(pdftex.def)             Requested size: 330.57356pt x 220.3859pt.
-
-Overfull \vbox (21.38457pt too high) detected at line 180
- []
-
-[52
-=======
  <../figures/happiness_Layard_vs_GDPppp.pdf>]
-<../figures/happy_vs_GDP_wave7_weighted.pdf, id=374, 433.62pt x 289.08pt>
+<../figures/happy_vs_GDP_wave7_weighted.pdf, id=378, 433.62pt x 289.08pt>
 File: ../figures/happy_vs_GDP_wave7_weighted.pdf Graphic file (type pdf)
 <use ../figures/happy_vs_GDP_wave7_weighted.pdf>
 Package pdftex.def Info: ../figures/happy_vs_GDP_wave7_weighted.pdf  used on input line 181.
@@ -1705,32 +1446,8 @@ Overfull \vbox (3.29666pt too high) detected at line 195
  []
 
 [54
->>>>>>> origin/main
 
- <../figures/happiness_Layard_vs_GDPppp.pdf>]
-<../figures/happy_vs_GDP_wave7_weighted.pdf, id=385, 433.62pt x 289.08pt>
-File: ../figures/happy_vs_GDP_wave7_weighted.pdf Graphic file (type pdf)
-<use ../figures/happy_vs_GDP_wave7_weighted.pdf>
-Package pdftex.def Info: ../figures/happy_vs_GDP_wave7_weighted.pdf  used on input line 180.
-(pdftex.def)             Requested size: 330.57356pt x 220.3859pt.
-
-Overfull \vbox (21.38457pt too high) detected at line 180
- []
-
-[53
-
- <../figures/happy_vs_GDP_wave7_weighted.pdf>] [54
-
-] (../tables/gdp.tex)
-Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--194
-[][] 
- []
-
-
-Overfull \vbox (3.3687pt too high) detected at line 194
- []
-
-[55
+] [55
 
 ] [56
 
@@ -1747,36 +1464,13 @@ Overfull \vbox (3.3687pt too high) detected at line 194
 ] [62
 
 ] [63
-<<<<<<< HEAD
-
-] [64
-
-] [65
-
-] [66
-
-]
-<../figures/region_groupings.png, id=476, 1381.0797pt x 754.9806pt>
-File: ../figures/region_groupings.png Graphic file (type png)
-<use ../figures/region_groupings.png>
-Package pdftex.def Info: ../figures/region_groupings.png  used on input line 216.
-(pdftex.def)             Requested size: 358.35576pt x 195.90065pt.
-
-Overfull \vbox (5.43523pt too high) detected at line 216
- []
-
-[67
-
- <../figures/region_groupings.png>] (../tables/share_gdp.tex)
-Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--244
-=======
 
 ] [64
 
 ] [65
 
 ]
-<../figures/region_groupings.png, id=465, 1381.0797pt x 754.9806pt>
+<../figures/region_groupings.png, id=469, 1381.0797pt x 754.9806pt>
 File: ../figures/region_groupings.png Graphic file (type png)
 <use ../figures/region_groupings.png>
 Package pdftex.def Info: ../figures/region_groupings.png  used on input line 217.
@@ -1864,32 +1558,14 @@ So I've deleted the formulas that preceded this alignment.
 pdfTeX warning: pdflatex.exe: pop empty color page stack 0
 ] (../tables/share_gdp.tex)
 Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--245
->>>>>>> origin/main
 [][] 
  []
 
 
-<<<<<<< HEAD
-Overfull \vbox (3.3687pt too high) detected at line 244
- []
-
-[68
-
-] [69
-
-] [70
-
-] [71
-
-] [72
-
-] [73
-=======
 Overfull \vbox (3.29666pt too high) detected at line 245
  []
 
 [73
->>>>>>> origin/main
 
 ] [74
 
@@ -1909,22 +1585,6 @@ Overfull \vbox (3.29666pt too high) detected at line 245
 
 ] [82
 
-<<<<<<< HEAD
-] (../tables/gdp_add.tex)
-Overfull \vbox (2.3687pt too high) detected at line 288
- []
-
-[83
-
-] (../tables/share_gdp_add.tex)
-Overfull \vbox (2.3687pt too high) detected at line 296
- []
-
-[84
-
-] [85
-
-=======
 ] [83
 
 ] [84
@@ -1949,7 +1609,6 @@ Overfull \vbox (2.29666pt too high) detected at line 297
 
 ] [90
 
->>>>>>> origin/main
 ]
 \tf@nav=\write6
 \openout6 = `wellbeing_prez.nav'.
@@ -1965,34 +1624,18 @@ Package rerunfilecheck Info: File `wellbeing_prez.out' has not changed.
 (rerunfilecheck)             Checksum: EBEC5A8B7913F8BB59EEA1DB2AC32EE0;1018.
  ) 
 Here is how much of TeX's memory you used:
-<<<<<<< HEAD
- 34099 strings out of 474968
- 679563 string characters out of 5780081
+ 34115 strings out of 474968
+ 679696 string characters out of 5780081
  993496 words of memory out of 5000000
- 54660 multiletter control sequences out of 15000+600000
- 524914 words of font info for 93 fonts, out of 8000000 for 9000
-=======
- 34093 strings out of 475075
- 678868 string characters out of 5783001
- 991331 words of memory out of 5000000
- 54536 multiletter control sequences out of 15000+600000
+ 54662 multiletter control sequences out of 15000+600000
  526387 words of font info for 97 fonts, out of 8000000 for 9000
->>>>>>> origin/main
  1141 hyphenation exceptions out of 8191
- 99i,15n,104p,622b,694s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,15n,104p,622b,696s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-<<<<<<< HEAD
-Output written on build/wellbeing_prez.pdf (85 pages, 3924035 bytes).
+Output written on build/wellbeing_prez.pdf (90 pages, 3935401 bytes).
 PDF statistics:
- 670 PDF objects out of 1000 (max. 8388607)
- 526 compressed objects within 6 object streams
- 182 named destinations out of 1000 (max. 500000)
-=======
-Output written on build/wellbeing_prez.pdf (90 pages, 3934693 bytes).
-PDF statistics:
- 690 PDF objects out of 1000 (max. 8388607)
- 541 compressed objects within 6 object streams
+ 694 PDF objects out of 1000 (max. 8388607)
+ 545 compressed objects within 6 object streams
  192 named destinations out of 1000 (max. 500000)
->>>>>>> origin/main
  178 words of extra memory for PDF output out of 10000 (max. 10000000)
 
