@@ -76,7 +76,7 @@
     \ip \centering \only<1>{World Values Survey, $R^2=.49$ (Inglehart \& Klingemann, 2000) \\
     \includegraphics[height=.8\textheight]{../figures/Inglehart_Klingemann}}
     \only<2>{World Happiness Report (Gallup, 2023) \\
-    \includegraphics[height=.8\textheight]{../figures/owid_satisfaction_gdp}}
+    \includegraphics[height=.75\textheight]{../figures/owid_satisfaction_gdp}}
     \ip The literature finds an \blue{increasing relationship between GDP pc and well-being}.
     \ip Deaton (2008) finds a log-linear relation between average satisfaction and GDP pc PPP using Gallup data ($R^2=.71$).
     \ip Latin America (Eastern Europe) is (un)happier than predicted (Inglehart et al., 2008).
@@ -220,14 +220,14 @@
     % \only<6>{\input{../tables/share_gdp.tex}}
     % \only<1-5,7->{
     \bbvsp
-    \ip For different \textit{well-being} and \textit{income} indicators, we run regressions and compute corresponding $R^2$:
+    \ip For different \textit{well-being} and \textit{income} indicators, we run regressions and compute corresponding $R^2$: 
     % \ee    
     % \makebox[.7\textwidth][c]{
     \begin{align} 
         well\text{-}being_i &= \alpha_1 + \beta_1\, income_i + u_i\\
         well\text{-}being_i &= \alpha_2 + \gamma_2\, region_i + e_i\\
         well\text{-}being_i &= \alpha_3 + \beta_3\, income_i + \gamma_3\, region_i + \varepsilon_i 
-    \end{align} % TODO solve error
+    \end{align} 
     % }
     % \bbvsp
     \ip \blue{$R^2_3$} is the \blue{share of variance explained} by income and region (3).
@@ -237,7 +237,7 @@
     \ip This follows the LMG methodoly (Lindeman, Merenda \& Gold, 1980; Grömping, 2007).
     \ee
     % }
-\end{frame} % TODO put back
+\end{frame} 
               
 % Share of the variance explained by income rather than region
 \begin{frame}{Share of explained variance that is explained by income \label{share_gdp} \hyperlink{share_gdp_add}{\beamergotobutton{More results}}}
