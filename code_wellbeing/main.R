@@ -1,3 +1,4 @@
+# TODO! Use Adjusted R-squared
 # TODO: first factor in regression tree with region and income
 # TODO: robustness check: redo analysis without Latin America and Ex-Eastern Block
 # TODO: appendix table (xlsx?) with WB indicator values for each country-wave
