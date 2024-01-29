@@ -1,4 +1,8 @@
+# TODO! Check documentation of Gallup, WVS
+# TODO! Do Gallup analysis with WVS countries
 # TODO! Use Adjusted R-squared
+# TODO: correlation matrix between well-being indicators
+# TODO: share of people with well-being below 60% of average
 # TODO: first factor in regression tree with region and income
 # TODO: robustness check: redo analysis without Latin America and Ex-Eastern Block
 # TODO: appendix table (xlsx?) with WB indicator values for each country-wave
@@ -8,7 +12,7 @@
 # TODO: Automatize recovery of missing GDP data (from IMF or WB's Global Economic Prospects)
 # Outlet: Journal of Happiness Studies (IF: 4.6)
 
-# Cite Guriev & Zhuravskaya (09)
+# Cite Guriev & Zhuravskaya (09), Sofia Panasiuk (no paper yet, https://www.youtube.com/watch?v=GMZtPsLrgdk&t=6s)
 
 # Gallup question: Please imagine a ladder with steps numbered from 0 at the bottom to 10 at the top. 
 #   Suppose we say that the top of the ladder represents the best possible life for you, and the bottom of the ladder represents the worst possible life for you. 
@@ -40,16 +44,17 @@ kvalues <- 5:7
 country_mapping <- read.csv("../data/country_code_mapping.csv")
 country <- setNames(country_mapping$country, country_mapping$alpha.2)
 code <- setNames(country_mapping$code, country_mapping$alpha.2)
+code_country <- setNames(country_mapping$code, country_mapping$country)
 wvs <- readRDS("../data/WVS.rds") # All waves concatenated https://www.worldvaluessurvey.org/WVSEVStrend.jsp
 wvs <- wvs %>% rename(s002 = wave, s020 = year, s009 = alpha.2, a008 = happiness, a170 = satisfaction, c006 = financial_satisfaction, d002 = home_satisfaction, s018 = weight, pwght = pop_weight) # cow_alpha = code, 
 wvs$country <- country[wvs$alpha.2]
 wvs$code <- code[wvs$alpha.2]
 region6 <- list(
-  "Africa" = c("BFA", "DZA", "ETH", "GHA", "KEN", "LBY", "MAR", "MLI", "NGA", "RWA", "TUN", "TZA", "UGA", "ZAF", "ZMB", "ZWE"), # 16
+  "Africa" = c("BFA", "DZA", "ETH", "GHA", "KEN", "LBY", "MAR", "MLI", "NGA", "RWA", "TUN", "TZA", "UGA", "ZAF", "ZMB", "ZWE", "XXS"), # 16
   "Latin America" = c("ARG", "BOL", "BRA", "CHL", "COL", "DOM", "ECU", "GTM", "HTI", "MEX", "NIC", "PER", "PRI", "SLV", "TTO", "URY", "VEN"), # 17
-  "Ex-Eastern Block" = c("ALB", "ARM", "AZE", "BIH", "BGR", "BLR", "CZE", "EST", "GEO", "HRV", "HUN", "KAZ", "KGZ", "LTU", "LVA", "MDA", "MKD", "MNE", "POL", "ROU", "RUS", "SRB", "SVK", "SVN", "TJK", "UKR", "UZB"), # 27
+  "Ex-Eastern Block" = c("ALB", "ARM", "AZE", "BIH", "BGR", "BLR", "CZE", "EST", "GEO", "HRV", "HUN", "KAZ", "KGZ", "LTU", "LVA", "MDA", "MKD", "MNE", "POL", "ROU", "RUS", "SRB", "SVK", "SVN", "TJK", "UKR", "UZB", "XXN", "XXK"), # 27
   "Middle East" = c("EGY", "IRN", "IRQ", "ISR", "JOR", "KWT", "LBN", "PSE", "QAT", "SAU", "TUR", "YEM"), # 12 Israel in it?
-  "Western" = c("AND", "AUS", "CAN", "CHE", "CYP", "DEU", "ESP", "FIN", "FRA", "GBR", "GRC", "ITA", "NIR", "NLD", "NOR", "NZL", "SWE", "USA"), # 18
+  "Western" = c("AND", "AUS", "CAN", "CHE", "CYP", "DEU", "ESP", "FIN", "FRA", "GBR", "GRC", "ITA", "NIR", "NLD", "NOR", "NZL", "SWE", "USA", "XXY"), # 18
   "Asia" = c("BGD", "CHN", "HKG", "IDN", "IND", "JPN", "KOR", "MAC", "MDV", "MMR", "MNG", "MYS", "PAK", "PHL", "SGP", "THA", "TWN", "VNM") # 18
 ) # https://en.wikipedia.org/wiki/United_Nations_Regional_Groups
 region <- list("Africa" = c(region6$Africa, "EGY"), "Latin America" = region6$`Latin America`, "Western" = c(region6$Western, "TUR"),
@@ -87,6 +92,11 @@ a <- wvs %>% group_by(code, year) %>%
                    very_happy_over_very_unhappy = min(1000, sum((happiness[happiness > 0] == 1) * weight[happiness > 0]) / sum((happiness[happiness > 0] == 4) * weight[happiness > 0])),
                    satisfied = weighted.mean(satisfaction[satisfaction > 0] > 5, weight[satisfaction > 0]),
                    satisfied_mean = weighted.mean(satisfaction[satisfaction > 0], weight[satisfaction > 0]),
+                   very_satisfied = weighted.mean(satisfaction[satisfaction > 0] > 7, weight[satisfaction > 0]),
+                   extremely_satisfied = weighted.mean(satisfaction[satisfaction > 0] > 8, weight[satisfaction > 0]),
+                   completely_satisfied = weighted.mean(satisfaction[satisfaction > 0] == 10, weight[satisfaction > 0]),
+                   unsatisfied = weighted.mean(satisfaction[satisfaction > 0] < 5, weight[satisfaction > 0]),
+                   dissatisfied = weighted.mean(satisfaction[satisfaction > 0] < 3, weight[satisfaction > 0]),
                    happiness_mean = weighted.mean(((5 - happiness[happiness > 0]) * 2 - 5), weight[happiness > 0]), # -3/-1/1/3
                    financial_satisfaction = weighted.mean(financial_satisfaction[financial_satisfaction > 0] > 5, weight[financial_satisfaction > 0]), home_satisfaction = weighted.mean(home_satisfaction[home_satisfaction > 0] > 5, weight[home_satisfaction > 0]),
                    gdp = unique(gdp), gdp_ppp = unique(gdp_ppp), gdp_na = unique(gdp_na), gdp_ppp_na = unique(gdp_ppp_na), region = unique(region), region6 = unique(region6), wave = unique(wave), alpha.2 = unique(alpha.2), country = unique(country),
@@ -110,27 +120,91 @@ create_gdp_vars <- function(var = "gdp_ppp", waves = 1:7, k_values = kvalues, pa
   a[[paste0("group_", var)]] <- as.character(cut(a[[paste0("ranked_", var)]], breaks = 6, labels = FALSE))
   #1 being the lowest and 6 being the highest gdp group (corresponding to the y_6ile variable in the previous paper)
   # k is the number of bins / GDP clusters
-  for (k in k_values) {
-    kmeans_total <- kmeans(a[[paste0("log_", var)]][!is.na(a[[paste0("log_", var)]])], centers = k)
-    a[[paste0("kmeans_", var, "_", k)]][!is.na(a[[paste0("log_", var)]])] <- as.character(kmeans_total$cluster)
-  }
+  # for (k in k_values) {
+  #   kmeans_total <- kmeans(a[[paste0("log_", var)]][!is.na(a[[paste0("log_", var)]])], centers = k)
+  #   a[[paste0("kmeans_", var, "_", k)]][!is.na(a[[paste0("log_", var)]])] <- as.character(kmeans_total$cluster)
+  # }
   return(a)
 }
 for (var in c("gdp", "gdp_ppp", "gdp_na", "gdp_ppp_na")) a <- create_gdp_vars(var, waves = 1:7, k_values = kvalues, pandemic_years = TRUE, data = a)
 
+# Gallup
+g <- read.xlsx("../data/gallup.xlsx", startRow = 10)
+names(g) <- c("wave", "na", "country", paste0("s", 0:10), "sDK", "sRefused", "N")
+for (i in 1:nrow(g)) if ("Total" %in% g$wave[1:i]) g$wave[i] <- 99 # Means all waves combined
+for (j in c(1, 4:ncol(g))) g[[j]] <- as.numeric(g[[j]])
+for (i in 1:nrow(g)) g$wave[i] <- max(g$wave[1:i], na.rm = T)
+g <- g[!is.na(g$country), -2]
+row.names(g) <- NULL
+g$sDK[is.na(g$sDK)] <- 0
+g$sRefused[is.na(g$sRefused)] <- 0
+g$s0[is.na(g$s0)] <- 0 # 11.2 Germany Norway
+all(rowSums(g[3:(ncol(g)-1)]) == g$N)
+# View(g[which(is.na(rowSums(g[,3:(ncol(g)-1)]))),])
+# all(rowSums(g[3:(ncol(g)-1)]) == g$N, na.rm = T)
+table(g$wave) # Max: 9.1 (148), 12.1 (147), 14.1 (145), 17.1 (142)
+for (w in unique(g$wave)) if (length(unique(g$country[g$wave == w])) != length(which(g$wave == w))) warning(paste("Duplicated countries for wave", w))
+g$satisfied <- rowSums(g[,paste0("s", 6:10)])/rowSums(g[,paste0("s", 0:10)])
+g$very_satisfied <- rowSums(g[,paste0("s", 8:10)])/rowSums(g[,paste0("s", 0:10)])
+g$extremely_satisfied <- rowSums(g[,paste0("s", 9:10)])/rowSums(g[,paste0("s", 0:10)])
+g$completely_satisfied <- g$s10/rowSums(g[,paste0("s", 0:10)])
+g$unsatisfied <- rowSums(g[,paste0("s", 0:4)])/rowSums(g[,paste0("s", 0:10)])
+g$dissatisfied <- rowSums(g[,paste0("s", 0:2)])/rowSums(g[,paste0("s", 0:10)])
+g$satisfied_mean <- rowMeans(g[,paste0("s", 0:10)]) 
+g$country[g$country == "Czech Republic"] <- "Czechia"
+g$country[g$country == "Palestinian Territories"] <- "Palestine, State of"
+g$country[g$country == "Trinidad & Tobago"] <- "Trinidad and Tobago"
+g$country[g$country == "Congo Brazzaville"] <- "Congo"
+g$country[g$country == "Congo (Kinshasa)"] <- "Democratic Republic of Congo"
+g$country[g$country == "Ivory Coast"] <- "Cote d'Ivoire"
+g$country[g$country == "The Gambia"] <- "Gambia"
+g$code <- code_country[g$country]
+g$code[g$country == "Kosovo"] <- "XXK"
+g$country[g$country == "Somaliland region"] <- "XXS"
+g$code[g$country == "Northern Cyprus"] <- "XXY"
+g$country[g$country == "Nagorno-Karabakh Region"] <- "XXN"
+g$region <- region_mapping[g$code]
+g$region6 <- region6_mapping[g$code]
+
+g$year <- floor(g$wave) + 2000
+for (c in intersect(g$code, GDPpcPPP$Country.Code)) for (y in unique(g$year[g$code == c & g$year != 2099])) if (!is.na(y)) {
+  gdp_pc_ppp_c <- GDPpcPPP[GDPpcPPP$Country.Code == c, paste0("X",  y)]
+  if (!is.na(gdp_pc_ppp_c)) g$gdp_ppp[g$code ==  c & g$year == y]  <- gdp_pc_ppp_c
+  else print(paste(c, y, "ppp")) # (c, y) with missing data are printed (cf. below)
+  gdp_pc_c <- GDPpc[GDPpc$Country.Code == c, paste0("X",  y)]
+  if (!is.na(gdp_pc_c)) g$gdp[g$code ==  c & g$year == y]  <- gdp_pc_c
+  else print(paste(c, y)) # (c, y) with missing data are printed: TODO complete with https://www.imf.org/external/datamapper/PPPPC@WEO/OEMDC/ADVEC/WEOWORLD/VEN
+} 
+g$gdp_na <- g$gdp # Version of GDP pc (PPP) where we take out missing data (instead of using imputed one)
+# g$gdp_na[paste0(g$code, g$year) %in% c("SVK1990", "VEN2021", "VEN1996", "VEN2000", "HUN1982", "MNE1996", "POL1989", "TWN1998", "TWN2006", "TWN2012", "TWN2019", "NIR2022")] <- NA
+g$gdp_ppp_na <- g$gdp_ppp
+# g$gdp_ppp_na[paste0(g$code, g$year) %in% c("AND2018", "AND2005", "ARG1984", "AUS1981", "JPN1981", "KOR1982", "MEX1981", "SVK1990", "VEN2021", "VEN1996", "VEN2000", "FIN1981", "HUN1982", "MNE1996", "POL1989", "ZAF1982", "CHE1989", "YEM2014", "TWN1998", "TWN2006", "TWN2012", "TWN2019", "NIR2022")] <- NA
+
+for (c in unique(g$code)) for (y in unique(g$year[g$code == c & g$year != 2099])) if (!is.na(y)) {
+  pop_cy <- 1e3 * as.numeric(pop$pop[no.na(pop$code) == c & no.na(pop$year) == y])
+  if (length(pop_cy)) g$pop[g$code == c & g$year == y] <- pop_cy
+  else print(paste(c, y)) # (c, y) with missing data are printed
+} 
+for (var in c("gdp_na", "gdp_ppp_na")) g <- create_gdp_vars(var, waves = unique(g$wave), k_values = kvalues, pandemic_years = TRUE, data = g)
+
+
 
 ##### regressions #####
 happiness_variables <- c("very_happy", "happy", "very_unhappy", "satisfied", "satisfied_mean", "happiness_mean", "happiness_Layard", "very_happy_minus_very_unhappy") 
-hapiness_names <- setNames(c("Very Happy", "Happy", "Very Unhappy", "Satisfied", "Satisfaction (mean)", "Happiness (mean)", "Happy-Satisfied", "Very Happy minus Very Unhappy"), happiness_variables)
+happiness_names <- setNames(c("Very Happy", "Happy", "Very Unhappy", "Satisfied", "Satisfaction (mean)", "Happiness (mean)", "Happy-Satisfied", "Very Happy minus Very Unhappy"), happiness_variables)
+satisfaction_variables <- c("satisfied", "very_satisfied", "extremely_satisfied", "completely_satisfied", "unsatisfied", "dissatisfied", "satisfied_mean")
+satisfaction_names <- setNames(c("Satisfied (6-10)", 'Very satisfied (8-10)', "Extremely satisfied (9-10)", "Completely satisfied (10)", "Unsatisfied (0-4)", "Dissatisfied (0-2)", "Satisfaction (mean)"), satisfaction_variables)
+wellbeing_variables <- unique(c(happiness_variables, satisfaction_variables))
 
-run_regressions <- function(var_gdp = "gdp_ppp", waves = 1:7, weight = FALSE, pandemic_years = TRUE, only_last = FALSE, region6 = FALSE, happiness_vars = happiness_variables, data = a, return = "var_explained") {
+run_regressions <- function(var_gdp = "gdp_ppp", waves = 1:7, weight = FALSE, pandemic_years = TRUE, only_last = FALSE, region6 = FALSE, happiness_vars = wellbeing_variables, data = a, return = "var_explained") {
   # if (!pandemic_years) data <- create_gdp_vars(pandemic_years = FALSE)
-  data <- create_gdp_vars(var = var_gdp, waves = waves, k_values = kvalues, pandemic_years = pandemic_years, data = a)
+  data <- create_gdp_vars(var = var_gdp, waves = waves, k_values = kvalues, pandemic_years = pandemic_years, data = data)
+
   if (only_last) for (c in data$code) data <- data[!(data$code == c & data$year != max(data$year[data$code == c])),]
   region <- if (region6) "as.factor(region6)" else "as.factor(region)"
   weights <- if (weight) data$pop else NULL
   lgdp <- paste0("log_", var_gdp)
-  
+
   regressions <- list()
   for (i in happiness_vars) { 
     regressions[[i]] <- list("region" = lm(as.formula(paste(i, "~", region)), data = data, weights = weights),
@@ -143,7 +217,7 @@ run_regressions <- function(var_gdp = "gdp_ppp", waves = 1:7, weight = FALSE, pa
     for (k in kvalues) regressions[[i]][[paste0("gdp_cluster", k)]] <- lm(as.formula(paste0(i, "~ kmeans_", var_gdp, "_", k)), data = data, weights = weights)
     for (k in kvalues) regressions[[i]][[paste0("region_gdp_cluster", k)]] <- lm(as.formula(paste0(i, "~ kmeans_", var_gdp, "_", k, " + ", region)), data = data, weights = weights)
   }
-  
+
   result_tables <- list()
   combined_results <- data.frame() 
   for (j in names(regressions[[1]])) if (!grepl("region_", j)) {
@@ -155,7 +229,7 @@ run_regressions <- function(var_gdp = "gdp_ppp", waves = 1:7, weight = FALSE, pa
   }
   combined_results_max <- combined_results %>% group_by(Dependent_Variable) %>% slice(which.max(r.squared))
   # print(combined_results_max)
-  
+
   # Toy example:
   # reg_tot<- lm(happy ~ log_gdp + region, data = a)
   # variance_reg_tot <- calc.relimp(reg_tot, type = c("lmg"), rela = F, rank= F)
@@ -200,6 +274,11 @@ reg_tables$r_weighted <- run_regressions(var_gdp = "gdp", waves = 1:7, weight = 
 reg_tables$r_na <- run_regressions(var_gdp = "gdp_na", waves = 1:7, weight = FALSE, pandemic_years = T)
 reg_tables$r7_wo_pandemic_years <- run_regressions(var_gdp = "gdp", waves = 7, weight = FALSE, pandemic_years = F)
 # reg_tables6 <- reg_tables
+reg_tables$g17_na <- run_regressions(var_gdp = "gdp_na", waves = 17.1, weight = FALSE, pandemic_years = T, data = g, happiness_vars = satisfaction_variables)
+reg_tables$g17p_na <- run_regressions(var_gdp = "gdp_ppp_na", waves = 17.1, weight = FALSE, pandemic_years = T, data = g, happiness_vars = satisfaction_variables)
+reg_tables$g_na <- run_regressions(var_gdp = "gdp_na", waves = unique(g$wave)[unique(g$wave)!=99], weight = FALSE, pandemic_years = T, data = g, happiness_vars = satisfaction_variables)
+reg_tables$gp_na <- run_regressions(var_gdp = "gdp_ppp_na", waves = unique(g$wave)[unique(g$wave)!=99], weight = FALSE, pandemic_years = T, data = g, happiness_vars = satisfaction_variables)
+
 
 (max_share_var_explained_by_gdp <- round(sapply(names(reg_tables), function(n) n = max(reg_tables[[n]]$share_var_explained_by_gdp)), 3))
 (argmax_share_var_explained_by_gdp <- sapply(names(reg_tables), function(n) n = paste(reg_tables[[n]]$var_happiness, reg_tables[[n]]$var_gdp)[which.max(reg_tables[[n]]$share_var_explained_by_gdp)]))
@@ -226,7 +305,7 @@ supp_specs_nominal <- c("r_weighted", "r_na", "r_only_last", "r12", "r3", "r4", 
 add_specs <- c("rp_weighted", "r12p", "r3p", "r4p", "r5p", "r6p", "r7p") 
 add2_specs <- c("rp_weighted", "rp_na", "rp_only_last", "r7p_wo_pandemic_years") # not_log quadratic
 
-latex_names <- c("very_happy_minus_very_unhappy" = "V. Happy -- V. Unhappy", "happiness_Layard" = "Happy + Satisfied", hapiness_names, 
+latex_names <- c("very_happy_minus_very_unhappy" = "V. Happy -- V. Unhappy", "happiness_Layard" = "Happy + Satisfied", happiness_names, 
                        "log_gdp" = "\\makecell{log GDP p.c.\\\\PPP}", "gdp_group" = "\\makecell{quantile\\\\(sextile)}",
                        "gdp_cluster5" = "k = 5", "gdp_cluster6" = "k = 6", "gdp_cluster7" = "k = 7", "log_gdp_nominal" = "\\makecell{log GDP p.c.\\\\nominal}",
                        "gdp_cluster7_nominal" = "\\makecell{cluster (k = 7)\\\\nominal}",
@@ -250,14 +329,15 @@ latex_short_names <- c("log_gdp" = "\\makecell{\\,\\\\PPP}", "log_gdp_nominal" =
                        "r6p" = "\\makecell{6}", "r7p" = "\\makecell{7}", "r7p_wo_pandemic_years" = "\\makecell{Wave 7\\\\without pandemic\\\\(2020-2021)}", latex_names)
 
 # NB: it is max of mean and not mean of max.
-mean_max_table <- function(out_var, col_vars, default_gdp = "gdp_cluster7", happiness_vars = happiness_variables, n_obs = T, export = TRUE, filename = NULL, caption = NULL) {
+mean_max_table <- function(out_var, col_vars, default_gdp = "gdp_cluster7", happiness_vars = happiness_variables, n_obs = T, export = TRUE, filename = NULL, caption = NULL, df = a, waves = NULL) {
   table <- matrix(nrow = length(happiness_vars)+2, ncol = length(col_vars)+2, dimnames = list(c(happiness_vars, "mean", "max"), c(col_vars, "mean", "max")))
   Ns <- c()
   for (g in col_vars) {
-    tab <- if (grepl("gdp", g)) { if (grepl("nominal", g)) "r" else "rp" } else g
-    waves <- str_split_1(gsub("\\D", "", tab), pattern = "")
+    if (deparse(substitute(df)) == "a") tab <- if (grepl("gdp", g)) { if (grepl("nominal", g)) "r" else "rp" } else g
+    else tab <- if (grepl("gdp", g)) { if (grepl("nominal", g)) paste0("g", sub("\\..*", "", waves), "_na") else paste0("g", sub("\\..*", "", waves), "p_na") } else g
+    if (is.null(waves)) waves <- str_split_1(gsub("\\D", "", tab), pattern = "")  
     if (length(waves) == 0) waves <- 1:7
-    Ns <- c(Ns, sum(a$wave %in% waves & (if (grepl("wo_pandemic", g)) a$non_pandemic else T) & (if (grepl("_na", g)) { if (grepl("p_", g)) !is.na(a$gdp_ppp_na) else !is.na(a$gdp_na)} else T)))
+    Ns <- c(Ns, sum(df$wave %in% waves & (if (grepl("wo_pandemic", g)) df$non_pandemic else T) & (if (grepl("_na", g)) { if (grepl("p_", g)) !is.na(df$gdp_ppp_na) else !is.na(df$gdp_na)} else T)))
     var_name <- if (grepl("gdp", g)) { if (grepl("nominal", g)) sub("_nominal", "", g) else g } else default_gdp
     table[happiness_vars, g] <- round(sapply(happiness_vars, function(h) reg_tables[[tab]][[out_var]][reg_tables[[tab]]$var_gdp == paste0("region_", var_name) & reg_tables[[tab]]$var_happiness == h]), 3)
   }
@@ -292,6 +372,13 @@ mean_max_table <- function(out_var, col_vars, default_gdp = "gdp_cluster7", happ
 (table_share_gdp_add <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = add_specs, happiness_vars = happiness_variables))
 (table_gdp_supp_nominal <- mean_max_table(out_var = "var_explained_by_gdp", col_vars = supp_specs_nominal, happiness_vars = happiness_variables))
 (table_share_gdp_supp_nominal <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = supp_specs_nominal, happiness_vars = happiness_variables))
+
+(table_gallup17_gdp <- mean_max_table(out_var = "var_explained_by_gdp", col_vars = gdp_variables, happiness_vars = satisfaction_variables, waves = 17.1, df = g))
+(table_gallup17_share_gdp <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = gdp_variables, happiness_vars = satisfaction_variables, waves = 17.1, df = g))
+(table_gallup_gdp <- mean_max_table(out_var = "var_explained_by_gdp", col_vars = gdp_variables, happiness_vars = satisfaction_variables, waves = "", df = g))
+(table_gallup_share_gdp <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = gdp_variables, happiness_vars = satisfaction_variables, waves = "", df = g))
+(table_gdp_satisfaction <- mean_max_table(out_var = "var_explained_by_gdp", col_vars = gdp_variables, happiness_vars = satisfaction_variables))
+(table_share_gdp_satisfaction <- mean_max_table(out_var = "share_var_explained_by_gdp", col_vars = gdp_variables, happiness_vars = satisfaction_variables))
 
 mean(share_var_explained_more_by_gdp) # 94% Used in prez
 # In 14% of specifications with the best-predicting income variable, region predicts better than income
@@ -342,7 +429,7 @@ create_scatter_plot <- function(y_var, log_scale_y = FALSE, data = a, PPP = T, w
              label = if (label == "code" & length(waves) > 2) paste0(lab, substr(year, 3, 4)) else {if (length(waves)>1) paste(lab, year) else lab}, 
              size = if (size_pop) pop else NULL, show.legend = T) + 
     geom_point() + scale_color_manual(values = colors, name = name_legend) + scale_x_log10(breaks = 10^(-10:10), minor_breaks = rep(1:9, 21)*(10^rep(-10:10, each=9))) + 
-    labs(x = paste("GDP pc", if (PPP) "(PPP)" else ""), y = hapiness_names[y_var]) +
+    labs(x = paste("GDP pc", if (PPP) "(PPP)" else ""), y = happiness_names[y_var]) +
     theme_minimal() + theme(legend.position = if (legend) "bottom" else "none", legend.spacing.x = unit(0.05, unit = "cm"), # plot.background = element_rect(fill = "white"), #legend.background = element_rect(fill = "white"), 
           axis.text = element_text(size = fontsize), legend.text = element_text(size = fontsize), legend.title = element_text(size = fontsize), axis.title = element_text(size = fontsize+2), plot.caption = element_text(size = fontsize))
   if (shape_region) p <- p + scale_shape_manual(values = shapes, labels = names(shapes), name = name_legend)
