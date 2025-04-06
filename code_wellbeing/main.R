@@ -19,12 +19,17 @@
 
 # Cite Guriev & Zhuravskaya (09), Sofia Panasiuk (no paper yet, https://www.youtube.com/watch?v=GMZtPsLrgdk&t=6s)
 
-# Gallup question: Please imagine a ladder with steps numbered from 0 at the bottom to 10 at the top. 
-#   Suppose we say that the top of the ladder represents the best possible life for you, and the bottom of the ladder represents the worst possible life for you. 
-#   On which step of the ladder would you say you personally feel you stand at this time, assuming that the higher the step the better you feel about your life, 
-#   and the lower the step the worse you feel about it? Which step comes closest to the way you feel?
-# WVS question: All things considered, \blue{how satisfied are you with your life as a whole these days? [in most countries also: 
+# Gallup (2022): 0-10 https://news.gallup.com/file/poll/165404/World_Poll_Methodology_042722.pdf
+# WP16: Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. 
+# On which step of the ladder would you say you personally feel you stand at this time?
+# WVS question: 1-10  https://www.worldvaluessurvey.org/WVSOnline.jsp
+# Q49: All things considered, how satisfied are you with your life as a whole these days? Please use this card to help with your answer. [in most countries also: 
 #   Using this card on which 1 means you are “completely dissatisfied” and 10 means you are “completely satisfied” where would you put your satisfaction with your life as a whole?]
+# WVS
+# DE 2018: Wenn Sie einmal alles berücksichtigen, wie zufrieden sind Sie insgesamt zurzeit mit Ihrem Leben? Bitte benutzen Sie diese Skala für Ihre Antwort.
+# JP 2019: 全体的にいって、あなたは現在の生活にどの程度満足していますか、あるいはどの程度不満ですか。「１」は「不満」を、また「10」は「満足」を示すとします。１から10までの数字で当てはまるものを１つお答え下さい。（
+# RU 2017: Принимая во внимание все стороны жизни, насколько Вы удовлетворены своей жизнью в целом в настоящее время? [Дайте ответ по шкале на этой карточке.]
+# GB 2022: All things considered, how satisfied are you with your life as a whole these days? If 1 means you are “completely dissatisfied” on the scale below and 10 means you are “completely satisfied”, where would you put your satisfaction with your life as a whole?
 
 
 ##### Data preparation #####
