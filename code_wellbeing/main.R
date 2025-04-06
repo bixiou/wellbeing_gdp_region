@@ -12,6 +12,11 @@
 # TODO: Automatize recovery of missing GDP data (from IMF or WB's Global Economic Prospects)
 # Outlet: Journal of Happiness Studies (IF: 4.6)
 
+# "The issue is that we don't have a clear-cut method to attribute the discrepancy to question wording vs. sample representativeness, 
+#  especially if we find that Gallup is slightly more representative than WVS. For the same amount of money, 
+#  we could instead conduct a survey that compares answers to the two wordings."
+# => either write as is, spend new survey, or try complete gallup data.
+
 # Cite Guriev & Zhuravskaya (09), Sofia Panasiuk (no paper yet, https://www.youtube.com/watch?v=GMZtPsLrgdk&t=6s)
 
 # Gallup question: Please imagine a ladder with steps numbered from 0 at the bottom to 10 at the top. 
