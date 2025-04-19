@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1706283207 "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" "build/wellbeing_prez.pdf" "wellbeing_prez" 1706283213 0
+["pdflatex"] 1744753970 "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" "build/wellbeing_prez.pdf" "wellbeing_prez" 1744753983 0
   "../figures/Inglehart_Klingemann.PNG" 1705399578 52780 3376992144750b2f0053fce6fc732842 ""
   "../figures/WVS_countries_regions.png" 1705399578 1875742 97bd5fa319c0c34bf4ac90f6e86ec94f ""
   "../figures/finland_happy.jpg" 1706179566 126072 3b8de54d2d878c38b544393af08cc7e3 ""
@@ -15,14 +15,14 @@
   "../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf" 1705399578 26436 2451df610321b6fbcd92d19e452af7b0 ""
   "../figures/very_happy_vs_GDPppp.pdf" 1705399578 27075 70c5ae8593575541bd09078554ea48e9 ""
   "../figures/very_unhappy_vs_GDPppp.pdf" 1705399578 26675 5cc1952400301db44ce55c7a93733c5f ""
-  "../tables/gdp.tex" 1705399579 1219 3d5d4ee4ea0530db31ab4aab5eecf9d3 ""
+  "../tables/gdp.tex" 1706617924 1097 85ae852be50a69a1cee608b2a5dd1351 ""
   "../tables/gdp_add.tex" 1705399579 1158 633cc90622553d623c6578601977326d ""
-  "../tables/share_gdp.tex" 1705399579 1234 4315967b1190713a2a0f8a0088b148da ""
+  "../tables/share_gdp.tex" 1706617924 1093 bd016e1ea983295fcdadace09e67995b ""
   "../tables/share_gdp_add.tex" 1705399579 1158 ef7e8999a7633acac55070f19d3b2c4d ""
-  "build/wellbeing_prez.aux" 1706283212 7021 17bfb7adee3377cce7ef9590a5999c54 "pdflatex"
-  "build/wellbeing_prez.nav" 1706283213 3857 9469c14798b2a3503d69256191e90b91 "pdflatex"
-  "build/wellbeing_prez.out" 1706283213 1018 ebec5a8b7913f8bb59eea1db2ac32ee0 "pdflatex"
-  "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" 1706283197 20141 89b46cc2a339bb7d5097cdd3ffd3742a ""
+  "build/wellbeing_prez.aux" 1744753982 7021 17bfb7adee3377cce7ef9590a5999c54 "pdflatex"
+  "build/wellbeing_prez.nav" 1744753982 3857 9469c14798b2a3503d69256191e90b91 "pdflatex"
+  "build/wellbeing_prez.out" 1744753982 1018 ebec5a8b7913f8bb59eea1db2ac32ee0 "pdflatex"
+  "c:/Users/fabre/Documents/www/wellbeing_gdp_region/presentations/wellbeing_prez.tex" 1743982362 20173 882b74933929589904cc92393f122582 ""
   "c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1670336910 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1670337557 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplr7t.tfm" 1670341705 1804 7b5f73028f6509167f47ace9d69509ed ""
@@ -307,7 +307,7 @@
   "c:/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1670345276 3063323 6b2b6e0ebf0608d2b004d02eba85e55f ""
   "c:/texlive/2022/texmf.cnf" 1670344812 713 e69b156964470283e0530f5060668171 ""
   "preamble_slides.tex" 1706281561 16861 7fa09833ae46b33d5a22b4fc8655f9af ""
-  "wellbeing_prez.tex" 1706283197 20141 89b46cc2a339bb7d5097cdd3ffd3742a ""
+  "wellbeing_prez.tex" 1743982362 20173 882b74933929589904cc92393f122582 ""
   (generated)
   "build/wellbeing_prez.aux"
   "build/wellbeing_prez.log"

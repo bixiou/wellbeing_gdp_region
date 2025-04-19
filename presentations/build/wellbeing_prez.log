@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.6)  26 JAN 2024 16:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.6)  15 APR 2025 18:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -920,7 +920,7 @@ Package: environ 2014/05/04 v0.3 A new way to define environments
  (c:/texlive/2022/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 )))
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 5.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 6.
  (c:/texlive/2022/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 ) (c:/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -930,24 +930,24 @@ File: l3backend-pdftex.def 2022-10-26 L3 backend support: PDF output (pdfTeX)
 ) (build/wellbeing_prez.aux)
 \openout1 = `wellbeing_prez.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1002,7 +1002,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (c:/texlive/2022/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 5.
+Package hyperref Info: Link coloring OFF on input line 6.
  (build/wellbeing_prez.out) (build/wellbeing_prez.out)
 \@outlinefile=\write5
 \openout5 = `wellbeing_prez.out'.
@@ -1010,41 +1010,41 @@ Package hyperref Info: Link coloring OFF on input line 5.
 \symnumbers=\mathgroup8
 \sympureletters=\mathgroup9
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/ppl/m/n --> T1/ptm/m/n on input line 5.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 5.
+(Font)                  OT1/ppl/m/n --> T1/ptm/m/n on input line 6.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/zplm/b/n --> T1/ptm/b/n on input line 5.
+(Font)                  OT1/zplm/b/n --> T1/ptm/b/n on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/zplm/b/n --> T1/ptm/b/n on input line 5.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 5.
+(Font)                  OT1/zplm/b/n --> T1/ptm/b/n on input line 6.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> T1/phv/m/n on input line 5.
+(Font)                  OT1/cmss/m/n --> T1/phv/m/n on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> T1/phv/m/n on input line 5.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 5.
+(Font)                  OT1/cmss/bx/n --> T1/phv/m/n on input line 6.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/ppl/m/it --> T1/ptm/m/it on input line 5.
+(Font)                  OT1/ppl/m/it --> T1/ptm/m/it on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/ppl/b/it --> T1/ptm/m/it on input line 5.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 5.
+(Font)                  OT1/ppl/b/it --> T1/ptm/m/it on input line 6.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> T1/pcr/m/n on input line 5.
+(Font)                  OT1/cmtt/m/n --> T1/pcr/m/n on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> T1/pcr/m/n on input line 5.
+(Font)                  OT1/cmtt/m/n --> T1/pcr/m/n on input line 6.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/ptm/m/n --> T1/ptm/b/n on input line 5.
+(Font)                  T1/ptm/m/n --> T1/ptm/b/n on input line 6.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/ptm/m/it --> T1/ptm/b/it on input line 5.
+(Font)                  T1/ptm/m/it --> T1/ptm/b/it on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/ppl/b/n --> T1/ptm/b/n on input line 5.
+(Font)                  OT1/ppl/b/n --> T1/ptm/b/n on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/ptm/b/n --> T1/ptm/b/n on input line 5.
+(Font)                  T1/ptm/b/n --> T1/ptm/b/n on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/phv/m/n --> T1/phv/b/n on input line 5.
+(Font)                  T1/phv/m/n --> T1/phv/b/n on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/ptm/m/it --> T1/ptm/b/it on input line 5.
+(Font)                  T1/ptm/m/it --> T1/ptm/b/it on input line 6.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/pcr/m/n --> T1/pcr/b/n on input line 5.
+(Font)                  T1/pcr/m/n --> T1/pcr/b/n on input line 6.
  (c:/texlive/2022/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (c:/texlive/2022/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -1069,14 +1069,14 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
-LaTeX Info: Redefining \celsius on input line 5.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 5.
+LaTeX Info: Redefining \celsius on input line 6.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 6.
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 5.
-Package gensymb Info: Using \upOmega for \ohm on input line 5.
+LaTeX Info: Redefining \ohm on input line 6.
+Package gensymb Info: Using \upOmega for \ohm on input line 6.
 
 Package gensymb Warning: Not defining \micro.
 
@@ -1085,52 +1085,52 @@ Package gensymb Warning: Not defining \micro.
 Package datetime2 Warning: Region `english-base' has ignored 
 (datetime2)                the following settings:
 (datetime2)                showdayofmonth=false
- on input line 28.
+ on input line 29.
 
 
 Package datetime2 Warning: Region `english' has ignored 
 (datetime2)                the following settings:
 (datetime2)                showdayofmonth=false
- on input line 28.
+ on input line 29.
 
 [1
 
 {c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ]
-LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 72.
+LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 73.
  (c:/texlive/2022/texmf-dist/tex/latex/psnfss/ot1ppl.fd
 File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 )
-LaTeX Font Info:    Trying to load font information for OML+zplm on input line 72.
+LaTeX Font Info:    Trying to load font information for OML+zplm on input line 73.
  (c:/texlive/2022/texmf-dist/tex/latex/psnfss/omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 72.
+LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 73.
  (c:/texlive/2022/texmf-dist/tex/latex/psnfss/omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 72.
+LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 73.
  (c:/texlive/2022/texmf-dist/tex/latex/psnfss/omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 11.40997pt on input line 72.
+(Font)              scaled to size 11.40997pt on input line 73.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 72.
+(Font)              scaled to size 8.33606pt on input line 73.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 72.
+(Font)              scaled to size 6.25204pt on input line 73.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 11.40997pt on input line 72.
+(Font)              scaled to size 11.40997pt on input line 73.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 72.
+(Font)              scaled to size 8.33606pt on input line 73.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 72.
-LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 72.
+(Font)              scaled to size 6.25204pt on input line 73.
+LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 73.
  (c:/texlive/2022/texmf-dist/tex/latex/psnfss/ot1zplm.fd
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 )
-LaTeX Font Info:    Trying to load font information for U+wasy on input line 72.
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 73.
  (c:/texlive/2022/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 ) [3
@@ -1139,10 +1139,10 @@ File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 <../figures/finland_happy.jpg, id=65, 311.1625pt x 466.74374pt>
 File: ../figures/finland_happy.jpg Graphic file (type jpg)
 <use ../figures/finland_happy.jpg>
-Package pdftex.def Info: ../figures/finland_happy.jpg  used on input line 72.
+Package pdftex.def Info: ../figures/finland_happy.jpg  used on input line 73.
 (pdftex.def)             Requested size: 146.96808pt x 220.45073pt.
 
-Overfull \vbox (57.45444pt too high) detected at line 72
+Overfull \vbox (57.45444pt too high) detected at line 73
  []
 
 [4
@@ -1151,14 +1151,14 @@ Overfull \vbox (57.45444pt too high) detected at line 72
 <../figures/happiest_countries.jpg, id=72, 1084.05pt x 928.46875pt>
 File: ../figures/happiest_countries.jpg Graphic file (type jpg)
 <use ../figures/happiest_countries.jpg>
-Package pdftex.def Info: ../figures/happiest_countries.jpg  used on input line 72.
+Package pdftex.def Info: ../figures/happiest_countries.jpg  used on input line 73.
 (pdftex.def)             Requested size: 185.89056pt x 159.214pt.
  [5
 
  <../figures/happiest_countries.jpg>]
 File: ../figures/happiest_countries.jpg Graphic file (type jpg)
 <use ../figures/happiest_countries.jpg>
-Package pdftex.def Info: ../figures/happiest_countries.jpg  used on input line 72.
+Package pdftex.def Info: ../figures/happiest_countries.jpg  used on input line 73.
 (pdftex.def)             Requested size: 185.89056pt x 159.214pt.
  [6
 
@@ -1166,10 +1166,10 @@ Package pdftex.def Info: ../figures/happiest_countries.jpg  used on input line 7
 <../figures/Inglehart_Klingemann.png, id=84, 422.32782pt x 469.00218pt>
 File: ../figures/Inglehart_Klingemann.png Graphic file (type png)
 <use ../figures/Inglehart_Klingemann.png>
-Package pdftex.def Info: ../figures/Inglehart_Klingemann.png  used on input line 104.
+Package pdftex.def Info: ../figures/Inglehart_Klingemann.png  used on input line 105.
 (pdftex.def)             Requested size: 176.45494pt x 195.95828pt.
 
-Overfull \vbox (202.76204pt too high) detected at line 104
+Overfull \vbox (202.76204pt too high) detected at line 105
  []
 
 [7
@@ -1178,46 +1178,46 @@ Overfull \vbox (202.76204pt too high) detected at line 104
 <../figures/owid_satisfaction_gdp.png, id=95, 2486.53969pt x 1733.72719pt>
 File: ../figures/owid_satisfaction_gdp.png Graphic file (type png)
 <use ../figures/owid_satisfaction_gdp.png>
-Package pdftex.def Info: ../figures/owid_satisfaction_gdp.png  used on input line 104.
+Package pdftex.def Info: ../figures/owid_satisfaction_gdp.png  used on input line 105.
 (pdftex.def)             Requested size: 263.46571pt x 183.71019pt.
 
-Overfull \vbox (190.51395pt too high) detected at line 104
+Overfull \vbox (190.51395pt too high) detected at line 105
  []
 
 [8
 
  <../figures/owid_satisfaction_gdp.png>]
-Overfull \vbox (3.43318pt too high) detected at line 104
+Overfull \vbox (3.43318pt too high) detected at line 105
  []
 
 [9
 
 ]
-Overfull \vbox (3.43318pt too high) detected at line 104
+Overfull \vbox (3.43318pt too high) detected at line 105
  []
 
 [10
 
 ]
-Overfull \vbox (3.43318pt too high) detected at line 104
+Overfull \vbox (3.43318pt too high) detected at line 105
  []
 
 [11
 
 ]
-Overfull \vbox (3.43318pt too high) detected at line 104
+Overfull \vbox (3.43318pt too high) detected at line 105
  []
 
 [12
 
 ]
-Overfull \vbox (3.43318pt too high) detected at line 104
+Overfull \vbox (3.43318pt too high) detected at line 105
  []
 
 [13
 
 ]
-Overfull \vbox (3.43318pt too high) detected at line 104
+Overfull \vbox (3.43318pt too high) detected at line 105
  []
 
 [14
@@ -1238,10 +1238,10 @@ Overfull \vbox (3.43318pt too high) detected at line 104
 <../figures/WVS_countries_regions.png, id=166, 1383.7296pt x 752.5716pt>
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 127.
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 128.
 (pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
-Overfull \vbox (9.181pt too high) detected at line 127
+Overfull \vbox (9.181pt too high) detected at line 128
  []
 
 [21
@@ -1249,10 +1249,10 @@ Overfull \vbox (9.181pt too high) detected at line 127
  <../figures/WVS_countries_regions.png>]
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 127.
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 128.
 (pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
-Overfull \vbox (9.181pt too high) detected at line 127
+Overfull \vbox (9.181pt too high) detected at line 128
  []
 
 [22
@@ -1260,10 +1260,10 @@ Overfull \vbox (9.181pt too high) detected at line 127
 ]
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 127.
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 128.
 (pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
-Overfull \vbox (9.181pt too high) detected at line 127
+Overfull \vbox (9.181pt too high) detected at line 128
  []
 
 [23
@@ -1271,10 +1271,10 @@ Overfull \vbox (9.181pt too high) detected at line 127
 ]
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 127.
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 128.
 (pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
-Overfull \vbox (9.181pt too high) detected at line 127
+Overfull \vbox (9.181pt too high) detected at line 128
  []
 
 [24
@@ -1282,10 +1282,10 @@ Overfull \vbox (9.181pt too high) detected at line 127
 ]
 File: ../figures/WVS_countries_regions.png Graphic file (type png)
 <use ../figures/WVS_countries_regions.png>
-Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 127.
+Package pdftex.def Info: ../figures/WVS_countries_regions.png  used on input line 128.
 (pdftex.def)             Requested size: 225.18066pt x 122.47346pt.
 
-Overfull \vbox (9.181pt too high) detected at line 127
+Overfull \vbox (9.181pt too high) detected at line 128
  []
 
 [25
@@ -1330,10 +1330,10 @@ Overfull \vbox (9.181pt too high) detected at line 127
 <../figures/happy_vs_GDPppp.pdf, id=288, 433.62pt x 289.08pt>
 File: ../figures/happy_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/happy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/happy_vs_GDPppp.pdf  used on input line 181.
+Package pdftex.def Info: ../figures/happy_vs_GDPppp.pdf  used on input line 182.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 181
+Overfull \vbox (21.37737pt too high) detected at line 182
  []
 
 [44
@@ -1342,10 +1342,10 @@ Overfull \vbox (21.37737pt too high) detected at line 181
 <../figures/very_happy_vs_GDPppp.pdf, id=300, 433.62pt x 289.08pt>
 File: ../figures/very_happy_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/very_happy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/very_happy_vs_GDPppp.pdf  used on input line 181.
+Package pdftex.def Info: ../figures/very_happy_vs_GDPppp.pdf  used on input line 182.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 181
+Overfull \vbox (21.37737pt too high) detected at line 182
  []
 
 [45
@@ -1354,10 +1354,10 @@ Overfull \vbox (21.37737pt too high) detected at line 181
 <../figures/very_unhappy_vs_GDPppp.pdf, id=311, 433.62pt x 289.08pt>
 File: ../figures/very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/very_unhappy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/very_unhappy_vs_GDPppp.pdf  used on input line 181.
+Package pdftex.def Info: ../figures/very_unhappy_vs_GDPppp.pdf  used on input line 182.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 181
+Overfull \vbox (21.37737pt too high) detected at line 182
  []
 
 [46
@@ -1366,10 +1366,10 @@ Overfull \vbox (21.37737pt too high) detected at line 181
 <../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf, id=322, 433.62pt x 289.08pt>
 File: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf  used on input line 181.
+Package pdftex.def Info: ../figures/very_happy_minus_very_unhappy_vs_GDPppp.pdf  used on input line 182.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 181
+Overfull \vbox (21.37737pt too high) detected at line 182
  []
 
 [47
@@ -1378,10 +1378,10 @@ Overfull \vbox (21.37737pt too high) detected at line 181
 <../figures/happiness_mean_vs_GDPppp.pdf, id=333, 433.62pt x 289.08pt>
 File: ../figures/happiness_mean_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/happiness_mean_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/happiness_mean_vs_GDPppp.pdf  used on input line 181.
+Package pdftex.def Info: ../figures/happiness_mean_vs_GDPppp.pdf  used on input line 182.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 181
+Overfull \vbox (21.37737pt too high) detected at line 182
  []
 
 [48
@@ -1390,10 +1390,10 @@ Overfull \vbox (21.37737pt too high) detected at line 181
 <../figures/satisfied_mean_vs_GDPppp.pdf, id=344, 433.62pt x 289.08pt>
 File: ../figures/satisfied_mean_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/satisfied_mean_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/satisfied_mean_vs_GDPppp.pdf  used on input line 181.
+Package pdftex.def Info: ../figures/satisfied_mean_vs_GDPppp.pdf  used on input line 182.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 181
+Overfull \vbox (21.37737pt too high) detected at line 182
  []
 
 [49
@@ -1402,10 +1402,10 @@ Overfull \vbox (21.37737pt too high) detected at line 181
 <../figures/satisfied_vs_GDPppp.pdf, id=356, 433.62pt x 289.08pt>
 File: ../figures/satisfied_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/satisfied_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/satisfied_vs_GDPppp.pdf  used on input line 181.
+Package pdftex.def Info: ../figures/satisfied_vs_GDPppp.pdf  used on input line 182.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 181
+Overfull \vbox (21.37737pt too high) detected at line 182
  []
 
 [50
@@ -1414,10 +1414,10 @@ Overfull \vbox (21.37737pt too high) detected at line 181
 <../figures/happiness_Layard_vs_GDPppp.pdf, id=367, 433.62pt x 289.08pt>
 File: ../figures/happiness_Layard_vs_GDPppp.pdf Graphic file (type pdf)
 <use ../figures/happiness_Layard_vs_GDPppp.pdf>
-Package pdftex.def Info: ../figures/happiness_Layard_vs_GDPppp.pdf  used on input line 181.
+Package pdftex.def Info: ../figures/happiness_Layard_vs_GDPppp.pdf  used on input line 182.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 181
+Overfull \vbox (21.37737pt too high) detected at line 182
  []
 
 [51
@@ -1426,26 +1426,17 @@ Overfull \vbox (21.37737pt too high) detected at line 181
 <../figures/happy_vs_GDP_wave7_weighted.pdf, id=378, 433.62pt x 289.08pt>
 File: ../figures/happy_vs_GDP_wave7_weighted.pdf Graphic file (type pdf)
 <use ../figures/happy_vs_GDP_wave7_weighted.pdf>
-Package pdftex.def Info: ../figures/happy_vs_GDP_wave7_weighted.pdf  used on input line 181.
+Package pdftex.def Info: ../figures/happy_vs_GDP_wave7_weighted.pdf  used on input line 182.
 (pdftex.def)             Requested size: 330.6728pt x 220.45073pt.
 
-Overfull \vbox (21.37737pt too high) detected at line 181
+Overfull \vbox (21.37737pt too high) detected at line 182
  []
 
 [52
 
  <../figures/happy_vs_GDP_wave7_weighted.pdf>] [53
 
-] (../tables/gdp.tex)
-Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--195
-[][] 
- []
-
-
-Overfull \vbox (3.29666pt too high) detected at line 195
- []
-
-[54
+] (../tables/gdp.tex) [54
 
 ] [55
 
@@ -1473,10 +1464,10 @@ Overfull \vbox (3.29666pt too high) detected at line 195
 <../figures/region_groupings.png, id=469, 1381.0797pt x 754.9806pt>
 File: ../figures/region_groupings.png Graphic file (type png)
 <use ../figures/region_groupings.png>
-Package pdftex.def Info: ../figures/region_groupings.png  used on input line 217.
+Package pdftex.def Info: ../figures/region_groupings.png  used on input line 218.
 (pdftex.def)             Requested size: 358.46112pt x 195.95828pt.
 
-Overfull \vbox (5.42082pt too high) detected at line 217
+Overfull \vbox (5.42082pt too high) detected at line 218
  []
 
 [66
@@ -1493,16 +1484,7 @@ Overfull \vbox (5.42082pt too high) detected at line 217
 
 ] [72
 
-] (../tables/share_gdp.tex)
-Overfull \hbox (6.63109pt too wide) in paragraph at lines 2--245
-[][] 
- []
-
-
-Overfull \vbox (3.29666pt too high) detected at line 245
- []
-
-[73
+] (../tables/share_gdp.tex) [73
 
 ] [74
 
@@ -1533,13 +1515,13 @@ Overfull \vbox (3.29666pt too high) detected at line 245
 ] [87
 
 ] (../tables/gdp_add.tex)
-Overfull \vbox (2.29666pt too high) detected at line 289
+Overfull \vbox (2.29666pt too high) detected at line 290
  []
 
 [88
 
 ] (../tables/share_gdp_add.tex)
-Overfull \vbox (2.29666pt too high) detected at line 297
+Overfull \vbox (2.29666pt too high) detected at line 298
  []
 
 [89
@@ -1569,7 +1551,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  99i,15n,104p,622b,696s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on build/wellbeing_prez.pdf (90 pages, 3935404 bytes).
+Output written on build/wellbeing_prez.pdf (90 pages, 3935210 bytes).
 PDF statistics:
  694 PDF objects out of 1000 (max. 8388607)
  545 compressed objects within 6 object streams
