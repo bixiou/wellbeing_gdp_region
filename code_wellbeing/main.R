@@ -79,6 +79,7 @@ wvs <- wvs[, c("wave", "alpha.2", "weight", "pop_weight", "year", "happiness", "
 
 # /!\ Imputations (esp. for pre-90 PPP) use IMF data which are not in 17$ but in current $, hence they are lower than WB estimates => perhaps it's better to exclude missing data rather than using imputed one.
 GDPpcPPP <- read.csv("../data/GDPpcPPP17.csv" , sep = ",") # GDP pc PPP constant 2017 $, World Bank (2023-07-25) NY.GDP.PCAP.PP.KD Completed from IMF for pre-1990, YEM14, AND, TWN and VEN. https://en.wikipedia.org/wiki/List_of_countries_by_past_and_projected_GDP_(PPP)_per_capita - in /deprecated there is the original data without manual imputations (for AND05 I use HKG05 instead, SVK90: 8k, MNE96: MNE97, POL89: 7k)
+# GDPpcPPP <- read.csv("../data/GDPpcPPP21.csv" , sep = ",") # TODO: switch to that (and impute missing years) GDP pc PPP constant 2021 $, World Bank (2025-08-25) NY.GDP.PCAP.PP.KD Completed from IMF for pre-1990, YEM14, AND, TWN and VEN. https://en.wikipedia.org/wiki/List_of_countries_by_past_and_projected_GDP_(PPP)_per_capita - in /deprecated there is the original data without manual imputations (for AND05 I use HKG05 instead, SVK90: 8k, MNE96: MNE97, POL89: 7k)
 GDPpc <- read.csv("../data/GDPpc15.csv" , sep = ",") # GDP pc nominal constant 2015 $, World Bank (2023-07-25) NY.GDP.PCAP.KD, completed manually for missing data (see below) - in /deprecated there is the original data without manual imputations TODO: compute and automatize IMF constant nominal $ (for the moment we use current nominal $ instead), cf. deprecated/IMF23
 
 for (c in intersect(wvs$code, GDPpcPPP$Country.Code)) for (y in unique(wvs$year[wvs$code == c])) {
@@ -160,7 +161,7 @@ g$extremely_satisfied <- rowSums(g[,paste0("s", 9:10)])/rowSums(g[,paste0("s", 0
 g$completely_satisfied <- g$s10/rowSums(g[,paste0("s", 0:10)])
 g$unsatisfied <- rowSums(g[,paste0("s", 0:4)])/rowSums(g[,paste0("s", 0:10)])
 g$dissatisfied <- rowSums(g[,paste0("s", 0:2)])/rowSums(g[,paste0("s", 0:10)])
-g$satisfied_mean <- rowMeans(g[,paste0("s", 0:10)]) 
+g$satisfied_mean <- as.matrix(g[,paste0("s", 0:10)]) %*% 0:10/rowSums(g[,paste0("s", 0:10)])
 g$country[g$country == "Czech Republic"] <- "Czechia"
 g$country[g$country == "Palestinian Territories"] <- "Palestine, State of"
 g$country[g$country == "Trinidad & Tobago"] <- "Trinidad and Tobago"
@@ -177,6 +178,7 @@ g$region <- region_mapping[g$code]
 g$region6 <- region6_mapping[g$code]
 
 g$year <- floor(g$wave) + 2000
+g$year[g$year == 2099] <- 1999
 for (c in intersect(g$code, GDPpcPPP$Country.Code)) for (y in unique(g$year[g$code == c & g$year != 2099])) if (!is.na(y)) {
   gdp_pc_ppp_c <- GDPpcPPP[GDPpcPPP$Country.Code == c, paste0("X",  y)]
   if (!is.na(gdp_pc_ppp_c)) g$gdp_ppp[g$code ==  c & g$year == y]  <- gdp_pc_ppp_c
@@ -487,6 +489,102 @@ beep()
 
 decrit("wave", a, weight = F) # 1:8(81-84) 2:18(89-91) 3:56(95-99) 4:40(99-04) 5:58(04-09) 6:60(10-16) 7:64(17-22) 
 # for (i in 1:7) print(paste(min(a$year[a$wave == i]), max(a$year[a$wave == i])))
+
+
+##### Fabre (2025) #####
+fabre <- read.csv("../data/Fabre2025.csv")
+fabre$country_name[fabre$country == "US"] <- "United States"
+countries_names <- c("FRA" = "France", "DEU" = "Germany", "ITA" = "Italy", "POL" = "Poland", "ESP" = "Spain", "GBR" = "United Kingdom", "CHE" = "Switzerland", "JPN" = "Japan", "RUS" = "Russia", "SAU" = "Saudi Arabia", "USA" = "United States")
+comp <- data.frame(country = countries_names, code = names(countries_names))
+for (i in countries_names) {
+  for (v in c("", paste0("_", unique(fabre$variant_well_being)))) {
+    comp[[paste0("n", v)]][comp$country == i] <- sum(!is.na(fabre[fabre$country_name == i, paste0("well_being", v)]))
+    comp[[paste0("satisfied", v)]][comp$country == i] <- weighted.mean(fabre[fabre$country_name == i, paste0("well_being", v)] %[]% c(6, 10), fabre$weight[fabre$country_name == i], na.rm = T)
+    comp[[paste0("very_satisfied", v)]][comp$country == i] <- weighted.mean(fabre[fabre$country_name == i, paste0("well_being", v)] %[]% c(8, 10), fabre$weight[fabre$country_name == i], na.rm = T)
+    comp[[paste0("extremely_satisfied", v)]][comp$country == i] <- weighted.mean(fabre[fabre$country_name == i, paste0("well_being", v)] %[]% c(9, 10), fabre$weight[fabre$country_name == i], na.rm = T)
+    comp[[paste0("completely_satisfied", v)]][comp$country == i] <- weighted.mean(fabre[fabre$country_name == i, paste0("well_being", v)] == 10, fabre$weight[fabre$country_name == i], na.rm = T)
+    comp[[paste0("unsatisfied", v)]][comp$country == i] <- weighted.mean(fabre[fabre$country_name == i, paste0("well_being", v)] %[]% c(0, 4), fabre$weight[fabre$country_name == i], na.rm = T)
+    comp[[paste0("dissatisfied", v)]][comp$country == i] <- weighted.mean(fabre[fabre$country_name == i, paste0("well_being", v)] %[]% c(0, 2), fabre$weight[fabre$country_name == i], na.rm = T)
+    comp[[paste0("satisfied_mean", v)]][comp$country == i] <- weighted.mean(fabre[fabre$country_name == i, paste0("well_being", v)], fabre$weight[fabre$country_name == i], na.rm = T)
+} }
+GDPpcPPP21 <- read.csv("../data/GDPpcPPP21.csv" , sep = ",") # GDP pc PPP constant 2021 $, World Bank (2025-08-25) NY.GDP.PCAP.PP.KD Completed from IMF for pre-1990, YEM14, AND, TWN and VEN. https://en.wikipedia.org/wiki/List_of_countries_by_past_and_projected_GDP_(PPP)_per_capita - in /deprecated there is the original data without manual imputations (for AND05 I use HKG05 instead, SVK90: 8k, MNE96: MNE97, POL89: 7k)
+for (c in intersect(comp$code, GDPpcPPP21$Country.Code)) comp$gdp_ppp[comp$code ==  c]  <- GDPpcPPP21$X2024[GDPpcPPP21$Country.Code == c]
+comp$log_gdp_ppp <- log10(comp$gdp_ppp)
+comp$source <- "Fabre"
+View(comp)
+
+for (c in unique(g$code)) g$last_year[g$code == c] <- max(g$year[g$code == c], na.rm = T)
+for (c in unique(a$code)) a$last_year[a$code == c] <- max(a$year[a$code == c])
+(g_last_year <- sapply(names(countries_names), function(c) max(g$year[g$code == c], na.rm = T)))
+(a_last_year <- sapply(names(countries_names), function(c) max(a$year[a$code == c], na.rm = T)))
+(g_for_a_last_year <- sapply(names(countries_names), function(c) a_last_year[c] %in% g$year[g$code == c])) # Last years WVS vs. Gallup: GBR: 2022, 2005 vs. 2018; JPN: 2019, 2010 vs 2017
+g$a_last_year <- a_last_year[g$code]
+g$a_last_year[g$code == "GBR"] <- 2018
+g$a_last_year[g$code == "JPN"] <- 2017
+
+# Diff R² Df = fabre_gallup-fabre_wvs: wording; Dw = diff gallup-wvs: wording + sampling; diff sampling: Df-Dw; diff sampling: (fabre_gallup-gallup) - (fabre_wvs-wvs)
+(r2_gallup_0_all_years <- summary(lm(satisfied_mean ~ log_gdp_ppp, g[g$code %in% names(countries_names[-9]),]))$r.squared) # .51
+(r2_wvs_1_all_years <- summary(lm(satisfied_mean ~ log_gdp_ppp, a[a$code %in% names(countries_names[-9]),]))$r.squared) # .25 
+(r2_gallup_0_all_countries <- summary(lm(satisfied_mean ~ log_gdp_ppp, g[g$year == g$last_year,]))$r.squared) # .62
+(r2_wvs_1_all_countries <- summary(lm(satisfied_mean ~ log_gdp_ppp, a[ a$year == a$last_year,]))$r.squared) # .18
+(r2_gallup_0 <- summary(lm(satisfied_mean ~ log_gdp_ppp, g[g$code %in% names(countries_names[-9]) & g$year == g$a_last_year,]))$r.squared) # .52
+(r2_wvs_1 <- summary(lm(satisfied_mean ~ log_gdp_ppp, a[a$code %in% names(countries_names[-9]) & a$year == a$last_year,]))$r.squared) # .37
+(r2_fabre_gallup_0 <- summary(lm(satisfied_mean_gallup_0 ~ log_gdp_ppp, comp))$r.squared) # .77
+(r2_fabre_wvs_1 <- summary(lm(satisfied_mean_wvs_1 ~ log_gdp_ppp, comp))$r.squared) # .35
+r2_fabre_gallup_0 - r2_fabre_wvs_1 # .42: Diff in R² explained by wording
+r2_gallup_0 - r2_wvs_1 # .15: Total diff in R²
+r2_fabre_gallup_0 - r2_gallup_0 # .25: Diff in R² due to sampling and year between Fabre and Gallup
+r2_fabre_wvs_1 - r2_wvs_1 # -.02: Diff in R² due to sampling and year beteen Fabre and WVS
+(r2_fabre_gallup_0 - r2_gallup_0) - (r2_fabre_wvs_1 - r2_wvs_1) # .27: Diff in R² due to sampling and year between Gallup and WVS
+# => More than half of difference in R² due to wording (the rest sampling)
+
+View(g[g$code %in% names(countries_names[-9]), c("country", "wave", "year", "last_year", "a_last_year", "satisfied_mean")])
+View(a[a$code %in% names(countries_names[-9]), c("country", "wave", "year", "last_year", "satisfied_mean")])
+
+plot(g[g$code %in% names(countries_names[-9]), "log_gdp_ppp"], g[g$code %in% names(countries_names[-9]), "satisfied_mean"])
+points(a$log_gdp_ppp[a$code %in% names(countries_names[-9])], a$satisfied_mean[a$code %in% names(countries_names[-9])])
+points(comp$log_gdp_ppp, comp$satisfied_mean_gallup_0)
+points(comp$log_gdp_ppp, comp$satisfied_mean_wvs_1)
+
+# Also: decompose variance well_being ~ gdp + wording + source + scale; issue is that fabre is an unwanted source
+mix <- g[, c("satisfied_mean", "log_gdp_ppp", "year", "last_year", "code", "country", "a_last_year")]
+mix$scale <- 0
+mix$source <- "Gallup"
+mix$wording <- "Gallup"
+temp <- a[, c("satisfied_mean", "log_gdp_ppp", "year", "last_year", "code", "country")]
+temp$scale <- 1
+temp$source <- "WVS"
+temp$wording <- "WVS"
+mix <- merge(mix, temp, all = T)
+for (s in 0:1) for (w in c("WVS", "Gallup")) {
+  temp <- comp[, c(paste0("satisfied_mean_", tolower(w), "_", s), "log_gdp_ppp", "source", "code", "country")]
+  temp$wording <- w
+  temp$scale <- s
+  temp$year <- temp$last_year <- 2025
+  names(temp)[1] <- "satisfied_mean"
+  mix <- merge(mix, temp, all = T)
+}
+summary(lm(satisfied_mean ~ log_gdp_ppp + wording + scale + source + year, data = mix))
+
+labels_vars <- c("log_gdp_ppp" = "log GDP p.c. PPP", "wording" = "Wording", "scale" = "Scale", "source" = "Source", "year" = "Year")
+lmgs <- list()
+# In case of error, define the dep_var as binary/numeric; and remove variables that are potentially colinear (e.g. urbanity when region is present, due to NA being colinear)
+variance_decomposition <- function(dep_var, covariates, filename = NULL, reuse = F, df = mix, width = 500, height = 500, labels = NULL) {
+  if (is.null(labels) & exists("labels_vars")) labels <- labels_vars[sort(covariates)]
+  if (reuse && exists("lmgs") && !is.null(filename) && filename %in% names(lmgs)) lmg <- lmgs$filename
+  else lmg <- calc.relimp(lm(reg_formula(dep_var, covariates, as_factor = T), data = df), type = c("lmg"), rela = F, rank= F) 
+  print(lmg@lmg)
+  plot <- barres(data = t(as.matrix(lmg@lmg[sort(names(lmg@lmg))])), labels = labels, legend = "% of response variances", show_ticks = F, rev = F, digits = 1)
+  print(plot)
+  save_plotly(plot, width = width, height = height, folder = paste0("../figures/"), filename = filename)
+  write.csv(rbind(sort(lmg@lmg, decreasing = T), c("R^2", lmg@R2)), paste0("../tables/", filename, ".csv"))
+  if (exists("lmgs") & !is.null(filename)) lmgs[filename] <<- lmg
+  else return(lmg)
+}
+# wording, scale and source explain same share of variance; GDP explains muuuch more
+variance_decomposition(dep_var = "satisfied_mean", covariates = c("wording", "scale", "source"), filename = "lmg_wording_sampling")
+variance_decomposition(dep_var = "satisfied_mean", covariates = c("wording", "scale", "source"), df = mix[mix$year == mix$last_year,], filename = "lmg_wording_sampling_last_year")
+variance_decomposition(dep_var = "satisfied_mean", covariates = c("log_gdp_ppp", "wording", "scale", "source"), filename = "lmg_wording_sampling_gdp")
 
 
 # cat(sub("toprule", "toprule Happiness variable & \\\\textit{Income}: & Income & \\\\multicolumn{3}{c}{Income cluster} & & Income & & \\\\\\\\", sub("\\nMean", " \\\\midrule \nMean", sub("\nNumber", " \\\\midrule \nNumber", paste(
