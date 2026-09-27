@@ -1,0 +1,67 @@
+% Shared appendix: additional results on income, region and national well-being
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\setcounter{table}{0}
+\setcounter{figure}{0}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Correlation between national well-being indicators (WVS country-years)}\label{tab:correlation}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/correlation_indicators.tex}
+    \end{adjustbox}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Slope of national well-being indicators with respect to $\log_{10}$ GDP per capita (PPP)}\label{tab:slopes}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/slopes.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} OLS across country-years; standard errors clustered by country. Gallup: 2006--2023.\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Share of explained variance due to income rather than region (LMG), Gallup, last observation per country}\label{tab:share_gallup}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/share_income_gallup.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} \nGallupCountries countries, last Gallup observation available (2006--2023). Same definitions as Table~\ref{tab:share_income}.\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Other country-level correlates of national well-being: Shapley decomposition of $R^2$ (WVS)}\label{tab:correlates}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/correlates.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Country-year averages of WVS variables: perceived freedom of choice and control (1--10), importance of God in one's life (1--10), justifiability of homosexuality (1--10), importance of living in a democracy (1--10, waves 5--7), and average annual growth of real GDP per capita over the previous five years. Shapley decomposition of the $R^2$ of the regression on log GDP per capita, region dummies and the other variable.\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Within-country relation between national well-being and $\log_{10}$ GDP per capita (country fixed effects, WVS)}\label{tab:within}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/within_country.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Countries surveyed at least twice. Standard errors clustered by country.\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Countries most often ranked happiest (WVS, 8 indicators $\times$ 8 samples: each wave and all waves combined)}\label{tab:happiest}
+    \input{../tables/main/happiest_countries.tex}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{Share of \textit{Very happy} people vs.\ GDP per capita (PPP), WVS 1981--2022}\label{fig:very_happy_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_happy_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{Mean ladder vs.\ GDP per capita (PPP), Gallup, last observation per country}\label{fig:gallup_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/gallup_ladder_mean_vs_gdp_ppp.pdf}
+\end{figure}

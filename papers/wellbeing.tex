@@ -1,0 +1,69 @@
+\documentclass[11pt]{article}
+\input{preamble_paper.tex}
+% Combined paper, formatted for the Journal of Economic Psychology (research article: max. 12,000 words including abstract,
+% references, tables, figures and appendix; no footnotes on initial submission; p-values with three decimals).
+% Compile from papers/:  latexmk -pdf -outdir=build wellbeing.tex
+
+\title{How Well Does GDP per Capita Predict National Well-Being?\\ World Regions, Datasets, and Question Wording\thanks{Data and code: \url{https://github.com/bixiou/wellbeing_gdp_region} \todo{deposit data and code on a public repository (e.g.\ OSF) before acceptance; Gallup data cannot be redistributed}. The survey was approved by the CIRED institutional review board (IRB-CIRED-2025-2) and pre-registered at \href{https://osf.io/7mzn4}{osf.io/7mzn4}. \todo{funding (ANR-24-CE03-7110?) and acknowledgements}. Declaration of interest: none.}}
+\author{Adrien Fabre\\ \small CNRS, CIRED \todo{full address; e-mail of the corresponding author}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Is GDP per capita a good predictor of national well-being? Using all waves of the World Values Survey (WVS, 1981--2022, \nWVSCountries countries), I find that log GDP per capita explains on average \meanRtwoIncomePPP\% of the cross-country variance of eight well-being indicators, and that a country's world region is a better predictor, in and out of sample, in \shareRegionBetterWVS\% of \nSpecsWVS specifications. This advantage stems from Latin America and the former Eastern Bloc, and it vanishes in the Gallup World Poll, where income predicts life evaluations as well as region. To understand why the two datasets disagree, I randomize the question wording (Cantril ladder vs.\ life satisfaction) and scale (0--10 vs.\ 1--10) in an online survey of \nFabre respondents in ten high-income countries. The ladder shifts answers by \effectLadder points, with effects varying across countries, which explains why Gallup levels are lower than WVS levels. However, the question effect explains none of the cross-country variation in the Gallup--WVS gap, pointing to differences in samples, modes and context rather than wording.
+\end{abstract}
+
+\noindent\textbf{Keywords:} subjective well-being; life satisfaction; GDP; world regions; survey methodology; question wording.\\
+\noindent\textbf{JEL codes:} I31; O15; O57; C83.
+
+\linenumbers
+\section{Introduction}\label{sec:intro}
+
+Which country is the happiest? The answer most often heard, based on the World Happiness Report, is a Scandinavian, high-income country. Behind this answer lies one of the most robust stylized facts of well-being research: across countries, average life evaluations increase with the logarithm of GDP per capita \citep{deaton_income_2008,stevenson_economic_2008,sacks_new_2012}. Using the Gallup World Poll, \citet{deaton_income_2008} finds a correlation above 0.8 between average life evaluation and log GDP per capita; using the World Values Survey (WVS), \citet{inglehart_genes_2000} reported an $R^2$ of about one half for an index of happiness and satisfaction. These correlations are frequently invoked to support the view that economic growth is a reliable route to higher well-being.
+
+This paper revisits the predictive capacity of GDP per capita for national well-being, and asks two questions. First, how much of the cross-country variation in well-being does GDP per capita actually predict, and does it predict it better than a very simple alternative, the country's world region? Second, why do the two main sources of cross-national well-being data, Gallup and the WVS, give different answers to the first question? Previous work has noted that income is more strongly related to Gallup's ladder than to WVS measures \citep{deaton_income_2008}, and that national income is more related to life evaluations than to happiness or emotions \citep{inglehart_development_2008,kahneman_high_2010}. Yet whether the difference between datasets comes from the question asked or from the samples has, to my knowledge, not been tested experimentally.
+
+For the first question, I use all seven waves of the WVS (\nWVSCountryYears country-years), eight indicators of national well-being, and seven income measures, and I compare the variance explained by income and by region using the Shapley (LMG) decomposition of $R^2$ \citep{lindeman_introduction_1980,gromping_estimators_2007} and leave-one-country-out cross-validation. For the second question, I embedded a $2 \times 2$ experiment in an online survey of \nFabre respondents in ten high-income countries, randomizing the wording (Gallup's Cantril ladder vs.\ the WVS life-satisfaction question) and the scale (0--10 vs.\ 1--10). Combining the experiment with Gallup and WVS data for the same countries, I decompose the Gallup--WVS gap into a question effect and a residual reflecting differences in samples, modes, context and time.
+
+The results are threefold. First, in the WVS, GDP per capita is a weak predictor of national well-being: it explains on average \meanRtwoIncomePPP\% of the variance of the eight indicators (\meanRtwoIncomeBest\% with the best income measure), and nothing of the share of very happy people. Region is a better predictor in \shareRegionBetterWVS\% of specifications and, out of sample, for every indicator. Second, this conclusion is fragile in two respects: it is driven by Latin America and the former Eastern Bloc, and it does not hold in Gallup, where income predicts life evaluations as well as or better than region (\RtwoGallupMeanPPP\% vs.\ \RtwoGallupRegion\% of the variance of the mean ladder). Third, the experiment shows that question wording has a sizeable effect on levels---the ladder shifts answers by \effectLadder points, more than the average gap between Gallup and the WVS---and that this effect varies across countries. However, the question effect explains none of the cross-country variation in the Gallup--WVS gap, which is instead attributable to differences between samples in the broad sense. The ladder also does not steepen the income gradient within countries.
+
+The paper contributes to three literatures. It adds to the debate on the relationship between income and well-being across countries and over time \citep{easterlin_does_1974,easterlin_happiness_2010,stevenson_economic_2008,deaton_income_2008,jebb_happiness_2018} by showing that the strength of the cross-country relationship depends on the dataset, and by benchmarking income against regions. It relates to work on regional and cultural differences in well-being, in particular the high well-being of Latin America \citep{graham_paradox_2009,rojas_handbook_2016} and the low well-being of transition countries \citep{guriev_unhappiness_2009}, and on the comparability of well-being across cultures \citep{diener_culture_2000,exton_comparing_2015,senik_french_2014}. Finally, it contributes to the methodological literature on the measurement of subjective well-being \citep{kahneman_developments_2006,oecd_guidelines_2013,stone_subjective_2013,bond_sad_2019,kaiser_scientific_2022}, and specifically on the comparability of the Cantril ladder and life-satisfaction questions \citep{bjornskov_how_2010,nilsson_cantril_2024} and on context and mode effects \citep{deaton_understanding_2016,dolan_happy_2016}, by providing experimental estimates of wording and scale effects in ten countries.
+
+Section~\ref{sec:data} presents the data. Section~\ref{sec:region} compares income and region as predictors of national well-being. Section~\ref{sec:discrepancy} investigates the discrepancy between Gallup and the WVS. Section~\ref{sec:discussion} discusses limitations, and Section~\ref{sec:conclusion} concludes.
+
+\section{Data}\label{sec:data}
+\input{sections/data.tex}
+\input{sections/data_fabre.tex}
+
+\section{Income and region as predictors of national well-being}\label{sec:region}
+\input{sections/results_region.tex}
+
+\section{Why do Gallup and the WVS disagree? Wording vs.\ samples}\label{sec:discrepancy}
+\input{sections/results_discrepancy.tex}
+
+\section{Discussion}\label{sec:discussion}
+\subsection{Income vs.\ region}
+\input{sections/discussion_region.tex}
+Section~\ref{sec:discrepancy} showed that this discrepancy does not come from the question asked, but from differences between samples in the broad sense.
+\subsection{Wording vs.\ samples}
+\input{sections/discussion_discrepancy.tex}
+
+\section{Conclusion}\label{sec:conclusion}
+
+GDP per capita is a weaker predictor of national well-being than is often assumed, but how weak depends on the data. In the WVS, it explains a small share of the cross-country variance of well-being, less than a country's world region, and it explains essentially nothing of the share of very happy people. In the Gallup World Poll, however, income predicts life evaluations as well as region does. A survey experiment in ten high-income countries shows that the question matters for levels---the Cantril ladder yields lower answers than the life-satisfaction question---but that it does not explain the cross-country pattern of the Gallup--WVS gap, which reflects differences in samples, modes, and context.
+
+These findings have two implications. For research, cross-country conclusions about the income--well-being relationship should be checked across datasets, and the choice between Gallup and the WVS should be based on the quality and comparability of their samples rather than on their questions, since wording effects mostly shift levels. Gallup's standardized annual methodology is an argument in its favor for cross-country comparisons, but the gap between datasets is largest in low-income countries, where neither the present experiment nor existing evidence can yet tell which survey is closer to the truth. Replicating the experiment face-to-face in low- and middle-income countries is the natural next step. For policy, the fact that rich countries rarely have low well-being, while many countries at intermediate income levels are as happy as the richest, suggests that growth is neither necessary nor sufficient for high well-being, and that the non-material determinants of well-being that differ across regions deserve more attention in policy evaluation \citep{stiglitz_report_2009,frijters_happy_2020}.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the writing process}
+\todo{During the preparation of this work the author used Claude (Anthropic) to write analysis code and draft parts of the manuscript. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication. (Adapt to actual use.)}
+
+\bibliography{wellbeing}
+
+\clearpage
+\appendix
+\section{Additional results}\label{app:additional}
+\input{sections/appendix_region.tex}
+
+\end{document}

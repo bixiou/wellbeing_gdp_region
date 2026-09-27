@@ -1,0 +1,57 @@
+\documentclass[11pt]{article}
+\input{preamble_paper.tex}
+\showregionfalse
+% Split paper 2: is the Gallup/WVS discrepancy due to question wording or to samples? (max. 9,000 words excluding appendices)
+% Compile from papers/:  latexmk -pdf -outdir=build wellbeing_discrepancy.tex
+
+\title{Ladder or Satisfaction? Why Gallup and the World Values Survey\\ Disagree on Income and Well-Being\thanks{Data and code: \url{https://github.com/bixiou/wellbeing_gdp_region} \todo{public repository (e.g.\ OSF); Gallup data cannot be redistributed}. The survey was approved by the CIRED institutional review board (IRB-CIRED-2025-2) and pre-registered at \href{https://osf.io/7mzn4}{osf.io/7mzn4}. \todo{funding (ANR-24-CE03-7110?) and acknowledgements}. Declaration of interest: none.}}
+\author{Adrien Fabre\\ \small CNRS, CIRED \todo{full address; e-mail of the corresponding author}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent The two main sources of cross-national data on subjective well-being disagree: life evaluations are much more strongly related to GDP per capita in the Gallup World Poll (Cantril ladder, 0--10) than in the World Values Survey (WVS; life satisfaction, 1--10). In \nCommon country-years observed by both, log GDP per capita explains \RtwoCommonGallup of the variance of Gallup's mean ladder but \RtwoCommonWVS of WVS mean satisfaction. Is this due to the question or to the samples? I randomize the wording (ladder vs.\ satisfaction) and the scale (0--10 vs.\ 1--10) in an online survey of \nFabre respondents in ten high-income countries. The ladder shifts answers by \effectLadder points, an effect that varies strongly across countries and fully accounts for Gallup's lower average level. However, it does not steepen the within-country income gradient, and it explains none of the cross-country variation in the Gallup--WVS gap, which reflects differences in samples, modes and context. Wording effects mostly shift levels; sample differences drive the discrepancy in cross-country patterns.
+\end{abstract}
+
+\noindent\textbf{Keywords:} subjective well-being; life satisfaction; Cantril ladder; question wording; survey mode; survey experiment.\\
+\noindent\textbf{JEL codes:} I31; C83; C90.
+
+\linenumbers
+\section{Introduction}\label{sec:intro}
+
+Cross-country comparisons of subjective well-being rely mostly on two surveys: the Gallup World Poll, which underlies the World Happiness Report, and the World Values Survey (WVS). They measure life evaluation with different questions. Gallup asks respondents to place themselves on a ladder whose top represents ``the best possible life for you'' \citep{cantril_pattern_1965}, on a scale from 0 to 10; the WVS asks ``how satisfied are you with your life as a whole these days?'', on a scale from 1 to 10. They also differ in their samples: sampling frames, interview modes, questionnaire context, translations, and the years in which each country is surveyed.
+
+The two surveys paint different pictures of the relationship between income and well-being. \citet{deaton_income_2008} documented that Gallup's ladder is strongly related to GDP per capita, more so than WVS measures. The difference is large: in the \nCommon country-years (\nCommonCountries countries) observed by both surveys the same year, log GDP per capita explains \RtwoCommonGallup of the variance of Gallup's mean ladder, but only \RtwoCommonWVS of WVS mean satisfaction. Conclusions on whether ``money buys happiness'' across countries, or on whether a country's world region predicts well-being better than its income, depend on which survey one uses. \todo{cite companion paper on region vs.\ income.}
+
+Which difference is responsible: the question, or the samples? If the question, then the two surveys measure different constructs---for instance, if the ladder elicits thoughts about wealth and status \citep{nilsson_cantril_2024} or evaluative rather than hedonic judgments \citep{kahneman_high_2010}---and multiple indicators should be used. If the samples, then the surveys measure the same construct with different errors, and one should favor the dataset with the most reliable and comparable samples. Observational comparisons cannot answer this question, because the question and the sample always differ together \citep{bjornskov_how_2010}.
+
+I answer it with a survey experiment. In an online survey of \nFabre respondents in ten high-income countries \citep{fabre_public_2025}, I randomly assigned respondents to one of four versions of the life-evaluation question, crossing the wording (Gallup's ladder vs.\ WVS life satisfaction) with the scale (0--10 vs.\ 1--10). The experiment estimates the question effect holding the sample constant. Combining it with Gallup and WVS data for the same countries, I decompose the observed Gallup--WVS gap into a question effect and a residual that captures differences between samples in a broad sense.
+
+The results are clear-cut. The question matters for levels: the ladder shifts answers by \effectLadder points on average relative to the satisfaction question, and the effect varies across countries, from \wordingMin points in Spain to \wordingMax in Japan. This question effect more than accounts for the lower average level of Gallup data in these countries. But it does not account for which countries score relatively higher in Gallup than in the WVS: its covariance with the observed gap is nil or negative, and the residual explains the cross-country variation of the gap. Moreover, the ladder does not steepen the income gradient within countries. Direct comparisons of samples asked the same question confirm that sample and mode effects are as large as the question effect. The experiment covers only high-income countries, so it cannot exclude a larger wording effect in poorer countries, where the gap between the two surveys is largest; but nothing in the evidence points in this direction.
+
+The paper contributes to the methodological literature on the measurement of subjective well-being \citep{kahneman_developments_2006,oecd_guidelines_2013,stone_subjective_2013,kaiser_scientific_2022}, in particular on question and scale effects \citep{conti_survey_2011,bond_sad_2019}, context effects \citep{deaton_financial_2012,deaton_understanding_2016}, and mode effects \citep{dolan_happy_2016}, and to the debate on the cross-country relation between income and well-being \citep{deaton_income_2008,stevenson_economic_2008,sacks_new_2012}.
+
+\section{Data}\label{sec:data}
+\input{sections/data.tex}
+\input{sections/data_fabre.tex}
+
+\section{Results}\label{sec:results}
+\input{sections/results_discrepancy.tex}
+
+\section{Discussion}\label{sec:discussion}
+\input{sections/discussion_discrepancy.tex}
+
+\section{Conclusion}\label{sec:conclusion}
+
+The Gallup World Poll and the World Values Survey disagree on how strongly national well-being is related to income. A survey experiment in ten high-income countries shows that their different questions explain why Gallup's life evaluations are lower on average, but not why the gap between the two surveys varies across countries. The discrepancy in cross-country patterns therefore comes mainly from differences in samples, interview modes, and context, rather than from the constructs measured.
+
+This has two implications. First, the Cantril ladder and the life-satisfaction question can be treated as measures of the same construct up to a shift in level, at least in high-income countries; the choice between datasets should be based on the quality and comparability of their samples. Gallup's standardized annual methodology is an argument in its favor for cross-country comparisons, but the two surveys disagree most in low-income countries, where there is not yet evidence on which is closer to the truth. Second, the country-specific wording effects imply that rankings of countries are sensitive to the question asked, even among high-income countries. Replicating the experiment face-to-face in low- and middle-income countries, with official translations and at the beginning of the interview, is the natural next step.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the writing process}
+\todo{During the preparation of this work the author used Claude (Anthropic) to write analysis code and draft parts of the manuscript. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication. (Adapt to actual use.)}
+
+\bibliography{wellbeing}
+
+\end{document}

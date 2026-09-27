@@ -1,0 +1,27 @@
+% Common preamble of wellbeing.tex, wellbeing_region.tex and wellbeing_discrepancy.tex
+% Compile from papers/:  latexmk -pdf -outdir=build <file>.tex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs, makecell, threeparttable, adjustbox}
+\usepackage{caption}
+\captionsetup{font=small, labelfont=bf}
+\usepackage[authoryear, round]{natbib}
+\bibliographystyle{apalike}
+\usepackage{xspace}
+\usepackage{xcolor}
+\usepackage[colorlinks=true, linkcolor=blue!60!black, citecolor=blue!60!black, urlcolor=blue!60!black]{hyperref}
+\usepackage{lineno}
+% Placeholders for information to be completed by the author
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+% Numbers computed by code_wellbeing/main.R (percentages are given without the % sign)
+\input{../tables/main/numbers.tex}
+\newcommand{\Rsq}{\ensuremath{R^2}\xspace}
+% Switch: show region-specific material (set to false in wellbeing_discrepancy.tex)
+\newif\ifshowregion
+\showregiontrue
