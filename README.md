@@ -25,7 +25,7 @@ Target outlets: Journal of Public Economics > Journal of Economic Psychology > J
 | `data/*_wdi_*.csv` (created by `main.R`) | Cached World Bank API downloads (GDP, population) used by `main.R`. |
 | `data/deprecated/` | Raw versions of older data files. |
 | `presentations/wellbeing_prez.tex` | Beamer presentation of the region vs. income results (Jan. 2024). |
-| `papers/` | Papers (`wellbeing.tex`, `wellbeing_region.tex`, `wellbeing_discrepancy.tex`) and bibliography. Compile in `papers/build/`. `papers/Adrien_paper/` holds the original (French) draft and Stata code. |
+| `papers/` | Papers: `wellbeing.tex` (combined, Journal of Economic Psychology format), `wellbeing_region.tex` (income vs. region), `wellbeing_discrepancy.tex` (Gallup vs. WVS: wording or samples); shared sections in `papers/sections/`, common preamble `preamble_paper.tex`, bibliography `wellbeing.bib`. Compile in `papers/build/`. `papers/Adrien_paper/` holds the original (French) draft and Stata code. |
 | `figures/`, `tables/` | Outputs of `old_data.R` (used by the presentation). |
 | `figures/main/`, `tables/main/` | Outputs of `main.R` (used by the papers). |
 | `region6/`, `backup_figures_tables/` | Outputs of earlier versions (6-region classification; backups). |
@@ -36,10 +36,12 @@ Requirements: R ≥ 4.1 and the packages listed at the top of `code_wellbeing/ma
 
 ```sh
 cd code_wellbeing
-Rscript main.R          # ~ a few minutes; writes to ../tables/main and ../figures/main
+Rscript --no-init-file main.R   # ~15 min (1,000 bootstrap replications; N_BOOTSTRAP=50 for a quick run); writes to ../tables/main and ../figures/main
 cd ../papers
-latexmk -pdf -outdir=build wellbeing.tex
+latexmk -pdf -outdir=build wellbeing.tex   # also wellbeing_region.tex, wellbeing_discrepancy.tex
 ```
+
+`--no-init-file` skips `code_wellbeing/.Rprofile`, which is only needed by `old_data.R` (it installs extra packages at start-up). Numbers quoted in the papers are LaTeX macros written by `main.R` to `tables/main/numbers.tex`, so the papers update automatically when the analysis changes.
 
 `main.R` downloads World Bank data once and caches it in `data/`; set `refresh_downloads <- TRUE` at the top to re-download. Random elements (k-means clustering, bootstrap) use a fixed seed.
 

@@ -5,12 +5,12 @@ Legend: `[x]` done, `[ ]` to do, `[~]` partly done / see note. **(A)** = needs A
 ## 0. Project goals (from `CLAUDE.md`)
 
 - [x] 0. Understand the repository, create `README.md` and `TODO.md` (with these instructions and the TODOs of `wellbeing_prez.tex` and `old_data.R`).
-- [ ] 1. Use Fabre (2025) to find the reason for the Gallup/WVS discrepancy: regress well-being on wording × scale, estimate the effect of wording, compare the predicted indicators of past data (for the alternative wording/scale) with the empirical evidence; decompose the discrepancy into wording and residual (≈ different samples). If wording explains more, the multi-indicator/multi-dataset strategy is validated; otherwise emphasize the dataset with the best sampling.
-- [ ] 2. Update the analysis of `old_data.R`: (a) update data series (GDP p.c.…); (b) integrate more recent waves of Gallup or WVS if they exist; (c) extend the analysis to Fabre (2025).
-- [ ] 3. Do the other TODOs (below).
-- [ ] 4. Find the weaknesses of the analysis and propose improvements in methodology/analysis.
-- [ ] 5. Write `papers/wellbeing.tex` following the Journal of Economic Psychology's requirements, the structure and interpretation of `wellbeing_prez.tex`, plus steps 1–4.
-- [ ] 6. Write `papers/wellbeing_region.tex` (region vs. GDP only) and `papers/wellbeing_discrepancy.tex` (wording vs. sampling only), ≤ 9k words each excluding appendices; recommend combined vs. split and the best journal for each.
+- [x] 1. Use Fabre (2025) to find the reason for the Gallup/WVS discrepancy: regress well-being on wording × scale, estimate the effect of wording, compare the predicted indicators of past data (for the alternative wording/scale) with the empirical evidence; decompose the discrepancy into wording and residual (≈ different samples). If wording explains more, the multi-indicator/multi-dataset strategy is validated; otherwise emphasize the dataset with the best sampling.
+- [x] 2. Update the analysis of `old_data.R`: (a) update data series (GDP p.c.…); (b) integrate more recent waves of Gallup or WVS if they exist; (c) extend the analysis to Fabre (2025).
+- [x] 3. Do the other TODOs (below).
+- [x] 4. Find the weaknesses of the analysis and propose improvements in methodology/analysis.
+- [x] 5. Write `papers/wellbeing.tex` following the Journal of Economic Psychology's requirements, the structure and interpretation of `wellbeing_prez.tex`, plus steps 1–4.
+- [x] 6. Write `papers/wellbeing_region.tex` (region vs. GDP only) and `papers/wellbeing_discrepancy.tex` (wording vs. sampling only), ≤ 9k words each excluding appendices; recommend combined vs. split and the best journal for each.
 
 ## 1. Bugs and issues found in `old_data.R` (to fix in `main.R`, not in `old_data.R`)
 
@@ -92,3 +92,16 @@ Based on `wellbeing_prez.tex` and on the new analyses in `code_wellbeing/main.R`
 13. [ ] **Online panel respondents report ~1 point lower well-being than Gallup and WVS respondents in the same countries** — a sample/mode effect of the same order as the wording effect. Worth a dedicated discussion (selection into online panels, social desirability in interviewer-administered modes; cf. Dolan & Kavetsos 2016). Compare with probability-based online panels (LISS, GESIS Panel, KnowledgePanel).
 14. [ ] **Power:** with 10 countries, cross-country statistics (variance shares, gradients) have wide CIs; report them (done with bootstrap) and avoid over-interpreting point estimates.
 15. [ ] Scale: 0–10 vs. 1–10 answers are compared through a linear stretch; alternative: compare distributions (e.g. share ≥ 6, done) or use ordered-probit thresholds.
+
+## 7. Papers: remaining TODOs (search for `\todo{` in `papers/`)
+
+- [ ] **(A)** Corresponding-author address and e-mail; funding and acknowledgements; AI-use declaration (a draft is provided).
+- [ ] **(A)** Verify the references flagged `TODO: verify` in `papers/wellbeing.bib` (Blanchflower & Bryson 2023, Nilsson et al. 2024, WVS trend file authors, Kapteyn et al. 2010 pages) and add Galbraith et al. (2024), Ritter et al. (2025), Prica & Bartlett (2026), Sofia Panasiuk.
+- [ ] **(A)** Deposit data and code on OSF (JEP requires public data before acceptance; Gallup data cannot be redistributed: explain how to obtain them).
+- [ ] Highlights (3–5, ≤ 85 characters) are only needed after a revise-and-resubmit at JEP.
+- [ ] Update `presentations/wellbeing_prez.tex`? (not modified, per CLAUDE.md: a new presentation could reuse `figures/main/` and `tables/main/`).
+
+## 8. Recommendation: combined vs. split papers (step 6)
+
+Submit the **combined paper** (`wellbeing.tex`) to the **Journal of Economic Psychology**. Rationale: with the updated data, "region predicts better than income" holds in the WVS but not in Gallup, so a stand-alone region paper would immediately face the objection that the leading dataset contradicts it; the experiment answers precisely that objection, and together they tell one coherent story (the result depends on the dataset, and the datasets differ because of samples, not wording). It fits JEP's scope (economic psychology, survey measurement) and its 12,000-word limit (current draft ≈ 9,900 words including tables, references and appendix). JPubE is not a good fit: the paper is descriptive/methodological, without a public-finance question or causal policy analysis.
+If split: `wellbeing_discrepancy.tex` (novel experimental contribution) → JEP (or as a *Brief Report*, ≤ 4,000 words excluding abstract and references, after light trimming); `wellbeing_region.tex` → Journal of Happiness Studies (or Social Indicators Research).

@@ -1,0 +1,61 @@
+\documentclass[11pt]{article}
+\input{preamble_paper.tex}
+% Split paper 1: predictive capacity of GDP per capita vs. world region for national well-being (max. 9,000 words excluding appendices).
+% Compile from papers/:  latexmk -pdf -outdir=build wellbeing_region.tex
+
+\title{Is GDP per Capita a Good Predictor of National Well-Being?\\ Income versus World Regions\thanks{Data and code: \url{https://github.com/bixiou/wellbeing_gdp_region} \todo{public repository (e.g.\ OSF); Gallup data cannot be redistributed}. \todo{funding and acknowledgements}. Declaration of interest: none.}}
+\author{Adrien Fabre\\ \small CNRS, CIRED \todo{full address; e-mail of the corresponding author}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Across countries, national well-being is commonly described as an increasing function of log GDP per capita. I assess how much of national well-being GDP per capita actually predicts, and benchmark it against a simple alternative: the country's world region. Using all waves of the World Values Survey (1981--2022, \nWVSCountries countries), eight well-being indicators and seven income measures, I find that log GDP per capita explains on average \meanRtwoIncomePPP\% of the cross-country variance of well-being, and nothing of the share of very happy people. Region is a better predictor in \shareRegionBetterWVS\% of \nSpecsWVS specifications and, out of sample, for every indicator. This advantage is driven by Latin America (happier than its income predicts) and the former Eastern Bloc (unhappier), and it does not hold in the Gallup World Poll, where income predicts life evaluations as well as region. Within countries, however, well-being rises with GDP over time. Whether GDP is a poor predictor of national well-being thus depends on the data and on a few large regional deviations.
+\end{abstract}
+
+\noindent\textbf{Keywords:} subjective well-being; life satisfaction; happiness; GDP; world regions; Easterlin paradox.\\
+\noindent\textbf{JEL codes:} I31; O15; O57.
+
+\linenumbers
+\section{Introduction}\label{sec:intro}
+
+Which country is the happiest? The answer most often heard, based on the World Happiness Report, is a Scandinavian, high-income country. Behind this answer lies one of the most cited stylized facts of well-being research: across countries, average life evaluations increase with the logarithm of GDP per capita \citep{deaton_income_2008,stevenson_economic_2008,sacks_new_2012}. Using the Gallup World Poll, \citet{deaton_income_2008} finds a correlation above 0.8 between average life evaluation and log GDP per capita; using the World Values Survey (WVS), \citet{inglehart_genes_2000} reported an $R^2$ of about one half for an index combining happiness and life satisfaction. These correlations are frequently invoked to support the view that economic growth is a reliable route to well-being.
+
+This paper asks how much of national well-being GDP per capita actually predicts, and whether it predicts it better than a very simple alternative, the country's world region. Region is a natural benchmark: previous work has documented that Latin American countries report higher well-being than their income would predict \citep{graham_paradox_2009,rojas_handbook_2016,inglehart_development_2008} and former communist countries lower well-being \citep{guriev_unhappiness_2009}, and that cultural factors shape national well-being \citep{diener_culture_2000,diener_personality_2003,exton_comparing_2015,senik_french_2014}. But the relative predictive power of income and region has not, to my knowledge, been systematically compared.
+
+I use all seven waves of the WVS (\nWVSCountryYears country-years), eight indicators of national well-being based on the happiness and life-satisfaction questions, and seven income measures (log GDP per capita at PPP or market exchange rates, income sextiles, and income clusters). Since the ranking of groups can depend on the choice of indicator \citep{bond_sad_2019}, I consider all of them. I compare the variance explained by income and by region using the Shapley (LMG) decomposition of $R^2$ \citep{lindeman_introduction_1980,gromping_estimators_2007}, adjusted $R^2$, and leave-one-country-out cross-validation, which directly measures predictive capacity. I then examine the robustness of the results across waves, samples, classifications of regions, and datasets, using the Gallup World Poll and the World Happiness Report.
+
+Four findings emerge. First, in the WVS, GDP per capita is a weak predictor of national well-being: log GDP per capita explains on average \meanRtwoIncomePPP\% of the variance of the eight indicators, and nothing of the share of very happy people. Second, region is a better predictor than income in \shareRegionBetterWVS\% of specifications and, out of sample, for every indicator. Third, this conclusion must be qualified: the advantage of region is driven by Latin America and the former Eastern Bloc, it weakens with coarser classifications, and it does not hold in Gallup, where log GDP explains \RtwoGallupMeanPPP\% of the variance of the mean ladder against \RtwoGallupRegion\% for region. Fourth, within countries, well-being increases with GDP over time.
+
+The paper contributes to the literature on income and well-being across countries \citep{easterlin_does_1974,easterlin_happiness_2010,stevenson_economic_2008,deaton_income_2008,jebb_happiness_2018} by quantifying the predictive capacity of income out of sample, benchmarking it against regions, and showing that the strength of the cross-country relationship depends on the dataset. A companion paper \todo{cite companion paper} uses a survey experiment to show that the discrepancy between Gallup and the WVS is not due to question wording.
+
+Section~\ref{sec:data} presents the data, Section~\ref{sec:results} the results, Section~\ref{sec:discussion} discusses them, and Section~\ref{sec:conclusion} concludes.
+
+\section{Data}\label{sec:data}
+\input{sections/data.tex}
+
+\section{Results}\label{sec:results}
+\input{sections/results_region.tex}
+
+\section{Discussion}\label{sec:discussion}
+\input{sections/discussion_region.tex}
+The companion paper \todo{cite} investigates this discrepancy with a survey experiment in ten high-income countries. It finds that question wording (Cantril ladder vs.\ life satisfaction) shifts the level of answers but does not explain the cross-country pattern of the gap between the two datasets, which reflects differences in samples, interview modes and context. In the absence of evidence on which dataset better measures national well-being in low-income countries, where the two disagree most, conclusions about the global income--well-being relationship should be reported for both.
+
+\section{Conclusion}\label{sec:conclusion}
+
+GDP per capita is a weaker predictor of national well-being than is often assumed, but how weak depends on the data. In the WVS, it explains a small share of the cross-country variance of well-being, less than a country's world region, and essentially nothing of the share of very happy people. The richest countries are not necessarily the happiest: rich countries rarely experience low well-being, but many countries at intermediate income levels, in particular in Latin America, report well-being as high as the richest. In the Gallup World Poll, however, income predicts life evaluations as well as region, and within countries well-being rises with GDP over time.
+
+These results suggest that absolute income is less determining for national well-being than the cross-country correlations often cited imply, and that non-material dimensions associated with regions---social ties, perceived freedom, history, culture---deserve more attention, both in research on the mechanisms behind regional differences and in policy evaluation \citep{stiglitz_report_2009,frijters_happy_2020}. Future research should test whether emotional well-being is also better predicted by region than by income, and use anchoring vignettes to separate true differences in well-being from differences in response styles.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the writing process}
+\todo{During the preparation of this work the author used Claude (Anthropic) to write analysis code and draft parts of the manuscript. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication. (Adapt to actual use.)}
+
+\bibliography{wellbeing}
+
+\clearpage
+\appendix
+\section{Additional results}\label{app:additional}
+\input{sections/appendix_region.tex}
+
+\end{document}

@@ -616,6 +616,9 @@ write.csv(within, paste0(tables_folder, "within_country.csv"), row.names = FALSE
 write_latex_table(within |> transmute(indicator = wellbeing_names[indicator], slope, se, p_value, within_r2, n = as.character(n)), "within_country.tex", digits = 3,
                   header = "Indicator & Slope & s.e. & $p$-value & Within $R^2$ & Obs.", align = "lccccc")
 add_number("withinRtwoSatisfiedMean", within$within_r2[within$indicator == "satisfied_mean"], 2)
+add_number("withinSlopeSatisfiedMean", within$slope[within$indicator == "satisfied_mean"], 2); add_number("crossSlopeSatisfiedMean", slopes$slope[slopes$data == "WVS" & slopes$indicator == "satisfied_mean"], 2)
+add_number("withinSlopeVeryHappy", within$slope[within$indicator == "very_happy"], 2); add_number("pWithinVeryHappy", within$p_value[within$indicator == "very_happy"], 3)
+add_number("nWithin", within$n[within$indicator == "satisfied_mean"], 0)
 
 # Cultural and institutional correlates: Shapley decomposition of R² among income, region and one other variable
 #' Shapley (LMG) decomposition of R² among groups of regressors
@@ -645,6 +648,11 @@ write_latex_table(culture |> transmute(indicator = wellbeing_names[indicator], v
                   header = "Indicator & Other variable & Obs. & $R^2$ other alone & \\multicolumn{4}{c}{Shapley decomposition of $R^2$} \\\\ & & & & Income & Region & Other & Total", align = "llcccccc",
                   midrule_before = length(correlates) + 1)
 add_number("RtwoFreedomSatisfaction", culture$r2_alone[culture$indicator == "satisfied_mean" & culture$variable == "freedom"], 2, percent = TRUE)
+freedom_row <- culture[culture$indicator == "satisfied_mean" & culture$variable == "freedom", ]
+add_number("shapleyFreedom", freedom_row$other, 2, percent = TRUE); add_number("shapleyFreedomRegion", freedom_row$region, 2, percent = TRUE); add_number("shapleyFreedomIncome", freedom_row$income, 2, percent = TRUE)
+add_number("RtwoTolerance", culture$r2_alone[culture$indicator == "satisfied_mean" & culture$variable == "homosexuality"], 2, percent = TRUE)
+add_number("RtwoGod", culture$r2_alone[culture$indicator == "satisfied_mean" & culture$variable == "god"], 2, percent = TRUE)
+add_number("RtwoGrowth", culture$r2_alone[culture$indicator == "satisfied_mean" & culture$variable == "growth"], 2, percent = TRUE)
 
 # Non-response
 add_number("nonresponseSatisfactionWVS", mean(wvs_main$nonresponse_satisfaction), 3, percent = TRUE)
@@ -719,6 +727,8 @@ equality_test <- {
 print(wording_by_country); print(equality_test)
 add_number("pHeterogeneityWording", equality_test["p"], 3)
 add_number("chiHeterogeneityWording", equality_test["chi2"], 1)
+for (c in fabre_countries) add_number(paste0("wording", c), wording_by_country$effect[wording_by_country$code == c], 2)
+add_number("wordingMin", min(wording_by_country$effect), 2); add_number("wordingMax", max(wording_by_country$effect), 2)
 
 
 ##### 3.2 Country-level decomposition of the Gallup/WVS gap #####
@@ -810,6 +820,9 @@ gallup_vs_fabre <- fabre_means(fabre) |> filter(variant == "gallup_0") |> inner_
   mutate(sample_effect = whr - mean, country = country_of_iso3[code])
 add_number("meanSampleEffectGallup", mean(gallup_vs_fabre$sample_effect), 2)
 add_number("corFabreWHR", cor(gallup_vs_fabre$mean, gallup_vs_fabre$whr), 2)
+add_number("minSampleEffectGallup", min(gallup_vs_fabre$sample_effect), 2); add_number("maxSampleEffectGallup", max(gallup_vs_fabre$sample_effect), 2)
+add_number("meanSampleEffectWVS", mean(decomp$table$sample_wvs), 2)
+add_number("meanFabreGallupZero", mean(decomp$table$mean_gallup_0), 2); add_number("meanFabreWVSOne", mean(decomp$table$mean_wvs_1), 2)
 add_number("sampleEffectUSWVS", decomp$table$sample_wvs[decomp$table$code == "USA"], 2) # U.S.: WVS 2017 was a web survey, like Fabre (2025)
 
 # Figure: gap, question effect and residual by country
