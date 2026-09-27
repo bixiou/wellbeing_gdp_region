@@ -16,7 +16,7 @@ This is an academic project to write on the predictive capacity of GDP per capit
 3. Do other TODOs.
 4. Find the weaknesses of analysis (based on wellbeing_prez and the new analyses) and propose improvements in the methodology or analysis.
 5. Write paper/wellbeing.tex: a paper respecting the Journal of Economic Psychology's requirements following the structure and interpretation of wellbeing_prez.tex, though adding to it the previous steps.
-6. Write two papers (of maximum 9k words): paper/wellbeing_region.tex that only includes the predictive capacity of GDP per capita on national well-being (compared to the world region), and paper/wellbeing_discrepancy.tex that only includes the estimation of whether the Gallup/WVS discrepancy is due to wording or sampling. Tell me whether I should rather submit the combined paper or the split papers, and which journal would be the best fit for each of them.
+6. Write two papers (of maximum 9k words excluding appendices): paper/wellbeing_region.tex that only includes the predictive capacity of GDP per capita on national well-being (compared to the world region), and paper/wellbeing_discrepancy.tex that only includes the estimation of whether the Gallup/WVS discrepancy is due to wording or sampling. Tell me whether I should rather submit the combined paper or the split papers, and which journal would be the best fit for each of them.
 
 ## Code Style
 
