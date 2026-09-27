@@ -35,4 +35,5 @@ This is an academic project to write on the predictive capacity of GDP per capit
 - Never read or modify `.RData` files or any file listed in `.gitignore`.
 - Before writing 500+ lines of code, provide a summary of the logic in comment.
 - Don't compile .tex files in `/papers` but in `papers/build/`: there should be no auxiliary files in `/papers`.
+- After compiling a .tex file of `papers/` in `papers/build/`, always copy the compiled PDF to `papers/` (e.g. `papers/build/wellbeing.pdf` → `papers/wellbeing.pdf`).
 - Add TODO suggestions when you have an idea; note a TODO item as checked when it is done

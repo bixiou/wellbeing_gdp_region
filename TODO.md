@@ -1,6 +1,21 @@
 # TODO
 
-Legend: `[x]` done, `[ ]` to do, `[~]` partly done / see note. **(A)** = needs Adrien (data access, decision, or information only he has).
+Legend: `[x]` done, `[ ]` to do, `[~]` partly done / see note. **(A)** = needs Adrien (data access, decision, or information only he has); all such items are collected in the next section.
+
+## TODO for Adrien
+
+- [ ] **WVS time-series, newer release**: `data/WVS.rds` is v3.0 (2022-12-14). Download the latest WVS time-series file (with the final WVS-7 release, which added countries) from worldvaluessurvey.org (requires accepting the terms of use) and save it in `data/`. WVS wave 8 (2024–2026) is not public yet: add it when released.
+- [ ] **EVS 2017 (→ Integrated Values Surveys)**: download the EVS 2017 (and ideally the EVS/WVS integrated trend file) from GESIS (login required) and save it in `data/`. It adds ~30 European country-years; it matters for the Gallup/WVS decomposition because the latest WVS survey of several survey countries is old (Saudi Arabia 2003, Italy 2005, France 2006, Switzerland 2007, Spain 2011, Poland 2012).
+- [x] Gallup data provenance: access given by Armon Rezai (WU Wien); acknowledged in the papers.
+- [ ] **Optional ask to Armon Rezai / WU Wien** (Gallup World Poll microdata): ask for (i) the same crosstab *weighted* (variable WGT), (ii) waves 19–20 (2024–2025), (iii) the positive/negative affect items, to test whether emotions are better predicted by region than by income.
+- [ ] **Postal address** of the corresponding author (title footnote of the papers).
+- [ ] **AI-use declaration**: adapt the draft at the end of each paper.
+- [ ] **References**: verify entries flagged `TODO: verify` in `papers/wellbeing.bib` (Blanchflower & Bryson 2023, Nilsson et al. 2024, WVS trend-file authors, Kapteyn et al. 2010 pages); provide full references for Galbraith et al. (2024), Ritter et al. (2025), Prica & Bartlett (2026), Sofia Panasiuk.
+- [ ] **Companion-paper citation** in the split papers (`\todo{cite companion paper}`), if you choose to split.
+- [ ] **Data deposit**: create an OSF project with data and code (JEP requires public data before acceptance) and state how to obtain the Gallup data, which cannot be redistributed.
+- [ ] **Decisions**: combined vs. split papers (recommendation in §8); title of the combined paper; whether to update `presentations/wellbeing_prez.tex` with the new results.
+- [ ] **Optional, new data collection**: replicate the 2×2 wording × scale experiment face-to-face or by phone in 5–10 low/middle-income countries, with official Gallup/WVS translations and the question asked early (the only way to settle the discrepancy where it is largest); add anchoring vignettes.
+
 
 ## 0. Project goals (from `CLAUDE.md`)
 
@@ -58,7 +73,7 @@ Legend: `[x]` done, `[ ]` to do, `[~]` partly done / see note. **(A)** = needs A
 
 - [x] GDP p.c.: download the latest WDI vintage via the World Bank API (PPP constant 2021 $ and constant 2015 $), cache in `data/`.
 - [x] Gallup: newer waves (2023–2025) are only available publicly as World Happiness Report 3-year ladder means (`data/WHR26_Data_Figure_2.1.xlsx`, 2011–2025). Use them for the *Satisfaction (mean)* analysis; share-based Gallup indicators remain limited to `gallup.xlsx` (waves ≤ 18 = 2023).
-- [ ] **(A)** Gallup Analytics export of the ladder distribution for waves 19–20 (2024–2025), same format as `gallup.xlsx`, would allow share-based indicators for recent years and the exact 2025 comparison with Fabre (2025).
+- [ ] ~~Gallup Analytics export for 2024–2025~~: no longer possible (Adrien has no Gallup Analytics access anymore). Recent Gallup years rely on WHR 3-year means; share-based Gallup indicators stop in 2023.
 - [ ] **(A)** WVS: `WVS.rds` is the WVS time-series v3.0 (2022-12-14). WVS wave 8 (2024–2026) is still in fieldwork (no public release as of Sept. 2026). A newer time-series release (with the final WVS-7, which added a few countries) and the EVS 2017 (→ Integrated Values Surveys, cf. `data/IVS_dictionary.xlsx`) would add ~30 European country-years. Both require accepting the terms of use on worldvaluessurvey.org / GESIS: please download them to `data/`.
 
 ## 5. New TODO suggestions (added during the analysis)
@@ -81,7 +96,7 @@ Based on `wellbeing_prez.tex` and on the new analyses in `code_wellbeing/main.R`
 5. [ ] **Multiplicity of indicators treated as independent evidence** ("94% of specifications"). The 8 indicators are correlated (0.6–0.8). *Improvement:* pre-specify mean satisfaction/ladder as the primary outcome, others as secondary; or use the first principal component.
 6. [ ] **Region is not a mechanism.** It may capture culture, history, institutions — or cross-cultural differences in scale use (response styles), which would make measured well-being less comparable across regions rather than well-being truly different. *Improvement:* (i) Shapley decompositions with freedom of choice, religiosity, tolerance, democracy (done: freedom of choice alone explains 63% of the variance of mean satisfaction); (ii) anchoring vignettes or scale-use corrections (e.g. Kapteyn, Smith & van Soest; Benjamin et al.) in a future survey; (iii) affect measures (Gallup positive/negative affect).
 7. [ ] **GDP p.c. is a poor proxy of household material living standards** (esp. in resource-rich countries: Qatar, Kuwait, Saudi Arabia). *Improvement:* use household final consumption expenditure per capita and median income (World Bank PIP) as alternative income measures.
-8. [ ] **Gallup distributions are unweighted counts** (Gallup Analytics crosstab). They correlate at 0.993 with WHR (weighted) 3-year averages, but share indicators may be slightly biased. **(A)** Export weighted distributions.
+8. [ ] **Gallup distributions are unweighted counts** (SPSS crosstab of the World Poll microdata). They correlate at 0.993 with WHR (weighted) 3-year averages, but share indicators may be slightly biased. Weighted distributions would require renewed access to the microdata (see TODO for Adrien).
 9. [ ] **Cross-section vs. time series.** The within-country relation (country fixed effects) is weaker (within R² 0.22 for mean satisfaction) — link the paper to the Easterlin paradox debate (Easterlin et al. 2010; Stevenson & Wolfers 2008; Sacks et al. 2012).
 10. [ ] Presentation: the formula for $s_i$ on the slide "Comparing the share of variance…" lacks a division by 2 (the code, based on `relaimpo`, was correct). The slide "Variance explained by GDP p.c." describes the $R^2$ of income alone, but `gdp.tex` reported the LMG of income in the joint model: make consistent.
 
@@ -95,7 +110,7 @@ Based on `wellbeing_prez.tex` and on the new analyses in `code_wellbeing/main.R`
 
 ## 7. Papers: remaining TODOs (search for `\todo{` in `papers/`)
 
-- [ ] **(A)** Corresponding-author address and e-mail; funding and acknowledgements; AI-use declaration (a draft is provided).
+- [x] Corresponding-author e-mail, funding (none) and acknowledgements added. Gallup access acknowledged (Armon Rezai, WU Wien). Still missing: postal address, AI-use declaration (a draft is provided) → see TODO for Adrien.
 - [ ] **(A)** Verify the references flagged `TODO: verify` in `papers/wellbeing.bib` (Blanchflower & Bryson 2023, Nilsson et al. 2024, WVS trend file authors, Kapteyn et al. 2010 pages) and add Galbraith et al. (2024), Ritter et al. (2025), Prica & Bartlett (2026), Sofia Panasiuk.
 - [ ] **(A)** Deposit data and code on OSF (JEP requires public data before acceptance; Gallup data cannot be redistributed: explain how to obtain them).
 - [ ] Highlights (3–5, ≤ 85 characters) are only needed after a revise-and-resubmit at JEP.
