@@ -13,7 +13,7 @@
 #        with the Middle East and Central Asia in "Asia", Turkey in "Western"), extended by rule to all
 #        countries; plus alternative classifications (6 regions of old_data.R, World Bank regions,
 #        continents, UN sub-regions) for robustness.
-#    1.2 GDP p.c. and population from the World Bank API (latest vintage, cached in ../data/). Missing
+#    1.2 GDP p.c. and population from the World Bank API (vintage of 2026-09-27, frozen in ../data/). Missing
 #        values are filled automatically (replacing old manual imputations): PPP series are back-casted with
 #        the growth of constant-$ GDP; countries absent from the World Bank (Taiwan, recent Venezuela...)
 #        use IMF WEO data converted to constant $ with the U.S. deflator. Flags keep track of imputations.
@@ -53,7 +53,8 @@ if (length(missing_packages)) install.packages(missing_packages)
 invisible(lapply(packages, library, character.only = TRUE))
 
 set.seed(20250415) # Used for k-means and bootstrap
-refresh_downloads <- FALSE # TRUE to re-download World Bank / IMF data instead of using the cached files in ../data/
+data_vintage <- "2026-09-27" # Date of the World Bank / IMF downloads used in the papers (files ../data/*_2026-09-27.json), frozen for reproducibility
+refresh_downloads <- FALSE # TRUE to download a new vintage (saved with today's date, without overwriting the frozen one); results may then change
 n_bootstrap <- as.numeric(Sys.getenv("N_BOOTSTRAP", 1000)) # number of bootstrap replications (env. variable N_BOOTSTRAP for quick tests)
 data_folder <- "../data/"
 tables_folder <- "../tables/main/"
@@ -96,12 +97,17 @@ write_latex_table <- function(df, file, digits = 2, align = NULL, header = NULL,
   writeLines(c(paste0("\\begin{tabular}{", align, "}"), "\\toprule", paste(header, "\\\\"), "\\midrule", body, "\\bottomrule", "\\end{tabular}"), paste0(tables_folder, file))
 }
 
-#' Download a file once and cache it (re-download if refresh_downloads is TRUE)
+#' Use a frozen download (vintage data_vintage), or download a new vintage if refresh_downloads is TRUE
 #' @param url URL.
-#' @param file Local path.
+#' @param name File name without extension; the vintage date and ".json" are appended.
 #' @return The local path.
-cached_download <- function(url, file) {
-  if (refresh_downloads || !file.exists(file)) download.file(url, file, quiet = TRUE, mode = "wb")
+cached_download <- function(url, name) {
+  vintage <- if (refresh_downloads) as.character(Sys.Date()) else data_vintage
+  file <- paste0(data_folder, name, "_", vintage, ".json")
+  if (!file.exists(file)) {
+    if (!refresh_downloads) stop("Frozen download ", file, " is missing: restore it from the repository, or set refresh_downloads <- TRUE to download a new vintage.")
+    download.file(url, file, quiet = TRUE, mode = "wb")
+  }
   return(file)
 }
 
@@ -166,20 +172,20 @@ region_alt_of <- function(code, classification) {
 
 
 ##### 1.2 GDP per capita and population #####
-#' Download a World Bank WDI indicator for all countries (cached)
+#' World Bank WDI indicator for all countries (frozen download, see cached_download)
 #' @param indicator WDI code, e.g. "NY.GDP.PCAP.PP.KD".
 #' @return Data frame with columns code, year, value.
 get_wdi <- function(indicator) {
-  file <- cached_download(paste0("https://api.worldbank.org/v2/country/all/indicator/", indicator, "?format=json&date=1960:2025&per_page=20000"), paste0(data_folder, "wdi_", indicator, ".json"))
+  file <- cached_download(paste0("https://api.worldbank.org/v2/country/all/indicator/", indicator, "?format=json&date=1960:2025&per_page=20000"), paste0("wdi_", indicator))
   raw <- fromJSON(file)[[2]]
   data.frame(code = raw$countryiso3code, year = as.integer(raw$date), value = raw$value) |> filter(code != "", !is.na(value))
 }
 
-#' Download an IMF World Economic Outlook indicator from the IMF DataMapper API (cached)
+#' IMF World Economic Outlook indicator from the IMF DataMapper API (frozen download, see cached_download)
 #' @param indicator IMF code, e.g. "PPPPC" (GDP p.c. PPP, current international $) or "NGDPDPC" (GDP p.c., current $).
 #' @return Data frame with columns code, year, value.
 get_imf <- function(indicator) {
-  file <- cached_download(paste0("https://www.imf.org/external/datamapper/api/v1/", indicator), paste0(data_folder, "imf_", indicator, ".json"))
+  file <- cached_download(paste0("https://www.imf.org/external/datamapper/api/v1/", indicator), paste0("imf_", indicator))
   raw <- fromJSON(file)$values[[indicator]]
   bind_rows(lapply(names(raw), function(c) data.frame(code = c, year = as.integer(names(raw[[c]])), value = as.numeric(unlist(raw[[c]]))))) |> filter(!is.na(value), year <= 2025)
 }
@@ -763,6 +769,8 @@ decomposition <- function(fabre_df, wvs_df, gallup_df) {
   cov_share <- function(gap, part) cov(gap, part) / var(gap)
   stats <- c(mean_gap = mean(d$gap), mean_question = mean(d$question), mean_residual = mean(d$residual),
              share_level_question = mean(d$question) / mean(d$gap),
+             share_abs_question = abs(mean(d$question)) / (abs(mean(d$question)) + abs(mean(d$residual))), # share of the gross (absolute) movements between Gallup and WVS levels due to the question
+             share_abs_question_country = mean(abs(d$question) / (abs(d$question) + abs(d$residual))), # same, computed country by country then averaged
              var_share_question = cov_share(d$gap, d$question), var_share_residual = cov_share(d$gap, d$residual),
              mean_abs_gap = mean(abs(d$gap)), mean_abs_residual = mean(abs(d$residual)),
              rmse_prediction_gallup = sqrt(mean((d$gallup_mean - (d$wvs_mean + d$question))^2)), rmse_naive = sqrt(mean((d$gallup_mean - d$wvs_mean - mean(d$gap))^2)),
@@ -793,15 +801,15 @@ write_latex_table(country_table |> transmute(country, years = paste0(year_wvs, i
                   "decomposition_by_country.tex", header = "Country & Year WVS (Gallup) & WVS mode & Gallup & WVS & Gap $D$ & Ladder 0--10 & Satisf. 1--10 & Question effect $Q$ & Residual $R$ \\\\ & & & (1) & (2) & (1)$-$(2) & \\multicolumn{2}{c}{Fabre (2025)} & & $D-Q$",
                   align = "lllccccccc")
 fmt_ci <- function(s, digits = 2) paste0(formatC(decomp$stats[s], format = "f", digits = digits), " [", formatC(decomp_ci[1, s], format = "f", digits = digits), "; ", formatC(decomp_ci[2, s], format = "f", digits = digits), "]")
-decomp_summary <- data.frame(statistic = c("Mean gap $D$ (Gallup $-$ WVS)", "Mean question effect $Q$ (wording + scale)", "Mean residual $R$ (sampling, mode, context)", "Share of mean gap due to question ($\\bar Q/\\bar D$)",
+decomp_summary <- data.frame(statistic = c("Mean gap $D$ (Gallup $-$ WVS)", "Mean question effect $Q$ (wording + scale)", "Mean residual $R$ (sampling, mode, context)", "Share of mean gap due to question ($\\bar Q/\\bar D$)", "Share of gross level difference due to question ($|\\bar Q|/(|\\bar Q|+|\\bar R|)$)", "Same, country average ($\\overline{|Q_c|/(|Q_c|+|R_c|)}$)",
                                            "Share of cross-country variance of $D$ due to $Q$ ($\\mathrm{cov}(D,Q)/\\mathrm{var}(D)$)", "Share of cross-country variance of $D$ due to $R$",
                                            "Mean absolute gap $|D|$", "Mean absolute residual $|R|$", "Correlation between $D$ and $Q$",
                                            "Mean gap, share satisfied (6+)", "Mean question effect, share satisfied (6+)", "Variance share due to $Q$, share satisfied"),
-                             estimate = c(fmt_ci("mean_gap"), fmt_ci("mean_question"), fmt_ci("mean_residual"), fmt_ci("share_level_question"), fmt_ci("var_share_question"), fmt_ci("var_share_residual"),
+                             estimate = c(fmt_ci("mean_gap"), fmt_ci("mean_question"), fmt_ci("mean_residual"), fmt_ci("share_level_question"), fmt_ci("share_abs_question"), fmt_ci("share_abs_question_country"), fmt_ci("var_share_question"), fmt_ci("var_share_residual"),
                                           fmt_ci("mean_abs_gap"), fmt_ci("mean_abs_residual"), fmt_ci("cor_gap_question"), fmt_ci("mean_gap_sat"), fmt_ci("mean_question_sat"), fmt_ci("var_share_question_sat")))
-write_latex_table(decomp_summary, "decomposition_summary.tex", header = "Statistic & Estimate [95\\% bootstrap CI]", align = "lc", midrule_before = c(4, 10))
+write_latex_table(decomp_summary, "decomposition_summary.tex", header = "Statistic & Estimate [95\\% bootstrap CI]", align = "lc", midrule_before = c(4, 7, 12))
 for (s in names(decomp$stats)) add_number(paste0("decomp", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), decomp$stats[s], 2)
-for (s in c("mean_gap", "mean_question", "mean_residual", "var_share_question", "share_level_question", "cor_gap_question")) {
+for (s in c("mean_gap", "mean_question", "mean_residual", "var_share_question", "share_level_question", "cor_gap_question", "share_abs_question", "share_abs_question_country")) {
   add_number(paste0("decompLow", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), decomp_ci[1, s], 2)
   add_number(paste0("decompHigh", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), decomp_ci[2, s], 2) }
 add_number("nDecompCountries", nrow(decomp$table), 0)
