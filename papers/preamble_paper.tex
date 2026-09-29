@@ -15,6 +15,7 @@
 \usepackage[authoryear, round]{natbib}
 \bibliographystyle{apalike}
 \usepackage{xspace}
+\xspaceaddexceptions{]\%} % no space inserted by \xspace before "]" or "\%" (e.g. after number macros)
 \usepackage{xcolor}
 \usepackage[hyperpageref]{backref} 
 \usepackage[pagebackref]{hyperref}

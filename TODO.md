@@ -4,8 +4,9 @@ Legend: `[x]` done, `[ ]` to do, `[~]` partly done / see note. **(A)** = needs A
 
 ## TODO for Adrien
 
-- [ ] **WVS time-series, newer release**: `data/WVS.rds` is v3.0 (2022-12-14). Download the latest WVS time-series file (with the final WVS-7 release, which added countries) from worldvaluessurvey.org (requires accepting the terms of use) and save it in `data/`. WVS wave 8 (2024–2026) is not public yet: add it when released.
-- [ ] **EVS 2017 (→ Integrated Values Surveys)**: download the EVS 2017 (and ideally the EVS/WVS integrated trend file) from GESIS (login required) and save it in `data/`. It adds ~30 European country-years; it matters for the Gallup/WVS decomposition because the latest WVS survey of several survey countries is old (Saudi Arabia 2003, Italy 2005, France 2006, Switzerland 2007, Spain 2011, Poland 2012).
+- [x] WVS time-series: v3.0 (2022-12-14) is the latest release (confirmed by Adrien). WVS wave 8 (2024–2026) is not public yet: add it when released.
+- [x] Joint EVS/WVS 2017–2022 (ZA7505 v5.0.0) added in `data/` and integrated in `main.R`: +33 EVS 2017 surveys, +2 WVS-7 surveys (India 2023, Uzbekistan 2022). All survey countries except Saudi Arabia now have a WVS/EVS survey from 2017–2022.
+- [ ] **Optional**: EVS Trend File 1981–2017 (ZA7503 v3.0.0, https://search.gesis.org/research_data/ZA7503) would add the earlier EVS waves (1981–2008, ~125 European country-years) and complete the Integrated Values Surveys for all waves; only useful for the region vs. income analysis (not for the decomposition).
 - [x] Gallup data provenance: access given by Armon Rezai (WU Wien); acknowledged in the papers.
 - [ ] **Optional ask to Armon Rezai / WU Wien** (Gallup World Poll microdata): ask for (i) the same crosstab *weighted* (variable WGT), (ii) waves 19–20 (2024–2025), (iii) the positive/negative affect items, to test whether emotions are better predicted by region than by income.
 - [ ] **Postal address** of the corresponding author (title footnote of the papers).
@@ -74,9 +75,12 @@ Legend: `[x]` done, `[ ]` to do, `[~]` partly done / see note. **(A)** = needs A
 - [x] GDP p.c.: download the latest WDI vintage via the World Bank API (PPP constant 2021 $ and constant 2015 $), cache in `data/`.
 - [x] Gallup: newer waves (2023–2025) are only available publicly as World Happiness Report 3-year ladder means (`data/WHR26_Data_Figure_2.1.xlsx`, 2011–2025). Use them for the *Satisfaction (mean)* analysis; share-based Gallup indicators remain limited to `gallup.xlsx` (waves ≤ 18 = 2023).
 - [ ] ~~Gallup Analytics export for 2024–2025~~: no longer possible (Adrien has no Gallup Analytics access anymore). Recent Gallup years rely on WHR 3-year means; share-based Gallup indicators stop in 2023.
-- [ ] **(A)** WVS: `WVS.rds` is the WVS time-series v3.0 (2022-12-14). WVS wave 8 (2024–2026) is still in fieldwork (no public release as of Sept. 2026). A newer time-series release (with the final WVS-7, which added a few countries) and the EVS 2017 (→ Integrated Values Surveys, cf. `data/IVS_dictionary.xlsx`) would add ~30 European country-years. Both require accepting the terms of use on worldvaluessurvey.org / GESIS: please download them to `data/`.
+- [x] WVS/EVS: `WVS.rds` (time-series v3.0) completed with the Joint EVS/WVS 2017–2022 dataset (see TODO for Adrien).
 
 ## 5. New TODO suggestions (added during the analysis)
+
+- [x] Ten-country comparison of income gradients, past (Gallup, WVS/EVS) vs. new data (4 Fabre variants), and individual-level regression well-being ~ income × wording × scale (requested in `wellbeing.tex`): wording hardly changes the gradient, the WVS/Gallup difference in gradients is mostly not due to the question (Table `ten_countries.tex`).
+- [ ] With the EVS, test whether EVS and WVS surveys in the same country and period differ systematically (7 countries; mean absolute difference 0.31 points), e.g. by mode.
 
 - [x] Use alternative region classifications (World Bank regions, UN geoscheme, Inglehart–Welzel cultural zones) to show that results do not hinge on the ex-post grouping (Turkey in "Western", Middle East in "Asia"…).
 - [~] Account for repeated observations of the same country (cluster by country; one observation per country; country-level averages across waves).
