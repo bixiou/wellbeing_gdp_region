@@ -2,8 +2,27 @@
 % Compile from papers/:  latexmk -pdf -outdir=build <file>.tex
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage[margin=2.5cm]{geometry}
+\usepackage{tgpagella}
+\usepackage{mathpazo}
+\usepackage[margin=1.3in]{geometry}
+% \linespread{2}
+% \usepackage[super,comma,sort]{natbib} % WPcomment
+\usepackage[round,sort&compress]{natbib} % NCCcomment
+% \usepackage[natbibapa]{apacite}
+% \bibliographystyle{apacite} 
+\usepackage{url} % [hyphens]
+\usepackage{tcolorbox}
+\usepackage[hyperpageref]{backref} % back references biblio. Needs latexmk at compilation. Incompatible with apacite.
+% \usepackage{hyperref}
+\usepackage[pagebackref]{hyperref} % Incompatible with apacite.
+% \usepackage{hyperref}
+% \usepackage{multibib} % incompatible with backref
+\hypersetup{
+  colorlinks=true, % breaklinks=true,
+  urlcolor=purple,    % color of external links
+  linkcolor=blue,  % color of toc, list of figs etc.
+  citecolor=violet,   % color of links to bibliography
+}
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{amsmath, amssymb}
@@ -11,11 +30,13 @@
 \usepackage{booktabs, makecell, threeparttable, adjustbox}
 \usepackage{caption}
 \captionsetup{font=small, labelfont=bf}
-\usepackage[authoryear, round]{natbib}
-\bibliographystyle{apalike}
+\ifblind
+  \bibliographystyle{plainnat}
+\else
+  \bibliographystyle{plainnaturl_clean}
+\fi
 \usepackage{xspace}
 \usepackage{xcolor}
-\usepackage[colorlinks=true, linkcolor=blue!60!black, citecolor=blue!60!black, urlcolor=blue!60!black]{hyperref}
 \usepackage{lineno}
 % Placeholders for information to be completed by the author
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
