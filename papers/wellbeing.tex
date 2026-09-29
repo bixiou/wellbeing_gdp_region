@@ -85,7 +85,8 @@ My main classification groups countries into five world regions inspired by the 
 % Shared section: the Fabre (2025) survey experiment
 \subsection{A survey experiment on question wording and scale}\label{subsec:fabre}
 
-Gallup and WVS differ in two respects that could explain why they disagree: the question (the Cantril ladder on a 0--10 scale vs.\ life satisfaction on a 1--10 scale) and everything else---sampling frames, interview modes, questionnaire context, translations, and survey years. To separate the two, I embedded a randomized experiment in an original survey \citep{fabre_public_2025}. The survey was conducted online between April 15 and July 3, 2025, by Bilendi (Kantar in Saudi Arabia) on \nFabre respondents in \nFabreCountries high-income countries: the United States (3,000), Japan (2,000), Saudi Arabia (1,000), Germany (1,048), the United Kingdom (826), France (798), Italy (756), Spain (603), Poland (500) and Switzerland (469). (The survey also covered Russia, where the well-being question was not asked.) Samples were stratified with quotas on gender, age, income, education, region and urbanicity (race in the U.S.; citizenship in Saudi Arabia), and results are reweighted to match population frequencies along these dimensions (weights trimmed between 0.25 and 4). Respondents failing an attention test or completing the questionnaire in less than 6 minutes were excluded. The project was approved by the CIRED institutional review board (IRB-CIRED-2025-2) and pre-registered at the Open Science Framework (\href{https://osf.io/7mzn4}{osf.io/7mzn4}).
+% TODO add a sentence at the beginning explaining how WVS and Gallup differ
+Gallup and WVS differ in two respects that could explain why they disagree: the question (the Cantril ladder on a 0--10 scale vs.\ life satisfaction on a 1--10 scale) and everything else---sampling frames, interview modes, questionnaire context, translations, and survey years. To separate the two, I embedded a randomized experiment in an original survey \citep{fabre_public_2025}. The survey was conducted online between April 15 and July 3, 2025, by Bilendi (or Kantar in Saudi Arabia) on \nFabre respondents in \nFabreCountries high-income countries: the United States (3,000), Japan (2,000), Saudi Arabia (1,000), Germany (1,048), the United Kingdom (826), France (798), Italy (756), Spain (603), Poland (500) and Switzerland (469).\footnote{The survey also covered Russia, where the well-being question was censored.} Samples were stratified with quotas on gender, age, income, education, region and urbanicity,\footnote{Quota variables also included race in the U.S. and citizenship in Saudi Arabia.} and results are reweighted to match population frequencies along these dimensions (with weights trimmed between 0.25 and 4). %Respondents failing an attention test or completing the questionnaire in less than 6 minutes were excluded. The project was approved by the CIRED institutional review board (IRB-CIRED-2025-2) and pre-registered at the Open Science Framework (\href{https://osf.io/7mzn4}{osf.io/7mzn4}).
 
 Toward the end of the questionnaire, after questions on global policies, each respondent was randomly assigned to one of four versions of the life-evaluation question:
 \begin{itemize}
@@ -94,7 +95,8 @@ Toward the end of the questionnaire, after questions on global policies, each re
     \item \textit{Satisfaction 0--10}: the WVS question quoted in Section~\ref{subsec:wvs}, with answers from 0 (\textit{Completely dissatisfied}) to 10 (\textit{Completely satisfied});
     \item \textit{Satisfaction 1--10} (WVS's original): same wording, with answers from 1 to 10.
 \end{itemize}
-This $2 \times 2$ design identifies the effect of wording (ladder vs.\ satisfaction) and scale (0--10 vs.\ 1--10), and their interaction, holding the sample, mode, context and time constant. Within each country, the four branches are balanced (each receives between 21\% and 30\% of respondents).
+This $2 \times 2$ design identifies the effect of wording (ladder vs.\ satisfaction) and scale (0--10 vs.\ 1--10), and their interaction, holding the sample, mode, context and time constant. Within each country, the four branches are balanced (each receives between around 25\% % 21\% and 30\% 
+of respondents).
 
 
 \section{Income and region as predictors of national well-being}\label{sec:region}
@@ -102,7 +104,7 @@ This $2 \times 2$ design identifies the effect of wording (ladder vs.\ satisfact
 \subsection{Empirical strategy}\label{subsec:method_region}
 
 For each well-being indicator $y$ and each income indicator $x$, I estimate three linear regressions across country-years $i$:
-\begin{align}
+\begin{align} % TODO use notations close to the presentation's
     y_i &= \alpha_1 + \beta_1\, x_i + u_i \label{eq:income}\\
     y_i &= \alpha_2 + \gamma_2' R_i + e_i \label{eq:region}\\
     y_i &= \alpha_3 + \beta_3\, x_i + \gamma_3' R_i + \varepsilon_i \label{eq:both}
