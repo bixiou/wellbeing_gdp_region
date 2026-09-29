@@ -35,7 +35,7 @@ Section~\ref{sec:data} presents the data, Section~\ref{sec:results} the results,
 \section{Data}\label{sec:data}
 \subsection{World Values Survey}\label{subsec:wvs}
 
-The World Values Survey (WVS) is the longest-running cross-national survey of values and subjective well-being. I use the WVS time-series file \citep{wvs_trend_2022}, which pools the seven waves conducted between 1981 and 2022, and complete it with the Joint EVS/WVS 2017--2022 dataset \citep{evs_wvs_joint_2024}, which adds the \nEVSSurveys national surveys of the 2017 wave of the European Values Study (EVS, conducted in 2017--2021) and \nNewWVSSurveys recent WVS surveys (India 2023, Uzbekistan 2022). The EVS asks the same well-being questions, and the combination of the two surveys is standard practice (the so-called Integrated Values Surveys). When a country-year is present in both files, I keep the WVS time-series version. For brevity, I refer to the combined data as the WVS: \nWVSRespondents respondents in \nWVSCountryYears country-years and \nWVSCountries countries. National samples are designed to be representative of the adult population, typically with 1,000 to 3,000 respondents, and most interviews are conducted face-to-face (though some recent national surveys used web, mail or mixed modes, e.g.\ the WVS in the United States in 2017 and in Japan in 2019, or the EVS in Switzerland in 2017). All statistics use the survey weights provided by the WVS and the EVS.
+The World Values Survey (WVS) is the longest-running cross-national survey of values and subjective well-being. I use the WVS time-series file \citep{wvs_trend_2022}, which pools the seven waves conducted between 1981 and 2022, and complete it with the Joint EVS/WVS 2017--2022 dataset \citep{evs_wvs_joint_2024}, which adds the \nEVSSurveys national surveys of the 2017 wave of the European Values Study (EVS, conducted in 2017--2021) and \nNewWVSSurveys recent WVS surveys (India 2023, Uzbekistan 2022). The EVS asks the same well-being questions, and the combination of the two surveys is standard practice (the so-called Integrated Values Surveys). The EVS and the WVS are distinct surveys: when both surveyed the same country the same year (\nEVSSameYearWVS cases), I keep both surveys as separate observations. For brevity, I refer to the combined data as the WVS: \nWVSRespondents respondents in \nWVSCountryYears country-years and \nWVSCountries countries. National samples are designed to be representative of the adult population, typically with 1,000 to 3,000 respondents, and most interviews are conducted face-to-face (though some recent national surveys used web, mail or mixed modes, e.g.\ the WVS in the United States in 2017 and in Japan in 2019, or the EVS in Switzerland in 2017). All statistics use the survey weights provided by the WVS and the EVS.
 
 The WVS contains two questions on subjective well-being:
 \begin{itemize}
@@ -72,13 +72,13 @@ To cover the most recent years, I also use the ladder means published in the Wor
 My benchmark income measure is the log of GDP per capita at purchasing power parity (PPP, constant 2021 international dollars) from the World Development Indicators \citep{worldbank_wdi_2026}. As an alternative, I use GDP per capita at market exchange rates (constant 2015 US dollars). Missing values are filled in automatically, in three steps: (i) PPP series, which start in 1990, are extended backwards (and gaps filled) using the growth rate of real GDP per capita; (ii) for countries absent from the World Bank data (e.g. Taiwan, or Venezuela in recent years), I use the IMF World Economic Outlook \citep{imf_weo_2026}, whose values are in current dollars; I convert them into the constant dollars of the World Bank series by multiplying them by the ratio, in the same year, between the World Bank and the IMF values for the United States (a U.S. price deflator, since PPP and market-exchange-rate values coincide for the United States); (iii) remaining gaps are filled with the closest year available (Montenegro 1996). Territories without national accounts use the GDP of the closest entity (e.g. the United Kingdom for Northern Ireland). A robustness check excludes all imputed values.
 
 \ifshowregion
-Region is a categorical variable, which can capture non-linear patterns that a single continuous variable cannot. To compare income and region on an equal footing, I also use categorical income indicators: income sextiles and income clusters obtained by $k$-means clustering of log GDP per capita, with $k = 5$, 6 or 7. The clusters let the data choose the thresholds between income groups and allow for non-linear relationships, at the cost of more parameters than the log-linear specification. Sextiles and clusters are recomputed in each estimation sample (e.g.\ each wave), so that they always partition the country-years being compared.
+Region is a categorical variable, which can capture non-linear patterns that a single continuous variable cannot. To compare income and region on an equal footing, I also use categorical income indicators: income sextiles and income clusters obtained by $k$-means clustering of log GDP per capita, with $k = 5$, 6 or 7. The clusters let the data choose the thresholds between income groups and allow for non-linear relationships, at the cost of more parameters than the log-linear specification. Sextiles and clusters are recomputed in each estimation sample: for instance, when the analysis is restricted to wave 3, the income groups are defined from the country-years surveyed in wave 3 only.
 \fi
 
 \ifshowregion
 \subsection{Regions}\label{subsec:regions}
 
-My main classification groups countries into the five UN regional groups (Figure~\ref{fig:regions}): \textit{Africa}, \textit{Asia} (the Asia-Pacific group, which includes the Middle East and Central Asia), \textit{Eastern Europe} (the former Eastern Bloc, excluding Central Asia), \textit{Latin America} (including the Caribbean), and \textit{Western} countries (the ``Western European and Others'' group: Western Europe, North America, Australia, New Zealand, and Turkey). It departs from the UN groups for two countries only: Israel, a member of the Western group since 2000 because it was denied access to the Asia-Pacific group, is classified in Asia, and Cyprus, a member of the Asia-Pacific group, is classified with Western countries. Territories that are not UN members (e.g.\ Taiwan, Hong Kong, Puerto Rico, Kosovo) are assigned to the group of their neighbors. For robustness, I use four alternative classifications: a six-region variant separating the Middle East and grouping Central Asia with the former Eastern Bloc; the seven World Bank regions; the five continents; and the UN geoscheme sub-regions (about twenty groups).
+My main classification groups countries into the five UN regional groups (Figure~\ref{fig:regions}): \textit{Africa}, \textit{Asia} (the Asia-Pacific group, which includes the Middle East and Central Asia), \textit{Eastern Europe} (the former Eastern Bloc, excluding Central Asia), \textit{Latin America} (including the Caribbean), and \textit{Western} countries (the ``Western European and Others'' group: Western Europe, North America, Australia, New Zealand, and Turkey). It departs from the UN groups for two countries only: Israel, a member of the Western group since 2000 because it was denied access to the Asia-Pacific group, is classified in Asia, and Cyprus, a member of the Asia-Pacific group, is classified with Western countries. Territories that are not UN members (e.g.\ Taiwan, Hong Kong, Puerto Rico, Kosovo) are assigned to the group of their neighbors. For robustness, I use five alternative classifications: the exact UN regional groups (with Israel in the Western group and Cyprus in Asia); a six-region variant separating the Middle East and grouping Central Asia with the former Eastern Bloc; the seven World Bank regions; the five continents; and the UN geoscheme sub-regions (about twenty groups).
 
 \begin{figure}[htbp]
     \centering
@@ -90,13 +90,13 @@ My main classification groups countries into the five UN regional groups (Figure
 \section{Results}\label{sec:results}
 \subsection{Empirical strategy}\label{subsec:method_region}
 
-For each well-being indicator $y$ and each income indicator $x$, I estimate three linear regressions across country-years $i$:
+For each well-being indicator and each income indicator, I estimate three linear regressions across country-years $i$:
 \begin{align}
-    y_i &= \alpha_1 + \beta_1\, x_i + u_i \label{eq:income}\\
-    y_i &= \alpha_2 + \gamma_2' R_i + e_i \label{eq:region}\\
-    y_i &= \alpha_3 + \beta_3\, x_i + \gamma_3' R_i + \varepsilon_i \label{eq:both}
+    well\text{-}being_i &= \alpha_1 + \beta_1\, income_i + u_i \label{eq:income}\\
+    well\text{-}being_i &= \alpha_2 + \gamma_2\, region_i + e_i \label{eq:region}\\
+    well\text{-}being_i &= \alpha_3 + \beta_3\, income_i + \gamma_3\, region_i + \varepsilon_i \label{eq:both}
 \end{align}
-where $R_i$ is a vector of region dummies. Denoting $R^2_1$, $R^2_2$ and $R^2_3$ their coefficients of determination, the share of the variance explained by income alone is $R^2_1$. To compare income and region, I decompose $R^2_3$ between the two regressors following \citet{lindeman_introduction_1980} (LMG), i.e.\ using the Shapley value \citep{gromping_estimators_2007}. With two (groups of) regressors, the LMG contribution of income is the average of its contribution when entered first ($R^2_1$) and when entered second ($R^2_3 - R^2_2$). The \textit{share of explained variance due to income} is therefore
+where $region_i$ denotes the vector of region dummies (so that $\gamma_2$ and $\gamma_3$ are vectors of coefficients). Denoting $R^2_1$, $R^2_2$ and $R^2_3$ their coefficients of determination, the share of the variance explained by income alone is $R^2_1$. To compare income and region, I decompose $R^2_3$ between the two regressors following \citet{lindeman_introduction_1980} (LMG), i.e.\ using the Shapley value \citep{gromping_estimators_2007}. With two (groups of) regressors, the LMG contribution of income is the average of its contribution when entered first ($R^2_1$) and when entered second ($R^2_3 - R^2_2$). The \textit{share of explained variance due to income} is therefore
 \begin{equation}
     s = \frac{R^2_1 + (R^2_3 - R^2_2)}{2\, R^2_3}, \label{eq:share}
 \end{equation}
@@ -123,7 +123,7 @@ Table~\ref{tab:r2_income} generalizes this result to all indicators and income m
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/r2_income.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} $R^2$ of the regression of each well-being indicator (rows) on each income indicator (columns), over \nWVSCountryYears WVS/EVS country-years (a few with missing GDP are excluded). The last column gives the $R^2$ of the regression on region dummies.\end{minipage}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} $R^2$ of the regression of each well-being indicator (rows) on each income indicator (columns), over \nWVSCountryYears WVS/EVS country-years (a few with missing GDP are excluded). The last column gives the $R^2$ of the regression on region dummies. The replication files include an Excel version of this table with the $R^2$ of all region classifications (\texttt{tables/main/r2\_income\_all\_regions.xlsx}).\end{minipage}
 \end{table}
 
 \subsection{Region predicts national well-being better than income in the WVS}\label{subsec:region_wvs}
@@ -150,7 +150,7 @@ The result is not an artifact of the larger number of parameters of the region m
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Each country's observations are predicted with a model estimated on all other countries. Cross-validated $R^2 = 1 - \sum (y - \hat y_{\text{out-of-sample}})^2 / \sum (y - \bar y)^2$; it can be negative when a model predicts worse than the overall mean.\end{minipage}
 \end{table}
 
-Table~\ref{tab:robustness} summarizes \nSpecsWVS estimates (indicator $\times$ income measure $\times$ specification) using the WVS. Region is the better predictor in \shareRegionBetterWVS\% of them (\shareRegionBetterWVSbest\% when restricting to the best income measure). The result holds in each wave except wave 4 (1999--2004, 40 countries), where income and region perform similarly; when countries are weighted by population; when keeping one observation per country; without the pandemic years; without imputed GDP values; with the previous vintage of GDP data; without the EVS surveys; and with the six-region or the UN sub-region classifications.
+Table~\ref{tab:robustness} summarizes \nSpecsWVS estimates (indicator $\times$ income measure $\times$ specification) using the WVS. Region is the better predictor in \shareRegionBetterWVS\% of them (\shareRegionBetterWVSbest\% when restricting to the best income measure). The result holds in each wave except wave 4 (1999--2004, 40 countries), where income and region perform similarly; when countries are weighted by population; when keeping one observation per country; without the pandemic years; without imputed GDP values; with the previous vintage of GDP data; without the EVS surveys; and with the exact UN groups, the six-region or the UN sub-region classifications.
 
 \begin{table}[htbp]
     \centering
@@ -185,7 +185,7 @@ Second, the advantage of region rests largely on Latin America and the former Ea
 Third, the analysis pools country-years that are not independent, and $R^2$ decompositions carry no information on causality. The within-country evidence shows that growth is associated with rising life satisfaction, so the weak cross-sectional relation does not imply that income is irrelevant for well-being.
 
 Fourth, and most importantly, the WVS and Gallup disagree on the strength of the income gradient. In Gallup, income predicts life evaluations about as well as region, or better.
-The companion paper \todo{cite} investigates this discrepancy with a survey experiment in ten high-income countries. It finds that question wording (Cantril ladder vs.\ life satisfaction) shifts the level of answers but hardly the income gradient: asked to the same sample, both questions yield a gradient close to Gallup's, so the discrepancy reflects differences in samples, interview modes and context. In the absence of evidence on which dataset better measures national well-being in low-income countries, where the two disagree most, conclusions about the global income--well-being relationship should be reported for both.
+Which dataset should be trusted? Gallup has a more standardized design, and WVS samples are less representative in poorer countries: they over-represent tertiary-educated adults by a median factor of \ratioTertiaryLow in countries below 10,000 dollars of GDP per capita, against \ratioTertiaryHigh above 30,000 dollars. Yet reweighting WVS samples to the population share of tertiary-educated adults barely changes their income gradient. The companion paper \todo{cite} investigates this discrepancy with a survey experiment in ten high-income countries. It finds that question wording (Cantril ladder vs.\ life satisfaction) shifts the level of answers but hardly the income gradient: asked to the same sample, both questions yield a gradient close to Gallup's, so the discrepancy reflects differences in samples, interview modes and context. In the absence of evidence on which dataset better measures national well-being in low-income countries, where the two disagree most, conclusions about the global income--well-being relationship should be reported for both.
 
 \section{Conclusion}\label{sec:conclusion}
 
@@ -266,6 +266,49 @@ These results suggest that absolute income is less determining for national well
     \centering
     \caption{Mean ladder vs.\ GDP per capita (PPP), Gallup, last observation per country}\label{fig:gallup_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/gallup_ladder_mean_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Happy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:happy_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_happy_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Very Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:very_unhappy_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_unhappy_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{V.~Happy -- V.~Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:vhmvu_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_happy_minus_very_unhappy_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Happiness (mean)} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:happiness_mean_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_happiness_mean_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:satisfied_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_satisfied_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Happy + Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:layard_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_happiness_layard_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Happy} vs.\ GDP per capita (nominal), WVS/EVS wave 7 (2017--2023), weighted by population}\label{fig:happy_gdp_w7_weighted}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_happy_vs_gdp_wave7_weighted.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Point size and regression weights proportional to population.\end{minipage}
 \end{figure}
 
 \end{document}

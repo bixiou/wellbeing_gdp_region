@@ -80,7 +80,7 @@ Legend: `[x]` done, `[ ]` to do, `[~]` partly done / see note. **(A)** = needs A
 ## 5. New TODO suggestions (added during the analysis)
 
 - [x] Ten-country comparison of income gradients, past (Gallup, WVS/EVS) vs. new data (4 Fabre variants), and individual-level regression well-being ~ income × wording × scale (requested in `wellbeing.tex`): wording hardly changes the gradient, the WVS/Gallup difference in gradients is mostly not due to the question (Table `ten_countries.tex`).
-- [ ] Test the representativeness of WVS samples against external benchmarks (share with tertiary education, urban share, age structure from World Bank/UN/Barro-Lee) and internal criteria (share of women among married respondents ≈ 50%), and check whether deviations predict the Gallup–WVS gap, especially in low-income countries (hypothesis: urban/educated over-representation in WVS samples flattens the income gradient).
+- [x] Representativeness of WVS/EVS samples tested (`main.R` §3.4, `tables/main/sample_representativeness.tex`, `wvs_sample_composition.csv`): tertiary-educated and urban residents are over-represented in poorer countries (≈2× below 10k$ GDP p.c.), but this does not predict the Gallup–WVS gap and education reweighting barely changes the WVS income gradient. Internal criterion (women among married = 50%) violated at 5% in about a third of surveys.
 - [ ] **(A)** Ask Armon Rezai whether Gallup microdata can give weighted vs. unweighted ladder means and sample composition (education, urbanicity) by country-year, to run the same test on Gallup.
 - [ ] Robustness: exclude Gallup 2020–2021 (switch from face-to-face to telephone during COVID) and flag 2023 in the 27 countries where 20% of interviews came from (mostly opt-in) web panels.
 - [ ] With the EVS, test whether EVS and WVS surveys in the same country and period differ systematically (7 countries; mean absolute difference 0.31 points), e.g. by mode.
@@ -127,3 +127,17 @@ Based on `wellbeing_prez.tex` and on the new analyses in `code_wellbeing/main.R`
 
 Submit the **combined paper** (`wellbeing.tex`) to the **Journal of Economic Psychology**. Rationale: with the updated data, "region predicts better than income" holds in the WVS but not in Gallup, so a stand-alone region paper would immediately face the objection that the leading dataset contradicts it; the experiment answers precisely that objection, and together they tell one coherent story (the result depends on the dataset, and the datasets differ because of samples, not wording). It fits JEP's scope (economic psychology, survey measurement) and its 12,000-word limit (current draft ≈ 9,900 words including tables, references and appendix). JPubE is not a good fit: the paper is descriptive/methodological, without a public-finance question or causal policy analysis.
 If split: `wellbeing_discrepancy.tex` (novel experimental contribution) → JEP (or as a *Brief Report*, ≤ 4,000 words excluding abstract and references, after light trimming); `wellbeing_region.tex` → Journal of Happiness Studies (or Social Indicators Research).
+
+- [ ] **Word count (JEP)**: the combined paper is ≈ 12,300 words including tables, references and appendix (JEP limit: 12,000 all included). Move the appendix tables and figures to an online supplementary file (≈ 10,500 words left).
+- [ ] Extend the representativeness test: reweight WVS samples jointly on education, urbanicity and age (raking), where benchmarks allow.
+
+## 9. Submission strategy (answer to the TODO at the top of `wellbeing.tex`)
+
+My assessment (judgment, not certainty):
+- **Top 5 (AER, QJE, JPE, Econometrica, REStud): reject highly likely.** The contribution is descriptive and methodological, without causal identification or a new economic mechanism, and the experiment covers 10 high-income countries only.
+- **Journal of Economic Perspectives: not a submission venue** for original research (articles are mostly commissioned surveys); an invited overview on cross-country well-being data could be pitched to the editors later.
+- **Brookings Papers on Economic Activity: by invitation only** (papers commissioned for the conference).
+- **PNAS: long shot but plausible.** Short format, broad-interest message (the income–well-being gradient across countries depends on survey samples, not on the question), and precedents in the same area (Kahneman & Deaton 2010; Kaiser & Oswald 2022; Killingsworth et al. 2023). High desk-rejection risk; requires a much shorter version (main text ≈ 3,000–4,000 words, rest in SI).
+- **Nature Human Behaviour: long shot.** Publishes cross-country well-being work (Jebb et al. 2018), but the bar on novelty and generality is high, and the experiment's restriction to high-income countries is a weakness they are likely to point out.
+
+Proposed pecking order: (1) PNAS (short version: headline = the Gallup/WVS discrepancy is due to samples, not wording; region vs. income as motivation); (2) Journal of Economic Psychology (combined paper, current format); (3) Journal of Happiness Studies. The Journal of Public Economics is a weak fit (no public-finance question); I would skip it unless the paper is reframed around policy use of well-being data.
