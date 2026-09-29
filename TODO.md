@@ -80,6 +80,9 @@ Legend: `[x]` done, `[ ]` to do, `[~]` partly done / see note. **(A)** = needs A
 ## 5. New TODO suggestions (added during the analysis)
 
 - [x] Ten-country comparison of income gradients, past (Gallup, WVS/EVS) vs. new data (4 Fabre variants), and individual-level regression well-being ~ income × wording × scale (requested in `wellbeing.tex`): wording hardly changes the gradient, the WVS/Gallup difference in gradients is mostly not due to the question (Table `ten_countries.tex`).
+- [ ] Test the representativeness of WVS samples against external benchmarks (share with tertiary education, urban share, age structure from World Bank/UN/Barro-Lee) and internal criteria (share of women among married respondents ≈ 50%), and check whether deviations predict the Gallup–WVS gap, especially in low-income countries (hypothesis: urban/educated over-representation in WVS samples flattens the income gradient).
+- [ ] **(A)** Ask Armon Rezai whether Gallup microdata can give weighted vs. unweighted ladder means and sample composition (education, urbanicity) by country-year, to run the same test on Gallup.
+- [ ] Robustness: exclude Gallup 2020–2021 (switch from face-to-face to telephone during COVID) and flag 2023 in the 27 countries where 20% of interviews came from (mostly opt-in) web panels.
 - [ ] With the EVS, test whether EVS and WVS surveys in the same country and period differ systematically (7 countries; mean absolute difference 0.31 points), e.g. by mode.
 
 - [x] Use alternative region classifications (World Bank regions, UN geoscheme, Inglehart–Welzel cultural zones) to show that results do not hinge on the ex-post grouping (Turkey in "Western", Middle East in "Asia"…).
