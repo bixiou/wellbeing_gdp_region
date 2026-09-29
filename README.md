@@ -24,6 +24,7 @@ Target outlets: Journal of Public Economics > Journal of Economic Psychology > J
 | `data/country_code_mapping.csv` | ISO2/ISO3/country names. |
 | `data/WHR26_Data_Figure_2.1.xlsx`, `data/WHR25_Data_Figure_2.1v3.xlsx` | World Happiness Report (Gallup) country-level ladder means, 3-year averages, 2011–2025 (downloaded 2026-09-27 from worldhappiness.report/data-sharing). |
 | `data/wdi_*_2026-09-27.json`, `data/imf_*_2026-09-27.json` | World Bank (WDI) and IMF (WEO) downloads of GDP and population, frozen at the vintage of 27 September 2026 so that results do not change with database revisions. |
+| `data/wdi_*_2026-09-29.json` | World Bank benchmarks for the representativeness of WVS/EVS samples (tertiary attainment 25+ from UNESCO and Barro-Lee, urban share, age structure), frozen at the vintage of 29 September 2026. |
 | `data/deprecated/` | Raw versions of older data files. |
 | `presentations/wellbeing_prez.tex` | Beamer presentation of the region vs. income results (Jan. 2024). |
 | `papers/` | Papers: `wellbeing.tex` (combined, Journal of Economic Psychology format), `wellbeing_region.tex` (income vs. region), `wellbeing_discrepancy.tex` (Gallup vs. WVS: wording or samples); shared sections in `papers/sections/`, common preamble `preamble_paper.tex`, bibliography `wellbeing.bib`. Compile in `papers/build/`. `papers/Adrien_paper/` holds the original (French) draft and Stata code. |
