@@ -15,7 +15,8 @@ Target outlets: Journal of Public Economics > Journal of Economic Psychology > J
 | `code_wellbeing/old_data.R` | Original analysis (WVS 1981–2022, Gallup, first look at Fabre 2025). Kept unchanged for reference. |
 | `code_wellbeing/wave6.R` | Earlier exploratory code on WVS wave 6 (unchanged, not used). |
 | `code_wellbeing/.Rprofile` | Helper functions used by `old_data.R` (`decrit`, `barres`, `no.na`, …). `main.R` does not depend on it. |
-| `data/WVS.rds` | WVS time-series (waves 1–7, 1981–2022), individual level. |
+| `data/WVS.rds` | WVS time-series (waves 1–7, 1981–2022, v3.0), individual level. |
+| `data/EVS-WVS_ZA7505_v5-0-0.dta` | Joint EVS/WVS 2017–2022 dataset (GESIS ZA7505, v5.0.0, 2024-06-24), used to add the EVS 2017 wave and recent WVS-7 surveys (`ZA7505_v5-0-0_missing.do`: GESIS missing-value codes, negative values = missing). |
 | `data/gallup.xlsx` | Gallup World Poll: distribution of the Cantril ladder by country × wave (waves 1–18, i.e. 2005/06–2023), tabulated with SPSS from the World Poll microdata (unweighted counts, January 2024). **Wave *w* corresponds to year *w* + 2005** (see `TODO.md`). |
 | `data/Fabre2025.csv` | Original survey (Fabre 2025), 11,000 respondents in 10 high-income countries (US, JP, DE, SA, GB, FR, IT, ES, PL, CH), fielded online Apr.–Jul. 2025 (Bilendi; Kantar in Saudi Arabia), quota-representative on gender, age, income, education, region, urbanicity. Four randomized branches for the life-evaluation question: `gallup_0` (ladder, 0–10), `gallup_1` (ladder, 1–10), `wvs_0` (satisfaction, 0–10), `wvs_1` (satisfaction, 1–10). IRB-CIRED-2025-2; pre-registration osf.io/7mzn4. Questionnaire and survey details: github.com/bixiou/robustness_global_redistr. |
 | `data/GDPpcPPP17.csv`, `data/GDPpcPPP21.csv`, `data/GDPpc15.csv` | World Bank WDI GDP per capita (PPP constant 2017 $ with manual IMF imputations; PPP constant 2021 $; nominal constant 2015 $). |
