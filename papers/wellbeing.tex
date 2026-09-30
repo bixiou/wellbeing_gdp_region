@@ -109,7 +109,7 @@ Territories that are not UN members (e.g.\ Taiwan, Hong Kong, Puerto Rico, Kosov
 
 \begin{figure}[htbp]
     \centering
-    \caption{Main classification of countries into five world regions}\label{fig:regions}
+    \caption{Main classification of countries into five world regions.}\label{fig:regions}
     \includegraphics[width=.9\textwidth]{../figures/region_groupings.png}
 \end{figure}
 \fi
@@ -151,7 +151,7 @@ One feature of this comparison could favor region: region has four degrees of fr
 \subsection{Income explains a small share of national well-being in the WVS}\label{subsec:r2_income}
 
 Figure~\ref{fig:satisfaction_gdp} plots mean life satisfaction against GDP per capita for all WVS country-years. The relationship is positive, but the dispersion at any given income level is large: countries with a GDP per capita around 10,000 dollars span most of the range of observed life satisfaction, from the former Soviet republics at the bottom to Latin American countries at the top. Log GDP per capita explains \RtwoSatisfiedMeanPPP\% of the variance of mean satisfaction.
-% TODO refer to te Appendix Figures
+Appendix Figures~\ref{fig:very_happy_gdp} and \ref{fig:happy_gdp}--\ref{fig:layard_gdp} plot the other indicators, and Appendix Figure~\ref{fig:happy_gdp_w7_weighted} shows the \textit{Happy} indicator in wave 7 against nominal GDP, weighting countries by their population.
 
 \begin{figure}[htbp]
     \centering
@@ -173,45 +173,44 @@ Table~\ref{tab:r2_income} generalizes this result to all indicators and income m
 
 \subsection{Region predicts national well-being better than income in the WVS}\label{subsec:region_wvs}
 
-Table~\ref{tab:share_income} reports the share of explained variance due to income, $s$, for each indicator and income measure. It is below 50\% in all cases. On average, the best income measure accounts for \meanShareIncomeBest\% of the variance explained jointly by income and region. The first split of a regression tree using log GDP and region as candidate variables is on region for all %\treeRegionFirst out of 8 
+Table~\ref{tab:share_income} reports the share of explained variance due to income, $s$, for each indicator and income measure. It is below 50\% in all cases but one, where income and region are tied (0.50). On average, the best income measure accounts for \meanShareIncomeBest\% of the variance explained jointly by income and region. The first split of a regression tree using log GDP and region as candidate variables is on region for all %\treeRegionFirst out of 8 
 national well-being indicators.
 
-% TODO shouldn't we have "." at the end of captions?
 \begin{table}[htbp]
     \centering
-    \caption{Share of explained variance due to income rather than region (LMG), WVS/EVS 1981--2023}\label{tab:share_income}
+    \caption{Share of explained variance due to income rather than region (LMG), WVS/EVS 1981--2023.}\label{tab:share_income}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/share_income.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Share of the $R^2$ of Equation~\eqref{eq:both} attributed to income by the LMG (Shapley) decomposition, Equation~\eqref{eq:share}. Values below 0.5 indicate that region is the better predictor.\end{minipage}
-\end{table} % TODO put cells above .5 in bold, and say it's the case in note
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Share of the $R^2$ of Equation~\eqref{eq:both} attributed to income by the LMG (Shapley) decomposition, Equation~\eqref{eq:share}. Values below 0.5 indicate that region is the better predictor. Values above 0.5 (income is the better predictor) are in bold.\end{minipage}
+\end{table}
 
 The result is not an artifact of the larger number of parameters of the region model. Out of sample, region predicts better than income for every indicator (Table~\ref{tab:cv}): for mean satisfaction, the leave-one-country-out $R^2$ is \cvRegionSatisfiedMean with region against \cvIncomeSatisfiedMean with log GDP. For several happiness indicators, income has no out-of-sample predictive power at all (negative cross-validated $R^2$).
 
 \begin{table}[htbp]
     \centering
-    \caption{Out-of-sample predictive capacity: leave-one-country-out cross-validated $R^2$}\label{tab:cv}
+    \caption{Out-of-sample predictive capacity: leave-one-country-out cross-validated $R^2$.}\label{tab:cv}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/cross_validated_r2.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Each country's observations are predicted with a model estimated on all other countries. Cross-validated $R^2 = 1 - \sum (y - \hat y_{\text{out-of-sample}})^2 / \sum (y - \bar y)^2$; it can be negative when a model predicts worse than the overall mean.\end{minipage}
-\end{table} % TODO put in bold the higher cell of each row among columns log GDP, best income, and region, and say you do so in the table note
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Each country's observations are predicted with a model estimated on all other countries. Cross-validated $R^2 = 1 - \sum (y - \hat y_{\text{out-of-sample}})^2 / \sum (y - \bar y)^2$; it can be negative when a model predicts worse than the overall mean. In each row, the highest cross-validated $R^2$ among log GDP PPP, the best income variable and region is in bold.\end{minipage}
+\end{table}
 
-Table~\ref{tab:robustness} summarizes \nSpecsWVS estimates (indicator $\times$ income measure $\times$ specification) % TODO clarify what "specification" is, and replace by "dataset" if this is what it means
+Table~\ref{tab:robustness} summarizes \nSpecsWVS estimates (indicator $\times$ income measure $\times$ specification, where a specification is a variant of the analysis corresponding to a row of the table: a sample such as a given wave, a weighting scheme, a GDP series, or a region classification)
 using the WVS. Region is the better predictor in \shareRegionBetterWVS\% of them (\shareRegionBetterWVSbest\% when restricting to the best income measure). The result is robust. It holds in each wave except wave 4 (1999--2004, 40 countries), where income and region perform similarly; when countries are weighted by population; without the EVS surveys, or when keeping one observation per country in case there is both an EVS and WVS in one year; without the pandemic years; without imputed GDP values; with the previous vintage of GDP data; and with the exact UN groups, the six-region or the UN sub-region classifications.
 
 \begin{table}[htbp]
     \centering
-    \caption{Robustness: income vs.\ region across specifications and datasets}\label{tab:robustness}
+    \caption{Robustness: income vs.\ region across specifications and datasets.}\label{tab:robustness}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/robustness.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Averages over well-being indicators (8 for the WVS; 7 satisfaction indicators for Gallup; mean ladder for the WHR). ``Best'' refers to the income measure with the highest average $R^2$ in the main WVS specification (\bestIncome). ``Region better'' is the share of indicator $\times$ income-measure combinations for which $s < 0.5$.\end{minipage}
-\end{table} % TODO put in bold the cells >0.5 in the last column
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Averages over well-being indicators (8 for the WVS; 7 satisfaction indicators for Gallup; mean ladder for the WHR). ``Best'' refers to the income measure with the highest average $R^2$ in the main WVS specification (\bestIncome). ``Region better'' is the share of indicator $\times$ income-measure combinations for which $s < 0.5$; values above 0.5 are in bold.\end{minipage}
+\end{table}
 
 \subsection{Where the region advantage comes from}\label{subsec:region_limits}
 
-Three results qualify this conclusion. First, the advantage of region is driven by two well-known ``anomalies'': Latin America, happier than its income would predict \citep{graham_paradox_2009,rojas_handbook_2016}, and the former Eastern Bloc, unhappier \citep{guriev_unhappiness_2009}. Excluding these two regions, region is the better predictor in only \shareRegionBetterNoLatamEE\% of cases. Second, the result depends on the granularity and design of the classification: with continents or World Bank regions, which do not isolate Latin America or the former Eastern Bloc, region is better in \shareRegionBetterContinents\% and \shareRegionBetterWB\% of cases, respectively. Third, and most importantly, the conclusion does not carry over to Gallup data. In Gallup's latest observation for each of \nGallupCountries countries, log GDP explains \RtwoGallupMeanPPP\% of the variance of the mean ladder, against \RtwoGallupRegion\% for region, and income accounts for \shareIncomeGallupMean\% of the explained variance (Appendix Table~\ref{tab:share_gallup}). Over all Gallup specifications, region is the better predictor in only \shareRegionBetterGallup\% of cases, mostly for indicators of the upper tail of the distribution (shares answering 9--10 or 10), which are almost unrelated to income. With the latest WHR data (2023--2025), log GDP explains \RtwoWHRPPP\% of the variance of the ladder against \RtwoWHRRegion\% for region.
+Three results qualify this conclusion. First, the advantage of region is driven by two well-known ``anomalies'': Latin America, happier than its income would predict \citep{graham_paradox_2009,rojas_handbook_2016}, and the former Eastern Bloc, unhappier \citep{guriev_unhappiness_2009}. Excluding these two regions, region is the better predictor in only \shareRegionBetterNoLatamEE\% of cases. Second, the result depends on the granularity and design of the classification: with continents or World Bank regions, which do not isolate Latin America or the former Eastern Bloc, region is better in \shareRegionBetterContinents\% and \shareRegionBetterWB\% of cases, respectively. Third, and most importantly, the conclusion does not carry over to Gallup data. In Gallup's latest observation for each of \nGallupCountries countries, log GDP explains \RtwoGallupMeanPPP\% of the variance of the mean ladder, against \RtwoGallupRegion\% for region (Appendix Figure~\ref{fig:gallup_gdp}), and income accounts for \shareIncomeGallupMean\% of the explained variance (Appendix Table~\ref{tab:share_gallup}). Over all Gallup specifications, region is the better predictor in only \shareRegionBetterGallup\% of cases, mostly for indicators of the upper tail of the distribution (shares answering 9--10 or 10), which are almost unrelated to income. With the latest WHR data (2023--2025), log GDP explains \RtwoWHRPPP\% of the variance of the ladder against \RtwoWHRRegion\% for region.
 
 The relation between GDP and well-being is thus much weaker in the WVS than in Gallup. The same holds when restricting both datasets to the \nCommon country-years observed by both surveys: the $R^2$ of mean life evaluation on log GDP is \RtwoCommonGallup in Gallup and \RtwoCommonWVS in the WVS. Whether ``GDP is a poor predictor of national well-being'' therefore depends on which of the two datasets one trusts.
 
@@ -223,7 +222,7 @@ Finally, the cross-sectional relation should not be confused with the relation o
 
 \subsection{What are the happiest countries?}\label{subsec:happiest}
 
-Rankings of countries depend on the indicator. Taking, for each indicator and each wave (and all waves combined), the happiest country-year, \happiestFirst appears most often (\happiestFirstN times out of \nHappiestCells), followed by \happiestSecond (\happiestSecondN) and \happiestThird (\happiestThirdN) (Appendix Table~\ref{tab:happiest}). The happiest country-years are Western (\happiestRegionWestern), Latin American (\happiestRegionLatinAmerica), Asian (\happiestRegionAsia) or African (\happiestRegionAfrica). The richest countries are thus not necessarily the happiest: the link between income and well-being seems to be that rich countries rarely experience low well-being, rather than that they reach the highest levels.
+Rankings of countries depend on the indicator. Looking at all waves combined, the happiest country-year is: \happiestAllWaves. (For \textit{Very Unhappy}, the happiest country-year is the one with the lowest share.) Counting, for each indicator and each wave (and all waves combined), the happiest country-year, \happiestFirst appears most often (\happiestFirstN times out of \nHappiestCells), followed by \happiestSecond (\happiestSecondN) and \happiestThird (\happiestThirdN) (Appendix Table~\ref{tab:happiest}). The happiest country-years are Western (\happiestRegionWestern), Latin American (\happiestRegionLatinAmerica), Asian (\happiestRegionAsia) or African (\happiestRegionAfrica). The richest countries are thus not necessarily the happiest: the link between income and well-being seems to be that rich countries rarely experience low well-being, rather than that they reach the highest levels.
 
 
 \section{Why do Gallup and the WVS disagree? Wording vs.\ samples}\label{sec:discrepancy}
@@ -234,7 +233,7 @@ Table~\ref{tab:fabre_regressions} reports regressions of the answer on the rando
 
 \begin{table}[htbp]
     \centering
-    \caption{Effects of question wording and scale on life evaluation, Fabre (2025) survey experiment}\label{tab:fabre_regressions}
+    \caption{Effects of question wording and scale on life evaluation, Fabre (2025) survey experiment.}\label{tab:fabre_regressions}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/fabre_regressions.tex}
     \end{adjustbox}
@@ -245,7 +244,7 @@ Two further results matter for the interpretation of cross-country comparisons. 
 
 \begin{figure}[htbp]
     \centering
-    \caption{Mean answer by question variant and country, Fabre (2025)}\label{fig:fabre_variants}
+    \caption{Mean answer by question variant and country, Fabre (2025).}\label{fig:fabre_variants}
     \includegraphics[width=.85\textwidth]{../figures/main/fabre_variants_by_country.pdf}
     \begin{minipage}{.85\textwidth}\footnotesize \textit{Note:} Weighted mean answer on the native scale of each variant (0--10 or 1--10).\end{minipage}
 \end{figure}
@@ -258,7 +257,7 @@ Table~\ref{tab:decomposition_country} and Figure~\ref{fig:decomposition} present
 
 \begin{table}[htbp]
     \centering
-    \caption{Decomposition of the Gallup--WVS gap by country}\label{tab:decomposition_country}
+    \caption{Decomposition of the Gallup--WVS gap by country.}\label{tab:decomposition_country}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/decomposition_by_country.tex}
     \end{adjustbox}
@@ -267,7 +266,7 @@ Table~\ref{tab:decomposition_country} and Figure~\ref{fig:decomposition} present
 
 \begin{figure}[htbp]
     \centering
-    \caption{Observed Gallup--WVS gap, question effect and residual by country}\label{fig:decomposition}
+    \caption{Observed Gallup--WVS gap, question effect and residual by country.}\label{fig:decomposition}
     \includegraphics[width=.9\textwidth]{../figures/main/decomposition_by_country.pdf}
 \end{figure}
 
@@ -275,7 +274,7 @@ What matters for correlations with GDP and for country rankings, however, is not
 
 \begin{table}[htbp]
     \centering
-    \caption{Decomposition of the Gallup--WVS gap: summary}\label{tab:decomposition_summary}
+    \caption{Decomposition of the Gallup--WVS gap: summary.}\label{tab:decomposition_summary}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/decomposition_summary.tex}
     \end{adjustbox}
@@ -286,11 +285,11 @@ Two direct comparisons of samples asked the same question corroborate the import
 
 \subsection{Income gradients in the ten countries: past vs.\ new data}\label{subsec:ten_countries}
 
-The decomposition above concerns levels. The question that motivates this paper, however, is whether the two datasets disagree on the \textit{relationship} between income and well-being because of their questions. The ten countries of the experiment provide a direct test (Table~\ref{tab:ten_countries}). In the past data, the income gradient is much steeper in Gallup than in the WVS: across the ten countries, the slope of mean life evaluation on $\log_{10}$ GDP per capita is \slopeTenGallup in Gallup and \slopeTenWVS in the WVS, a difference of \SlopeDiffPast (95\% bootstrap CI [\SlopeDiffPastLow; \SlopeDiffPastHigh]), and log GDP explains \RtwoTenGallup of the cross-country variance in Gallup against \RtwoTenWVS in the WVS. In the new data, where the same sample answers either question, the gradient is similar with both wordings: \slopeTenFabreLadder with the ladder and \slopeTenFabreSatisfaction with the satisfaction question, a difference of \SlopeDiffFabre (95\% CI [\SlopeDiffFabreLow; \SlopeDiffFabreHigh]); the two other variants yield intermediate slopes. Both original questions thus yield a gradient close to Gallup's. The effect of wording on the gradient is imprecisely estimated, but it is significantly smaller than the difference between Gallup and the WVS: the part of this difference that is not due to the question is \SlopeDiffinDiff (95\% CI [\SlopeDiffinDiffLow; \SlopeDiffinDiffHigh]). The flat gradient of the WVS is thus mostly specific to its samples, not to its question. This is consistent with the individual-level evidence that the ladder does not steepen the income gradient within countries (Section~\ref{subsec:experiment}). Two caveats apply. First, the bootstrap confidence intervals reflect the sampling of respondents and treat the ten countries as given; with ten countries, the slopes themselves are imprecise (Table~\ref{tab:ten_countries} reports their standard errors across countries). Second, the $R^2$ differ more than the slopes, because the satisfaction question produces more dispersion around the income gradient (notably in Japan), and the decompositions between income and region are uninformative here, since Poland is the only Eastern European country.
+The decomposition above concerns levels. The question that motivates this paper, however, is whether the two datasets disagree on the \textit{relationship} between income and well-being because of their questions. The ten countries of the experiment provide a direct test (Table~\ref{tab:ten_countries} and Appendix Figure~\ref{fig:fabre_gdp}). In the past data, the income gradient is much steeper in Gallup than in the WVS: across the ten countries, the slope of mean life evaluation on $\log_{10}$ GDP per capita is \slopeTenGallup in Gallup and \slopeTenWVS in the WVS, a difference of \SlopeDiffPast (95\% bootstrap CI [\SlopeDiffPastLow; \SlopeDiffPastHigh]), and log GDP explains \RtwoTenGallup of the cross-country variance in Gallup against \RtwoTenWVS in the WVS. In the new data, where the same sample answers either question, the gradient is similar with both wordings: \slopeTenFabreLadder with the ladder and \slopeTenFabreSatisfaction with the satisfaction question, a difference of \SlopeDiffFabre (95\% CI [\SlopeDiffFabreLow; \SlopeDiffFabreHigh]); the two other variants yield intermediate slopes. Both original questions thus yield a gradient close to Gallup's. The effect of wording on the gradient is imprecisely estimated, but it is significantly smaller than the difference between Gallup and the WVS: the part of this difference that is not due to the question is \SlopeDiffinDiff (95\% CI [\SlopeDiffinDiffLow; \SlopeDiffinDiffHigh]). The flat gradient of the WVS is thus mostly specific to its samples, not to its question. This is consistent with the individual-level evidence that the ladder does not steepen the income gradient within countries (Section~\ref{subsec:experiment}). Two caveats apply. First, the bootstrap confidence intervals reflect the sampling of respondents and treat the ten countries as given; with ten countries, the slopes themselves are imprecise (Table~\ref{tab:ten_countries} reports their standard errors across countries). Second, the $R^2$ differ more than the slopes, because the satisfaction question produces more dispersion around the income gradient (notably in Japan), and the decompositions between income and region are uninformative here, since Poland is the only Eastern European country.
 
 \begin{table}[htbp]
     \centering
-    \caption{Income gradient of national well-being in the ten countries of the experiment: past vs.\ new data}\label{tab:ten_countries}
+    \caption{Income gradient of national well-being in the ten countries of the experiment: past vs.\ new data.}\label{tab:ten_countries}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/ten_countries.tex}
     \end{adjustbox}
@@ -305,7 +304,7 @@ The ten countries of the experiment are all high-income, whereas the Gallup--WVS
 
 \begin{figure}[htbp]
     \centering
-    \caption{Gallup ladder minus WVS satisfaction in the same country-year, by GDP per capita}\label{fig:gap_gdp}
+    \caption{Gallup ladder minus WVS satisfaction in the same country-year, by GDP per capita.}\label{fig:gap_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/gap_gallup_wvs_vs_gdp.pdf}
     \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Mean answers on native scales (Gallup: 0--10; WVS: 1--10), \nCommon country-years observed by both surveys. Line: OLS fit with 95\% confidence band.\end{minipage}
 \end{figure}
@@ -321,7 +320,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
 
 \begin{table}[htbp]
     \centering
-    \caption{Representativeness of WVS/EVS samples: sample shares relative to population benchmarks}\label{tab:representativeness}
+    \caption{Representativeness of WVS/EVS samples: sample shares relative to population benchmarks.}\label{tab:representativeness}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/sample_representativeness.tex}
     \end{adjustbox}
@@ -372,115 +371,124 @@ These findings have two implications. For research, cross-country conclusions ab
 
 \begin{table}[htbp]
     \centering
-    \caption{Correlation between national well-being indicators (WVS country-years)}\label{tab:correlation}
+    \caption{Correlation between national well-being indicators (WVS country-years).}\label{tab:correlation}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/correlation_indicators.tex}
     \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \hfill(Back~to~Section~\ref{subsec:r2_income}.)\end{minipage}
 \end{table}
 
 \begin{table}[htbp]
     \centering
-    \caption{Slope of national well-being indicators with respect to $\log_{10}$ GDP per capita (PPP)}\label{tab:slopes}
+    \caption{Slope of national well-being indicators with respect to $\log_{10}$ GDP per capita (PPP).}\label{tab:slopes}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/slopes.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} OLS across country-years; standard errors clustered by country. Gallup: 2006--2023.\end{minipage}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} OLS across country-years; standard errors clustered by country. Gallup: 2006--2023. \hfill(Back~to~Section~\ref{subsec:r2_income}.)\end{minipage}
 \end{table}
 
 \begin{table}[htbp]
     \centering
-    \caption{Share of explained variance due to income rather than region (LMG), Gallup, last observation per country}\label{tab:share_gallup}
+    \caption{Share of explained variance due to income rather than region (LMG), Gallup, last observation per country.}\label{tab:share_gallup}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/share_income_gallup.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} \nGallupCountries countries, last Gallup observation available (2006--2023). Same definitions as Table~\ref{tab:share_income}.\end{minipage}
-\end{table} % TODO put cells above .5 in bold, and say it's the case in note
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} \nGallupCountries countries, last Gallup observation available (2006--2023). Same definitions as Table~\ref{tab:share_income}. Values above 0.5 (income is the better predictor) are in bold. \hfill(Back~to~Section~\ref{subsec:region_limits}.)\end{minipage}
+\end{table}
 
 \begin{table}[htbp]
     \centering
-    \caption{Other country-level correlates of national well-being: Shapley decomposition of $R^2$ (WVS)}\label{tab:correlates}
+    \caption{Other country-level correlates of national well-being: Shapley decomposition of $R^2$ (WVS).}\label{tab:correlates}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/correlates.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Country-year averages of WVS variables: perceived freedom of choice and control (1--10), importance of God in one's life (1--10), justifiability of homosexuality (1--10), importance of living in a democracy (1--10, waves 5--7), and average annual growth of real GDP per capita over the previous five years. Shapley decomposition of the $R^2$ of the regression on log GDP per capita, region dummies and the other variable.\end{minipage}
-\end{table} % TODO put in bold the highest cell in each row among Income, Region, Other.
-% TODO add at the end of each table/figure note: \hfill(Back~to~Section~\ref{[section where it is cited]})
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Country-year averages of WVS variables: perceived freedom of choice and control (1--10), importance of God in one's life (1--10), justifiability of homosexuality (1--10), importance of living in a democracy (1--10, waves 5--7), and average annual growth of real GDP per capita over the previous five years. Shapley decomposition of the $R^2$ of the regression on log GDP per capita, region dummies and the other variable. In each row, the largest contribution among income, region and the other variable is in bold. \hfill(Back~to~Section~\ref{subsec:correlates}.)\end{minipage}
+\end{table}
 
 \begin{table}[htbp]
     \centering
-    \caption{Within-country relation between national well-being and $\log_{10}$ GDP per capita (country fixed effects, WVS)}\label{tab:within}
+    \caption{Within-country relation between national well-being and $\log_{10}$ GDP per capita (country fixed effects, WVS).}\label{tab:within}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/within_country.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Countries surveyed at least twice. Standard errors clustered by country.\end{minipage}
-\end{table} % TODO add the average R² over indicators in the table note
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Countries surveyed at least twice. Standard errors clustered by country. On average over the eight indicators, the within-country $R^2$ is \meanWithinRtwo. \hfill(Back~to~Section~\ref{subsec:correlates}.)\end{minipage}
+\end{table}
 
 \begin{table}[htbp]
     \centering
-    \caption{Countries most often ranked happiest (WVS, 8 indicators $\times$ 8 samples: each wave and all waves combined)}\label{tab:happiest}
+    \caption{Countries most often ranked happiest (WVS, 8 indicators $\times$ 8 samples: each wave and all waves combined).}\label{tab:happiest}
     \input{../tables/main/happiest_countries.tex}
-\end{table} % TODO say in the table note (if it's true) that: Looking at all waves combined, Kyrgyzstan–2020 is the happiest country–year according to 3 indicators; Finland, Malaysia, Mexico, Qatar, Vietnam according to other indicators. (give the years). Also add this info in Section 3.6, and say it before the sentence on occurrences
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Looking at all waves combined, the happiest country-year is: \happiestAllWaves. For \textit{Very Unhappy}, the happiest country-year is the one with the lowest share. \hfill(Back~to~Section~\ref{subsec:happiest}.)\end{minipage}
+\end{table}
 
 \begin{figure}[htbp]
     \centering
-    \caption{Share of \textit{Very happy} people vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:very_happy_gdp}
+    \caption{Share of \textit{Very happy} people vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:very_happy_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_happy_vs_gdp_ppp.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \hfill(Back~to~Section~\ref{subsec:r2_income}.)\end{minipage}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \caption{Mean ladder vs.\ GDP per capita (PPP), Gallup, last observation per country}\label{fig:gallup_gdp}
+    \caption{Mean ladder vs.\ GDP per capita (PPP), Gallup, last observation per country.}\label{fig:gallup_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/gallup_ladder_mean_vs_gdp_ppp.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \hfill(Back~to~Section~\ref{subsec:region_limits}.)\end{minipage}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \caption{\textit{Happy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:happy_gdp}
+    \caption{\textit{Happy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:happy_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_happy_vs_gdp_ppp.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \hfill(Back~to~Section~\ref{subsec:r2_income}.)\end{minipage}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \caption{\textit{Very Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:very_unhappy_gdp}
+    \caption{\textit{Very Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:very_unhappy_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_unhappy_vs_gdp_ppp.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \hfill(Back~to~Section~\ref{subsec:r2_income}.)\end{minipage}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \caption{\textit{V.~Happy -- V.~Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:vhmvu_gdp}
+    \caption{\textit{V.~Happy -- V.~Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:vhmvu_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_happy_minus_very_unhappy_vs_gdp_ppp.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \hfill(Back~to~Section~\ref{subsec:r2_income}.)\end{minipage}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \caption{\textit{Happiness (mean)} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:happiness_mean_gdp}
+    \caption{\textit{Happiness (mean)} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:happiness_mean_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_happiness_mean_vs_gdp_ppp.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \hfill(Back~to~Section~\ref{subsec:r2_income}.)\end{minipage}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \caption{\textit{Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:satisfied_gdp}
+    \caption{\textit{Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:satisfied_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_satisfied_vs_gdp_ppp.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \hfill(Back~to~Section~\ref{subsec:r2_income}.)\end{minipage}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \caption{\textit{Happy + Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023}\label{fig:layard_gdp}
+    \caption{\textit{Happy + Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:layard_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_happiness_layard_vs_gdp_ppp.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \hfill(Back~to~Section~\ref{subsec:r2_income}.)\end{minipage}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \caption{\textit{Happy} vs.\ GDP per capita (nominal), WVS/EVS wave 7 (2017--2023), weighted by population}\label{fig:happy_gdp_w7_weighted}
+    \caption{\textit{Happy} vs.\ GDP per capita (nominal), WVS/EVS wave 7 (2017--2023), weighted by population.}\label{fig:happy_gdp_w7_weighted}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_happy_vs_gdp_wave7_weighted.pdf}
-    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Point size and regression weights proportional to population.\end{minipage}
+    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Point size and regression weights proportional to population. \hfill(Back~to~Section~\ref{subsec:r2_income}.)\end{minipage}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \caption{Mean life evaluation vs.\ GDP per capita (PPP), by question variant, Fabre (2025)}\label{fig:fabre_gdp}
+    \caption{Mean life evaluation vs.\ GDP per capita (PPP), by question variant, Fabre (2025).}\label{fig:fabre_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/fabre_mean_vs_gdp_ppp.pdf}
-    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Mean answer on the native scale of each variant (0--10 or 1--10), ten countries surveyed in 2025. Colors: wording; shapes and line types: scale. Lines: OLS fits by variant.\end{minipage}
+    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Mean answer on the native scale of each variant (0--10 or 1--10), ten countries surveyed in 2025. Colors: wording; shapes and line types: scale. Lines: OLS fits by variant. \hfill(Back~to~Section~\ref{subsec:ten_countries}.)\end{minipage}
 \end{figure}
 
 
