@@ -1,0 +1,132 @@
+\documentclass[10pt]{article}
+% PNAS version (Research Article, Social Sciences / Economic Sciences; secondary: Psychological and Cognitive Sciences).
+% PNAS has a format-neutral policy for initial submissions: this file follows the PNAS structure (abstract <= 250 words,
+% significance statement <= 120 words, untitled introduction, Results, Discussion, Materials and Methods, numbered references,
+% ~6 pages / ~4,000 words, 4 display items); after acceptance, transfer the text into the official PNAS LaTeX template (Overleaf).
+% Supporting information: wellbeing_pnas_si.tex (SI Appendix). Compile from papers/, twice each:
+%   latexmk -pdf -outdir=build wellbeing_pnas.tex ; latexmk -pdf -outdir=build wellbeing_pnas_si.tex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage[margin=2cm]{geometry}
+\usepackage[numbers,round,sort&compress]{natbib}
+\usepackage{graphicx, booktabs, adjustbox, amsmath, amssymb, xcolor, caption, lineno}
+\captionsetup{font=small, labelfont=bf}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true, urlcolor=purple, linkcolor=blue, citecolor=violet]{hyperref}
+\externaldocument[SI-]{build/wellbeing_pnas_si}
+\usepackage{xspace}
+\xspaceaddexceptions{]\%}
+\input{../tables/main/numbers.tex}
+\bibliographystyle{unsrtnat}
+\renewcommand{\thetable}{\arabic{table}}
+
+\title{Whether richer countries are happier depends on the survey}
+% Alternative titles: "Survey question and sample shape the cross-country link between income and well-being";
+% "Region predicts national well-being better than income, unless you ask Gallup"
+\author{Adrien Fabre\\ \small CNRS, CIRED (Centre international de recherche sur l'environnement et le d\'eveloppement), Nogent-sur-Marne, France. \href{mailto:adrien.fabre@cnrs.fr}{adrien.fabre@cnrs.fr}}
+\date{}
+
+\begin{document}
+\maketitle
+\linenumbers
+
+\noindent\textbf{Classification:} Social Sciences (Economic Sciences). \textbf{Keywords:} subjective well-being $|$ GDP $|$ world regions $|$ survey methodology $|$ question wording
+
+\begin{abstract}
+\noindent Across countries, average life evaluations rise with the logarithm of GDP per capita, a stylized fact that underpins the view that growth brings happiness. I show that this relationship depends on the survey. In the World Values Survey (WVS, 1981--2023, \nWVSCountries countries), log GDP per capita explains on average \meanRtwoIncomePPP\% of the cross-country variance of eight well-being indicators, less than a country's broad world region (\meanRtwoRegion\%), which predicts better in and out of sample. In the Gallup World Poll (\nGallupCountries countries), income predicts life evaluations as well as region. The two surveys differ in their question (Cantril ladder vs.\ life satisfaction) and in their samples. To separate the two, I randomized the question wording and scale in an online survey of \nFabre respondents in ten high-income countries. Asked to the same respondents, the ladder is better predicted by GDP than life satisfaction ($R^2$ of \RtwoTenFabreLadderPooled vs.\ \RtwoTenFabreSatisfactionPooled across countries), which reproduces about half of the difference in predictive capacity between Gallup and the WVS in these countries (\RtwoTenGallup vs.\ \RtwoTenWVS). Yet both questions yield income gradients as steep as Gallup's, three times steeper than the WVS's: life satisfaction adds country-specific deviations from the income gradient, while the flat WVS gradient stems from its samples. Wording and samples thus both shape the cross-country relation between income and well-being, which should be assessed across surveys and questions before informing policy.
+\end{abstract}
+
+\paragraph{Significance statement.} Rankings of the world's happiest countries and the belief that richer countries are happier rest mostly on one survey, the Gallup World Poll. In the other major cross-national survey, the World Values Survey, national income predicts well-being less well than a country's broad world region does. A survey experiment in ten countries shows that about half of this discrepancy comes from the question asked, and the rest from differences between survey samples. How strongly income predicts national well-being thus depends on how, and whom, one asks. Policies should target well-being directly rather than assume that growth delivers it, and cross-country evidence on well-being should be checked across surveys.
+
+\section*{Introduction}
+
+Which country is the happiest? The answer most often heard, based on the World Happiness Report, is a Scandinavian, high-income country. Behind this answer lies a robust stylized fact: across countries, average life evaluations increase with the logarithm of GDP per capita \citep{deaton_income_2008,stevenson_economic_2008,sacks_new_2012}. Using the Gallup World Poll, Deaton \citep{deaton_income_2008} found a correlation above 0.8 between average life evaluation and log GDP per capita. This correlation is frequently invoked to support the view that economic growth is a reliable route to higher well-being \citep{stevenson_economic_2008}, against the Easterlin paradox \citep{easterlin_does_1974,easterlin_happiness_2010}.
+
+Yet the two main sources of cross-national well-being data do not agree. Income is more strongly related to Gallup's Cantril ladder than to the life-satisfaction question of the World Values Survey (WVS), a difference that Deaton attributed partly to WVS samples in poor countries, which were ``mostly literate and urban'' \citep{deaton_income_2008}. The surveys differ both in their question and in their samples, so observational comparisons cannot tell which difference matters \citep{bjornskov_how_2010}. If it is the question, the two surveys measure different constructs---for instance, if the ``best possible life'' of the ladder evokes wealth and status \citep{nilsson_cantril_2024}---and conclusions depend on which construct one cares about. If it is the samples, they measure the same construct with different errors.
+
+This paper makes two contributions. First, it benchmarks the predictive capacity of GDP per capita against a very simple alternative, the country's world region, in both surveys. Latin America is known to be happier than its income would predict \citep{graham_paradox_2009,rojas_handbook_2016}, and post-communist countries unhappier \citep{guriev_unhappiness_2009}, but the predictive power of income and region has not been systematically compared. Second, it separates the effects of question and sample with a randomized survey experiment in ten countries, in which the question wording (ladder vs.\ satisfaction) and scale (0--10 vs.\ 1--10) vary across respondents of the same sample.
+
+\section*{Results}
+
+\subsection*{Income predicts national well-being less than region in the WVS, but not in Gallup}
+
+In the WVS, complemented with the European Values Study (\nWVSCountryYears country-years, 1981--2023), the relation between GDP per capita and mean life satisfaction is positive but loose (Fig.~\ref{fig:scatter}A): countries with a GDP per capita around \$10,000 span most of the observed range of satisfaction, from Eastern Europe at the bottom to Latin America at the top. Log GDP per capita explains \RtwoSatisfiedMeanPPP\% of the variance of mean satisfaction, \RtwoHappinessMeanPPP\% of the variance of mean happiness, and essentially none of the share of ``very happy'' people. On average over eight indicators of national well-being, it explains \meanRtwoIncomePPP\% of the variance (\meanRtwoIncomeBest\% with the best of seven income measures), against \meanRtwoRegion\% for a classification of countries into five world regions (SI Appendix, Table~\ref{SI-tab:r2_income}).
+
+Region has more parameters than log GDP, which could favor it in sample. Out of sample, however, region also predicts better than income for every indicator: when each country is predicted by a model estimated on all other countries, the cross-validated $R^2$ of mean satisfaction is \cvRegionSatisfiedMean with region, against \cvIncomeSatisfiedMean with log GDP (SI Appendix, Table~\ref{SI-tab:cv}). Decomposing the variance explained jointly by income and region with Shapley values, region is the better predictor in \shareRegionBetterWVS\% of \nSpecsWVS combinations of indicators, income measures and robustness specifications (SI Appendix, Table~\ref{SI-tab:robustness}). This advantage rests on Latin America and Eastern Europe: region remains the better predictor when either is excluded (\shareRegionBetterNoLatam\% and \shareRegionBetterNoEE\% of cases), but not when both are (\shareRegionBetterNoLatamEE\%; SI Appendix, Table~\ref{SI-tab:region_classifications}).
+
+The Gallup World Poll tells a different story (Fig.~\ref{fig:scatter}B). In its latest observation for each of \nGallupCountries countries, log GDP explains \RtwoGallupMeanPPP\% of the variance of the mean ladder, against \RtwoGallupRegion\% for region, and income accounts for \shareIncomeGallupMean\% of the variance explained jointly with region. Region predicts better only for the upper tail of the distribution (shares answering 9 or 10), which, like the share of very happy people in the WVS, is almost unrelated to income.
+
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[width=.49\textwidth]{../figures/main/wvs_satisfied_mean_vs_gdp_ppp.pdf}\hfill
+    \includegraphics[width=.49\textwidth]{../figures/main/gallup_ladder_mean_vs_gdp_ppp.pdf}\\
+    {\small\textit{A}\hspace{.47\textwidth}\textit{B}}
+    \caption{National well-being vs.\ GDP per capita (PPP, log scale), by world region. (\textit{A}) Mean life satisfaction (1--10), WVS/EVS, \nWVSCountryYears country-years, 1981--2023 (labels: country code and year). (\textit{B}) Mean Cantril ladder (0--10), Gallup World Poll, latest observation for each of \nGallupCountries countries (2006--2023). Legends give the $R^2$ of the regression on log GDP per capita.}\label{fig:scatter}
+\end{figure}
+
+\subsection*{The discrepancy is largest in low-income countries}
+
+The discrepancy is not due to different country coverage. In the \nCommon country-years observed by both surveys, log GDP explains \RtwoCommonGallup of the variance of Gallup's mean ladder but \RtwoCommonWVS of WVS mean satisfaction, and income accounts for \shareIncomeCommonGallup\% of the variance explained jointly with region in Gallup against \shareIncomeCommonWVS\% in the WVS. WVS answers exceed Gallup answers by around two points in low-income countries, but by less than half a point in high-income countries (Fig.~\ref{fig:gap}; slope \slopeGapGDP per unit of $\log_{10}$ GDP, s.e.\ \seSlopeGapGDP).
+
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[width=.75\textwidth]{../figures/main/gap_gallup_wvs_vs_gdp.pdf}
+    \caption{Mean WVS life satisfaction (1--10) minus mean Gallup ladder (0--10) in the same country-year, by GDP per capita (PPP, log scale). \nCommon country-years observed by both surveys. Line: OLS fit with 95\% confidence band.}\label{fig:gap}
+\end{figure}
+
+\subsection*{A survey experiment separates question and sample}
+
+Gallup asks the Cantril ladder on a 0--10 scale; the WVS asks life satisfaction on a 1--10 scale. The surveys also differ in sampling frames, interview modes (telephone or face-to-face for Gallup; mostly face-to-face for the WVS), questionnaire context, translations and survey years, which I refer to as ``samples'' in a broad sense. In an online survey of \nFabre respondents in ten high-income countries \citep{fabre_public_2025}, I randomly assigned each respondent to one of four versions of the question: Gallup's ladder or the WVS satisfaction question, on a 0--10 or 1--10 scale (\textit{Materials and Methods}). For each variant, I compute the mean answer in each country and regress it on log GDP per capita across the ten countries, as for Gallup and WVS country means in the same countries (Table~\ref{tab:ten} and Fig.~\ref{fig:fabre}).
+
+The ten countries reproduce the global discrepancy: log GDP explains \RtwoTenGallup (95\% CI [\decompLowRGallup; \decompHighRGallup]) of the cross-country variance of Gallup's ladder but only \RtwoTenWVS ([\decompLowRWvs; \decompHighRWvs]) of WVS satisfaction. Asked to the same respondents, the questions reproduce much of this contrast: log GDP explains \RtwoTenFabreLadder ([\decompLowRFabreLadder; \decompHighRFabreLadder]) of the variance of the ladder 0--10 but \RtwoTenFabreSatisfaction ([\decompLowRFabreSatisfaction; \decompHighRFabreSatisfaction]) of satisfaction 1--10, and \RtwoTenFabreLadderPooled vs.\ \RtwoTenFabreSatisfactionPooled when pooling both scales of each wording. The wording thus accounts for \decompShareRWordingPooledPct\% (95\% CI [\decompLowShareRWordingPooledPct\%; \decompHighShareRWordingPooledPct\%]) of the Gallup--WVS difference in $R^2$, and samples for the rest: the new data lie midway between the two surveys. Pooling all four variants, income accounts for \shareIncomeTenFabreAll of the variance explained jointly with region, between Gallup (\shareIncomeTenGallup) and the WVS (\shareIncomeTenWVS).
+
+\begin{table}[tbp]
+    \centering
+    \caption{Relation between GDP per capita and national well-being in the ten countries of the experiment: past surveys vs.\ new data. OLS across the ten countries, one observation per country. Gallup and WVS/EVS: latest WVS/EVS survey (2017--2022; Saudi Arabia: 2003) and Gallup the same year. Fabre (2025): mean answer by question variant; ``both scales'' and ``all four variants'': average of the variant means, 1--10 answers being linearly stretched to 0--10. 95\% CI of $R^2$: bootstrap resampling respondents. Standard errors of slopes robust to heteroskedasticity. $R^2$ region: regression on region dummies (Western, Asia, Eastern Europe). Share due to income: Shapley share of the $R^2$ of the regression on log GDP and region attributed to income; values above 0.5 in bold.}\label{tab:ten}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/ten_countries.tex}
+    \end{adjustbox}
+\end{table}
+
+Slopes tell a different story. Both questions yield an income gradient close to Gallup's (\slopeTenGallup): \slopeTenFabreLadderPooled with the ladder and \slopeTenFabreSatisfactionPooled with satisfaction, whereas the WVS gradient is three times flatter (\slopeTenWVS). The part of the Gallup--WVS difference in slopes not due to the question is \SlopeDiffinDiff (95\% CI [\SlopeDiffinDiffLow; \SlopeDiffinDiffHigh]). With a single regressor, $R^2 = \beta^2 \mathrm{var}(x)/\mathrm{var}(y)$: the satisfaction question does not flatten the gradient, but it produces larger country-specific deviations from it. Japan is the most visible case: its mean satisfaction is \gapSatisfactionJPN points below that of any other country despite its high income, whereas its mean ladder is only \gapLadderJPN points below the next lowest. Such country-specific deviations are what region captures in the WVS. By contrast, the flat WVS gradient is specific to its samples. With ten countries, these statistics are imprecise and sensitive to individual countries: excluding Japan, the share of the $R^2$ difference due to wording falls to \shareRtwoWordingPooledNoJPN\%.
+
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[width=.75\textwidth]{../figures/main/fabre_mean_vs_gdp_ppp.pdf}
+    \caption{Mean life evaluation vs.\ GDP per capita (PPP, log scale) in ten countries, by randomized question variant (Fabre 2025, $n = \nFabre$). Colors: wording (Gallup's ladder or WVS life satisfaction); shapes and line types: scale (0--10 or 1--10). Mean answers on the native scale of each variant. Lines: OLS fits by variant.}\label{fig:fabre}
+\end{figure}
+
+The question also matters for levels. The ladder lowers answers by \effectLadder points on average (s.e.\ \seLadder) relative to the satisfaction question, which fully accounts for the lower level of Gallup answers in these countries: WVS answers exceed Gallup answers by \decompMeanGap points on average, and the question effect is \decompMeanQuestion points (SI Appendix, Table~\ref{SI-tab:decomposition_country}). But the question effect does not explain why the gap varies across countries (share of the cross-country variance of the gap: \decompVarShareQuestion, 95\% CI [\decompLowVarShareQuestion; \decompHighVarShareQuestion]). Within countries, the ladder does not steepen the income gradient either: the interaction between the ladder wording and the respondent's income quartile is \interactionLadderIncome ($p \pInteractionLadderIncome$).
+
+\subsection*{Neither survey is clearly more representative}
+
+WVS samples over-represent tertiary-educated adults, by a median factor of \ratioTertiaryLow in countries with a GDP per capita below \$10,000, against \ratioTertiaryHigh above \$30,000, and over-represent urban residents in poorer countries (SI Appendix, Table~\ref{SI-tab:representativeness}), as suspected by Deaton \citep{deaton_income_2008}. But correcting these imbalances has little effect: reweighting WVS samples to the population share of tertiary-educated adults changes the $R^2$ of mean satisfaction on log GDP only from \RtwoCommonWVSraw to \RtwoCommonWVSeduAdj, against \RtwoCommonGallupSub for Gallup in the same country-years. Gallup's centralized design is standardized, but its samples are small, its microdata are not public, its modes changed during the pandemic, and part of its recent high-income interviews come from opt-in web panels \citep{gallup_methodology_2023}.
+
+\section*{Discussion}
+
+How much national income predicts well-being depends on the survey. In the WVS, GDP per capita explains a small share of the cross-country variance of well-being, less than a country's broad world region, because of large regional deviations: Latin America is happier, and Eastern Europe unhappier, than their income would predict. In the Gallup World Poll, income predicts as well as region. The experiment shows that both the question and the samples contribute to this discrepancy. Asked to the same respondents, the ladder is better predicted by GDP than life satisfaction, because life satisfaction produces larger country-specific deviations from the income gradient; this reproduces about half of the difference in predictive capacity between the two surveys. But the flat income gradient of the WVS is specific to its samples.
+
+These results have implications for research. Cross-country conclusions about the income--well-being relationship, including rankings of the happiest countries, should be checked across surveys and questions, and the available evidence does not establish that either survey is more representative. The discrepancy is largest in low-income countries, which the experiment does not cover; replicating it face-to-face in low- and middle-income countries is the natural next step. The residual difference between surveys also lumps together sampling frames, modes, context and time, which future designs could separate.
+
+They also have implications for policy. Rich countries rarely have low life satisfaction, but middle-income countries can be as happy as the richest: the country-year with the highest mean happiness in the WVS is Kyrgyzstan in 2020, with a GDP per capita of about \$\gdpKGZ. This echoes within-country evidence that income matters less for well-being than other life circumstances \citep{helliwell_hows_2003,blanchflower_well-being_2004,kahneman_would_2006}, although emotional well-being keeps rising with income for most people \citep{killingsworth_income_2023} and well-being rises with GDP within countries over time (SI Appendix, Table~\ref{SI-tab:within}). Growth thus appears neither necessary nor sufficient for high national well-being, which should be targeted directly \citep{stiglitz_report_2009,frijters_happy_2020}; understanding the non-material factors behind regional differences---social ties, perceived freedom, culture, or response styles \citep{exton_comparing_2015,senik_french_2014}---is a priority.
+
+\section*{Materials and Methods}
+
+\paragraph{Well-being data.} I use the WVS time-series file \citep{wvs_trend_2022} (waves 1--7, 1981--2022), completed with the Joint EVS/WVS 2017--2022 dataset \citep{evs_wvs_joint_2024}, which adds the 2017 wave of the European Values Study and recent WVS surveys (\nWVSRespondents respondents, survey weights). From the happiness (4-point) and life-satisfaction (1--10) questions, I compute eight national indicators: the shares of happy, very happy and very unhappy people, their difference, mean happiness, mean satisfaction, the share satisfied (6--10), and the average of the shares happy and satisfied. For Gallup, I use the distribution of ladder answers by country and year, tabulated from the World Poll microdata (\nGallupCountryYears country-years, 2006--2023), from which I compute the mean and six shares, and the three-year averages of the World Happiness Report \citep{whr_2026} for 2023--2025.
+
+\paragraph{Income and regions.} Income is measured by GDP per capita at PPP (constant 2021 dollars) or at market exchange rates \citep{worldbank_wdi_2026}, in logs, in sextiles, or in $k$-means clusters ($k = 5$--7); missing values are imputed with IMF data \citep{imf_weo_2026} and growth rates. The main region classification follows the five UN regional groups: Africa, Asia (including the Middle East and Central Asia), Eastern Europe, Latin America, and Western countries. Robustness checks use the exact UN groups, six regions, the World Bank regions, and six continents (SI Appendix).
+
+\paragraph{Income vs.\ region.} For each indicator and income measure, I regress well-being on income, on region dummies, and on both, across country-years. The Shapley (LMG) share of the joint $R^2$ due to income is $s = [R^2_1 + (R^2_3 - R^2_2)]/(2R^2_3)$ \citep{lindeman_introduction_1980,gromping_estimators_2007}, where $R^2_1$, $R^2_2$ and $R^2_3$ are those of the three regressions; region is the better predictor if $s < 0.5$. Cross-validated $R^2$ predict each country's observations from a model estimated on all other countries. Robustness checks use each wave, population weights, the last observation per country, no EVS surveys, no pandemic years, no imputed GDP, an older GDP vintage, adjusted $R^2$, and alternative classifications (SI Appendix, Table~\ref{SI-tab:robustness}).
+
+\paragraph{Survey experiment.} The survey was conducted online by Bilendi (Kantar in Saudi Arabia) from April 15 to July 3, 2025, on \nFabre respondents in the United States, Japan, Saudi Arabia, Germany, the United Kingdom, France, Italy, Spain, Poland and Switzerland, with quotas on gender, age, income, education, region and urbanicity, and weights matching population frequencies. Toward the end of the questionnaire, each respondent was randomly assigned to one of four variants: the Cantril ladder (``Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top\ldots'') or the WVS question (``All things considered, how satisfied are you with your life as a whole these days?''), with answers from 0 or from 1 to 10. The survey was approved by the CIRED institutional review board (IRB-CIRED-2025-2), respondents gave informed consent, and the survey was pre-registered at \href{https://osf.io/7mzn4}{osf.io/7mzn4}. For the ten-country comparison, Gallup and WVS data are taken from the latest WVS/EVS survey of each country and the Gallup data of the same year (or at most three years apart). Confidence intervals come from 1,000 bootstrap replications resampling respondents within country and variant (experiment), within country (WVS), and answers within country (Gallup, multinomial draws). Individual-level estimates use OLS with country fixed effects and heteroskedasticity-robust standard errors.
+
+\paragraph{Data and code availability.} Code, the experimental data and the GDP data are available at \href{https://github.com/bixiou/wellbeing_gdp_region}{github.com/bixiou/wellbeing\_gdp\_region}. WVS and EVS data are freely available from the WVS Association and GESIS; Gallup World Poll data are proprietary and available from Gallup under license.
+
+\paragraph{Acknowledgments.} I thank Claudia Senik and participants in the 2024 STATEC Well-being Conference for helpful comments, Armon Rezai and the Vienna University of Economics and Business (WU Wien) for access to the Gallup World Poll data, and Julieta Toffoli for research assistance. This research received funding from Agence Nationale de la Recherche (ANR-24-CE03-7110). The author used Claude (Anthropic) to write analysis code and draft parts of the manuscript, and reviewed and edited all content.
+
+\paragraph{Author contributions.} A.F. designed research, performed research, analyzed data, and wrote the paper. \textbf{Competing interests:} The author declares no competing interest.
+
+\bibliography{wellbeing}
+
+\end{document}

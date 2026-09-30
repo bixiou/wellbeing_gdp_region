@@ -27,7 +27,7 @@ Target outlets: Journal of Public Economics > Journal of Economic Psychology > J
 | `data/wdi_*_2026-09-29.json` | World Bank benchmarks for the representativeness of WVS/EVS samples (tertiary attainment 25+ from UNESCO and Barro-Lee, urban share, age structure), frozen at the vintage of 29 September 2026. |
 | `data/deprecated/` | Raw versions of older data files. |
 | `presentations/wellbeing_prez.tex` | Beamer presentation of the region vs. income results (Jan. 2024). |
-| `papers/` | Papers: `wellbeing.tex` (combined, Journal of Economic Psychology format), `wellbeing_region.tex` (income vs. region), `wellbeing_discrepancy.tex` (Gallup vs. WVS: wording or samples); shared sections in `papers/sections/`, common preamble `preamble_paper.tex`, bibliography `wellbeing.bib`. Compile in `papers/build/`. `papers/Adrien_paper/` holds the original (French) draft and Stata code. |
+| `papers/` | Papers: `wellbeing.tex` (combined, Journal of Economic Psychology format) and its Online Appendix `wellbeing_online_appendix.tex`, `wellbeing_pnas.tex` (PNAS version) and its SI Appendix `wellbeing_pnas_si.tex`, `wellbeing_region.tex` (income vs. region), `wellbeing_discrepancy.tex` (Gallup vs. WVS: wording or samples); shared sections in `papers/sections/`, common preamble `preamble_paper.tex`, bibliography `wellbeing.bib`. Compile in `papers/build/`. `papers/Adrien_paper/` holds the original (French) draft and Stata code. |
 | `figures/`, `tables/` | Outputs of `old_data.R` (used by the presentation). |
 | `figures/main/`, `tables/main/` | Outputs of `main.R` (used by the papers). |
 | `region6/`, `backup_figures_tables/` | Outputs of earlier versions (6-region classification; backups). |
@@ -41,6 +41,7 @@ cd code_wellbeing
 Rscript --no-init-file main.R   # ~15 min (1,000 bootstrap replications; N_BOOTSTRAP=50 for a quick run); writes to ../tables/main and ../figures/main
 cd ../papers
 latexmk -pdf -outdir=build wellbeing.tex   # also wellbeing_region.tex, wellbeing_discrepancy.tex
+# main paper + Online/SI Appendix reference each other (xr-hyper): compile both twice, e.g. wellbeing.tex, wellbeing_online_appendix.tex, wellbeing.tex, wellbeing_online_appendix.tex
 cp build/wellbeing.pdf .                   # compiled PDFs are copied to papers/ (build/ is git-ignored)
 ```
 
