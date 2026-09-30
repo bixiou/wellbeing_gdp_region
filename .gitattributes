@@ -1,0 +1,15 @@
+# Treat large data files and generated outputs as binary: Git and Git clients (e.g. GitKraken)
+# then skip line-by-line diffs and line-ending conversions, which are very slow on such files.
+*.json binary
+*.rds binary
+*.RData binary
+*.dta binary
+*.xls binary
+*.xlsx binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.svg binary
+*.pptx binary
+*.docx binary
+*.lyx -diff
