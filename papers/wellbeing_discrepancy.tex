@@ -86,7 +86,7 @@ My main classification groups countries into the five UN regional groups (Figure
 
 \begin{figure}[htbp]
     \centering
-    \caption{Main classification of countries into five world regions}\label{fig:regions}
+    \caption{Main classification of countries into five world regions.}\label{fig:regions}
     \includegraphics[width=.9\textwidth]{../figures/region_groupings.png}
 \end{figure}
 \fi
@@ -110,7 +110,7 @@ Table~\ref{tab:fabre_regressions} reports regressions of the answer on the rando
 
 \begin{table}[htbp]
     \centering
-    \caption{Effects of question wording and scale on life evaluation, Fabre (2025) survey experiment}\label{tab:fabre_regressions}
+    \caption{Effects of question wording and scale on life evaluation, Fabre (2025) survey experiment.}\label{tab:fabre_regressions}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/fabre_regressions.tex}
     \end{adjustbox}
@@ -121,7 +121,7 @@ Two further results matter for the interpretation of cross-country comparisons. 
 
 \begin{figure}[htbp]
     \centering
-    \caption{Mean answer by question variant and country, Fabre (2025)}\label{fig:fabre_variants}
+    \caption{Mean answer by question variant and country, Fabre (2025).}\label{fig:fabre_variants}
     \includegraphics[width=.85\textwidth]{../figures/main/fabre_variants_by_country.pdf}
     \begin{minipage}{.85\textwidth}\footnotesize \textit{Note:} Weighted mean answer on the native scale of each variant (0--10 or 1--10).\end{minipage}
 \end{figure}
@@ -134,7 +134,7 @@ Table~\ref{tab:decomposition_country} and Figure~\ref{fig:decomposition} present
 
 \begin{table}[htbp]
     \centering
-    \caption{Decomposition of the Gallup--WVS gap by country}\label{tab:decomposition_country}
+    \caption{Decomposition of the Gallup--WVS gap by country.}\label{tab:decomposition_country}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/decomposition_by_country.tex}
     \end{adjustbox}
@@ -143,7 +143,7 @@ Table~\ref{tab:decomposition_country} and Figure~\ref{fig:decomposition} present
 
 \begin{figure}[htbp]
     \centering
-    \caption{Observed Gallup--WVS gap, question effect and residual by country}\label{fig:decomposition}
+    \caption{Observed Gallup--WVS gap, question effect and residual by country.}\label{fig:decomposition}
     \includegraphics[width=.9\textwidth]{../figures/main/decomposition_by_country.pdf}
 \end{figure}
 
@@ -151,7 +151,7 @@ What matters for correlations with GDP and for country rankings, however, is not
 
 \begin{table}[htbp]
     \centering
-    \caption{Decomposition of the Gallup--WVS gap: summary}\label{tab:decomposition_summary}
+    \caption{Decomposition of the Gallup--WVS gap: summary.}\label{tab:decomposition_summary}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/decomposition_summary.tex}
     \end{adjustbox}
@@ -162,11 +162,11 @@ Two direct comparisons of samples asked the same question corroborate the import
 
 \subsection{Income gradients in the ten countries: past vs.\ new data}\label{subsec:ten_countries}
 
-The decomposition above concerns levels. The question that motivates this paper, however, is whether the two datasets disagree on the \textit{relationship} between income and well-being because of their questions. The ten countries of the experiment provide a direct test (Table~\ref{tab:ten_countries}). In the past data, the income gradient is much steeper in Gallup than in the WVS: across the ten countries, the slope of mean life evaluation on $\log_{10}$ GDP per capita is \slopeTenGallup in Gallup and \slopeTenWVS in the WVS, a difference of \SlopeDiffPast (95\% bootstrap CI [\SlopeDiffPastLow; \SlopeDiffPastHigh]), and log GDP explains \RtwoTenGallup of the cross-country variance in Gallup against \RtwoTenWVS in the WVS. In the new data, where the same sample answers either question, the gradient is similar with both wordings: \slopeTenFabreLadder with the ladder and \slopeTenFabreSatisfaction with the satisfaction question, a difference of \SlopeDiffFabre (95\% CI [\SlopeDiffFabreLow; \SlopeDiffFabreHigh]); the two other variants yield intermediate slopes. Both original questions thus yield a gradient close to Gallup's. The effect of wording on the gradient is imprecisely estimated, but it is significantly smaller than the difference between Gallup and the WVS: the part of this difference that is not due to the question is \SlopeDiffinDiff (95\% CI [\SlopeDiffinDiffLow; \SlopeDiffinDiffHigh]). The flat gradient of the WVS is thus mostly specific to its samples, not to its question. This is consistent with the individual-level evidence that the ladder does not steepen the income gradient within countries (Section~\ref{subsec:experiment}). Two caveats apply. First, the bootstrap confidence intervals reflect the sampling of respondents and treat the ten countries as given; with ten countries, the slopes themselves are imprecise (Table~\ref{tab:ten_countries} reports their standard errors across countries). Second, the $R^2$ differ more than the slopes, because the satisfaction question produces more dispersion around the income gradient (notably in Japan), and the decompositions between income and region are uninformative here, since Poland is the only Eastern European country.
+The decomposition above concerns levels. The question that motivates this paper, however, is whether the two datasets disagree on the \textit{relationship} between income and well-being because of their questions. The ten countries of the experiment provide a direct test (Table~\ref{tab:ten_countries} and Figure~\ref{fig:fabre_gdp}). In the past data, the income gradient is much steeper in Gallup than in the WVS: across the ten countries, the slope of mean life evaluation on $\log_{10}$ GDP per capita is \slopeTenGallup in Gallup and \slopeTenWVS in the WVS, a difference of \SlopeDiffPast (95\% bootstrap CI [\SlopeDiffPastLow; \SlopeDiffPastHigh]), and log GDP explains \RtwoTenGallup of the cross-country variance in Gallup against \RtwoTenWVS in the WVS. In the new data, where the same sample answers either question, the gradient is similar with both wordings: \slopeTenFabreLadder with the ladder and \slopeTenFabreSatisfaction with the satisfaction question, a difference of \SlopeDiffFabre (95\% CI [\SlopeDiffFabreLow; \SlopeDiffFabreHigh]); the two other variants yield intermediate slopes. Both original questions thus yield a gradient close to Gallup's. The effect of wording on the gradient is imprecisely estimated, but it is significantly smaller than the difference between Gallup and the WVS: the part of this difference that is not due to the question is \SlopeDiffinDiff (95\% CI [\SlopeDiffinDiffLow; \SlopeDiffinDiffHigh]). The flat gradient of the WVS is thus mostly specific to its samples, not to its question. This is consistent with the individual-level evidence that the ladder does not steepen the income gradient within countries (Section~\ref{subsec:experiment}). Two caveats apply. First, the bootstrap confidence intervals reflect the sampling of respondents and treat the ten countries as given; with ten countries, the slopes themselves are imprecise (Table~\ref{tab:ten_countries} reports their standard errors across countries). Second, the $R^2$ differ more than the slopes, because the satisfaction question produces more dispersion around the income gradient (notably in Japan), and the decompositions between income and region are uninformative here, since Poland is the only Eastern European country.
 
 \begin{table}[htbp]
     \centering
-    \caption{Income gradient of national well-being in the ten countries of the experiment: past vs.\ new data}\label{tab:ten_countries}
+    \caption{Income gradient of national well-being in the ten countries of the experiment: past vs.\ new data.}\label{tab:ten_countries}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/ten_countries.tex}
     \end{adjustbox}
@@ -175,7 +175,7 @@ The decomposition above concerns levels. The question that motivates this paper,
 
 \begin{figure}[htbp]
     \centering
-    \caption{Mean life evaluation vs.\ GDP per capita (PPP), by question variant, Fabre (2025)}\label{fig:fabre_gdp}
+    \caption{Mean life evaluation vs.\ GDP per capita (PPP), by question variant, Fabre (2025).}\label{fig:fabre_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/fabre_mean_vs_gdp_ppp.pdf}
     \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Mean answer on the native scale of each variant (0--10 or 1--10), ten countries surveyed in 2025. Colors: wording; shapes and line types: scale. Lines: OLS fits by variant.\end{minipage}
 \end{figure}
@@ -188,7 +188,7 @@ The ten countries of the experiment are all high-income, whereas the Gallup--WVS
 
 \begin{figure}[htbp]
     \centering
-    \caption{Gallup ladder minus WVS satisfaction in the same country-year, by GDP per capita}\label{fig:gap_gdp}
+    \caption{Gallup ladder minus WVS satisfaction in the same country-year, by GDP per capita.}\label{fig:gap_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/gap_gallup_wvs_vs_gdp.pdf}
     \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Mean answers on native scales (Gallup: 0--10; WVS: 1--10), \nCommon country-years observed by both surveys. Line: OLS fit with 95\% confidence band.\end{minipage}
 \end{figure}
@@ -203,7 +203,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
 
 \begin{table}[htbp]
     \centering
-    \caption{Representativeness of WVS/EVS samples: sample shares relative to population benchmarks}\label{tab:representativeness}
+    \caption{Representativeness of WVS/EVS samples: sample shares relative to population benchmarks.}\label{tab:representativeness}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/sample_representativeness.tex}
     \end{adjustbox}

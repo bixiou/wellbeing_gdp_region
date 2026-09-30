@@ -99,9 +99,11 @@ numbers <- list()
 #' @param align Column alignment string (default: l then c).
 #' @param header Optional custom header line (LaTeX, without trailing \\).
 #' @param midrule_before Row indices before which a \midrule is inserted.
-write_latex_table <- function(df, file, digits = 2, align = NULL, header = NULL, midrule_before = c()) {
+#' @param bold Optional logical matrix (same dimensions as df) of cells to print in bold.
+write_latex_table <- function(df, file, digits = 2, align = NULL, header = NULL, midrule_before = c(), bold = NULL) {
   df <- as.data.frame(df)
   for (j in seq_along(df)) if (is.numeric(df[[j]])) df[[j]] <- ifelse(is.na(df[[j]]), "", latex_minus(formatC(df[[j]], format = "f", digits = digits)))
+  if (!is.null(bold)) for (j in seq_along(df)) df[[j]] <- ifelse(!is.na(bold[, j]) & bold[, j] & df[[j]] != "", paste0("\\textbf{", df[[j]], "}"), df[[j]])
   if (is.null(align)) align <- paste0("l", strrep("c", ncol(df) - 1))
   if (is.null(header)) header <- paste(names(df), collapse = " & ")
   rows <- apply(df, 1, function(r) paste(r, collapse = " & "))
@@ -573,9 +575,18 @@ income_header <- "Well-being indicator & \\multicolumn{2}{c}{log GDP p.c.} & Sex
 tab_r2 <- table_indicator_income(main_results, "r2_income", "r2_region")
 write_latex_table(tab_r2, "r2_income.tex", header = paste(income_header, "& Region"), midrule_before = length(wellbeing_variables) + 1, align = "lcccccccc")
 tab_share <- table_indicator_income(main_results, "share_income")
-write_latex_table(tab_share, "share_income.tex", header = income_header, midrule_before = length(wellbeing_variables) + 1)
+#' Logical matrix flagging numeric cells above a threshold (for bold printing)
+#' @param df Data frame. @param threshold Threshold. @param rows Rows to consider (default: all).
+#' @return Logical matrix with the dimensions of df.
+bold_above <- function(df, threshold = 0.5, rows = seq_len(nrow(df))) { m <- sapply(df, function(x) if (is.numeric(x)) x > threshold else rep(FALSE, length(x))); m[-rows, ] <- FALSE; m }
+#' Logical matrix flagging, in each row, the maximum among some columns (for bold printing)
+#' @param df Data frame. @param cols Names of the columns compared.
+#' @return Logical matrix with the dimensions of df.
+bold_row_max <- function(df, cols) { m <- matrix(FALSE, nrow(df), ncol(df)); idx <- match(cols, names(df)); for (i in seq_len(nrow(df))) { v <- unlist(df[i, cols]); m[i, idx[which.max(v)]] <- TRUE }; m }
+write_latex_table(tab_share, "share_income.tex", bold = bold_above(tab_share, rows = seq_along(wellbeing_variables)), header = income_header, midrule_before = length(wellbeing_variables) + 1)
 gallup_last_results <- results |> filter(spec == "gallup_last")
-write_latex_table(table_indicator_income(gallup_last_results, "share_income", indicators = satisfaction_variables), "share_income_gallup.tex", header = income_header, midrule_before = length(satisfaction_variables) + 1)
+tab_share_gallup <- table_indicator_income(gallup_last_results, "share_income", indicators = satisfaction_variables)
+write_latex_table(tab_share_gallup, "share_income_gallup.tex", bold = bold_above(tab_share_gallup, rows = seq_along(satisfaction_variables)), header = income_header, midrule_before = length(satisfaction_variables) + 1)
 write_latex_table(table_indicator_income(gallup_last_results, "r2_income", "r2_region", indicators = satisfaction_variables), "r2_income_gallup.tex", header = paste(income_header, "& Region"), midrule_before = length(satisfaction_variables) + 1, align = "lcccccccc")
 
 robustness <- results |> filter(spec != "wvs_satisfaction", indicator != "low_satisfaction") |> group_by(spec) |>
@@ -594,7 +605,8 @@ r2_excel <- data.frame(indicator = gsub("--", "-", gsub("\\\\", "", wellbeing_na
 names(r2_excel)[2:(1 + length(income_variables))] <- paste("Income:", income_names[income_variables])
 r2_excel <- rbind(r2_excel, data.frame(indicator = "Mean", t(colMeans(r2_excel[, -1])), check.names = FALSE), data.frame(indicator = "Max", t(apply(r2_excel[, -1], 2, max)), check.names = FALSE))
 openxlsx::write.xlsx(r2_excel, paste0(tables_folder, "r2_income_all_regions.xlsx"), overwrite = TRUE)
-write_latex_table(robustness |> mutate(spec = spec_names[spec], n = as.character(n), n_countries = as.character(n_countries)), "robustness.tex",
+robustness_bold <- matrix(FALSE, nrow(robustness), ncol(robustness)); robustness_bold[, which(names(robustness) == "region_better")] <- robustness$region_better > 0.5
+write_latex_table(robustness |> mutate(spec = spec_names[spec], n = as.character(n), n_countries = as.character(n_countries)), "robustness.tex", bold = robustness_bold,
                   header = "Specification & Obs. & Countries & \\multicolumn{2}{c}{$R^2$ income} & $R^2$ region & \\multicolumn{3}{c}{Share of explained variance due to income} & Region better \\\\ & & & log PPP & best & & log PPP & best & adj. $R^2$ & (share of cases)",
                   midrule_before = which(grepl("^gallup", robustness$spec))[1], align = "lccccccccc")
 
@@ -606,7 +618,8 @@ cv_table <- results |> filter(spec %in% c("wvs", "wvs_last", "gallup", "gallup_l
                                          cv_region = first(cv_r2_region), cv_both = cv_r2_both[income == "log_gdp_ppp"]) |> ungroup() |>
   mutate(order_spec = match(spec, c("wvs", "wvs_last", "gallup", "gallup_last", "whr_2025")), order_ind = match(indicator, c(wellbeing_variables, "unsatisfied"))) |> arrange(order_spec, order_ind)
 write.csv(cv_table, paste0(tables_folder, "cross_validated_r2.csv"), row.names = FALSE)
-write_latex_table(cv_table |> transmute(data = spec_names[spec], indicator = wellbeing_names[indicator], n = as.character(n), cv_income_ppp, cv_income_best, cv_region, cv_both), "cross_validated_r2.tex",
+cv_latex <- cv_table |> transmute(data = spec_names[spec], indicator = wellbeing_names[indicator], n = as.character(n), cv_income_ppp, cv_income_best, cv_region, cv_both)
+write_latex_table(cv_latex, "cross_validated_r2.tex", bold = bold_row_max(cv_latex, c("cv_income_ppp", "cv_income_best", "cv_region")),
                   header = "Data & Indicator & Obs. & log GDP PPP & Best income variable & Region & log GDP PPP + Region", align = "llccccc",
                   midrule_before = which(!duplicated(cv_table$spec))[-1])
 
@@ -681,6 +694,9 @@ add_number("happiestSecond", names(happiest_counts)[2]); add_number("happiestSec
 add_number("happiestThird", names(happiest_counts)[3]); add_number("happiestThirdN", as.vector(happiest_counts)[3], 0)
 for (r in names(happiest_region_counts)) add_number(paste0("happiestRegion", gsub(" ", "", r)), as.vector(happiest_region_counts[r]), 0)
 add_number("nHappiestCells", nrow(happiest), 0)
+# Happiest country-year of all waves combined, by indicator (as a sentence for the paper)
+happiest_all <- happiest |> filter(wave == "all") |> group_by(country) |> summarise(indicators = paste(wellbeing_names[indicator], collapse = ", "), n = n()) |> arrange(-n)
+add_number("happiestAllWaves", paste0(sapply(seq_len(nrow(happiest_all)), function(i) paste0(sub(" ([0-9]{4})$", "--\\1", happiest_all$country[i]), " (", if (happiest_all$n[i] > 1) paste0(happiest_all$n[i], " indicators: ") else "", happiest_all$indicators[i], ")")), collapse = "; "))
 
 # First split of a regression tree with income and region
 tree_first_split <- sapply(wellbeing_variables, function(y) {
@@ -697,6 +713,7 @@ write.csv(within, paste0(tables_folder, "within_country.csv"), row.names = FALSE
 write_latex_table(within |> transmute(indicator = wellbeing_names[indicator], slope, se, p_value, within_r2, n = as.character(n)), "within_country.tex", digits = 3,
                   header = "Indicator & Slope & s.e. & $p$-value & Within $R^2$ & Obs.", align = "lccccc")
 add_number("withinRtwoSatisfiedMean", within$within_r2[within$indicator == "satisfied_mean"], 2)
+add_number("meanWithinRtwo", mean(within$within_r2), 2)
 add_number("withinSlopeSatisfiedMean", within$slope[within$indicator == "satisfied_mean"], 2); add_number("crossSlopeSatisfiedMean", slopes$slope[slopes$data == "WVS" & slopes$indicator == "satisfied_mean"], 2)
 add_number("withinSlopeVeryHappy", within$slope[within$indicator == "very_happy"], 2); add_p("pWithinVeryHappy", within$p_value[within$indicator == "very_happy"])
 add_number("nWithin", within$n[within$indicator == "satisfied_mean"], 0)
@@ -725,7 +742,8 @@ culture <- bind_rows(lapply(c("satisfied_mean", "happiness_mean"), function(y) b
   data.frame(indicator = y, variable = v, r2_alone = summary(lm(as.formula(paste(y, "~", v)), data = wvs_main))$r.squared, income = sh[1], region = sh[2], other = sh[3], total = sum(sh),
              n = sum(complete.cases(wvs_main[, c(y, v, "gdp_ppp", "region")]))) }))))
 write.csv(culture, paste0(tables_folder, "correlates.csv"), row.names = FALSE)
-write_latex_table(culture |> transmute(indicator = wellbeing_names[indicator], variable = correlates[variable], n = as.character(n), r2_alone, income, region, other, total), "correlates.tex",
+culture_latex <- culture |> transmute(indicator = wellbeing_names[indicator], variable = correlates[variable], n = as.character(n), r2_alone, income, region, other, total)
+write_latex_table(culture_latex, "correlates.tex", bold = bold_row_max(culture_latex, c("income", "region", "other")),
                   header = "Indicator & Other variable & Obs. & $R^2$ other alone & \\multicolumn{4}{c}{Shapley decomposition of $R^2$} \\\\ & & & & Income & Region & Other & Total", align = "llcccccc",
                   midrule_before = length(correlates) + 1)
 add_number("RtwoFreedomSatisfaction", culture$r2_alone[culture$indicator == "satisfied_mean" & culture$variable == "freedom"], 2, percent = TRUE)
