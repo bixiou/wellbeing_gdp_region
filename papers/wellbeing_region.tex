@@ -1,4 +1,7 @@
 \documentclass[12pt]{article}
+\newif\ifblind
+\blindfalse
+% \blindtrue
 \input{preamble_paper.tex}
 % Split paper 1: predictive capacity of GDP per capita vs. world region for national well-being (max. 9,000 words excluding appendices).
 % Compile from papers/:  latexmk -pdf -outdir=build wellbeing_region.tex
@@ -102,7 +105,7 @@ where $region_i$ denotes the vector of region dummies (so that $\gamma_2$ and $\
 \end{equation}
 and region is the better predictor whenever $s < 50\%$.
 
-Two features of this comparison could favor region. First, region has four degrees of freedom while log GDP has one. Second, the regions were not chosen blindly. To address the first concern, I report adjusted $R^2$ and, more directly relevant to the question of \textit{predictive} capacity, leave-one-country-out cross-validated $R^2$: each country's observations are predicted by a model estimated on all other countries, and the out-of-sample $R^2$ is one minus the ratio of the sum of squared prediction errors to the total sum of squares. To address the second concern, I report results for four alternative classifications. Other robustness checks include each WVS wave separately, excluding the EVS surveys, weighting countries by their population, keeping only the last observation of each country, excluding the pandemic years 2020--2021, excluding imputed GDP values, using the previous vintage of GDP data (PPP in constant 2017 dollars), and excluding Latin America and Eastern Europe.
+One feature of this comparison could favor region: region has four degrees of freedom while log GDP has one. I address this concern in three ways. First, I use categorical income variables (sextiles and clusters) with as many or more categories as regions. Second, I report the share of explained variance due to income computed with adjusted $R^2$, which penalizes additional regressors. I keep the unadjusted $R^2$ as the benchmark because it is the statistic used in the literature, and because the adjustment only reinforces the conclusions: with more than 300 observations, the adjustment is small, and with adjusted $R^2$ region is the better predictor for every indicator and income measure of Table~\ref{tab:share_income}. Third, and more directly relevant to the question of \textit{predictive} capacity, I compute leave-one-country-out cross-validated $R^2$: each country's observations are predicted by a model estimated on all other countries, and the cross-validated $R^2$ measures the share of the variance of well-being that the model correctly predicts for countries it was not estimated on. Unlike the in-sample $R^2$, it decreases when a model has superfluous parameters, and it is negative when a model predicts worse than the sample mean. Besides, as results could depend on how countries are grouped, I report results for five alternative classifications. Other robustness checks include each WVS wave separately, excluding the EVS surveys, weighting countries by their population, keeping only the last observation of each country, excluding the pandemic years 2020--2021, excluding imputed GDP values, using the previous vintage of GDP data (PPP in constant 2017 dollars), and excluding Latin America and Eastern Europe.
 
 \subsection{Income explains a small share of national well-being in the WVS}\label{subsec:r2_income}
 
