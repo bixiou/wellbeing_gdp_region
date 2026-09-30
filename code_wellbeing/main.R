@@ -125,6 +125,24 @@ cached_download <- function(url, name, vintage = data_vintage) {
 }
 
 
+#' Save a ggplot as PDF (and PNG), with reproducible PDF files
+#'
+#' R writes the creation time into each PDF, so that re-running the script changes all figure files even when their
+#' content is unchanged. The dates are replaced by a fixed date of the same length (byte offsets remain valid).
+#' @param plot ggplot object. @param name File name without extension (in figures_folder).
+#' @param width,height Size in inches. @param png If TRUE, also saves a PNG version (200 dpi).
+save_figure <- function(plot, name, width = 7, height = 4.5, png = TRUE) {
+  file <- paste0(figures_folder, name, ".pdf")
+  ggsave(file, plot, width = width, height = height)
+  bytes <- readBin(file, "raw", file.info(file)$size)
+  for (key in c("/CreationDate (D:", "/ModDate (D:")) {
+    pattern <- charToRaw(key); k <- length(pattern)
+    for (i in which(bytes == pattern[1])) if (i + k + 13 <= length(bytes) && identical(bytes[i:(i + k - 1)], pattern)) bytes[(i + k):(i + k + 13)] <- charToRaw("20000101000000")
+  }
+  writeBin(bytes, file)
+  if (png) ggsave(paste0(figures_folder, name, ".png"), plot, width = width, height = height, dpi = 200)
+}
+
 ##### 1.1 Country codes and regions #####
 country_mapping <- read.csv(paste0(data_folder, "country_code_mapping.csv"))
 iso3_of_iso2 <- setNames(country_mapping$code, country_mapping$alpha.2)
@@ -740,13 +758,12 @@ scatter_wellbeing <- function(df, y, file, label_year = TRUE, x_var = "gdp_ppp",
   r2 <- summary(lm(as.formula(paste(y, "~ log10(", x_var, ")")), data = df, weights = if (size_pop) df$pop else NULL))$r.squared
   df$label <- if (label_year) paste0(df$code, substr(df$year, 3, 4)) else df$code
   p <- ggplot(df, aes(x = .data[[x_var]], y = .data[[y]], color = region, shape = region, label = label)) + (if (size_pop) geom_point(aes(size = pop), show.legend = c(size = FALSE)) else geom_point()) +
-    geom_text_repel(size = 1.8, show.legend = FALSE, segment.size = 0.2, max.overlaps = 15) +
+    geom_text_repel(seed = 1, max.time = Inf, max.iter = 10000, size = 1.8, show.legend = FALSE, segment.size = 0.2, max.overlaps = 15) +
     scale_x_log10(labels = scales::label_comma()) + scale_color_manual(values = region_colors, name = paste0("R-squared (log GDP) = ", round(r2, 2), "   ")) +
     scale_shape_manual(values = region_shapes, name = paste0("R-squared (log GDP) = ", round(r2, 2), "   ")) +
     labs(x = if (x_var == "gdp_ppp") "GDP per capita, PPP (constant 2021 $, log scale)" else "GDP per capita (constant 2015 $, log scale)", y = gsub("\\\\", "", gsub("--", "-", y_label))) +
     theme_minimal() + theme(legend.position = "bottom", text = element_text(size = 9)) + guides(color = guide_legend(nrow = 1))
-  ggsave(paste0(figures_folder, file, ".pdf"), p, width = 7, height = 4.5)
-  ggsave(paste0(figures_folder, file, ".png"), p, width = 7, height = 4.5, dpi = 200)
+  save_figure(p, file, width = 7, height = 4.5)
   return(p)
 }
 for (y in wellbeing_variables) scatter_wellbeing(wvs_main, y, paste0("wvs_", y, "_vs_gdp_ppp"))
@@ -755,7 +772,7 @@ scatter_wellbeing(whr_main |> filter(year == 2025), "satisfied_mean", "whr2025_l
 scatter_wellbeing(wvs_main |> filter(wave == 7), "happy", "wvs_happy_vs_gdp_wave7_weighted", x_var = "gdp", size_pop = TRUE) # as in the presentation: wave 7, nominal GDP, population-weighted
 p_happy_satisfied <- ggplot(wvs_main, aes(x = satisfied, y = happy, color = region, shape = region)) + geom_point() + scale_color_manual(values = region_colors) + scale_shape_manual(values = region_shapes) +
   labs(x = "Satisfied (share 6-10)", y = "Happy (share quite or very happy)", color = NULL, shape = NULL) + theme_minimal() + theme(legend.position = "bottom")
-ggsave(paste0(figures_folder, "happy_vs_satisfied.pdf"), p_happy_satisfied, width = 6, height = 4.5)
+save_figure(p_happy_satisfied, "happy_vs_satisfied", width = 6, height = 4.5, png = FALSE)
 
 
 ##### 3.1 Fabre (2025): experimental effects of wording and scale #####
@@ -905,11 +922,10 @@ fabre_scatter <- fabre_means(fabre) |> left_join(gdp_ten, by = "code") |>
   mutate(wording = ifelse(grepl("gallup", variant), "Ladder (Gallup wording)", "Satisfaction (WVS wording)"), scale = ifelse(grepl("_0$", variant), "0-10", "1-10"))
 p_fabre_scatter <- ggplot(fabre_scatter, aes(x = 10^log_gdp_2025, y = mean, color = wording, shape = scale, label = code)) + geom_point(size = 2.5) +
   geom_smooth(aes(group = interaction(wording, scale), linetype = scale), method = "lm", se = FALSE, linewidth = 0.4, formula = y ~ x) +
-  geom_text_repel(size = 2, show.legend = FALSE, max.overlaps = 30) + scale_x_log10(labels = scales::label_comma()) +
+  geom_text_repel(seed = 1, max.time = Inf, max.iter = 10000, size = 2, show.legend = FALSE, max.overlaps = 30) + scale_x_log10(labels = scales::label_comma()) +
   scale_color_manual(values = c("#1f78b4", "#e6550d"), name = NULL) + scale_shape_manual(values = c(16, 2), name = "Scale") + scale_linetype_manual(values = c(1, 2), name = "Scale") +
   labs(x = "GDP per capita, PPP (constant 2021 $, log scale), 2025", y = "Mean answer (native scale), Fabre (2025)") + theme_minimal() + theme(legend.position = "bottom")
-ggsave(paste0(figures_folder, "fabre_mean_vs_gdp_ppp.pdf"), p_fabre_scatter, width = 7, height = 4.5)
-ggsave(paste0(figures_folder, "fabre_mean_vs_gdp_ppp.png"), p_fabre_scatter, width = 7, height = 4.5, dpi = 200)
+save_figure(p_fabre_scatter, "fabre_mean_vs_gdp_ppp", width = 7, height = 4.5)
 write_latex_table(ten_table, "ten_countries.tex", header = "Data & Slope on $\\log_{10}$ GDP & s.e. & $R^2$ income & $R^2$ region & Share due to income", align = "lccccc", midrule_before = 3)
 add_number("slopeTenGallup", ten_table$slope[1], 2); add_number("slopeTenWVS", ten_table$slope[2], 2)
 add_number("slopeTenFabreLadder", ten_table$slope[3], 2); add_number("slopeTenFabreSatisfaction", ten_table$slope[6], 2)
@@ -936,16 +952,14 @@ decomp_long <- country_table |> select(country, gap, question, residual) |> pivo
 p_decomp <- ggplot(decomp_long, aes(x = value, y = country, fill = name)) + geom_col(position = position_dodge(width = 0.8), width = 0.75) + geom_vline(xintercept = 0) +
   scale_fill_manual(values = c("grey40", "#1f78b4", "#e6550d"), name = NULL) + labs(x = "Difference in mean answer (points, native scales)", y = NULL) +
   theme_minimal() + theme(legend.position = "bottom", text = element_text(size = 10)) + guides(fill = guide_legend(nrow = 1))
-ggsave(paste0(figures_folder, "decomposition_by_country.pdf"), p_decomp, width = 7.5, height = 4.5)
-ggsave(paste0(figures_folder, "decomposition_by_country.png"), p_decomp, width = 7.5, height = 4.5, dpi = 200)
+save_figure(p_decomp, "decomposition_by_country", width = 7.5, height = 4.5)
 
 # Figure: mean answer by variant and country
 fabre_plot <- fabre_means(fabre) |> mutate(country = country_of_iso3[code], variant = c("gallup_0" = "Ladder 0-10", "gallup_1" = "Ladder 1-10", "wvs_0" = "Satisfaction 0-10", "wvs_1" = "Satisfaction 1-10")[variant])
 p_variants <- ggplot(fabre_plot, aes(x = mean, y = reorder(country, mean), color = variant, shape = variant)) + geom_point(size = 2.5) +
   scale_color_manual(values = c("#1f78b4", "#a6cee3", "#e6550d", "#fdae6b"), name = NULL) + scale_shape_manual(values = c(16, 1, 17, 2), name = NULL) +
   labs(x = "Mean answer (native scale)", y = NULL) + theme_minimal() + theme(legend.position = "bottom")
-ggsave(paste0(figures_folder, "fabre_variants_by_country.pdf"), p_variants, width = 7, height = 4.5)
-ggsave(paste0(figures_folder, "fabre_variants_by_country.png"), p_variants, width = 7, height = 4.5, dpi = 200)
+save_figure(p_variants, "fabre_variants_by_country", width = 7, height = 4.5)
 
 
 ##### 3.3 Global discrepancy: can wording explain the stronger income gradient in Gallup? #####
@@ -972,12 +986,11 @@ add_number("slopeQuestionGDP", coef(question_gdp)[2], 2); add_number("seSlopeQue
 add_number("RtwoAdjustedWVS", r2_adjusted, 2)
 add_number("shareIncomeCommonGallup", common_shares["Gallup", "share_income"], 2, percent = TRUE); add_number("shareIncomeCommonWVS", common_shares["WVS", "share_income"], 2, percent = TRUE)
 p_common <- ggplot(common, aes(x = gdp_ppp, y = gap)) + geom_hline(yintercept = 0, color = "grey") + geom_point(aes(color = region, shape = region)) +
-  geom_smooth(method = "lm", se = TRUE, color = "black", linewidth = 0.5, formula = y ~ x) + geom_text_repel(aes(color = region, label = paste0(code, substr(year, 3, 4))), size = 1.8, show.legend = FALSE, max.overlaps = 20) +
+  geom_smooth(method = "lm", se = TRUE, color = "black", linewidth = 0.5, formula = y ~ x) + geom_text_repel(seed = 1, max.time = Inf, max.iter = 10000, aes(color = region, label = paste0(code, substr(year, 3, 4))), size = 1.8, show.legend = FALSE, max.overlaps = 20) +
   scale_x_log10(labels = scales::label_comma()) + scale_color_manual(values = region_colors) + scale_shape_manual(values = region_shapes) +
   labs(x = "GDP per capita, PPP (constant 2021 $, log scale)", y = "Gallup ladder minus WVS satisfaction", color = NULL, shape = NULL) +
   theme_minimal() + theme(legend.position = "bottom", text = element_text(size = 9))
-ggsave(paste0(figures_folder, "gap_gallup_wvs_vs_gdp.pdf"), p_common, width = 7, height = 4.5)
-ggsave(paste0(figures_folder, "gap_gallup_wvs_vs_gdp.png"), p_common, width = 7, height = 4.5, dpi = 200)
+save_figure(p_common, "gap_gallup_wvs_vs_gdp", width = 7, height = 4.5)
 
 
 ##### 3.4 Representativeness of WVS/EVS samples #####
@@ -1078,8 +1091,7 @@ p_tertiary <- ggplot(composition |> filter(is.finite(bias_tertiary), !is.na(gdp_
   scale_color_manual(values = region_colors) + scale_shape_manual(values = region_shapes) +
   labs(x = "GDP per capita, PPP (constant 2021 $, log scale)", y = "Share of tertiary-educated (25+): WVS/EVS sample / benchmark (log scale)", color = NULL, shape = NULL) +
   theme_minimal() + theme(legend.position = "bottom", text = element_text(size = 9))
-ggsave(paste0(figures_folder, "wvs_tertiary_bias_vs_gdp.pdf"), p_tertiary, width = 7, height = 4.5)
-ggsave(paste0(figures_folder, "wvs_tertiary_bias_vs_gdp.png"), p_tertiary, width = 7, height = 4.5, dpi = 200)
+save_figure(p_tertiary, "wvs_tertiary_bias_vs_gdp", width = 7, height = 4.5)
 
 
 ##### 4. Export numbers #####
