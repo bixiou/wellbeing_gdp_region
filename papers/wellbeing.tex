@@ -1,13 +1,25 @@
 \documentclass[12pt]{article}
+\newif\ifblind
+\blindfalse
+% \blindtrue
+
 \input{preamble_paper.tex}
 % Combined paper, formatted for the Journal of Economic Psychology (research article: max. 12,000 words including abstract,
 % references, tables, figures and appendix; no footnotes on initial submission; p-values with three decimals).
 % Compile from papers/:  latexmk -pdf -outdir=build wellbeing.tex 
 % Submission strategy: see TODO.md, section 8.
 
-\title{How Well Does GDP per Capita Predict National Well-Being?\\ World Regions, Datasets, and Question Wording\thanks{Data and code: \url{https://github.com/bixiou/wellbeing_gdp_region} \todo{deposit data and code on a public repository (e.g.\ OSF) before acceptance; Gallup data cannot be redistributed}. The survey was approved by the CIRED institutional review board (IRB-CIRED-2025-2) and pre-registered at \href{https://osf.io/7mzn4}{osf.io/7mzn4}. I thank Claudia Senik and participants in the 2024 STATEC Well-being Conference for helpful comments, Armon Rezai and the Vienna University of Economics and Business (WU Wien) for access to the Gallup World Poll data, and Julieta Toffoli for research assistance. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors. Declaration of interest: none.}}
-\author{Adrien Fabre\\ \small CNRS, CIRED \todo{postal address}\\ \small \href{mailto:adrien.fabre@cnrs.fr}{adrien.fabre@cnrs.fr}}
-\date{\today}
+\title{How Well Does GDP per Capita Predict National Well-Being?\\ World Regions, Datasets, and Question Wording
+}
+\ifblind
+  \author{}
+  \date{}
+\else
+    \renewcommand{\url}[1]{\href{#1}{Link}} 
+    \author{Adrien Fabre\thanks{CNRS; CIRED. adrien.fabre@cnrs.fr}\,\thanks{Data and code: \href{https://github.com/bixiou/wellbeing_gdp_region}{github.com/bixiou/wellbeing\_gdp\_region}. %\todo{deposit data and code on a public repository (e.g.\ OSF) before acceptance; Gallup data cannot be redistributed}. 
+    The survey was approved by the CIRED institutional review board (IRB-CIRED-2025-2) and pre-registered at \href{https://osf.io/7mzn4}{osf.io/7mzn4}. I thank Claudia Senik and participants in the 2024 STATEC Well-being Conference for helpful comments, Armon Rezai and the Vienna University of Economics and Business (WU Wien) for access to the Gallup World Poll data, and Julieta Toffoli for research assistance. This research received funding from Agence Nationale de la Recherche (ANR-24-CE03-7110). Declaration of interest: none.}}
+    \date{\today}
+\fi 
 
 \begin{document}
 \maketitle
@@ -19,7 +31,15 @@
 \noindent\textbf{Keywords:} subjective well-being; life satisfaction; GDP; world regions; survey methodology; question wording.\\
 \noindent\textbf{JEL codes:} I31; O15; O57; C83.
 
-% \linenumbers
+\ifblind
+  \doublespacing
+  \linenumbers
+\else
+  \tableofcontents
+\fi
+
+\clearpage
+
 \section{Introduction}\label{sec:intro}
 
 Which country is the happiest? The answer most often heard, based on the World Happiness Report, is a Scandinavian, high-income country. Behind this answer lies one of the most robust stylized facts of well-being research: across countries, average life evaluations increase with the logarithm of GDP per capita \citep{deaton_income_2008,stevenson_economic_2008,sacks_new_2012}. Using the Gallup World Poll, \citet{deaton_income_2008} finds a correlation above 0.8 between average life evaluation and log GDP per capita; using the World Values Survey (WVS), \citet{inglehart_genes_2000} reported an $R^2$ of about one half for an index of happiness and satisfaction. These correlations are frequently invoked to support the view that economic growth is a reliable route to higher well-being.
@@ -329,6 +349,7 @@ GDP per capita is a weaker predictor of national well-being than is often assume
 
 These findings have two implications. For research, cross-country conclusions about the income--well-being relationship should be checked across datasets, and the choice between Gallup and the WVS should be based on the quality and comparability of their samples rather than on their questions, since wording effects mostly shift levels. Gallup's standardized annual methodology is an argument in its favor for cross-country comparisons, and in the ten high-income countries studied, an independent online sample reproduces Gallup's income gradient rather than the WVS's. However, the gap between datasets is largest in low-income countries, where neither the present experiment nor existing evidence can yet tell which survey is closer to the truth. Replicating the experiment face-to-face in low- and middle-income countries is the natural next step. For policy, the fact that rich countries rarely have low well-being, while many countries at intermediate income levels are as happy as the richest, suggests that growth is neither necessary nor sufficient for high well-being, and that the non-material determinants of well-being that differ across regions deserve more attention in policy evaluation \citep{stiglitz_report_2009,frijters_happy_2020}.
 
+\clearpage
 \section*{Declaration of generative AI and AI-assisted technologies in the writing process}
 \todo{During the preparation of this work the author used Claude (Anthropic) to write analysis code and draft parts of the manuscript. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication. (Adapt to actual use.)}
 

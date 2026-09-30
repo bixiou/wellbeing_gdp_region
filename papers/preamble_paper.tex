@@ -4,7 +4,25 @@
 \usepackage[utf8]{inputenc}
 \usepackage{tgpagella}
 \usepackage{mathpazo}
-\usepackage[margin=2.5cm]{geometry}
+\usepackage[margin=1.3in]{geometry}
+% \linespread{2}
+% \usepackage[super,comma,sort]{natbib} % WPcomment
+\usepackage[round,sort&compress]{natbib} % NCCcomment
+% \usepackage[natbibapa]{apacite}
+% \bibliographystyle{apacite} 
+\usepackage{url} % [hyphens]
+\usepackage{tcolorbox}
+\usepackage[hyperpageref]{backref} % back references biblio. Needs latexmk at compilation. Incompatible with apacite.
+% \usepackage{hyperref}
+\usepackage[pagebackref]{hyperref} % Incompatible with apacite.
+% \usepackage{hyperref}
+% \usepackage{multibib} % incompatible with backref
+\hypersetup{
+  colorlinks=true, % breaklinks=true,
+  urlcolor=purple,    % color of external links
+  linkcolor=blue,  % color of toc, list of figs etc.
+  citecolor=violet,   % color of links to bibliography
+}
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{amsmath, amssymb}
@@ -12,20 +30,15 @@
 \usepackage{booktabs, makecell, threeparttable, adjustbox}
 \usepackage{caption}
 \captionsetup{font=small, labelfont=bf}
-\usepackage[authoryear, round]{natbib}
-\bibliographystyle{apalike}
+\ifblind
+  \bibliographystyle{plainnat}
+\else
+  \bibliographystyle{plainnaturl_clean}
+\fi
 \usepackage{xspace}
 \xspaceaddexceptions{]\%} % no space inserted by \xspace before "]" or "\%" (e.g. after number macros)
 \usepackage{xcolor}
-\usepackage[hyperpageref]{backref} 
-\usepackage[pagebackref]{hyperref}
-\hypersetup{
-  colorlinks=true, % breaklinks=true,
-  urlcolor=purple,    % color of external links
-  linkcolor=blue,  % color of toc, list of figs etc.
-  citecolor=violet,   % color of links to bibliography
-}
-% \usepackage{lineno}
+\usepackage{lineno}
 % Placeholders for information to be completed by the author
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
 % Numbers computed by code_wellbeing/main.R (percentages are given without the % sign)
