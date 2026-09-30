@@ -12,7 +12,7 @@
 #    1.1 Country codes and world regions: the 5-region classification of old_data.R (UN regional groups,
 #        with the Middle East and Central Asia in "Asia", Turkey in "Western"), extended by rule to all
 #        countries; plus alternative classifications (6 regions of old_data.R, World Bank regions,
-#        continents, UN sub-regions) for robustness.
+#        continents) for robustness.
 #    1.2 GDP p.c. and population from the World Bank API (vintage of 2026-09-27, frozen in ../data/). Missing
 #        values are filled automatically (replacing old manual imputations): PPP series are back-casted with
 #        the growth of constant-$ GDP; countries absent from the World Bank (Taiwan, recent Venezuela...)
@@ -37,8 +37,8 @@
 # 3. The Gallup/WVS discrepancy: wording or sampling?
 #    3.1 Experimental effects of wording and scale in Fabre (2025): individual-level regressions with
 #        country fixed effects, heterogeneity by country and by income.
-#    3.2 Country-level decomposition, for the 10 countries: observed gap D = Gallup - WVS (same year)
-#        = question effect Q (Fabre: ladder 0-10 minus satisfaction 1-10, same sample)
+#    3.2 Country-level decomposition, for the 10 countries: observed gap D = WVS - Gallup (same year)
+#        = question effect Q (Fabre: satisfaction 1-10 minus ladder 0-10, same sample)
 #        + residual R (sample frame, mode, context, translation, timing). Covariance decomposition across
 #        countries, relation with GDP, bootstrap confidence intervals.
 #    3.3 Global discrepancy: Gallup vs. WVS in all common country-years; how much of the difference in
@@ -186,7 +186,7 @@ region5_of <- function(code) {
 
 #' Alternative region classifications, for robustness
 #' @param code ISO3 codes.
-#' @param classification One of "region6" (old_data.R, extended by rule), "un" (exact UN regional groups), "wb" (World Bank regions), "continent", "un_sub" (UN sub-regions).
+#' @param classification One of "region6" (old_data.R, extended by rule), "un" (exact UN regional groups), "wb" (World Bank regions), "continent".
 #' @return Character vector of regions.
 region_alt_of <- function(code, classification) {
   proxy <- c("NIR" = "GBR", "XXK" = "XKX", "XXN" = "ARM", "XXS" = "SOM", "XXY" = "CYP") # territories not in countrycode
@@ -200,10 +200,10 @@ region_alt_of <- function(code, classification) {
     middle_east <- c(region6_list$`Middle East`, "ARE", "BHR", "OMN", "SYR")
     return(ifelse(code %in% middle_east, "Middle East", ifelse(code %in% central_asia, "Ex-Eastern Block", ifelse(r5 == "Eastern Europe", "Ex-Eastern Block", r5))))
   }
-  destination <- c("wb" = "region", "continent" = "continent", "un_sub" = "un.regionsub.name")[classification]
+  destination <- c("wb" = "region", "continent" = "continent")[classification]
   out <- suppressWarnings(countrycode(code_proxied, "iso3c", destination, warn = FALSE))
-  out[code_proxied == "TWN"] <- c("wb" = "East Asia & Pacific", "continent" = "Asia", "un_sub" = "Eastern Asia")[classification]
-  out[code_proxied == "XKX"] <- c("wb" = "Europe & Central Asia", "continent" = "Europe", "un_sub" = "Southern Europe")[classification]
+  out[code_proxied == "TWN"] <- c("wb" = "East Asia & Pacific", "continent" = "Asia")[classification]
+  out[code_proxied == "XKX"] <- c("wb" = "Europe & Central Asia", "continent" = "Europe")[classification]
   return(out)
 }
 
@@ -512,7 +512,7 @@ run_spec <- function(spec) {
 ##### 2.2 Region vs. income: specifications #####
 wvs_indicators <- c(wellbeing_variables, "low_satisfaction")
 wvs_main <- wvs_cy |> filter(!is.na(gdp_ppp), !is.na(gdp))
-add_region_alternatives <- function(df) df |> mutate(region_un = region_alt_of(code, "un"), region6 = region_alt_of(code, "region6"), region_wb = region_alt_of(code, "wb"), region_continent = region_alt_of(code, "continent"), region_un_sub = region_alt_of(code, "un_sub"))
+add_region_alternatives <- function(df) df |> mutate(region_un = region_alt_of(code, "un"), region6 = region_alt_of(code, "region6"), region_wb = region_alt_of(code, "wb"), region_continent = region_alt_of(code, "continent"))
 wvs_main <- add_region_alternatives(wvs_main)
 gallup_main <- gallup_cy |> filter(!is.na(gdp_ppp), !is.na(gdp), !is.na(region)) |> add_region_alternatives()
 whr_main <- whr |> filter(!is.na(gdp_ppp), !is.na(gdp), !is.na(region))
@@ -532,11 +532,12 @@ specs <- list(
   list(name = "wvs_gdp_2017_vintage", data = wvs_main |> mutate(gdp_ppp = gdp_ppp17), indicators = wellbeing_variables, cv = FALSE),
   list(name = "wvs_only", data = wvs_main |> filter(source == "WVS"), indicators = wellbeing_variables, cv = FALSE),
   list(name = "wvs_no_latam_ee", data = wvs_main |> filter(!region %in% c("Latin America", "Eastern Europe")), indicators = wellbeing_variables, cv = FALSE),
+  list(name = "wvs_no_latam", data = wvs_main |> filter(region != "Latin America"), indicators = wellbeing_variables, cv = FALSE),
+  list(name = "wvs_no_ee", data = wvs_main |> filter(region != "Eastern Europe"), indicators = wellbeing_variables, cv = FALSE),
   list(name = "wvs_region6", data = wvs_main, indicators = wellbeing_variables, region = "region6", cv = FALSE),
   list(name = "wvs_region_wb", data = wvs_main, indicators = wellbeing_variables, region = "region_wb", cv = FALSE),
   list(name = "wvs_region_continent", data = wvs_main, indicators = wellbeing_variables, region = "region_continent", cv = FALSE),
   list(name = "wvs_region_un", data = wvs_main, indicators = wellbeing_variables, region = "region_un", cv = FALSE),
-  list(name = "wvs_region_un_sub", data = wvs_main, indicators = wellbeing_variables, region = "region_un_sub", cv = FALSE),
   list(name = "gallup", data = gallup_main, indicators = satisfaction_variables),
   list(name = "gallup_last", data = gallup_main |> filter(year == last_year), indicators = satisfaction_variables),
   list(name = "gallup_wvs_countries", data = gallup_main |> filter(year == last_year, code %in% wvs_main$code), indicators = satisfaction_variables, cv = FALSE),
@@ -547,8 +548,8 @@ specs <- list(
 spec_names <- c("wvs" = "WVS, all waves", "wvs_waves12" = "WVS, waves 1--2 (1981--91)", "wvs_wave3" = "WVS, wave 3 (1995--99)", "wvs_wave4" = "WVS, wave 4 (1999--2004)",
                 "wvs_wave5" = "WVS, wave 5 (2004--09)", "wvs_wave6" = "WVS, wave 6 (2010--16)", "wvs_wave7" = "WVS, wave 7 (2017--23)", "wvs_wave7_no_pandemic" = "WVS, wave 7 w/o 2020--21",
                 "wvs_weighted" = "WVS, population-weighted", "wvs_last" = "WVS, last obs. per country", "wvs_no_imputation" = "WVS, no GDP imputation",
-                "wvs_gdp_2017_vintage" = "WVS, GDP PPP 2017 \\$ (old)", "wvs_only" = "WVS, without EVS surveys", "wvs_no_latam_ee" = "WVS, w/o Latin Am. \\& E. Europe", "wvs_region6" = "WVS, 6 regions",
-                "wvs_region_wb" = "WVS, World Bank regions (7)", "wvs_region_continent" = "WVS, continents (5)", "wvs_region_un" = "WVS, exact UN regional groups", "wvs_region_un_sub" = "WVS, UN sub-regions",
+                "wvs_gdp_2017_vintage" = "WVS, GDP PPP 2017 \\$ (old)", "wvs_only" = "WVS, without EVS surveys", "wvs_no_latam_ee" = "WVS, w/o Latin Am. \\& E. Europe", "wvs_no_latam" = "WVS, w/o Latin America", "wvs_no_ee" = "WVS, w/o Eastern Europe", "wvs_region6" = "WVS, 6 regions",
+                "wvs_region_wb" = "WVS, World Bank regions (7)", "wvs_region_continent" = "WVS, continents (5)", "wvs_region_un" = "WVS, exact UN regional groups",
                 "gallup" = "Gallup, all years (2006--23)", "gallup_last" = "Gallup, last obs. per country", "gallup_wvs_countries" = "Gallup, last obs., WVS countries",
                 "gallup_region6" = "Gallup, last obs., 6 regions", "gallup_region_wb" = "Gallup, last obs., WB regions", "whr_2025" = "WHR, 2023--25 average", "wvs_satisfaction" = "WVS, satisfaction indicators")
 
@@ -598,17 +599,33 @@ write.csv(robustness, paste0(tables_folder, "robustness.csv"), row.names = FALSE
 
 # Excel version of Table 1 (R² of income alone), with the R² of each region classification in additional columns
 region_specs <- c("Region: 5 UN groups (main)" = "wvs", "Region: exact UN groups" = "wvs_region_un", "Region: 6 regions" = "wvs_region6", "Region: World Bank (7)" = "wvs_region_wb",
-                  "Region: continents (5)" = "wvs_region_continent", "Region: UN sub-regions" = "wvs_region_un_sub")
+                  "Region: continents (5)" = "wvs_region_continent")
 r2_excel <- data.frame(indicator = gsub("--", "-", gsub("\\\\", "", wellbeing_names[wellbeing_variables])),
                        tab_r2[seq_along(wellbeing_variables), income_variables],
                        sapply(region_specs, function(sp) sapply(wellbeing_variables, function(i) results$r2_region[results$spec == sp & results$indicator == i & results$income == "log_gdp_ppp"])), check.names = FALSE)
 names(r2_excel)[2:(1 + length(income_variables))] <- paste("Income:", income_names[income_variables])
 r2_excel <- rbind(r2_excel, data.frame(indicator = "Mean", t(colMeans(r2_excel[, -1])), check.names = FALSE), data.frame(indicator = "Max", t(apply(r2_excel[, -1], 2, max)), check.names = FALSE))
 openxlsx::write.xlsx(r2_excel, paste0(tables_folder, "r2_income_all_regions.xlsx"), overwrite = TRUE)
-robustness_bold <- matrix(FALSE, nrow(robustness), ncol(robustness)); robustness_bold[, which(names(robustness) == "region_better")] <- robustness$region_better > 0.5
-write_latex_table(robustness |> mutate(spec = spec_names[spec], n = as.character(n), n_countries = as.character(n_countries)), "robustness.tex", bold = robustness_bold,
+# Where does the region advantage come from? Region classifications and exclusion of Latin America / Eastern Europe (main text table)
+classification_specs <- c("wvs" = "5 UN regional groups (main)", "wvs_region_un" = "Exact UN regional groups", "wvs_region6" = "6 regions (Middle East separate)",
+                          "wvs_region_wb" = "World Bank regions", "wvs_region_continent" = "Continents",
+                          "wvs_no_latam" = "Main, w/o Latin America", "wvs_no_ee" = "Main, w/o Eastern Europe", "wvs_no_latam_ee" = "Main, w/o both")
+n_groups <- c(sapply(c(wvs = "region", wvs_region_un = "region_un", wvs_region6 = "region6", wvs_region_wb = "region_wb", wvs_region_continent = "region_continent"), function(r) length(unique(na.omit(wvs_main[[r]])))),
+              wvs_no_latam = 4, wvs_no_ee = 4, wvs_no_latam_ee = 3)
+classification_table <- robustness |> filter(spec %in% names(classification_specs)) |> mutate(order = match(spec, names(classification_specs))) |> arrange(order) |>
+  transmute(classification = classification_specs[spec], groups = as.character(n_groups[spec]), n = as.character(n), r2_income_ppp, r2_region, share_ppp, region_better)
+classification_bold <- matrix(FALSE, nrow(classification_table), ncol(classification_table)); classification_bold[, ncol(classification_table)] <- classification_table$region_better > 0.5
+write_latex_table(classification_table, "region_classifications.tex", bold = classification_bold, align = "lcccccc", midrule_before = 6,
+                  header = "Region classification & Groups & Obs. & $R^2$ income & $R^2$ region & Share due to income & Region better \\\\ & & & (log PPP) & & (log PPP) & (share of cases)")
+add_number("shareRegionBetterNoLatam", robustness$region_better[robustness$spec == "wvs_no_latam"], 2, percent = TRUE)
+add_number("shareRegionBetterNoEE", robustness$region_better[robustness$spec == "wvs_no_ee"], 2, percent = TRUE)
+add_number("shareRegionBetterSixRegions", robustness$region_better[robustness$spec == "wvs_region6"], 2, percent = TRUE)
+add_number("shareRegionBetterUN", robustness$region_better[robustness$spec == "wvs_region_un"], 2, percent = TRUE)
+robustness_tex <- robustness |> filter(!spec %in% setdiff(names(classification_specs), "wvs")) # these rows are in the main-text table region_classifications.tex
+robustness_bold <- matrix(FALSE, nrow(robustness_tex), ncol(robustness_tex)); robustness_bold[, which(names(robustness_tex) == "region_better")] <- robustness_tex$region_better > 0.5
+write_latex_table(robustness_tex |> mutate(spec = spec_names[spec], n = as.character(n), n_countries = as.character(n_countries)), "robustness.tex", bold = robustness_bold,
                   header = "Specification & Obs. & Countries & \\multicolumn{2}{c}{$R^2$ income} & $R^2$ region & \\multicolumn{3}{c}{Share of explained variance due to income} & Region better \\\\ & & & log PPP & best & & log PPP & best & adj. $R^2$ & (share of cases)",
-                  midrule_before = which(grepl("^gallup", robustness$spec))[1], align = "lccccccccc")
+                  midrule_before = which(grepl("^gallup", robustness_tex$spec))[1], align = "lccccccccc")
 
 # Out-of-sample predictive capacity (leave-one-country-out R²).
 cv_table <- results |> filter(spec %in% c("wvs", "wvs_last", "gallup", "gallup_last", "whr_2025"), income %in% c("log_gdp_ppp", best_income),
@@ -624,7 +641,7 @@ write_latex_table(cv_latex, "cross_validated_r2.tex", bold = bold_row_max(cv_lat
                   midrule_before = which(!duplicated(cv_table$spec))[-1])
 
 # Numbers for the text
-wvs_like <- results |> filter(grepl("^wvs", spec), spec != "wvs_satisfaction", indicator != "low_satisfaction")
+wvs_like <- results |> filter(grepl("^wvs", spec), !spec %in% c("wvs_satisfaction", "wvs_no_latam_ee", "wvs_no_latam", "wvs_no_ee"), indicator != "low_satisfaction") # robustness specifications (the exclusions of regions are analyzed separately)
 add_number("bestIncome", income_names[best_income])
 add_number("shareRegionBetterWVS", mean(wvs_like$share_income < 0.5), 2, percent = TRUE)
 add_number("shareRegionBetterWVSbest", mean(wvs_like$share_income[wvs_like$income == best_income] < 0.5), 2, percent = TRUE)
@@ -770,11 +787,13 @@ region_shapes <- c("Africa" = 15, "Asia" = 17, "Eastern Europe" = 16, "Latin Ame
 #' Scatter plot of a well-being indicator against GDP p.c. (log scale), by region, with country labels
 #' @param df Data. @param y Indicator. @param file File name (without extension). @param label_year Whether to add the year to labels.
 #' @param x_var GDP variable. @param y_label Axis label. @param size_pop If TRUE, point size and regression weights are proportional to population.
+#' @param exclude Optional labels (code + 2-digit year, e.g. "EGY13") of outliers excluded from the plot (the R² in the legend still uses all observations).
 #' @return The ggplot (also saved as PDF and PNG).
-scatter_wellbeing <- function(df, y, file, label_year = TRUE, x_var = "gdp_ppp", y_label = wellbeing_names[y], size_pop = FALSE) {
+scatter_wellbeing <- function(df, y, file, label_year = TRUE, x_var = "gdp_ppp", y_label = wellbeing_names[y], size_pop = FALSE, exclude = NULL) {
   df <- df[!is.na(df[[y]]) & !is.na(df[[x_var]]), ]
   r2 <- summary(lm(as.formula(paste(y, "~ log10(", x_var, ")")), data = df, weights = if (size_pop) df$pop else NULL))$r.squared
   df$label <- if (label_year) paste0(df$code, substr(df$year, 3, 4)) else df$code
+  df <- df[!df$label %in% exclude, ]
   p <- ggplot(df, aes(x = .data[[x_var]], y = .data[[y]], color = region, shape = region, label = label)) + (if (size_pop) geom_point(aes(size = pop), show.legend = c(size = FALSE)) else geom_point()) +
     geom_text_repel(seed = 1, max.time = Inf, max.iter = 10000, size = 1.8, show.legend = FALSE, segment.size = 0.2, max.overlaps = 15) +
     scale_x_log10(labels = scales::label_comma()) + scale_color_manual(values = region_colors, name = paste0("R-squared (log GDP) = ", round(r2, 2), "   ")) +
@@ -784,7 +803,11 @@ scatter_wellbeing <- function(df, y, file, label_year = TRUE, x_var = "gdp_ppp",
   save_figure(p, file, width = 7, height = 4.5)
   return(p)
 }
-for (y in wellbeing_variables) scatter_wellbeing(wvs_main, y, paste0("wvs_", y, "_vs_gdp_ppp"))
+for (y in wellbeing_variables) scatter_wellbeing(wvs_main, y, paste0("wvs_", y, "_vs_gdp_ppp"), exclude = if (y == "very_unhappy") "EGY13") # Egypt 2013: outlier, excluded from the plot
+kgz <- wvs_main |> filter(code == "KGZ", year == 2020) # example for the conclusion: the highest share of "very happy" of all country-years, at a low income
+add_number("veryHappyKGZ", kgz$very_happy[1], 2, percent = TRUE); add_number("satisfactionKGZ", kgz$satisfied_mean[1], 1); add_number("gdpKGZ", round(kgz$gdp_ppp[1], -2), 0)
+add_number("maxVeryHappyIsKGZ", as.numeric(which.max(wvs_main$very_happy) == which(wvs_main$code == "KGZ" & wvs_main$year == 2020)[1]), 0)
+add_number("veryUnhappyEGY", wvs_main$very_unhappy[wvs_main$code == "EGY" & wvs_main$year == 2013][1], 2, percent = TRUE)
 scatter_wellbeing(gallup_main |> filter(year == last_year), "satisfied_mean", "gallup_ladder_mean_vs_gdp_ppp", label_year = FALSE, y_label = "Ladder (mean), Gallup, last year available")
 scatter_wellbeing(whr_main |> filter(year == 2025), "satisfied_mean", "whr2025_ladder_vs_gdp_ppp", label_year = FALSE, y_label = "Ladder (mean), WHR 2023-2025")
 scatter_wellbeing(wvs_main |> filter(wave == 7), "happy", "wvs_happy_vs_gdp_wave7_weighted", x_var = "gdp", size_pop = TRUE) # as in the presentation: wave 7, nominal GDP, population-weighted
@@ -795,6 +818,7 @@ save_figure(p_happy_satisfied, "happy_vs_satisfied", width = 6, height = 4.5, pn
 
 ##### 3.1 Fabre (2025): experimental effects of wording and scale #####
 fabre <- fabre |> mutate(satisfied = as.numeric(well_being >= 6), gallup_native = as.numeric(variant == "gallup_0"))
+
 fabre_models <- list(
   "Answer" = feols(well_being ~ ladder + scale_1_10 | code, data = fabre, weights = ~weight, vcov = "hetero"),
   "Answer " = feols(well_being ~ ladder * scale_1_10 | code, data = fabre, weights = ~weight, vcov = "hetero"),
@@ -832,13 +856,14 @@ add_p("pHeterogeneityWording", equality_test["p"])
 add_number("chiHeterogeneityWording", equality_test["chi2"], 1)
 for (c in fabre_countries) add_number(paste0("wording", c), wording_by_country$effect[wording_by_country$code == c], 2)
 add_number("wordingMin", min(wording_by_country$effect), 2); add_number("wordingMax", max(wording_by_country$effect), 2)
+add_number("wordingMaxNegative", max(wording_by_country$effect[wording_by_country$effect < 0]), 2) # largest effect among countries where the ladder lowers answers
 
 
 ##### 3.2 Country-level decomposition of the Gallup/WVS gap #####
 #' Country-level indicators of the Fabre (2025) variants (mean on the native scale, share satisfied 6+)
 #' @param df Fabre data (possibly resampled).
-#' @return Data frame code x variant with mean and satisfied.
-fabre_means <- function(df) df |> group_by(code, variant) |> summarise(mean = wmean(well_being, weight), satisfied = wmean(satisfied, weight)) |> ungroup()
+#' @return Data frame code x variant with mean (native scale), mean_0_10 (1-10 answers stretched to 0-10) and satisfied.
+fabre_means <- function(df) df |> group_by(code, variant) |> summarise(mean = wmean(well_being, weight), mean_0_10 = wmean(well_being_0_10, weight), satisfied = wmean(satisfied, weight)) |> ungroup()
 
 # WVS/EVS: latest survey per Fabre country; Gallup: same year (or closest year available, |gap| <= 3 years)
 wvs_fabre <- wvs |> filter(code %in% fabre_countries) |> group_by(code) |> filter(year == max(year), !is.na(satisfaction)) |> ungroup()
@@ -853,16 +878,19 @@ gallup_fabre_counts <- gallup_counts |> semi_join(gallup_year, by = c("code", "y
 #' @param fabre_df Fabre respondents. @param wvs_df WVS respondents (latest wave, Fabre countries). @param gallup_df Gallup counts (matched year).
 #' @return List with the country-level table and summary statistics.
 decomposition <- function(fabre_df, wvs_df, gallup_df) {
-  f <- fabre_means(fabre_df) |> pivot_wider(names_from = variant, values_from = c(mean, satisfied))
+  f <- fabre_means(fabre_df) |> pivot_wider(names_from = variant, values_from = c(mean, mean_0_10, satisfied)) |>
+    mutate(mean_ladder = (mean_0_10_gallup_0 + mean_0_10_gallup_1) / 2, mean_satisfaction = (mean_0_10_wvs_0 + mean_0_10_wvs_1) / 2, # wording pooled over both scales (0-10 equivalent)
+           mean_all = (mean_ladder + mean_satisfaction) / 2) # all four variants
   w <- wvs_df |> group_by(code) |> summarise(wvs_mean = wmean(satisfaction, weight), wvs_satisfied = wmean(satisfaction >= 6, weight))
   g <- bind_cols(gallup_df |> select(code), satisfaction_indicators(as.matrix(gallup_df[, paste0("s", 0:10)]), 0:10)) |> transmute(code, gallup_mean = satisfied_mean, gallup_satisfied = satisfied)
   d <- f |> inner_join(w, by = "code") |> inner_join(g, by = "code") |>
-    mutate(gap = gallup_mean - wvs_mean, question = mean_gallup_0 - mean_wvs_1, residual = gap - question,
+    mutate(gap = wvs_mean - gallup_mean, question = mean_wvs_1 - mean_gallup_0, residual = gap - question, # defined as WVS minus Gallup (satisfaction minus ladder) to get positive values
            wording_0_10 = mean_gallup_0 - mean_wvs_0, scale_wvs = mean_wvs_0 - mean_wvs_1,
-           gap_sat = gallup_satisfied - wvs_satisfied, question_sat = satisfied_gallup_0 - satisfied_wvs_1, residual_sat = gap_sat - question_sat,
+           gap_sat = wvs_satisfied - gallup_satisfied, question_sat = satisfied_wvs_1 - satisfied_gallup_0, residual_sat = gap_sat - question_sat,
            sample_gallup = gallup_mean - mean_gallup_0, sample_wvs = wvs_mean - mean_wvs_1)
   d <- d |> left_join(gdp_ten, by = "code")
   slope <- function(y, x) unname(coef(lm(y ~ x))[2])
+  r2 <- function(y, x) cor(y, x)^2
   cov_share <- function(gap, part) cov(gap, part) / var(gap)
   stats <- c(mean_gap = mean(d$gap), mean_question = mean(d$question), mean_residual = mean(d$residual),
              share_level_question = mean(d$question) / mean(d$gap),
@@ -870,13 +898,22 @@ decomposition <- function(fabre_df, wvs_df, gallup_df) {
              share_abs_question_country = mean(abs(d$question) / (abs(d$question) + abs(d$residual))), # same, computed country by country then averaged
              var_share_question = cov_share(d$gap, d$question), var_share_residual = cov_share(d$gap, d$residual),
              mean_abs_gap = mean(abs(d$gap)), mean_abs_residual = mean(abs(d$residual)),
-             rmse_prediction_gallup = sqrt(mean((d$gallup_mean - (d$wvs_mean + d$question))^2)), rmse_naive = sqrt(mean((d$gallup_mean - d$wvs_mean - mean(d$gap))^2)),
+             rmse_prediction_gallup = sqrt(mean((d$gallup_mean - (d$wvs_mean - d$question))^2)), rmse_naive = sqrt(mean((d$gallup_mean - (d$wvs_mean - mean(d$gap)))^2)),
              mean_gap_sat = mean(d$gap_sat), mean_question_sat = mean(d$question_sat), var_share_question_sat = cov_share(d$gap_sat, d$question_sat),
              sd_gap = sd(d$gap), sd_question = sd(d$question), sd_residual = sd(d$residual), cor_gap_question = cor(d$gap, d$question),
              slope_gallup = slope(d$gallup_mean, d$log_gdp_past), slope_wvs = slope(d$wvs_mean, d$log_gdp_past),
              slope_fabre_ladder = slope(d$mean_gallup_0, d$log_gdp_2025), slope_fabre_satisfaction = slope(d$mean_wvs_1, d$log_gdp_2025),
              slope_diff_past = slope(d$gallup_mean - d$wvs_mean, d$log_gdp_past), slope_diff_fabre = slope(d$mean_gallup_0 - d$mean_wvs_1, d$log_gdp_2025),
-             slope_diff_in_diff = slope(d$gallup_mean - d$wvs_mean, d$log_gdp_past) - slope(d$mean_gallup_0 - d$mean_wvs_1, d$log_gdp_2025)) # part of the Gallup-WVS difference in income gradients not due to the question
+             slope_diff_in_diff = slope(d$gallup_mean - d$wvs_mean, d$log_gdp_past) - slope(d$mean_gallup_0 - d$mean_wvs_1, d$log_gdp_2025), # part of the Gallup-WVS difference in income gradients not due to the question
+             slope_fabre_ladder_pooled = slope(d$mean_ladder, d$log_gdp_2025), slope_fabre_satisfaction_pooled = slope(d$mean_satisfaction, d$log_gdp_2025), slope_fabre_all = slope(d$mean_all, d$log_gdp_2025),
+             # R² of log GDP (predictive capacity): past data vs. Fabre (2025), original variants and wordings pooled over both scales
+             r2_gallup = r2(d$gallup_mean, d$log_gdp_past), r2_wvs = r2(d$wvs_mean, d$log_gdp_past), r2_fabre_ladder = r2(d$mean_gallup_0, d$log_gdp_2025), r2_fabre_satisfaction = r2(d$mean_wvs_1, d$log_gdp_2025),
+             r2_fabre_ladder_pooled = r2(d$mean_ladder, d$log_gdp_2025), r2_fabre_satisfaction_pooled = r2(d$mean_satisfaction, d$log_gdp_2025), r2_fabre_all = r2(d$mean_all, d$log_gdp_2025),
+             r2_diff_past = r2(d$gallup_mean, d$log_gdp_past) - r2(d$wvs_mean, d$log_gdp_past), r2_diff_fabre = r2(d$mean_gallup_0, d$log_gdp_2025) - r2(d$mean_wvs_1, d$log_gdp_2025),
+             r2_diff_fabre_pooled = r2(d$mean_ladder, d$log_gdp_2025) - r2(d$mean_satisfaction, d$log_gdp_2025),
+             r2_diff_in_diff = (r2(d$gallup_mean, d$log_gdp_past) - r2(d$wvs_mean, d$log_gdp_past)) - (r2(d$mean_gallup_0, d$log_gdp_2025) - r2(d$mean_wvs_1, d$log_gdp_2025)),
+             r2_diff_in_diff_pooled = (r2(d$gallup_mean, d$log_gdp_past) - r2(d$wvs_mean, d$log_gdp_past)) - (r2(d$mean_ladder, d$log_gdp_2025) - r2(d$mean_satisfaction, d$log_gdp_2025)))
+  stats <- c(stats, share_r2_wording = unname(stats["r2_diff_fabre"] / stats["r2_diff_past"]), share_r2_wording_pooled = unname(stats["r2_diff_fabre_pooled"] / stats["r2_diff_past"])) # share of the Gallup-WVS difference in R² reproduced by the wording
   list(table = d, stats = stats)
 }
 gdp_ten <- add_gdp(wvs_year |> transmute(code, year = year_wvs)) |> transmute(code, log_gdp_past = log10(gdp_ppp)) |>
@@ -897,25 +934,35 @@ decomp_ci <- apply(boot_stats, 2, quantile, c(0.025, 0.975), na.rm = TRUE)
 print(round(rbind(estimate = decomp$stats, decomp_ci), 3))
 
 country_table <- decomp$table |> left_join(wvs_year, by = "code") |> left_join(gallup_year |> select(code, year_gallup), by = "code") |> left_join(wvs_mode, by = "code") |>
-  mutate(country = country_of_iso3[code]) |> arrange(gap)
+  mutate(country = country_of_iso3[code]) |> arrange(desc(gap))
 write.csv(country_table, paste0(tables_folder, "decomposition_by_country.csv"), row.names = FALSE)
 write_latex_table(country_table |> transmute(country, years = paste0(year_wvs, if_else(year_gallup != year_wvs, paste0(" (", year_gallup, ")"), "")), wvs_mode, gallup_mean, wvs_mean, gap,
                                              mean_gallup_0, mean_wvs_1, question, residual),
-                  "decomposition_by_country.tex", header = "Country & Year WVS/EVS (Gallup) & Survey: mode & Gallup & WVS/EVS & Gap $D$ & Ladder 0--10 & Satisf. 1--10 & Question effect $Q$ & Residual $R$ \\\\ & & & (1) & (2) & (1)$-$(2) & \\multicolumn{2}{c}{Fabre (2025)} & & $D-Q$",
+                  "decomposition_by_country.tex", header = "Country & Year WVS/EVS (Gallup) & Survey: mode & Gallup & WVS/EVS & Gap $D$ & Ladder 0--10 & Satisf. 1--10 & Question effect $Q$ & Residual $R$ \\\\ & & & (1) & (2) & (2)$-$(1) & (3) & (4) & (4)$-$(3) & $D-Q$",
                   align = "lllccccccc")
-fmt_ci <- function(s, digits = 2) { f <- function(v) latex_minus(formatC(v, format = "f", digits = digits)); paste0(f(decomp$stats[s]), " [", f(decomp_ci[1, s]), "; ", f(decomp_ci[2, s]), "]") }
-decomp_summary <- data.frame(statistic = c("Mean gap $D$ (Gallup $-$ WVS)", "Mean question effect $Q$ (wording + scale)", "Mean residual $R$ (sampling, mode, context)", "Share of mean gap due to question ($\\bar Q/\\bar D$)", "Share of gross level difference due to question ($|\\bar Q|/(|\\bar Q|+|\\bar R|)$)", "Same, country average ($\\overline{|Q_c|/(|Q_c|+|R_c|)}$)",
-                                           "Share of cross-country variance of $D$ due to $Q$ ($\\mathrm{cov}(D,Q)/\\mathrm{var}(D)$)", "Share of cross-country variance of $D$ due to $R$",
-                                           "Mean absolute gap $|D|$", "Mean absolute residual $|R|$", "Correlation between $D$ and $Q$",
-                                           "Mean gap, share satisfied (6+)", "Mean question effect, share satisfied (6+)", "Variance share due to $Q$, share satisfied"),
-                             estimate = c(fmt_ci("mean_gap"), fmt_ci("mean_question"), fmt_ci("mean_residual"), fmt_ci("share_level_question"), fmt_ci("share_abs_question"), fmt_ci("share_abs_question_country"), fmt_ci("var_share_question"), fmt_ci("var_share_residual"),
-                                          fmt_ci("mean_abs_gap"), fmt_ci("mean_abs_residual"), fmt_ci("cor_gap_question"), fmt_ci("mean_gap_sat"), fmt_ci("mean_question_sat"), fmt_ci("var_share_question_sat")))
-write_latex_table(decomp_summary, "decomposition_summary.tex", header = "Statistic & Estimate [95\\% bootstrap CI]", align = "lc", midrule_before = c(4, 7, 12))
+#' Point estimate of a decomposition statistic and its bootstrap 95% CI, formatted for LaTeX
+#' @param s Statistic name. @param digits Digits. @return Character vector: estimate, CI.
+fmt_estimate_ci <- function(s, digits = 2) { f <- function(v) latex_minus(formatC(v, format = "f", digits = digits)); c(f(decomp$stats[s]), paste0("[", f(decomp_ci[1, s]), "; ", f(decomp_ci[2, s]), "]")) }
+summary_rows <- c("Mean gap $D$ (WVS $-$ Gallup)" = "mean_gap", "Mean question effect $Q$ (satisfaction 1--10 $-$ ladder 0--10)" = "mean_question", "Mean residual $R = D - Q$ (samples, mode, context)" = "mean_residual",
+                  "Share of mean gap due to question ($\\bar Q/\\bar D$)" = "share_level_question", "Share of gross level difference due to question ($|\\bar Q|/(|\\bar Q|+|\\bar R|)$)" = "share_abs_question",
+                  "Share of cross-country variance of $D$ due to $Q$ ($\\mathrm{cov}(D,Q)/\\mathrm{var}(D)$)" = "var_share_question", "Correlation between $D$ and $Q$" = "cor_gap_question",
+                  "Mean absolute gap $|D|$" = "mean_abs_gap", "Mean absolute residual $|R|$" = "mean_abs_residual",
+                  "Mean gap, share satisfied (6+)" = "mean_gap_sat", "Mean question effect, share satisfied (6+)" = "mean_question_sat", "Variance share due to $Q$, share satisfied" = "var_share_question_sat")
+decomp_summary <- data.frame(statistic = names(summary_rows), t(sapply(summary_rows, fmt_estimate_ci)), row.names = NULL)
+write_latex_table(decomp_summary, "decomposition_summary.tex", header = "Statistic & Estimate & 95\\% bootstrap CI", align = "lcc", midrule_before = c(4, 6, 10))
 for (s in names(decomp$stats)) add_number(paste0("decomp", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), decomp$stats[s], 2)
-for (s in c("mean_gap", "mean_question", "mean_residual", "var_share_question", "share_level_question", "cor_gap_question", "share_abs_question", "share_abs_question_country")) {
+for (s in c("mean_gap", "mean_question", "mean_residual", "var_share_question", "share_level_question", "cor_gap_question", "share_abs_question", "share_abs_question_country",
+            grep("^r2_|^share_r2", names(decomp$stats), value = TRUE))) {
   add_number(paste0("decompLow", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), decomp_ci[1, s], 2)
   add_number(paste0("decompHigh", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), decomp_ci[2, s], 2) }
 add_number("nDecompCountries", nrow(decomp$table), 0)
+# Japan: the largest country-specific deviation with the satisfaction question (lowest mean, far below the other countries)
+jpn <- decomp$table |> filter(code == "JPN"); others <- decomp$table |> filter(code != "JPN")
+add_number("meanSatisfactionJPN", jpn$mean_wvs_1, 2); add_number("meanLadderJPN", jpn$mean_gallup_0, 2)
+add_number("gapSatisfactionJPN", min(others$mean_wvs_1) - jpn$mean_wvs_1, 1); add_number("gapLadderJPN", min(others$mean_gallup_0) - jpn$mean_gallup_0, 1)
+# Sensitivity of the share of the Gallup-WVS R² difference due to wording to Japan (the largest country-specific deviation)
+no_jpn <- decomposition(fabre |> filter(code != "JPN"), wvs_fabre |> filter(code != "JPN"), gallup_fabre_counts |> filter(code != "JPN"))$stats
+add_number("shareRtwoWordingPooledNoJPN", no_jpn["share_r2_wording_pooled"], 2); add_number("RtwoGallupNoJPN", no_jpn["r2_gallup"], 2)
 # Robustness: only countries where Gallup and WVS are observed the same year; only countries with a recent WVS (2017+)
 same_year_codes <- gallup_year$code[gallup_year$year_gallup == gallup_year$year_wvs]
 recent_codes <- wvs_year$code[wvs_year$year_wvs >= 2017]
@@ -928,13 +975,16 @@ add_number("shareLevelQuestionSameYear", decomp_same_year["share_level_question"
 
 # Income gradient across the 10 countries: past data (Gallup, WVS/EVS, same year) vs. new data (Fabre 2025, 4 variants)
 ten <- decomp$table |> mutate(region = region5_of(code)) # GDP (log_gdp_past, log_gdp_2025) already joined in decomposition()
-ten_series <- list(c("Gallup (ladder 0--10)", "gallup_mean", "log_gdp_past"), c("WVS/EVS (satisfaction 1--10)", "wvs_mean", "log_gdp_past"),
-                   c("Fabre 2025: ladder 0--10", "mean_gallup_0", "log_gdp_2025"), c("Fabre 2025: ladder 1--10", "mean_gallup_1", "log_gdp_2025"),
-                   c("Fabre 2025: satisfaction 0--10", "mean_wvs_0", "log_gdp_2025"), c("Fabre 2025: satisfaction 1--10", "mean_wvs_1", "log_gdp_2025"))
+ten_series <- list(c("Gallup (ladder 0--10)", "gallup_mean", "log_gdp_past", "r2_gallup"), c("WVS/EVS (satisfaction 1--10)", "wvs_mean", "log_gdp_past", "r2_wvs"),
+                   c("Fabre 2025: ladder 0--10", "mean_gallup_0", "log_gdp_2025", "r2_fabre_ladder"), c("Fabre 2025: ladder 1--10", "mean_gallup_1", "log_gdp_2025", NA),
+                   c("Fabre 2025: satisfaction 0--10", "mean_wvs_0", "log_gdp_2025", NA), c("Fabre 2025: satisfaction 1--10", "mean_wvs_1", "log_gdp_2025", "r2_fabre_satisfaction"),
+                   c("Fabre 2025: ladder, both scales", "mean_ladder", "log_gdp_2025", "r2_fabre_ladder_pooled"), c("Fabre 2025: satisfaction, both scales", "mean_satisfaction", "log_gdp_2025", "r2_fabre_satisfaction_pooled"),
+                   c("Fabre 2025: all four variants", "mean_all", "log_gdp_2025", "r2_fabre_all"))
 ten_table <- bind_rows(lapply(ten_series, function(v) {
   model <- lm(as.formula(paste(v[2], "~", v[3])), data = ten)
   lmg <- income_vs_region(ten |> mutate(log_x = .data[[v[3]]]), v[2], "log_x", cv = FALSE)
-  data.frame(series = v[1], slope = coef(model)[2], se = sqrt(vcovHC(model, type = "HC1")[2, 2]), r2_income = lmg$r2_income, r2_region = lmg$r2_region, share_income = lmg$share_income) }))
+  ci <- if (is.na(v[4])) "" else paste0("[", paste(latex_minus(formatC(decomp_ci[, v[4]], format = "f", digits = 2)), collapse = "; "), "]")
+  data.frame(series = v[1], r2_income = lmg$r2_income, r2_ci = ci, slope = coef(model)[2], se = sqrt(vcovHC(model, type = "HC1")[2, 2]), r2_region = lmg$r2_region, share_income = lmg$share_income) }))
 print(ten_table)
 fabre_scatter <- fabre_means(fabre) |> left_join(gdp_ten, by = "code") |>
   mutate(wording = ifelse(grepl("gallup", variant), "Ladder (Gallup wording)", "Satisfaction (WVS wording)"), scale = ifelse(grepl("_0$", variant), "0-10", "1-10"))
@@ -944,11 +994,17 @@ p_fabre_scatter <- ggplot(fabre_scatter, aes(x = 10^log_gdp_2025, y = mean, colo
   scale_color_manual(values = c("#1f78b4", "#e6550d"), name = NULL) + scale_shape_manual(values = c(16, 2), name = "Scale") + scale_linetype_manual(values = c(1, 2), name = "Scale") +
   labs(x = "GDP per capita, PPP (constant 2021 $, log scale), 2025", y = "Mean answer (native scale), Fabre (2025)") + theme_minimal() + theme(legend.position = "bottom")
 save_figure(p_fabre_scatter, "fabre_mean_vs_gdp_ppp", width = 7, height = 4.5)
-write_latex_table(ten_table, "ten_countries.tex", header = "Data & Slope on $\\log_{10}$ GDP & s.e. & $R^2$ income & $R^2$ region & Share due to income", align = "lccccc", midrule_before = 3)
+write_latex_table(ten_table, "ten_countries.tex", header = "Data & $R^2$ income & 95\\% CI & Slope on $\\log_{10}$ GDP & s.e. & $R^2$ region & Share due to income", align = "lcccccc", midrule_before = c(3, 7))
 add_number("slopeTenGallup", ten_table$slope[1], 2); add_number("slopeTenWVS", ten_table$slope[2], 2)
 add_number("slopeTenFabreLadder", ten_table$slope[3], 2); add_number("slopeTenFabreSatisfaction", ten_table$slope[6], 2)
 add_number("RtwoTenGallup", ten_table$r2_income[1], 2); add_number("RtwoTenWVS", ten_table$r2_income[2], 2)
 add_number("RtwoTenFabreLadder", ten_table$r2_income[3], 2); add_number("RtwoTenFabreSatisfaction", ten_table$r2_income[6], 2)
+add_number("slopeTenFabreLadderPooled", ten_table$slope[7], 2); add_number("slopeTenFabreSatisfactionPooled", ten_table$slope[8], 2); add_number("slopeTenFabreAll", ten_table$slope[9], 2)
+add_number("RtwoTenFabreLadderPooled", ten_table$r2_income[7], 2); add_number("RtwoTenFabreSatisfactionPooled", ten_table$r2_income[8], 2); add_number("RtwoTenFabreAll", ten_table$r2_income[9], 2)
+add_number("slopeTenFabreLadderOneTen", ten_table$slope[4], 2); add_number("slopeTenFabreSatisfactionZeroTen", ten_table$slope[5], 2)
+add_number("RtwoTenFabreLadderOneTen", ten_table$r2_income[4], 2); add_number("RtwoTenFabreSatisfactionZeroTen", ten_table$r2_income[5], 2)
+for (i in seq_len(nrow(ten_table))) add_number(paste0("shareIncomeTen", c("Gallup", "WVS", "FabreLadder", "FabreLadderOneTen", "FabreSatisfactionZeroTen", "FabreSatisfaction", "FabreLadderPooled", "FabreSatisfactionPooled", "FabreAll")[i]), ten_table$share_income[i], 2)
+add_number("RtwoRegionTenGallup", ten_table$r2_region[1], 2); add_number("RtwoRegionTenWVS", ten_table$r2_region[2], 2)
 for (s in c("slope_diff_past", "slope_diff_fabre", "slope_diff_in_diff")) {
   name <- gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))
   add_number(name, decomp$stats[s], 2); add_number(paste0(name, "Low"), decomp_ci[1, s], 2); add_number(paste0(name, "High"), decomp_ci[2, s], 2) }
@@ -964,11 +1020,12 @@ add_number("meanFabreGallupZero", mean(decomp$table$mean_gallup_0), 2); add_numb
 add_number("sampleEffectUSWVS", decomp$table$sample_wvs[decomp$table$code == "USA"], 2) # U.S.: WVS 2017 was a web survey, like Fabre (2025)
 
 # Figure: gap, question effect and residual by country
+decomp_labels <- c("gap" = "Observed gap D (WVS - Gallup)", "question" = "Question effect Q (Fabre 2025)", "residual" = "Residual R = D - Q")
 decomp_long <- country_table |> select(country, gap, question, residual) |> pivot_longer(-country) |>
-  mutate(name = factor(c("gap" = "Observed gap D (Gallup - WVS)", "question" = "Question effect Q (Fabre 2025)", "residual" = "Residual R = D - Q")[name], levels = c("Observed gap D (Gallup - WVS)", "Question effect Q (Fabre 2025)", "Residual R = D - Q")),
-         country = factor(country, levels = country_table$country))
+  mutate(name = factor(decomp_labels[name], levels = rev(decomp_labels)), # reversed levels: D on top of each group of bars
+         country = factor(country, levels = rev(country_table$country)))
 p_decomp <- ggplot(decomp_long, aes(x = value, y = country, fill = name)) + geom_col(position = position_dodge(width = 0.8), width = 0.75) + geom_vline(xintercept = 0) +
-  scale_fill_manual(values = c("grey40", "#1f78b4", "#e6550d"), name = NULL) + labs(x = "Difference in mean answer (points, native scales)", y = NULL) +
+  scale_fill_manual(values = setNames(c("#e6550d", "#1f78b4", "grey40"), decomp_labels), breaks = unname(decomp_labels), name = NULL) + labs(x = "Difference in mean answer (points, native scales)", y = NULL) +
   theme_minimal() + theme(legend.position = "bottom", text = element_text(size = 10)) + guides(fill = guide_legend(nrow = 1))
 save_figure(p_decomp, "decomposition_by_country", width = 7.5, height = 4.5)
 
@@ -983,14 +1040,14 @@ save_figure(p_variants, "fabre_variants_by_country", width = 7, height = 4.5)
 ##### 3.3 Global discrepancy: can wording explain the stronger income gradient in Gallup? #####
 common <- inner_join(gallup_main |> select(code, year, gallup = satisfied_mean, gallup_satisfied = satisfied, gdp_ppp, gdp, region),
                      wvs_main |> select(code, year, wvs = satisfied_mean, wvs_satisfied = satisfied), by = c("code", "year")) |>
-  mutate(log_gdp_ppp = log10(gdp_ppp), wvs_0_10 = (wvs - 1) * 10 / 9, gap = gallup - wvs)
+  mutate(log_gdp_ppp = log10(gdp_ppp), wvs_0_10 = (wvs - 1) * 10 / 9, gap = wvs - gallup)
 r2_common <- c(gallup = summary(lm(gallup ~ log_gdp_ppp, common))$r.squared, wvs = summary(lm(wvs ~ log_gdp_ppp, common))$r.squared)
 slope_common <- c(gallup = coef(lm(gallup ~ log_gdp_ppp, common))[2], wvs_0_10 = coef(lm(wvs_0_10 ~ log_gdp_ppp, common))[2])
 gap_gdp <- lm(gap ~ log_gdp_ppp, common)
 # Question effect as a function of GDP, estimated on the 10 Fabre countries (extrapolation outside high-income countries!)
 fabre_gdp <- decomp$table |> left_join(add_gdp(data.frame(code = fabre_countries, year = 2024L)) |> select(code, gdp_ppp), by = "code") |> mutate(log_gdp_ppp = log10(gdp_ppp))
 question_gdp <- lm(question ~ log_gdp_ppp, fabre_gdp)
-common$wvs_adjusted <- common$wvs + predict(question_gdp, common)
+common$wvs_adjusted <- common$wvs - predict(question_gdp, common) # WVS satisfaction converted into ladder-equivalent answers with the predicted question effect
 r2_adjusted <- summary(lm(wvs_adjusted ~ log_gdp_ppp, common))$r.squared
 share_by_income <- function(y) { r <- income_vs_region(make_income_vars(common), y, "log_gdp_ppp", cv = FALSE); c(r2_income = r$r2_income, r2_region = r$r2_region, share_income = r$share_income) }
 common_shares <- rbind(Gallup = share_by_income("gallup"), WVS = share_by_income("wvs"))
@@ -1006,7 +1063,7 @@ add_number("shareIncomeCommonGallup", common_shares["Gallup", "share_income"], 2
 p_common <- ggplot(common, aes(x = gdp_ppp, y = gap)) + geom_hline(yintercept = 0, color = "grey") + geom_point(aes(color = region, shape = region)) +
   geom_smooth(method = "lm", se = TRUE, color = "black", linewidth = 0.5, formula = y ~ x) + geom_text_repel(seed = 1, max.time = Inf, max.iter = 10000, aes(color = region, label = paste0(code, substr(year, 3, 4))), size = 1.8, show.legend = FALSE, max.overlaps = 20) +
   scale_x_log10(labels = scales::label_comma()) + scale_color_manual(values = region_colors) + scale_shape_manual(values = region_shapes) +
-  labs(x = "GDP per capita, PPP (constant 2021 $, log scale)", y = "Gallup ladder minus WVS satisfaction", color = NULL, shape = NULL) +
+  labs(x = "GDP per capita, PPP (constant 2021 $, log scale)", y = "WVS satisfaction minus Gallup ladder", color = NULL, shape = NULL) +
   theme_minimal() + theme(legend.position = "bottom", text = element_text(size = 9))
 save_figure(p_common, "gap_gallup_wvs_vs_gdp", width = 7, height = 4.5)
 
@@ -1073,7 +1130,7 @@ write_latex_table(bias_table |> mutate(n = as.character(n)), "sample_representat
                   header = "Measure & Surveys & \\multicolumn{4}{c}{Median} & Correlation \\\\ & & All & GDP $<$ 10k & 10--30k & $>$ 30k & with log GDP", align = "lcccccc")
 
 # Does the WVS over-representation of educated respondents predict the Gallup-WVS gap?
-gap_composition <- composition |> inner_join(gallup_main |> select(code, year, gallup = satisfied_mean), by = c("code", "year")) |> mutate(gap = gallup - satisfied_mean)
+gap_composition <- composition |> inner_join(gallup_main |> select(code, year, gallup = satisfied_mean), by = c("code", "year")) |> mutate(gap = satisfied_mean - gallup) # WVS minus Gallup, as in Section 3.2
 gap_models <- list(gdp = feols(gap ~ log_gdp_ppp, gap_composition |> filter(is.finite(bias_tertiary)), cluster = ~code),
                    tertiary = feols(gap ~ log_gdp_ppp + bias_tertiary, gap_composition |> filter(is.finite(bias_tertiary)), cluster = ~code),
                    gender = feols(gap ~ log_gdp_ppp + bias_tertiary + gender_deviation, gap_composition |> filter(is.finite(bias_tertiary)), cluster = ~code))
