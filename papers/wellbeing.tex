@@ -9,8 +9,9 @@
 % Compile from papers/:  latexmk -pdf -outdir=build wellbeing.tex 
 % Submission strategy: see TODO.md, section 8.
 
-\title{How Well Does GDP per Capita Predict National Well-Being?\\ World Regions, Datasets, and Question Wording
-}
+% Is GDP a Poor Predictor of National Well-Being? Evidence from Two Surveys and a Wording Experiment
+% Region Beats Income in Predicting National Well-Being, Unless You Ask Gallup
+\title{Does Money Buy National Happiness?\\ It Depends on Who You Ask}
 \ifblind
   \author{}
   \date{}
@@ -19,6 +20,7 @@
     \author{Adrien Fabre\thanks{CNRS; CIRED. adrien.fabre@cnrs.fr}\,\thanks{Data and code: \href{https://github.com/bixiou/wellbeing_gdp_region}{github.com/bixiou/wellbeing\_gdp\_region}. %\todo{deposit data and code on a public repository (e.g.\ OSF) before acceptance; Gallup data cannot be redistributed}. 
     The survey was approved by the CIRED institutional review board (IRB-CIRED-2025-2) and pre-registered at \href{https://osf.io/7mzn4}{osf.io/7mzn4}. I thank Claudia Senik and participants in the 2024 STATEC Well-being Conference for helpful comments, Armon Rezai and the Vienna University of Economics and Business (WU Wien) for access to the Gallup World Poll data, and Julieta Toffoli for research assistance. This research received funding from Agence Nationale de la Recherche (ANR-24-CE03-7110). Declaration of interest: none.}}
     \date{\today}
+    % \vspace{-1cm}
 \fi 
 
 \begin{document}
@@ -149,6 +151,7 @@ One feature of this comparison could favor region: region has four degrees of fr
 \subsection{Income explains a small share of national well-being in the WVS}\label{subsec:r2_income}
 
 Figure~\ref{fig:satisfaction_gdp} plots mean life satisfaction against GDP per capita for all WVS country-years. The relationship is positive, but the dispersion at any given income level is large: countries with a GDP per capita around 10,000 dollars span most of the range of observed life satisfaction, from the former Soviet republics at the bottom to Latin American countries at the top. Log GDP per capita explains \RtwoSatisfiedMeanPPP\% of the variance of mean satisfaction.
+% TODO refer to te Appendix Figures
 
 \begin{figure}[htbp]
     \centering
@@ -157,7 +160,7 @@ Figure~\ref{fig:satisfaction_gdp} plots mean life satisfaction against GDP per c
     % \begin{minipage}{.95\textwidth}\footnotesize \textit{Note:} Each point is a country-year (label: ISO code and last two digits of the year). The legend gives the $R^2$ of the regression on log GDP per capita.\end{minipage}
 \end{figure}
 
-Table~\ref{tab:r2_income} generalizes this result to all indicators and income measures. On average over the eight indicators, log GDP per capita at PPP explains \meanRtwoIncomePPP\% of the variance, and the best-performing income measure (\bestIncome) explains \meanRtwoIncomeBest\%. The indicators are positively but imperfectly correlated (Appendix Table~\ref{tab:correlation}). Satisfaction-based indicators are better explained than happiness-based ones: log GDP explains \RtwoHappinessMeanPPP\% of the variance of mean happiness and essentially none of the share of \textit{Very happy} people, whose slope with respect to log GDP is statistically indistinguishable from zero (slope \slopeVeryHappy, $p \pVeryHappy$; Appendix Table~\ref{tab:slopes}). This confirms the observation of \citet{deaton_income_2008} and \citet{inglehart_development_2008} that income is more closely related to life evaluation than to happiness. By contrast, region alone explains \meanRtwoRegion\% of the variance on average, and scores well even on happiness-based variables (last column).
+Table~\ref{tab:r2_income} generalizes this result to all indicators and income measures. On average over the eight indicators, log GDP per capita at PPP explains \meanRtwoIncomePPP\% of the variance, and the best-performing income measure (\bestIncome) explains \meanRtwoIncomeBest\%. The indicators are positively but imperfectly correlated (Appendix Table~\ref{tab:correlation}). Satisfaction-based indicators are better explained than happiness-based ones: log GDP explains \RtwoHappinessMeanPPP\% of the variance of mean happiness and essentially none of the share of \textit{Very happy} people, whose slope with respect to log GDP is statistically indistinguishable from zero (slope \slopeVeryHappy, $p \pVeryHappy$; Appendix Table~\ref{tab:slopes}). This confirms the observation of \citet{deaton_income_2008} and \citet{inglehart_development_2008} that income is more closely related to life evaluation than to happiness. By contrast, region alone explains \meanRtwoRegion\% of the variance on average, and scores high even on happiness-based variables (last column).
 
 \begin{table}[htbp]
     \centering
@@ -170,8 +173,10 @@ Table~\ref{tab:r2_income} generalizes this result to all indicators and income m
 
 \subsection{Region predicts national well-being better than income in the WVS}\label{subsec:region_wvs}
 
-Table~\ref{tab:share_income} reports the share of explained variance due to income, $s$, for each indicator and income measure. It is below 50\% in all cases: on average, the best income measure accounts for \meanShareIncomeBest\% of the variance explained jointly by income and region. The first split of a regression tree using log GDP and region as candidate variables is on region for \treeRegionFirst out of 8 indicators.
+Table~\ref{tab:share_income} reports the share of explained variance due to income, $s$, for each indicator and income measure. It is below 50\% in all cases. On average, the best income measure accounts for \meanShareIncomeBest\% of the variance explained jointly by income and region. The first split of a regression tree using log GDP and region as candidate variables is on region for all %\treeRegionFirst out of 8 
+national well-being indicators.
 
+% TODO shouldn't we have "." at the end of captions?
 \begin{table}[htbp]
     \centering
     \caption{Share of explained variance due to income rather than region (LMG), WVS/EVS 1981--2023}\label{tab:share_income}
@@ -190,9 +195,10 @@ The result is not an artifact of the larger number of parameters of the region m
     \input{../tables/main/cross_validated_r2.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Each country's observations are predicted with a model estimated on all other countries. Cross-validated $R^2 = 1 - \sum (y - \hat y_{\text{out-of-sample}})^2 / \sum (y - \bar y)^2$; it can be negative when a model predicts worse than the overall mean.\end{minipage}
-\end{table}
+\end{table} % TODO put in bold the higher cell of each row among columns log GDP, best income, and region, and say you do so in the table note
 
-Table~\ref{tab:robustness} summarizes \nSpecsWVS estimates (indicator $\times$ income measure $\times$ specification) using the WVS. Region is the better predictor in \shareRegionBetterWVS\% of them (\shareRegionBetterWVSbest\% when restricting to the best income measure). The result holds in each wave except wave 4 (1999--2004, 40 countries), where income and region perform similarly; when countries are weighted by population; when keeping one observation per country; without the pandemic years; without imputed GDP values; with the previous vintage of GDP data; without the EVS surveys; and with the exact UN groups, the six-region or the UN sub-region classifications.
+Table~\ref{tab:robustness} summarizes \nSpecsWVS estimates (indicator $\times$ income measure $\times$ specification) % TODO clarify what "specification" is, and replace by "dataset" if this is what it means
+using the WVS. Region is the better predictor in \shareRegionBetterWVS\% of them (\shareRegionBetterWVSbest\% when restricting to the best income measure). The result is robust. It holds in each wave except wave 4 (1999--2004, 40 countries), where income and region perform similarly; when countries are weighted by population; without the EVS surveys, or when keeping one observation per country in case there is both an EVS and WVS in one year; without the pandemic years; without imputed GDP values; with the previous vintage of GDP data; and with the exact UN groups, the six-region or the UN sub-region classifications.
 
 \begin{table}[htbp]
     \centering
@@ -201,7 +207,7 @@ Table~\ref{tab:robustness} summarizes \nSpecsWVS estimates (indicator $\times$ i
     \input{../tables/main/robustness.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Averages over well-being indicators (8 for the WVS; 7 satisfaction indicators for Gallup; mean ladder for the WHR). ``Best'' refers to the income measure with the highest average $R^2$ in the main WVS specification (\bestIncome). ``Region better'' is the share of indicator $\times$ income-measure combinations for which $s < 0.5$.\end{minipage}
-\end{table}
+\end{table} % TODO put in bold the cells >0.5 in the last column
 
 \subsection{Where the region advantage comes from}\label{subsec:region_limits}
 
