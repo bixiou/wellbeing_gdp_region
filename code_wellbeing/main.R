@@ -1060,10 +1060,10 @@ add_number("shareLevelQuestionSameYear", decomp_same_year["share_level_question"
 # Income gradient across the 10 countries: past data (Gallup, WVS/EVS, same year) vs. new data (Fabre 2025, 4 variants)
 ten <- decomp$table |> mutate(region = region5_of(code)) # GDP (log_gdp_past, log_gdp_2025) already joined in decomposition()
 ten_series <- list(c("Gallup (ladder 0--10)", "gallup_mean", "log_gdp_past", "r2_gallup"), c("WVS/EVS (satisfaction 1--10)", "wvs_mean", "log_gdp_past", "r2_wvs"),
-                   c("Fabre 2025: ladder 0--10", "mean_gallup_0", "log_gdp_2025", "r2_fabre_ladder"), c("Fabre 2025: ladder 1--10", "mean_gallup_1", "log_gdp_2025", NA),
-                   c("Fabre 2025: satisfaction 0--10", "mean_wvs_0", "log_gdp_2025", NA), c("Fabre 2025: satisfaction 1--10", "mean_wvs_1", "log_gdp_2025", "r2_fabre_satisfaction"),
-                   c("Fabre 2025: ladder, both scales", "mean_ladder", "log_gdp_2025", "r2_fabre_ladder_pooled"), c("Fabre 2025: satisfaction, both scales", "mean_satisfaction", "log_gdp_2025", "r2_fabre_satisfaction_pooled"),
-                   c("Fabre 2025: all four variants", "mean_all", "log_gdp_2025", "r2_fabre_all"))
+                   c("\\newsurvey: ladder 0--10", "mean_gallup_0", "log_gdp_2025", "r2_fabre_ladder"), c("\\newsurvey: ladder 1--10", "mean_gallup_1", "log_gdp_2025", NA),
+                   c("\\newsurvey: satisfaction 0--10", "mean_wvs_0", "log_gdp_2025", NA), c("\\newsurvey: satisfaction 1--10", "mean_wvs_1", "log_gdp_2025", "r2_fabre_satisfaction"),
+                   c("\\newsurvey: ladder, both scales", "mean_ladder", "log_gdp_2025", "r2_fabre_ladder_pooled"), c("\\newsurvey: satisfaction, both scales", "mean_satisfaction", "log_gdp_2025", "r2_fabre_satisfaction_pooled"),
+                   c("\\newsurvey: all four variants", "mean_all", "log_gdp_2025", "r2_fabre_all"))
 ten_table <- bind_rows(lapply(ten_series, function(v) {
   model <- lm(as.formula(paste(v[2], "~", v[3])), data = ten)
   lmg <- income_vs_region(ten |> mutate(log_x = .data[[v[3]]]), v[2], "log_x", cv = FALSE)
@@ -1076,9 +1076,10 @@ p_fabre_scatter <- ggplot(fabre_scatter, aes(x = 10^log_gdp_2025, y = mean, colo
   geom_smooth(aes(group = interaction(wording, scale), linetype = scale), method = "lm", se = FALSE, linewidth = 0.4, formula = y ~ x) +
   geom_text_repel(seed = 1, max.time = Inf, max.iter = 10000, size = 2, show.legend = FALSE, max.overlaps = 30) + scale_x_log10(labels = scales::label_comma()) +
   scale_color_manual(values = c("#1f78b4", "#e6550d"), name = NULL) + scale_shape_manual(values = c(16, 2), name = "Scale") + scale_linetype_manual(values = c(1, 2), name = "Scale") +
-  labs(x = "GDP per capita, PPP (constant 2021 $, log scale), 2025", y = "Mean answer (native scale), Fabre (2025)") + theme_minimal() + theme(legend.position = "bottom")
+  labs(x = "GDP per capita, PPP (constant 2021 $, log scale), 2025", y = "Mean answer (native scale), 2025 survey") + theme_minimal() + theme(legend.position = "bottom")
 save_figure(p_fabre_scatter, "fabre_mean_vs_gdp_ppp", width = 7, height = 4.5)
 ten_bold <- matrix(FALSE, nrow(ten_table), ncol(ten_table)); ten_bold[, ncol(ten_table)] <- ten_table$share_income > 0.5
+# Labels of the new survey use the LaTeX macro \newsurvey ("Fabre (2025)", or "New survey (2025)" in anonymized versions)
 write_latex_table(ten_table, "ten_countries.tex", bold = ten_bold, header = "Data & $R^2$ income & 95\\% CI & Slope on $\\log_{10}$ GDP & s.e. & $R^2$ region & Share due to income", align = "lcccccc", midrule_before = c(3, 7))
 add_number("slopeTenGallup", ten_table$slope[1], 2); add_number("slopeTenWVS", ten_table$slope[2], 2)
 add_number("slopeTenFabreLadder", ten_table$slope[3], 2); add_number("slopeTenFabreSatisfaction", ten_table$slope[6], 2)
@@ -1105,7 +1106,7 @@ add_number("meanFabreGallupZero", mean(decomp$table$mean_gallup_0), 2); add_numb
 add_number("sampleEffectUSWVS", decomp$table$sample_wvs[decomp$table$code == "USA"], 2) # U.S.: WVS 2017 was a web survey, like Fabre (2025)
 
 # Figure: gap, question effect and residual by country
-decomp_labels <- c("gap" = "Observed gap D (WVS - Gallup)", "question" = "Question effect Q (Fabre 2025)", "residual" = "Residual R = D - Q")
+decomp_labels <- c("gap" = "Observed gap D (WVS - Gallup)", "question" = "Question effect Q (2025 survey)", "residual" = "Residual R = D - Q")
 decomp_long <- country_table |> select(country, gap, question, residual) |> pivot_longer(-country) |>
   mutate(name = factor(decomp_labels[name], levels = rev(decomp_labels)), # reversed levels: D on top of each group of bars
          country = factor(country, levels = rev(country_table$country)))
