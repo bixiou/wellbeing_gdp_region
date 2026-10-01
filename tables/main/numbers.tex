@@ -38,6 +38,8 @@
 \newcommand{\shareRegionBetterNoLatamEE}{27\xspace}
 \newcommand{\shareIncomeNoLatamEE}{35\xspace}
 \newcommand{\shareRegionBetterContinents}{48\xspace}
+\newcommand{\shareRegionBetterContinentsFive}{48\xspace}
+\newcommand{\shareRegionBetterContinentsSixOld}{48\xspace}
 \newcommand{\shareRegionBetterWB}{55\xspace}
 \newcommand{\cvIncomeSatisfiedMean}{0.21\xspace}
 \newcommand{\cvIncomeBestSatisfiedMean}{0.23\xspace}
@@ -45,6 +47,25 @@
 \newcommand{\cvIncomeGallupMean}{0.60\xspace}
 \newcommand{\cvRegionGallupMean}{0.45\xspace}
 \newcommand{\shareCvRegionBetterWVS}{100\xspace}
+\newcommand{\ciLowWVSMeanRIncome}{9\xspace}
+\newcommand{\ciHighWVSMeanRIncome}{20\xspace}
+\newcommand{\ciLowWVSMeanRRegion}{26\xspace}
+\newcommand{\ciHighWVSMeanRRegion}{42\xspace}
+\newcommand{\ciLowWVSMeanShare}{16\xspace}
+\newcommand{\ciHighWVSMeanShare}{32\xspace}
+\newcommand{\ciLowWVSRIncome}{14\xspace}
+\newcommand{\ciHighWVSRIncome}{34\xspace}
+\newcommand{\ciLowWVSRRegion}{30\xspace}
+\newcommand{\ciHighWVSRRegion}{52\xspace}
+\newcommand{\ciLowWVSShare}{21\xspace}
+\newcommand{\ciHighWVSShare}{45\xspace}
+\newcommand{\ciLowGallupRIncome}{52\xspace}
+\newcommand{\ciHighGallupRIncome}{69\xspace}
+\newcommand{\ciLowGallupRRegion}{38\xspace}
+\newcommand{\ciHighGallupRRegion}{61\xspace}
+\newcommand{\ciLowGallupShare}{49\xspace}
+\newcommand{\ciHighGallupShare}{68\xspace}
+\newcommand{\meanShareIncomePPP}{23\xspace}
 \newcommand{\corHappySatisfied}{0.72\xspace}
 \newcommand{\corHappinessSatisfactionMean}{0.75\xspace}
 \newcommand{\corVeryHappySatisfiedMean}{0.60\xspace}
@@ -61,7 +82,7 @@
 \newcommand{\happiestRegionAsia}{15\xspace}
 \newcommand{\happiestRegionAfrica}{5\xspace}
 \newcommand{\nHappiestCells}{64\xspace}
-\newcommand{\happiestAllWavesTop}{Kyrgyzstan 2020 (3 indicators)\xspace}
+\newcommand{\happiestAllWavesTop}{Kyrgyzstan 2020 (3 indicators, including mean happiness)\xspace}
 \newcommand{\happiestAllWavesOthers}{Finland 1981, Malaysia 2012, Mexico 2012, Qatar 2010 and Vietnam 2020\xspace}
 \newcommand{\happiestAllWaves}{Kyrgyzstan--2020 (3 indicators: Very Happy, V. Happy -- V. Unhappy, Happiness (mean)); Finland--1981 (Satisfied); Malaysia--2012 (Very Unhappy); Mexico--2012 (Satisfaction (mean)); Qatar--2010 (Happy); Vietnam--2020 (Happy + Satisfied)\xspace}
 \newcommand{\treeRegionFirst}{8\xspace}
@@ -79,6 +100,27 @@
 \newcommand{\RtwoTolerance}{24\xspace}
 \newcommand{\RtwoGod}{1\xspace}
 \newcommand{\RtwoGrowth}{2\xspace}
+\newcommand{\RtwoMedianIncome}{19\xspace}
+\newcommand{\shapleyMedianIncome}{7\xspace}
+\newcommand{\shapleyMedianIncomeIncome}{11\xspace}
+\newcommand{\shapleyMedianIncomeRegion}{32\xspace}
+\newcommand{\nMedianIncome}{339\xspace}
+\newcommand{\RtwoHFCE}{30\xspace}
+\newcommand{\shapleyHFCE}{13\xspace}
+\newcommand{\shapleyHFCEIncome}{10\xspace}
+\newcommand{\shapleyHFCERegion}{29\xspace}
+\newcommand{\nHFCE}{292\xspace}
+\newcommand{\RtwoGDPMedianSample}{23\xspace}
+\newcommand{\deatonGrowth}{\ensuremath{-}5.50\xspace}
+\newcommand{\deatonGrowthSe}{2.28\xspace}
+\newcommand{\pDeatonGrowth}{= .017\xspace}
+\newcommand{\deatonIncome}{0.80\xspace}
+\newcommand{\nDeaton}{120\xspace}
+\newcommand{\deatonGrowthNoExCommunist}{\ensuremath{-}0.53\xspace}
+\newcommand{\deatonGrowthSeNoExCommunist}{2.89\xspace}
+\newcommand{\pDeatonGrowthNoExCommunist}{= .855\xspace}
+\newcommand{\deatonIncomeNoExCommunist}{0.86\xspace}
+\newcommand{\nDeatonNoExCommunist}{93\xspace}
 \newcommand{\growthCoefWVS}{0.039\xspace}
 \newcommand{\growthSeWVS}{0.019\xspace}
 \newcommand{\pGrowthWVS}{= .044\xspace}
@@ -173,6 +215,15 @@
 \newcommand{\decompShareRWordingPooledPct}{56\xspace}
 \newcommand{\decompLowShareRWordingPooledPct}{22\xspace}
 \newcommand{\decompHighShareRWordingPooledPct}{82\xspace}
+\newcommand{\decompShareAbsQuestionPct}{86\xspace}
+\newcommand{\decompLowShareAbsQuestionPct}{76\xspace}
+\newcommand{\decompHighShareAbsQuestionPct}{99\xspace}
+\newcommand{\decompVarShareQuestionPct}{11\xspace}
+\newcommand{\decompLowVarShareQuestionPct}{\ensuremath{-}33\xspace}
+\newcommand{\decompHighVarShareQuestionPct}{55\xspace}
+\newcommand{\decompVarShareResidualPct}{89\xspace}
+\newcommand{\decompLowVarShareResidualPct}{45\xspace}
+\newcommand{\decompHighVarShareResidualPct}{133\xspace}
 \newcommand{\decompLowMeanGap}{0.55\xspace}
 \newcommand{\decompHighMeanGap}{0.64\xspace}
 \newcommand{\decompLowMeanQuestion}{0.56\xspace}
