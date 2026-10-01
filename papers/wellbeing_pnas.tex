@@ -3,6 +3,7 @@
 % PNAS has a format-neutral policy for initial submissions: this file follows the PNAS structure (abstract <= 250 words,
 % significance statement <= 120 words, untitled introduction, Results, Discussion, Materials and Methods, numbered references,
 % ~6 pages / ~4,000 words, 4 display items); after acceptance, transfer the text into the official PNAS LaTeX template (Overleaf).
+% Submission track: Direct Submission.
 % Supporting information: wellbeing_pnas_si.tex (SI Appendix). Compile from papers/, twice each:
 %   latexmk -pdf -outdir=build wellbeing_pnas.tex ; latexmk -pdf -outdir=build wellbeing_pnas_si.tex
 \usepackage[T1]{fontenc}
@@ -21,10 +22,10 @@
 \bibliographystyle{unsrtnat}
 \renewcommand{\thetable}{\arabic{table}}
 
-\title{Whether richer countries are happier depends on the survey} % TODO choose title
+\title{Whether richer countries are happier depends on the survey}
 % Alternative titles: "Survey question and sample shape the cross-country link between income and well-being";
 % "Region predicts national well-being better than income, unless you ask Gallup"
-\author{Adrien Fabre\\ \small CNRS, CIRED (Centre international de recherche sur l'environnement et le d\'eveloppement), Nogent-sur-Marne, France. \href{mailto:adrien.fabre@cnrs.fr}{adrien.fabre@cnrs.fr}}
+\author{Adrien Fabre\\ \small CNRS, CIRED (Centre international de recherche sur l'environnement et le d\'eveloppement), Nogent-sur-Marne, France. \href{mailto:adrien.fabre@cnrs.fr}{adrien.fabre@cnrs.fr}. ORCID: \href{https://orcid.org/0000-0001-5245-7772}{0000-0001-5245-7772}}
 \date{}
 
 \begin{document}
@@ -51,11 +52,11 @@ This paper makes two contributions. First, it benchmarks the predictive capacity
 
 \subsection*{Income predicts national well-being less than region in the WVS, but not in Gallup}
 
-In the WVS, complemented with the European Values Study (\nWVSCountryYears country-years, 1981--2023), the relation between GDP per capita and mean life satisfaction is positive but loose (Fig.~\ref{fig:scatter}A): countries with a GDP per capita around \$10,000 span most of the observed range of satisfaction, from Eastern Europe at the bottom to Latin America at the top. Log GDP per capita explains \RtwoSatisfiedMeanPPP\% of the variance of mean satisfaction, \RtwoHappinessMeanPPP\% of the variance of mean happiness, and essentially none of the share of ``very happy'' people. On average over eight indicators of national well-being, it explains \meanRtwoIncomePPP\% of the variance (\meanRtwoIncomeBest\% with the best of seven income measures), against \meanRtwoRegion\% for a classification of countries into five world regions (SI Appendix, Table~\ref{SI-tab:r2_income}).
+In the WVS, complemented with the European Values Study (\nWVSCountryYears country-years, 1981--2023), the relation between GDP per capita and mean life satisfaction is positive but loose (Fig.~\ref{fig:scatter}A): countries with a GDP per capita around \$10,000 span most of the observed range of satisfaction, from Eastern Europe at the bottom to Latin America at the top. Log GDP per capita explains \RtwoSatisfiedMeanPPP\% of the variance of mean satisfaction, \RtwoHappinessMeanPPP\% of the variance of mean happiness, and essentially none of the share of ``very happy'' people. On average over eight indicators of national well-being, it explains \meanRtwoIncomePPP\% of the variance (95\% CI [\ciLowWVSMeanRIncome\%; \ciHighWVSMeanRIncome\%], bootstrap resampling countries; \meanRtwoIncomeBest\% with the best of seven income measures), against \meanRtwoRegion\% ([\ciLowWVSMeanRRegion\%; \ciHighWVSMeanRRegion\%]) for a classification of countries into five world regions (SI Appendix, Table~\ref{SI-tab:r2_income}).
 
 Region has more parameters than log GDP, which could favor it in sample. Out of sample, however, region also predicts better than income for every indicator: when each country is predicted by a model estimated on all other countries, the cross-validated $R^2$ of mean satisfaction is \cvRegionSatisfiedMean with region, against \cvIncomeSatisfiedMean with log GDP (SI Appendix, Table~\ref{SI-tab:cv}). Decomposing the variance explained jointly by income and region with Shapley values, region is the better predictor in \shareRegionBetterWVS\% of \nSpecsWVS combinations of indicators, income measures and robustness specifications (SI Appendix, Table~\ref{SI-tab:robustness}). This advantage rests on Latin America and Eastern Europe: region remains the better predictor when either is excluded (\shareRegionBetterNoLatam\% and \shareRegionBetterNoEE\% of cases), but not when both are (\shareRegionBetterNoLatamEE\%; SI Appendix, Table~\ref{SI-tab:region_classifications}).
 
-The Gallup World Poll tells a different story (Fig.~\ref{fig:scatter}B). In its latest observation for each of \nGallupCountries countries, log GDP explains \RtwoGallupMeanPPP\% of the variance of the mean ladder, against \RtwoGallupRegion\% for region, and income accounts for \shareIncomeGallupMean\% of the variance explained jointly with region. Region predicts better only for the upper tail of the distribution (shares answering 9 or 10), which, like the share of very happy people in the WVS, is almost unrelated to income.
+The Gallup World Poll tells a different story (Fig.~\ref{fig:scatter}B). In its latest observation for each of \nGallupCountries countries, log GDP explains \RtwoGallupMeanPPP\% of the variance of the mean ladder ([\ciLowGallupRIncome\%; \ciHighGallupRIncome\%]), against \RtwoGallupRegion\% for region ([\ciLowGallupRRegion\%; \ciHighGallupRRegion\%]), and income accounts for \shareIncomeGallupMean\% of the variance explained jointly with region. Region predicts better only for the upper tail of the distribution (shares answering 9 or 10), which, like the share of very happy people in the WVS, is almost unrelated to income.
 
 \begin{figure}[tbp]
     \centering

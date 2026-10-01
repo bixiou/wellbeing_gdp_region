@@ -186,7 +186,9 @@ region5_of <- function(code) {
 
 #' Alternative region classifications, for robustness
 #' @param code ISO3 codes.
-#' @param classification One of "region6" (old_data.R, extended by rule), "un" (exact UN regional groups), "wb" (World Bank regions), "continent" (six continents: Africa, North America, Latin America and the Caribbean, Asia, Europe, Oceania).
+#' @param classification One of "region6" (old_data.R, extended by rule), "un" (exact UN regional groups), "wb" (World Bank regions), "continent" (six continents:
+#'   Africa, North America including Central America and the Caribbean, South America, Asia, Europe, Oceania), "continent5" (Americas together),
+#'   "continent6old" (North America = USA and Canada; Latin America and the Caribbean).
 #' @return Character vector of regions.
 region_alt_of <- function(code, classification) {
   proxy <- c("NIR" = "GBR", "XXK" = "XKX", "XXN" = "ARM", "XXS" = "SOM", "XXY" = "CYP") # territories not in countrycode
@@ -200,11 +202,16 @@ region_alt_of <- function(code, classification) {
     middle_east <- c(region6_list$`Middle East`, "ARE", "BHR", "OMN", "SYR")
     return(ifelse(code %in% middle_east, "Middle East", ifelse(code %in% central_asia, "Ex-Eastern Block", ifelse(r5 == "Eastern Europe", "Ex-Eastern Block", r5))))
   }
-  destination <- c("wb" = "region", "continent" = "continent")[classification]
+  destination <- c("wb" = "region", "continent" = "continent", "continent5" = "continent", "continent6old" = "continent")[classification]
   out <- suppressWarnings(countrycode(code_proxied, "iso3c", destination, warn = FALSE))
-  out[code_proxied == "TWN"] <- c("wb" = "East Asia & Pacific", "continent" = "Asia")[classification]
-  out[code_proxied == "XKX"] <- c("wb" = "Europe & Central Asia", "continent" = "Europe")[classification]
-  if (classification == "continent") out[!is.na(out) & out == "Americas"] <- ifelse(code_proxied[!is.na(out) & out == "Americas"] %in% c("USA", "CAN"), "North America", "Latin America") # six continents
+  out[code_proxied == "TWN"] <- if (classification == "wb") "East Asia & Pacific" else "Asia"
+  out[code_proxied == "XKX"] <- if (classification == "wb") "Europe & Central Asia" else "Europe"
+  americas <- !is.na(out) & out == "Americas"
+  if (classification == "continent") { # six continents: North America (including Central America and the Caribbean) and South America
+    intermediate <- suppressWarnings(countrycode(code_proxied[americas], "iso3c", "un.regionintermediate.name", warn = FALSE))
+    out[americas] <- ifelse(!is.na(intermediate) & intermediate == "South America", "South America", "North America") }
+  if (classification == "continent6old") out[americas] <- ifelse(code_proxied[americas] %in% c("USA", "CAN"), "North America", "Latin America") # six continents, old definition
+  # "continent5": the five continents of countrycode (Africa, Americas, Asia, Europe, Oceania)
   return(out)
 }
 
@@ -513,7 +520,8 @@ run_spec <- function(spec) {
 ##### 2.2 Region vs. income: specifications #####
 wvs_indicators <- c(wellbeing_variables, "low_satisfaction")
 wvs_main <- wvs_cy |> filter(!is.na(gdp_ppp), !is.na(gdp))
-add_region_alternatives <- function(df) df |> mutate(region_un = region_alt_of(code, "un"), region6 = region_alt_of(code, "region6"), region_wb = region_alt_of(code, "wb"), region_continent = region_alt_of(code, "continent"))
+add_region_alternatives <- function(df) df |> mutate(region_un = region_alt_of(code, "un"), region6 = region_alt_of(code, "region6"), region_wb = region_alt_of(code, "wb"), region_continent = region_alt_of(code, "continent"),
+                                                     region_continent5 = region_alt_of(code, "continent5"), region_continent6old = region_alt_of(code, "continent6old"))
 wvs_main <- add_region_alternatives(wvs_main)
 gallup_main <- gallup_cy |> filter(!is.na(gdp_ppp), !is.na(gdp), !is.na(region)) |> add_region_alternatives()
 whr_main <- whr |> filter(!is.na(gdp_ppp), !is.na(gdp), !is.na(region))
@@ -538,6 +546,8 @@ specs <- list(
   list(name = "wvs_region6", data = wvs_main, indicators = wellbeing_variables, region = "region6", cv = FALSE),
   list(name = "wvs_region_wb", data = wvs_main, indicators = wellbeing_variables, region = "region_wb", cv = FALSE),
   list(name = "wvs_region_continent", data = wvs_main, indicators = wellbeing_variables, region = "region_continent", cv = FALSE),
+  list(name = "wvs_region_continent5", data = wvs_main, indicators = wellbeing_variables, region = "region_continent5", cv = FALSE), # alternative definitions of continents
+  list(name = "wvs_region_continent6old", data = wvs_main, indicators = wellbeing_variables, region = "region_continent6old", cv = FALSE),
   list(name = "wvs_region_un", data = wvs_main, indicators = wellbeing_variables, region = "region_un", cv = FALSE),
   list(name = "gallup", data = gallup_main, indicators = satisfaction_variables),
   list(name = "gallup_last", data = gallup_main |> filter(year == last_year), indicators = satisfaction_variables),
@@ -550,7 +560,7 @@ spec_names <- c("wvs" = "WVS, all waves", "wvs_waves12" = "WVS, waves 1--2 (1981
                 "wvs_wave5" = "WVS, wave 5 (2004--09)", "wvs_wave6" = "WVS, wave 6 (2010--16)", "wvs_wave7" = "WVS, wave 7 (2017--23)", "wvs_wave7_no_pandemic" = "WVS, wave 7 w/o 2020--21",
                 "wvs_weighted" = "WVS, population-weighted", "wvs_last" = "WVS, last obs. per country", "wvs_no_imputation" = "WVS, no GDP imputation",
                 "wvs_gdp_2017_vintage" = "WVS, GDP PPP 2017 \\$ (old)", "wvs_only" = "WVS, without EVS surveys", "wvs_no_latam_ee" = "WVS, w/o Latin Am. \\& E. Europe", "wvs_no_latam" = "WVS, w/o Latin America", "wvs_no_ee" = "WVS, w/o Eastern Europe", "wvs_region6" = "WVS, 6 regions",
-                "wvs_region_wb" = "WVS, World Bank regions (7)", "wvs_region_continent" = "WVS, continents (6)", "wvs_region_un" = "WVS, exact UN regional groups",
+                "wvs_region_wb" = "WVS, World Bank regions (7)", "wvs_region_continent" = "WVS, continents (6)", "wvs_region_continent5" = "WVS, continents (5)", "wvs_region_continent6old" = "WVS, continents (6, old def.)", "wvs_region_un" = "WVS, exact UN regional groups",
                 "gallup" = "Gallup, all years (2006--23)", "gallup_last" = "Gallup, last obs. per country", "gallup_wvs_countries" = "Gallup, last obs., WVS countries",
                 "gallup_region6" = "Gallup, last obs., 6 regions", "gallup_region_wb" = "Gallup, last obs., WB regions", "whr_2025" = "WHR, 2023--25 average", "wvs_satisfaction" = "WVS, satisfaction indicators")
 
@@ -623,7 +633,7 @@ add_number("shareRegionBetterNoLatam", robustness$region_better[robustness$spec 
 add_number("shareRegionBetterNoEE", robustness$region_better[robustness$spec == "wvs_no_ee"], 2, percent = TRUE)
 add_number("shareRegionBetterSixRegions", robustness$region_better[robustness$spec == "wvs_region6"], 2, percent = TRUE)
 add_number("shareRegionBetterUN", robustness$region_better[robustness$spec == "wvs_region_un"], 2, percent = TRUE)
-robustness_tex <- robustness |> filter(!spec %in% setdiff(names(classification_specs), "wvs")) # these rows are in the main-text table region_classifications.tex
+robustness_tex <- robustness |> filter(!spec %in% c(setdiff(names(classification_specs), "wvs"), "wvs_region_continent5", "wvs_region_continent6old")) # these rows are in the main-text table region_classifications.tex
 robustness_bold <- matrix(FALSE, nrow(robustness_tex), ncol(robustness_tex)); robustness_bold[, which(names(robustness_tex) == "region_better")] <- robustness_tex$region_better > 0.5
 write_latex_table(robustness_tex |> mutate(spec = spec_names[spec], n = as.character(n), n_countries = as.character(n_countries)), "robustness.tex", bold = robustness_bold,
                   header = "Specification & Obs. & Countries & \\multicolumn{2}{c}{$R^2$ income} & $R^2$ region & \\multicolumn{3}{c}{Share of explained variance due to income} & Region better \\\\ & & & log PPP & best & & log PPP & best & adj. $R^2$ & (share of cases)",
@@ -643,7 +653,7 @@ write_latex_table(cv_latex, "cross_validated_r2.tex", bold = bold_row_max(cv_lat
                   midrule_before = which(!duplicated(cv_table$spec))[-1])
 
 # Numbers for the text
-wvs_like <- results |> filter(grepl("^wvs", spec), !spec %in% c("wvs_satisfaction", "wvs_no_latam_ee", "wvs_no_latam", "wvs_no_ee"), indicator != "low_satisfaction") # robustness specifications (the exclusions of regions are analyzed separately)
+wvs_like <- results |> filter(grepl("^wvs", spec), !spec %in% c("wvs_satisfaction", "wvs_no_latam_ee", "wvs_no_latam", "wvs_no_ee", "wvs_region_continent5", "wvs_region_continent6old"), indicator != "low_satisfaction") # robustness specifications (the exclusions of regions are analyzed separately)
 add_number("bestIncome", income_names[best_income])
 add_number("shareRegionBetterWVS", mean(wvs_like$share_income < 0.5), 2, percent = TRUE)
 add_number("shareRegionBetterWVSbest", mean(wvs_like$share_income[wvs_like$income == best_income] < 0.5), 2, percent = TRUE)
@@ -665,6 +675,8 @@ add_number("shareRegionBetterWVSonly", robustness$region_better[robustness$spec 
 add_number("shareRegionBetterNoLatamEE", robustness$region_better[robustness$spec == "wvs_no_latam_ee"], 2, percent = TRUE)
 add_number("shareIncomeNoLatamEE", robustness$share_ppp[robustness$spec == "wvs_no_latam_ee"], 2, percent = TRUE)
 add_number("shareRegionBetterContinents", robustness$region_better[robustness$spec == "wvs_region_continent"], 2, percent = TRUE)
+add_number("shareRegionBetterContinentsFive", robustness$region_better[robustness$spec == "wvs_region_continent5"], 2, percent = TRUE)
+add_number("shareRegionBetterContinentsSixOld", robustness$region_better[robustness$spec == "wvs_region_continent6old"], 2, percent = TRUE)
 add_number("shareRegionBetterWB", robustness$region_better[robustness$spec == "wvs_region_wb"], 2, percent = TRUE)
 add_number("cvIncomeSatisfiedMean", cv_table$cv_income_ppp[cv_table$spec == "wvs" & cv_table$indicator == "satisfied_mean"], 2)
 add_number("cvIncomeBestSatisfiedMean", cv_table$cv_income_best[cv_table$spec == "wvs" & cv_table$indicator == "satisfied_mean"], 2)
@@ -672,6 +684,38 @@ add_number("cvRegionSatisfiedMean", cv_table$cv_region[cv_table$spec == "wvs" & 
 add_number("cvIncomeGallupMean", cv_table$cv_income_ppp[cv_table$spec == "gallup_last" & cv_table$indicator == "satisfied_mean"], 2)
 add_number("cvRegionGallupMean", cv_table$cv_region[cv_table$spec == "gallup_last" & cv_table$indicator == "satisfied_mean"], 2)
 add_number("shareCvRegionBetterWVS", mean((cv_table |> filter(spec == "wvs") |> mutate(b = cv_region > pmax(cv_income_ppp, cv_income_best)))$b), 2, percent = TRUE)
+
+
+# Country-clustered bootstrap confidence intervals for the main R² and LMG shares (countries resampled with replacement, with all their country-years)
+#' Country-clustered bootstrap of a statistic
+#' @param df Country-year data. @param stat_fun Function of a data frame returning a named numeric vector. @param B Number of replications.
+#' @return Matrix (2 x statistics) of 95% percentile confidence bounds.
+cluster_bootstrap <- function(df, stat_fun, B = n_bootstrap) {
+  by_country <- split(df, df$code)
+  draws <- t(sapply(1:B, function(b) { draw <- sample(names(by_country), replace = TRUE)
+    stat_fun(bind_rows(lapply(seq_along(draw), function(i) by_country[[draw[i]]] |> mutate(code = paste0(code, "_", i))))) }))
+  apply(draws, 2, quantile, c(0.025, 0.975), na.rm = TRUE)
+}
+#' Main R² and LMG statistics (log GDP p.c. PPP vs. region)
+#' @param d Country-year data with log_gdp_ppp and region. @param indicators Well-being indicators averaged over.
+#' @return Named vector: mean R² income, mean R² region, mean share due to income, and the same for mean satisfaction (or mean ladder).
+main_r2_stats <- function(d, indicators) {
+  r <- bind_rows(lapply(indicators, function(y) income_vs_region(d, y, "log_gdp_ppp", cv = FALSE)))
+  m <- r[r$indicator == "satisfied_mean", ]
+  c(mean_r2_income = mean(r$r2_income), mean_r2_region = mean(r$r2_region), mean_share = mean(r$share_income), r2_income = m$r2_income, r2_region = m$r2_region, share = m$share_income)
+}
+saved_seed <- .Random.seed; set.seed(2026) # separate random stream, so that the other bootstraps are unchanged
+boot_wvs_main <- cluster_bootstrap(wvs_main |> mutate(log_gdp_ppp = log10(gdp_ppp)), function(d) main_r2_stats(d, wellbeing_variables))
+boot_gallup_last <- cluster_bootstrap(gallup_main |> filter(year == last_year) |> mutate(log_gdp_ppp = log10(gdp_ppp)), function(d) main_r2_stats(d, "satisfied_mean"))
+assign(".Random.seed", saved_seed, envir = .GlobalEnv)
+print(round(boot_wvs_main, 3)); print(round(boot_gallup_last, 3))
+for (s in c("mean_r2_income", "mean_r2_region", "mean_share", "r2_income", "r2_region", "share")) {
+  add_number(paste0("ciLowWVS", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), boot_wvs_main[1, s], 2, percent = TRUE)
+  add_number(paste0("ciHighWVS", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), boot_wvs_main[2, s], 2, percent = TRUE) }
+for (s in c("r2_income", "r2_region", "share")) {
+  add_number(paste0("ciLowGallup", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), boot_gallup_last[1, s], 2, percent = TRUE)
+  add_number(paste0("ciHighGallup", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), boot_gallup_last[2, s], 2, percent = TRUE) }
+add_number("meanShareIncomePPP", mean(main_results$share_income[main_results$income == "log_gdp_ppp"]), 2, percent = TRUE)
 
 
 ##### 2.3 Descriptives #####
@@ -717,7 +761,7 @@ add_number("nHappiestCells", nrow(happiest), 0)
 # Happiest country-year of all waves combined, by indicator (as a sentence for the paper)
 happiest_all <- happiest |> filter(wave == "all") |> group_by(country) |> summarise(indicators = paste(wellbeing_names[indicator], collapse = ", "), n = n()) |> arrange(-n)
 happiest_all_short <- sub(" ([0-9]{4})$", " \\1", happiest_all$country)
-add_number("happiestAllWavesTop", paste0(happiest_all_short[1], " (", happiest_all$n[1], " indicators)"))
+add_number("happiestAllWavesTop", paste0(happiest_all_short[1], " (", happiest_all$n[1], " indicators", if (grepl("Happiness (mean)", happiest_all$indicators[1], fixed = TRUE)) ", including mean happiness" else "", ")"))
 add_number("happiestAllWavesOthers", paste0(paste(happiest_all_short[-c(1, nrow(happiest_all))], collapse = ", "), " and ", happiest_all_short[nrow(happiest_all)]))
 add_number("happiestAllWaves", paste0(sapply(seq_len(nrow(happiest_all)), function(i) paste0(sub(" ([0-9]{4})$", "--\\1", happiest_all$country[i]), " (", if (happiest_all$n[i] > 1) paste0(happiest_all$n[i], " indicators: ") else "", happiest_all$indicators[i], ")")), collapse = "; "))
 
@@ -759,7 +803,17 @@ shapley_r2 <- function(df, y, groups) {
       s <- sum(in_set); with_j <- m + 2^(j - 1)
       factorial(s) * factorial(k - s - 1) / factorial(k) * (r2_subset[[as.character(with_j)]] - r2_subset[[as.character(m)]]) })) }) |> setNames(names(groups))
 }
-correlates <- c("freedom" = "Freedom of choice", "god" = "Importance of God", "homosexuality" = "Tolerance (homosexuality)", "democracy" = "Importance of democracy", "growth" = "GDP growth (5-year)")
+# Other material living standards (downloaded on 2026-10-01 and frozen): household final consumption expenditure per capita (WDI, constant 2015 $)
+# and median daily income or consumption per capita (World Bank Poverty and Inequality Platform, PIP, line-up estimates for all years, PPP $)
+extension_vintage <- "2026-10-01"
+hfce <- get_wdi("NE.CON.PRVT.PC.KD", vintage = extension_vintage) |> rename(hfce = value)
+pip <- fromJSON(cached_download("https://api.worldbank.org/pip/v1/pip?country=all&year=all&fill_gaps=true&povline=3&format=json", "pip_median", extension_vintage)) |>
+  filter(reporting_level == "national" | !country_code %in% country_code[reporting_level == "national"]) |> group_by(code = country_code, year = as.integer(reporting_year)) |>
+  summarise(median_income = mean(median, na.rm = TRUE), .groups = "drop") # countries without national estimates (e.g. urban only): average of the available levels
+add_living_standards <- function(df) df |> left_join(hfce, by = c("code", "year")) |> left_join(pip, by = c("code", "year")) |> mutate(log_hfce = log10(hfce), log_median_income = log10(median_income))
+wvs_main <- add_living_standards(wvs_main); gallup_main <- add_living_standards(gallup_main)
+correlates <- c("log_median_income" = "Median income (PIP, log)", "log_hfce" = "Household consumption p.c. (log)",
+                "freedom" = "Freedom of choice", "god" = "Importance of God", "homosexuality" = "Tolerance (homosexuality)", "democracy" = "Importance of democracy", "growth" = "GDP growth (5-year)")
 culture <- bind_rows(lapply(c("satisfied_mean", "happiness_mean"), function(y) bind_rows(lapply(names(correlates), function(v) {
   sh <- shapley_r2(wvs_main, y, list(income = "log10(gdp_ppp)", region = "factor(region)", other = v))
   data.frame(indicator = y, variable = v, r2_alone = summary(lm(as.formula(paste(y, "~", v)), data = wvs_main))$r.squared, income = sh[1], region = sh[2], other = sh[3], total = sum(sh),
@@ -775,10 +829,26 @@ add_number("shapleyFreedom", freedom_row$other, 2, percent = TRUE); add_number("
 add_number("RtwoTolerance", culture$r2_alone[culture$indicator == "satisfied_mean" & culture$variable == "homosexuality"], 2, percent = TRUE)
 add_number("RtwoGod", culture$r2_alone[culture$indicator == "satisfied_mean" & culture$variable == "god"], 2, percent = TRUE)
 add_number("RtwoGrowth", culture$r2_alone[culture$indicator == "satisfied_mean" & culture$variable == "growth"], 2, percent = TRUE)
+for (v in c("log_median_income", "log_hfce")) { name <- c(log_median_income = "MedianIncome", log_hfce = "HFCE")[v]; row <- culture |> filter(indicator == "satisfied_mean", variable == v)
+  add_number(paste0("Rtwo", name), row$r2_alone, 2, percent = TRUE); add_number(paste0("shapley", name), row$other, 2, percent = TRUE)
+  add_number(paste0("shapley", name, "Income"), row$income, 2, percent = TRUE); add_number(paste0("shapley", name, "Region"), row$region, 2, percent = TRUE); add_number(paste0("n", name), row$n, 0) }
+# R² of log GDP in the same sample as median income (to compare the two income measures on the same country-years)
+add_number("RtwoGDPMedianSample", summary(lm(satisfied_mean ~ log10(gdp_ppp), wvs_main |> filter(!is.na(log_median_income))))$r.squared, 2, percent = TRUE)
 # Deaton (2008) finds that, controlling for the level of GDP p.c., growth is negatively associated with life satisfaction (Gallup 2006). Same test here.
 growth_models <- list(WVS = feols(satisfied_mean ~ log10(gdp_ppp) + I(100 * growth), wvs_main, cluster = ~code),
                       Gallup = feols(satisfied_mean ~ log10(gdp_ppp) + I(100 * growth), gallup_main, cluster = ~code))
 print(etable(growth_models))
+# Replication of Deaton (2008, Table 2, col. 1): Gallup 2006 ladder on ln GDP p.c. 2003 and average annual growth 2000-2003 (his data: PWT 6.2, 123 countries;
+# coefficients 0.845 (0.050) and -3.25 (1.46)). Here: WDI PPP (constant 2021 $), Gallup 2006 (first wave), with and without the former Soviet Union.
+gdp_at <- function(codes, y) add_gdp(data.frame(code = codes, year = y))$gdp_ppp
+deaton <- gallup_cy |> filter(year == 2006) |> select(code, ladder = satisfied_mean) |>
+  mutate(ln_y2003 = log(gdp_at(code, 2003L)), ln_y2000 = log(gdp_at(code, 2000L)), growth_0003 = (ln_y2003 - ln_y2000) / 3, ex_soviet = code %in% c(ex_communist_europe, central_asia, "RUS")) |> filter(!is.na(ln_y2003), !is.na(growth_0003))
+deaton_models <- list(all = feols(ladder ~ ln_y2003 + growth_0003, deaton, vcov = "hetero"), no_ex_communist = feols(ladder ~ ln_y2003 + growth_0003, deaton |> filter(!ex_soviet), vcov = "hetero"))
+print(etable(deaton_models))
+for (d in names(deaton_models)) { name <- c(all = "", no_ex_communist = "NoExCommunist")[d]
+  add_number(paste0("deatonGrowth", name), coef(deaton_models[[d]])["growth_0003"], 2); add_number(paste0("deatonGrowthSe", name), se(deaton_models[[d]])["growth_0003"], 2)
+  add_p(paste0("pDeatonGrowth", name), pvalue(deaton_models[[d]])["growth_0003"]); add_number(paste0("deatonIncome", name), coef(deaton_models[[d]])["ln_y2003"], 2)
+  add_number(paste0("nDeaton", name), nobs(deaton_models[[d]]), 0) }
 for (d in names(growth_models)) { add_number(paste0("growthCoef", d), coef(growth_models[[d]])["I(100 * growth)"], 3); add_number(paste0("growthSe", d), se(growth_models[[d]])["I(100 * growth)"], 3)
   add_p(paste0("pGrowth", d), pvalue(growth_models[[d]])["I(100 * growth)"]) }
 
@@ -963,7 +1033,7 @@ summary_rows <- c("Mean gap $D$ (WVS $-$ Gallup)" = "mean_gap", "Mean question e
 decomp_summary <- data.frame(statistic = names(summary_rows), t(sapply(summary_rows, fmt_estimate_ci)), row.names = NULL)
 write_latex_table(decomp_summary, "decomposition_summary.tex", header = "Statistic & Estimate & 95\\% bootstrap CI", align = "lcc", midrule_before = c(4, 6, 10))
 for (s in names(decomp$stats)) add_number(paste0("decomp", gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s)))), decomp$stats[s], 2)
-for (s in c("share_r2_wording", "share_r2_wording_pooled")) { name <- gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s))) # shares of the R² difference in percent
+for (s in c("share_r2_wording", "share_r2_wording_pooled", "share_abs_question", "var_share_question", "var_share_residual")) { name <- gsub("[^A-Za-z]", "", tools::toTitleCase(gsub("_", " ", s))) # shares of the R² difference in percent
   add_number(paste0("decomp", name, "Pct"), decomp$stats[s], 2, percent = TRUE); add_number(paste0("decompLow", name, "Pct"), decomp_ci[1, s], 2, percent = TRUE); add_number(paste0("decompHigh", name, "Pct"), decomp_ci[2, s], 2, percent = TRUE) }
 for (s in c("mean_gap", "mean_question", "mean_residual", "var_share_question", "share_level_question", "cor_gap_question", "share_abs_question", "share_abs_question_country",
             grep("^r2_|^share_r2", names(decomp$stats), value = TRUE))) {
