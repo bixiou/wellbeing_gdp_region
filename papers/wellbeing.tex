@@ -2,6 +2,8 @@
 \newif\ifblind
 \blindfalse
 % \blindtrue
+\ifdefined\forceblind\blindtrue\fi % anonymized version without editing this file:
+% latexmk -pdf -outdir=build -jobname=wellbeing_blind -usepretex="\def\forceblind{}" wellbeing.tex
 
 % at revision: Cite Prica & Bartlett (2026)
 
@@ -134,7 +136,7 @@ For robustness, I use four alternative classifications: the exact UN regional gr
 % Shared section: the Fabre (2025) survey experiment
 \subsection{A survey experiment on question wording and scale}\label{subsec:fabre}
 
-Gallup and the WVS differ in many respects. Gallup asks the Cantril ladder on a 0--10 scale, the WVS life satisfaction on a 1--10 scale. Gallup relies on a centralized, standardized design, with about 1,000 respondents per country every year, interviewed by telephone in high-income countries and face-to-face elsewhere; the WVS is fielded every five years or so by national teams, mostly face-to-face, with sampling designs, modes and survey years that vary across countries. These differences fall into two categories that could explain why the two datasets disagree: the question (wording and scale) and everything else---sampling frames, interview modes, questionnaire context, translations, and survey years, which I refer to as \textit{samples} in a broad sense. To separate the two, I embedded a randomized experiment in an original survey \citep{fabre_public_2025}. The survey was conducted online between April 15 and July 3, 2025, by Bilendi (or Kantar in Saudi Arabia) on \nFabre respondents in \nFabreCountries high-income countries: the United States (3,000), Japan (2,000), Saudi Arabia (1,000), Germany (1,048), the United Kingdom (826), France (798), Italy (756), Spain (603), Poland (500) and Switzerland (469).\footnote{The survey also covered Russia, where the well-being question was censored.} Samples were stratified with quotas on gender, age, income, education, region and urbanicity,\footnote{Quota variables also included race in the U.S. and citizenship in Saudi Arabia.} and results are reweighted to match population frequencies along these dimensions (with weights trimmed between 0.25 and 4).
+Gallup and the WVS differ in many respects. Gallup asks the Cantril ladder on a 0--10 scale, the WVS life satisfaction on a 1--10 scale. Gallup relies on a centralized, standardized design, with about 1,000 respondents per country every year, interviewed by telephone in high-income countries and face-to-face elsewhere; the WVS is fielded every five years or so by national teams, mostly face-to-face, with sampling designs, modes and survey years that vary across countries. These differences fall into two categories that could explain why the two datasets disagree: the question (wording and scale) and everything else---sampling frames, interview modes, questionnaire context, translations, and survey years, which I refer to as \textit{samples} in a broad sense. To separate the two, I embedded a randomized experiment in an original survey \citeownsurvey. The survey was conducted online between April 15 and July 3, 2025, by Bilendi (or Kantar in Saudi Arabia) on \nFabre respondents in \nFabreCountries high-income countries: the United States (3,000), Japan (2,000), Saudi Arabia (1,000), Germany (1,048), the United Kingdom (826), France (798), Italy (756), Spain (603), Poland (500) and Switzerland (469).\footnote{The survey also covered Russia, where the well-being question was censored.} Samples were stratified with quotas on gender, age, income, education, region and urbanicity,\footnote{Quota variables also included race in the U.S. and citizenship in Saudi Arabia.} and results are reweighted to match population frequencies along these dimensions (with weights trimmed between 0.25 and 4).
 
 Toward the end of the questionnaire, after questions on global policies, each respondent was randomly assigned to one of four versions of the life-evaluation question:
 \begin{itemize}
@@ -280,7 +282,7 @@ I first compare $R^2$, which directly measure the predictive capacity of GDP per
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/ten_countries.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} OLS across the \nDecompCountries countries of the experiment, one observation per country. Gallup and WVS/EVS: latest WVS/EVS survey and Gallup the same year, GDP of that year. Fabre (2025): mean answer by variant (native scale), GDP of 2025; ``both scales'' and ``all four variants'': average of the variant means, 1--10 answers being linearly stretched to 0--10. 95\% CI of $R^2$: bootstrap resampling respondents. Standard errors of slopes robust to heteroskedasticity (HC1). $R^2$ region and share due to income: see Section~\ref{subsec:method_region} (regions: Western, Asia, Eastern Europe); shares above 0.5 (income is the better predictor) are in bold.\end{minipage}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} OLS across the \nDecompCountries countries of the experiment, one observation per country. Gallup and WVS/EVS: latest WVS/EVS survey and Gallup the same year, GDP of that year. \newsurvey: mean answer by variant (native scale), GDP of 2025; ``both scales'' and ``all four variants'': average of the variant means, 1--10 answers being linearly stretched to 0--10. 95\% CI of $R^2$: bootstrap resampling respondents. Standard errors of slopes robust to heteroskedasticity (HC1). $R^2$ region and share due to income: see Section~\ref{subsec:method_region} (regions: Western, Asia, Eastern Europe); shares above 0.5 (income is the better predictor) are in bold.\end{minipage}
 \end{table}
 
 Slopes tell a different story. Both questions yield an income gradient close to Gallup's (\slopeTenGallup): \slopeTenFabreLadder with the ladder and \slopeTenFabreSatisfaction with the satisfaction question (\slopeTenFabreLadderPooled and \slopeTenFabreSatisfactionPooled when pooling scales), whereas the WVS gradient is three times flatter (\slopeTenWVS). The part of the Gallup--WVS difference in slopes that is not due to the question is \SlopeDiffinDiff (95\% CI [\SlopeDiffinDiffLow; \SlopeDiffinDiffHigh]). How can the satisfaction question yield a lower $R^2$ but the same slope as the ladder? With a single regressor, $R^2 = \beta^2 \mathrm{var}(x)/\mathrm{var}(y)$: for a given slope, the $R^2$ is lower when country means are more dispersed around the income gradient. The satisfaction question does not weaken the gradient, but it produces larger country-specific deviations from it---most visibly in Japan, whose mean satisfaction (\meanSatisfactionJPN on the 1--10 scale) is \gapSatisfactionJPN points below that of any other country despite its high income, whereas its mean ladder (\meanLadderJPN) is only \gapLadderJPN points below the next lowest (Appendix Table~\ref{tab:decomposition_country}). These country-specific deviations are present both in the WVS and in the new survey data. By contrast, the flat WVS gradient is specific to its samples.
@@ -289,7 +291,7 @@ The $R^2$ measures predictive capacity, the question of this paper, whereas the 
 
 \begin{figure}[htbp]
     \centering
-    \caption{Mean life evaluation vs.\ GDP per capita (PPP), by question variant, Fabre (2025).}\label{fig:fabre_gdp}
+    \caption{Mean life evaluation vs.\ GDP per capita (PPP), by question variant, \newsurvey.}\label{fig:fabre_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/fabre_mean_vs_gdp_ppp.pdf}
     \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Mean answer on the native scale of each variant (0--10 or 1--10), ten countries surveyed in 2025. Colors: wording; shapes and line types: scale. Lines: OLS fits by variant.\end{minipage}
 \end{figure}
@@ -316,7 +318,7 @@ Since the two components move in opposite directions, another way to summarize t
     \centering
     \caption{Observed WVS--Gallup gap, question effect and residual by country.}\label{fig:decomposition}
     \includegraphics[width=.9\textwidth]{../figures/main/decomposition_by_country.pdf}
-    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} $D$: mean satisfaction (WVS/EVS, 1--10) minus mean ladder (Gallup, 0--10), same year. $Q$: mean answer to satisfaction 1--10 minus mean answer to ladder 0--10, Fabre (2025). $R = D - Q$.\end{minipage}
+    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} $D$: mean satisfaction (WVS/EVS, 1--10) minus mean ladder (Gallup, 0--10), same year. $Q$: mean answer to satisfaction 1--10 minus mean answer to ladder 0--10, \newsurvey. $R = D - Q$.\end{minipage}
 \end{figure}
 
 % heterogenous effects don't explain gap variation % could be cut
@@ -439,7 +441,7 @@ During the preparation of this work the author used Claude Opus 5.5 to write ana
 
 \begin{table}[htbp]
     \centering
-    \caption{Effects of question wording and scale on life evaluation, Fabre (2025) survey experiment.}\label{tab:fabre_regressions}
+    \caption{Effects of question wording and scale on life evaluation: survey experiment (\newsurvey).}\label{tab:fabre_regressions}
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/fabre_regressions.tex}
     \end{adjustbox}
@@ -452,7 +454,7 @@ During the preparation of this work the author used Claude Opus 5.5 to write ana
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/decomposition_by_country.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Mean answers on native scales (Gallup and ladder: 0--10; WVS/EVS and satisfaction: 1--10); columns (3) and (4): Fabre (2025). The Gallup year is given in parentheses when it differs from the WVS year. Survey: mode: source of the WVS/EVS data and main interview mode(s) (CAPI: computer-assisted personal interviews). \hfill(Back~to~Section~\ref{subsec:experiment}.)\end{minipage}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Mean answers on native scales (Gallup and ladder: 0--10; WVS/EVS and satisfaction: 1--10); columns (3) and (4): \newsurvey. The Gallup year is given in parentheses when it differs from the WVS year. Survey: mode: source of the WVS/EVS data and main interview mode(s) (CAPI: computer-assisted personal interviews). \hfill(Back~to~Section~\ref{subsec:experiment}.)\end{minipage}
 \end{table}
 
 \begin{table}[htbp]
@@ -461,7 +463,7 @@ During the preparation of this work the author used Claude Opus 5.5 to write ana
     \begin{adjustbox}{max width=\textwidth}
     \input{../tables/main/decomposition_summary.tex}
     \end{adjustbox}
-    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} \nDecompCountries countries. 95\% confidence intervals from 1,000 bootstrap replications resampling respondents within country $\times$ variant (Fabre) and within country (WVS). For Gallup, only the distribution of answers is available: in each country, the numbers of respondents giving each answer (0 to 10) are redrawn from a multinomial distribution with the observed shares and sample size, which is equivalent to resampling respondents. \hfill(Back~to~Section~\ref{subsec:experiment}.)\end{minipage}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} \nDecompCountries countries. 95\% confidence intervals from 1,000 bootstrap replications resampling respondents within country $\times$ variant (new survey) and within country (WVS). For Gallup, only the distribution of answers is available: in each country, the numbers of respondents giving each answer (0 to 10) are redrawn from a multinomial distribution with the observed shares and sample size, which is equivalent to resampling respondents. \hfill(Back~to~Section~\ref{subsec:experiment}.)\end{minipage}
 \end{table}
 
 \begin{table}[htbp]
