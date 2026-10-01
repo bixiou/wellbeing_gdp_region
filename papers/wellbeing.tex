@@ -5,9 +5,11 @@
 \ifdefined\forceblind\blindtrue\fi % anonymized version without editing this file:
 % latexmk -pdf -outdir=build -jobname=wellbeing_blind -usepretex="\def\forceblind{}" wellbeing.tex
 
-% at revision: Cite Prica & Bartlett (2026)
+% TODO at revision: Cite Prica & Bartlett (2026)
 
-% Journals: PNAS (2000$), World Development (0$), JEP (0$), JHS (0$), JWE (0$)
+% Wordcount: 11,940 (abstract, main, tables, captions: 8k; appendix: 2.5k; references: 1.3k)
+
+% Journals: PNAS (2000$), World Development (0$), JEP (0$, 12k words), JHS (0$), JWE (0$)
 
 \input{preamble_paper.tex}
 % Combined paper, formatted for the Journal of Economic Psychology (research article: max. 12,000 words including abstract,
@@ -16,10 +18,10 @@
 % Compile from papers/:  latexmk -pdf -outdir=build wellbeing.tex
 % Submission strategy: see TODO.md, section 8.
 
-% Whether richer countries are happier depends on the survey
+% Whether richer countries are happier depends on survey questions and samples
 % Is GDP a Poor Predictor of National Well-Being? Evidence from Two Surveys and a Wording Experiment
 % Region Beats Income in Predicting National Well-Being, Unless You Ask Gallup
-\title{Does Money Buy National Happiness?\\It Depends on Who You Ask and How} % TODO change title?
+\title{Does Money Buy National Happiness?\\It Depends on Who You Ask and How} 
 \ifblind
   \author{}
   \date{}
