@@ -3,6 +3,11 @@
 \blindfalse
 % \blindtrue
 
+% at revision: Cite Prica & Bartlett (2026)
+
+% TODO add median income and household final consumption expenditure per capita in the analysis of tab:correlates
+% TODO do country-clustered bootstrap CIs for R² and LMG shares (just for the main ones reported)
+
 \input{preamble_paper.tex}
 \externaldocument[OA-]{build/wellbeing_online_appendix} % Online Appendix (separate PDF, not counted in the JEP word limit)
 % Combined paper, formatted for the Journal of Economic Psychology (research article: max. 12,000 words including abstract,
@@ -46,6 +51,8 @@
 
 \clearpage
 
+% TODO prepare Highlights (3–5, ≤ 85 characters), commented out below
+
 \section{Introduction}\label{sec:intro}
 
 Which country is the happiest? The answer most often heard, based on the World Happiness Report, is a Scandinavian, high-income country. Behind this answer lies one of the most robust stylized facts of well-being research: across countries, average life evaluations increase with the logarithm of GDP per capita \citep{deaton_income_2008,stevenson_economic_2008,sacks_new_2012}. Using the Gallup World Poll, \citet{deaton_income_2008} finds a correlation above 0.8 between average life evaluation and log GDP per capita; using the World Values Survey (WVS), \citet{inglehart_genes_2000} reported an $R^2$ of about one half for an index of happiness and satisfaction. These correlations are frequently invoked to support the view that economic growth is a reliable route to higher well-being.
@@ -58,6 +65,7 @@ For the second question, I embedded a $2 \times 2$ experiment in an online surve
 % TODO
 The results are threefold. First, the two datasets disagree. In the WVS, GDP per capita is a weak predictor of national well-being: it explains on average \meanRtwoIncomePPP\% of the variance of the eight indicators (\meanRtwoIncomeBest\% with the best income measure), and nothing of the share of very happy people, whereas region explains \meanRtwoRegion\% on average. Region is a better predictor in \shareRegionBetterWVS\% of specifications and, out of sample, for every indicator. In Gallup, by contrast, log GDP per capita explains \RtwoGallupMeanPPP\% of the cross-country variance of the mean ladder, against \RtwoGallupRegion\% for region. Second, the region advantage in the WVS is driven by Latin America and Eastern Europe. Third, the experiment shows that the question explains part, but not all, of this discrepancy. In the ten countries, log GDP explains \RtwoTenGallup of the variance of Gallup's ladder and \RtwoTenWVS of WVS satisfaction. Asked to the same online sample, the ladder is also better predicted by GDP than the satisfaction question ($R^2$ of \RtwoTenFabreLadderPooled vs.\ \RtwoTenFabreSatisfactionPooled). Wording accounts for about half (\decompShareRWordingPooledPct\%) of the Gallup--WVS difference in predictive capacity, and the new data lie midway between the two datasets. However, both questions yield an income gradient as steep as Gallup's (slopes of \slopeTenFabreLadderPooled and \slopeTenFabreSatisfactionPooled, vs.\ \slopeTenGallup in Gallup and \slopeTenWVS in the WVS): the satisfaction question adds dispersion around the income gradient, but the flat WVS gradient is specific to its samples. Wording also has a sizeable effect on levels: the ladder shifts answers by \effectLadder points, which explains why Gallup levels are lower than WVS levels in high-income countries.
 
+% TODO if relevant,  read  and cite: "High life satisfaction reported among small-scale societies with low incomes", Galbraith et al. (2024) https://www.pnas.org/doi/10.1073/pnas.2311703121; https://humanflourishing.web.baylor.edu/sites/g/files/ecbvkj2151/files/2026-06/GFS-Wave1-Report-Science-of-Flourishing.pdf; https://doi.org/10.1007/s11205-023-03262-y
 The paper contributes to three literatures. It adds to the debate on the relationship between income and well-being across countries and over time \citep{easterlin_does_1974,easterlin_happiness_2010,stevenson_economic_2008,deaton_income_2008,jebb_happiness_2018} by showing that the strength of the cross-country relationship depends on the dataset, and by benchmarking income against regions. It relates to work on regional and cultural differences in well-being, in particular the high well-being of Latin America \citep{graham_paradox_2009,rojas_handbook_2016} and the low well-being of transition countries \citep{guriev_unhappiness_2009}, and on the comparability of well-being across cultures \citep{diener_culture_2000,exton_comparing_2015,senik_french_2014}. Finally, it contributes to the methodological literature on the measurement of subjective well-being \citep{kahneman_developments_2006,oecd_guidelines_2013,stone_subjective_2013,bond_sad_2019,kaiser_scientific_2022}, and specifically on the comparability of the Cantril ladder and life-satisfaction questions \citep{bjornskov_how_2010,nilsson_cantril_2024} and on context and mode effects \citep{deaton_understanding_2016,dolan_happy_2016}, by providing experimental estimates of wording and scale effects in ten countries.
 
 Section~\ref{sec:data} presents the data. Section~\ref{sec:region} compares income and region as predictors of national well-being. Section~\ref{sec:discrepancy} investigates the discrepancy between Gallup and the WVS. Section~\ref{sec:discussion} discusses limitations, and Section~\ref{sec:conclusion} concludes.

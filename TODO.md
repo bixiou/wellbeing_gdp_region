@@ -35,7 +35,7 @@ Legend: `[x]` done, `[ ]` to do, `[~]` partly done / see note. **(A)** = needs A
 - [x] **k-means clusters are not reproducible**: the k-means block in `create_gdp_vars` is commented out (so `run_regressions` fails as is), and there is no `set.seed()`; k-means with random starts can give different clusters across runs. Use `set.seed()` and `nstart = 50` (or 1-D exact clustering, e.g. `Ckmeans.1d.dp`).
 - [x] `plot_all()` is called (l. 457) before being defined (l. 459).
 - [x] Code depends on `.Rprofile` helpers and on `%>%`; `main.R` is self-contained and uses `|>`.
-- [ ] Presentation typo: "Region is a better predictor than region" → "than income".
+- [x] Presentation typo: "Region is a better predictor than region" → "than income".
 
 ## 2. TODOs from `presentations/wellbeing_prez.tex`
 
