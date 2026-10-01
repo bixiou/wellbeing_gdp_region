@@ -1,0 +1,45 @@
+\documentclass[10pt]{article}
+% Combined PDF of the PNAS paper (wellbeing_pnas.tex) and its SI Appendix (wellbeing_pnas_si.tex), with clickable links
+% between the two: references to SI tables in the main text link to them, and each SI table or figure links back to
+% the place citing it ("Back to Results", "Back to Section S2"...). Both files are included as is (package docmute).
+% Compile from papers/:  latexmk -pdf -outdir=build wellbeing_pnas_combined.tex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage[margin=2cm]{geometry}
+\usepackage[numbers,round,sort&compress]{natbib}
+\usepackage{graphicx, booktabs, adjustbox, amsmath, amssymb, xcolor, caption, lineno, makecell, threeparttable}
+\captionsetup{font=small, labelfont=bf}
+\usepackage[colorlinks=true, urlcolor=purple, linkcolor=blue, citecolor=violet]{hyperref}
+\usepackage{xspace}
+\xspaceaddexceptions{]\%}
+\input{../tables/main/numbers.tex}
+\newcommand{\Rsq}{\ensuremath{R^2}\xspace}
+\bibliographystyle{unsrtnat}
+\usepackage{docmute}
+
+% Main text: references to SI tables are links; the first citation of each table is the target of its back-link
+\newcommand{\SIref}[3]{\ifcsname SIback@#1\endcsname\else\expandafter\gdef\csname SIback@#1\endcsname{#3}\phantomsection\label{back:#1}\fi\ref{#1}}
+% SI Appendix: back to the main text if the table is cited there, otherwise back to the SI section citing it
+\newcommand{\backlink}[2]{\ifcsname SIback@#1\endcsname\hfill\hyperref[back:#1]{(Back to \csname SIback@#1\endcsname, main text)}%
+  \else\if\relax\detokenize{#2}\relax\else\hfill\hyperref[#2]{(Back to Section~\ref*{#2})}\fi\fi}
+
+\title{Whether richer countries are happier depends on the survey}
+\author{Adrien Fabre\\ \small CNRS, CIRED, Paris, France. \href{mailto:adrien.fabre@cnrs.fr}{adrien.fabre@cnrs.fr}. ORCID: \href{https://orcid.org/0000-0001-5245-7772}{0000-0001-5245-7772}}
+\date{}
+
+\begin{document}
+\input{wellbeing_pnas}
+
+% ---------------- SI Appendix ----------------
+\clearpage
+\nolinenumbers
+\setcounter{table}{0}\setcounter{figure}{0}\setcounter{section}{0}\setcounter{equation}{0}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\def\maketitle{\begin{center}{\LARGE Supporting Information Appendix}\\[1ex]{\large Whether richer countries are happier depends on the survey}\end{center}\bigskip}
+\renewcommand{\bibliography}[1]{} % a single reference list, at the end of the main text (it includes the references cited in the SI)
+\input{wellbeing_pnas_si}
+\end{document}

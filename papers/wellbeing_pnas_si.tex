@@ -8,12 +8,14 @@
 \usepackage[numbers,round,sort&compress]{natbib}
 \usepackage{graphicx, booktabs, adjustbox, amsmath, amssymb, xcolor, caption, makecell, threeparttable}
 \captionsetup{font=small, labelfont=bf}
-\usepackage{xr-hyper}
 \usepackage[colorlinks=true, urlcolor=purple, linkcolor=blue, citecolor=violet]{hyperref}
 \usepackage{xspace}
 \xspaceaddexceptions{]\%}
 \input{../tables/main/numbers.tex}
 \newcommand{\Rsq}{\ensuremath{R^2}\xspace}
+% \backlink{float label}{section label}: link back to the section citing a table or figure (in the combined PDF,
+% to the place of the main text citing it, if any; see wellbeing_pnas_combined.tex)
+\providecommand{\backlink}[2]{\if\relax\detokenize{#2}\relax\else\hfill\hyperref[#2]{(Back to Section~\ref*{#2})}\fi}
 \bibliographystyle{unsrtnat}
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
@@ -55,7 +57,6 @@ Because there is no consensus on how to aggregate ordinal answers into a nationa
 \end{itemize}
 The indicators are positively but imperfectly correlated: across country-years, the correlation between \textit{Happy} and \textit{Satisfied} is \corHappySatisfied, and between \textit{Very Happy} and \textit{Satisfaction (mean)} it is only \corVeryHappySatisfiedMean (Table~\ref{tab:correlation}). For the life-satisfaction question, I also compute the shares answering 8--10, 9--10, 10, 1--4 and 1--2, for comparisons with Gallup. 
 
-
 \subsection{Gallup World Poll}\label{subsec:gallup}
 The Gallup World Poll interviews around 1,000 adults per country and year in more than 140 countries, by telephone where coverage is high (typically in high-income countries) and face-to-face elsewhere \citep{gallup_methodology_2022}. Its life-evaluation question is the Cantril ladder \citep{cantril_pattern_1965}: ``Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. On which step of the ladder would you say you personally feel you stand at this time?''
 
@@ -89,9 +90,9 @@ One feature of this comparison could favor region: region has four degrees of fr
 
 Table~\ref{tab:region_classifications} shows that the region advantage rests on two well-known ``anomalies'': Latin America, happier than its income would predict \citep{graham_paradox_2009,rojas_handbook_2016}, and Eastern Europe, unhappier \citep{guriev_unhappiness_2009}. Region remains the better predictor when either one is excluded (in \shareRegionBetterNoLatam\% of cases without Latin America and \shareRegionBetterNoEE\% without Eastern Europe), but not when both are (\shareRegionBetterNoLatamEE\%). Consistently, the result holds with classifications that isolate both groups (exact UN groups and six regions: \shareRegionBetterUN\%), and weakens or disappears with the World Bank regions (\shareRegionBetterWB\%) and the six continents (\shareRegionBetterContinents\%), which isolate Latin America but merge Eastern and Western Europe.
 
-
 The cross-sectional relation should not be confused with the relation over time. Within countries (country fixed effects, \nWithin observations), mean satisfaction increases with log GDP per capita, with a slope of \withinSlopeSatisfiedMean per unit of $\log_{10}$ GDP, larger than the cross-sectional slope (\crossSlopeSatisfiedMean), although income growth explains only \withinRtwoSatisfiedMean of the within-country variance (Table~\ref{tab:within}). These associations are consistent with \citet{stevenson_economic_2008} and \citet{sacks_new_2012} rather than with a strict version of the Easterlin paradox \citep{easterlin_does_1974,easterlin_happiness_2010}, although they may reflect common shocks (e.g.\ transition recessions) rather than the effect of income per se. Across countries, \citet{deaton_income_2008} found that, controlling for the level of GDP per capita, growth was negatively associated with life satisfaction in the 2006 Gallup World Poll. I do not find this: controlling for log GDP per capita, one percentage point of annual growth over the previous five years is associated with \growthCoefWVS points of mean satisfaction in the WVS (s.e.\ \growthSeWVS, $p \pGrowthWVS$) and \growthCoefGallup points of mean ladder in Gallup 2006--2023 (s.e.\ \growthSeGallup, $p \pGrowthGallup$), with standard errors clustered by country.
 
+Additional results are reported in the following tables and figures: the share of explained variance due to income for each indicator and income measure (Table~\ref{tab:share_income}; Gallup: Table~\ref{tab:share_gallup}), the slopes of each indicator on log GDP (Table~\ref{tab:slopes}), other country-level correlates (Table~\ref{tab:correlates}), the countries most often ranked happiest (Table~\ref{tab:happiest}), and scatter plots of each indicator against GDP per capita (Figs.~\ref{fig:happiness_mean_gdp} and \ref{fig:very_happy_gdp}--\ref{fig:happy_gdp_w7_weighted}).
 
 \section{Survey experiment}\label{subsec:fabre}
 Gallup and the WVS differ in many respects. Gallup asks the Cantril ladder on a 0--10 scale, the WVS life satisfaction on a 1--10 scale. Gallup relies on a centralized, standardized design, with about 1,000 respondents per country every year, interviewed by telephone in high-income countries and face-to-face elsewhere; the WVS is fielded every five years or so by national teams, mostly face-to-face, with sampling designs, modes and survey years that vary across countries. These differences fall into two categories that could explain why the two datasets disagree: the question (wording and scale) and everything else---sampling frames, interview modes, questionnaire context, translations, and survey years, which I refer to as \textit{samples} in a broad sense. To separate the two, I embedded a randomized experiment in an original survey \citep{fabre_public_2025}. The survey was conducted online between April 15 and July 3, 2025, by Bilendi (or Kantar in Saudi Arabia) on \nFabre respondents in \nFabreCountries high-income countries: the United States (3,000), Japan (2,000), Saudi Arabia (1,000), Germany (1,048), the United Kingdom (826), France (798), Italy (756), Spain (603), Poland (500) and Switzerland (469); the survey also covered Russia, where the well-being question was censored. Samples were stratified with quotas on gender, age, income, education, region and urbanicity (as well as race in the U.S. and citizenship in Saudi Arabia), and results are reweighted to match population frequencies along these dimensions (with weights trimmed between 0.25 and 4).
@@ -105,22 +106,16 @@ Toward the end of the questionnaire, after questions on global policies, each re
 \end{itemize}
 This $2 \times 2$ design identifies the effect of wording (ladder vs.\ satisfaction) and scale (0--10 vs.\ 1--10), and their interaction, holding the sample, mode, context and time constant. Within each country, each branch receives around 25\% of respondents.
 
-
 Although levels matter less than correlations for our question, the experiment also explains why the WVS yields higher levels than Gallup. Table~\ref{tab:fabre_regressions} reports regressions of the answer on the randomized treatments, with country fixed effects, survey weights and heteroskedasticity-robust standard errors. The ladder wording shifts answers by \effectLadder points on average (s.e.\ \seLadder): respondents rate their lives lower on the ``best possible life'' ladder than when asked how satisfied they are, in line with evidence that the ladder evokes power and wealth more than life satisfaction does \citep{nilsson_cantril_2024}. Answers on the 1--10 scale are \effectScale points higher than on the 0--10 scale (s.e.\ \seScale). Once 1--10 answers are linearly stretched to 0--10 with $x \mapsto (x-1) \times 10/9$, which maps 1 to 0 and 10 to 10, the scale effect becomes \effectScaleZeroTen: the stretch lowers each answer $x$ by $(10-x)/9$, i.e.\ by about 0.4 points at the average answer. Wording and scale do not interact. The wording effect varies markedly across countries (Figure~\ref{fig:decomposition}; $\chi^2(9) = \chiHeterogeneityWording$, $p \pHeterogeneityWording$). Japan is the exception: it is the only country where the ladder yields \textit{higher} answers than the satisfaction question (by \wordingJPN points); elsewhere, the wording effect ranges from \wordingMin (Spain) to \wordingMaxNegative points. Finally, the ladder does not steepen the income gradient \textit{within} countries: the interaction between the ladder wording and the respondent's income quartile is \interactionLadderIncome ($p \pInteractionLadderIncome$), against a gradient of \gradientIncomeSatisfaction points per quartile.
-
-To relate these effects to the Gallup--WVS gap, I define for each country $c$ the observed gap $D_c = W_c - G_c$, where $W_c$ is mean satisfaction in the WVS and $G_c$ the mean ladder in Gallup the same year (as in the main text), and the question effect $Q_c = F_c(\text{satisfaction 1--10}) - F_c(\text{ladder 0--10})$, the difference between the mean answers to the two original variants in the experiment, measured on the same sample. The residual $R_c = D_c - Q_c$ is the part of the gap due to samples in the broad sense. On average, WVS answers exceed Gallup answers by $D = \decompMeanGap$ points, and the question effect is even larger: $Q = \decompMeanQuestion$ points (Tables~\ref{tab:decomposition_country} and \ref{tab:decomposition_summary}). The question thus fully accounts for the higher level of WVS answers in high-income countries, and the residual is small ($R = \decompMeanResidual$, 95\% CI [\decompLowMeanResidual; \decompHighMeanResidual]). Since the two components move in opposite directions, another way to summarize the level difference is to compare the size of the two movements: the question accounts for $|\bar Q|/(|\bar Q|+|\bar R|) = \decompShareAbsQuestion$ (95\% CI [\decompLowShareAbsQuestion; \decompHighShareAbsQuestion]) of the gross difference in levels.
 
 To relate these effects to the Gallup--WVS gap, I define for each country $c$ the observed gap $D_c = W_c - G_c$, where $W_c$ is mean satisfaction in the WVS and $G_c$ the mean ladder in Gallup the same year (as in the main text), and the question effect $Q_c = F_c(\text{satisfaction 1--10}) - F_c(\text{ladder 0--10})$, the difference between the mean answers to the two original variants in the experiment, measured on the same sample. The residual $R_c = D_c - Q_c$ is the part of the gap due to samples in the broad sense. On average, WVS answers exceed Gallup answers by $D = \decompMeanGap$ points, and the question effect is even larger: $Q = \decompMeanQuestion$ points (Tables~\ref{tab:decomposition_country} and \ref{tab:decomposition_summary}). The question thus fully accounts for the higher level of WVS answers in high-income countries, and the residual is small ($R = \decompMeanResidual$, 95\% CI [\decompLowMeanResidual; \decompHighMeanResidual]). Since the two components move in opposite directions, another way to summarize the level difference is to compare the size of the two movements: the question accounts for $|\bar Q|/(|\bar Q|+|\bar R|) = \decompShareAbsQuestion$ (95\% CI [\decompLowShareAbsQuestion; \decompHighShareAbsQuestion]) of the gross difference in levels.
 
 The question effect does not, however, explain why the gap varies across countries. Since $D_c = Q_c + R_c$, the cross-country variance of the gap splits into $\mathrm{var}(D) = \mathrm{cov}(D,Q) + \mathrm{cov}(D,R)$. The share attributable to the question, $\mathrm{cov}(D,Q)/\mathrm{var}(D)$, is only \decompVarShareQuestion (95\% CI [\decompLowVarShareQuestion; \decompHighVarShareQuestion]): countries with a larger question effect do not have a larger gap. Accordingly, predicting each country's Gallup mean by subtracting its own question effect $Q_c$ from its WVS mean does worse (root mean squared error: \decompRmsePredictionGallup) than simply subtracting the average gap (\decompRmseNaive). Samples asked the same question also differ markedly. Gallup respondents (2023--2025) rate their lives \meanSampleEffectGallup points higher on the ladder 0--10 than online respondents in 2025, and WVS respondents \meanSampleEffectWVS points higher on satisfaction 1--10 (even in the United States, where the 2017 WVS was itself conducted online: \sampleEffectUSWVS points). And in the \nEVSvsWVS countries surveyed separately by the EVS and the WVS in 2017--2022, with the same question, mean satisfaction differs by \meanAbsDiffEVSWVS points on average (up to \maxAbsDiffEVSWVS).
 
-
 \section{Representativeness of the surveys}\label{subsec:data_quality}
 If samples matter, which dataset is closer to the truth? There is no clear-cut argument in favor of either dataset, nor of the online sample used in the experiment. Gallup applies a centralized, standardized design: probability samples of about 1,000 adults per year, drawn by random-digit dialing where telephone coverage is high and by multistage area sampling elsewhere, with random selection of the respondent within the household and post-stratification weights on gender, age and, where possible, education \citep{gallup_methodology_2023}. But its samples are small; its face-to-face samples select households by random route, with replacement of non-responding households; response rates are not published; interviews switched from face-to-face to telephone during the pandemic; and in 2023, a fifth of the interviews in 27 high-income countries came from web panels, most of them opt-in \citep{gallup_methodology_2023}. Its subgroup estimates have also been questioned \citep{blanchflower_gallup_2024}. Besides, Gallup microdata are not public, so that the representativeness of its samples cannot be assessed independently; lacking quotas, its samples could under-represent hard-to-reach groups such as less educated or rural people. The WVS requires probability samples of at least 1,200 respondents but allows quota selection at the last stage, and its sampling designs, modes and survey years vary across countries \citep{wvs_rules_wave8}. %Tests flagging near-duplicate interviews (pairs of respondents giving identical answers to almost all questions, a possible sign of fabrication) in international survey programs \citep{kuriakose_dont_2016} have been disputed \citep{pew_data_2016}. Finally, online panels exclude people without internet access, and quotas on observable characteristics do not guarantee representativeness in unobservable ones.
 
 I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:representativeness}). Compared with population benchmarks \citep{barro_new_2013,worldbank_wdi_2026}, WVS samples over-represent tertiary-educated adults (aged 25 and over) by a median factor of \ratioTertiaryLow in countries with a GDP per capita below 10,000 dollars, against \ratioTertiaryHigh in countries above 30,000 dollars (\nCompositionSurveys surveys). They also over-represent urban residents in poorer countries (median ratio \ratioUrbanLow vs.\ \ratioUrbanHigh) and under-represent people aged 65 or more (\ratioOldLow vs.\ \ratioOldHigh). The internal criterion of \citet{kohler_surveys_2007}---women should make up half of married or cohabiting respondents---is violated at the 5\% level in \shareGenderFlag\% of surveys. WVS samples are thus less representative in poorer countries, as noted by \citet{deaton_income_2008}, which is where their gap with Gallup is largest. However, correcting these observable imbalances has little effect. Controlling for log GDP, the over-representation of the tertiary-educated does not predict the gap (coefficient \coefTertiaryGap, s.e.\ \seTertiaryGap, $p \pTertiaryGap$), and reweighting each WVS sample to the benchmark share of tertiary-educated adults barely changes its relation with income: in the country-years also covered by Gallup, the $R^2$ of mean satisfaction on log GDP goes from \RtwoCommonWVSraw to \RtwoCommonWVSeduAdj, against \RtwoCommonGallupSub for Gallup. The discrepancy thus stems from unobserved differences in who responds, how, and in which context, which the available evidence does not allow me to attribute to one dataset rather than the other.
-
-
 
 \clearpage
 \section{Supplementary tables and figures}\label{sec:si_tables}
@@ -132,6 +127,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/r2_income.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} $R^2$ of the regression of each well-being indicator (rows) on each income indicator (columns), over \nWVSCountryYears WVS/EVS country-years (a few with missing GDP are excluded). The last column gives the $R^2$ of the regression on region dummies. The highest $R^2$ of each row is in bold. The replication files include an Excel version of this table with the $R^2$ of all region classifications (\texttt{tables/main/r2\_income\_all\_regions.xlsx}).\end{minipage}
+    {\footnotesize\backlink{tab:r2_income}{}\par}
 \end{table}
 
 \begin{table}[p]
@@ -141,6 +137,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/share_income.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Share of the $R^2$ of Equation~\eqref{eq:both} attributed to income by the LMG (Shapley) decomposition, Equation~\eqref{eq:share}. Values below 0.5 indicate that region is the better predictor. Values above 0.5 (income is the better predictor) are in bold.\end{minipage}
+    {\footnotesize\backlink{tab:share_income}{subsec:method_region}\par}
 \end{table}
 
 \begin{table}[p]
@@ -150,6 +147,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/cross_validated_r2.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Each country's observations are predicted with a model estimated on all other countries. Cross-validated $R^2 = 1 - \sum (y - \hat y_{\text{out-of-sample}})^2 / \sum (y - \bar y)^2$; it can be negative when a model predicts worse than the overall mean. In each row, the highest cross-validated $R^2$ among log GDP PPP, the best income variable and region is in bold.\end{minipage}
+    {\footnotesize\backlink{tab:cv}{}\par}
 \end{table}
 
 \begin{table}[p]
@@ -159,6 +157,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/robustness.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Averages over well-being indicators (8 for the WVS; 7 satisfaction indicators for Gallup; mean ladder for the WHR). ``Best'' refers to the income measure with the highest average $R^2$ in the main WVS specification (\bestIncome). ``Region better'' is the share of indicator $\times$ income-measure combinations for which $s < 0.5$; values above 0.5 are in bold. Alternative region classifications and exclusions of regions: see Table~\ref{tab:region_classifications}.\end{minipage}
+    {\footnotesize\backlink{tab:robustness}{}\par}
 \end{table}
 
 \begin{table}[p]
@@ -168,6 +167,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/region_classifications.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Averages over the eight well-being indicators. $R^2$ and share of explained variance due to income (Equation~\eqref{eq:share}) with log GDP p.c. (PPP). ``Region better'': share of the indicator $\times$ income-measure combinations for which $s < 0.5$; values above 0.5 are in bold. Region classifications are described in Section~\ref{subsec:regions}.\end{minipage}
+    {\footnotesize\backlink{tab:region_classifications}{subsec:method_region}\par}
 \end{table}
 
 \begin{table}[p]
@@ -177,6 +177,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/share_income_gallup.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} \nGallupCountries countries, last Gallup observation available (2006--2023). Same definitions as Table~\ref{tab:share_income}. Values above 0.5 (income is the better predictor) are in bold.\end{minipage}
+    {\footnotesize\backlink{tab:share_gallup}{subsec:method_region}\par}
 \end{table}
 
 \begin{table}[p]
@@ -186,6 +187,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/correlation_indicators.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize\end{minipage}
+    {\footnotesize\backlink{tab:correlation}{subsec:wvs}\par}
 \end{table}
 
 \begin{table}[p]
@@ -195,6 +197,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/slopes.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} OLS across country-years; standard errors clustered by country. Gallup: 2006--2023.\end{minipage}
+    {\footnotesize\backlink{tab:slopes}{subsec:method_region}\par}
 \end{table}
 
 \begin{table}[p]
@@ -204,6 +207,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/within_country.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Countries surveyed at least twice. Standard errors clustered by country. On average over the eight indicators, the within-country $R^2$ is \meanWithinRtwo.\end{minipage}
+    {\footnotesize\backlink{tab:within}{subsec:method_region}\par}
 \end{table}
 
 \begin{table}[p]
@@ -213,6 +217,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/correlates.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Country-year averages of WVS variables: perceived freedom of choice and control (1--10), importance of God in one's life (1--10), justifiability of homosexuality (1--10), importance of living in a democracy (1--10, waves 5--7), and average annual growth of real GDP per capita over the previous five years. Shapley decomposition of the $R^2$ of the regression on log GDP per capita, region dummies and the other variable. In each row, the largest contribution among income, region and the other variable is in bold.\end{minipage}
+    {\footnotesize\backlink{tab:correlates}{subsec:method_region}\par}
 \end{table}
 
 \begin{table}[p]
@@ -220,6 +225,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \caption{Countries most often ranked happiest (WVS, 8 indicators $\times$ 8 samples: each wave and all waves combined).}\label{tab:happiest}
     \input{../tables/main/happiest_countries.tex}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Looking at all waves combined, the happiest country-year is: \happiestAllWaves. For \textit{Very Unhappy}, the happiest country-year is the one with the lowest share.\end{minipage}
+    {\footnotesize\backlink{tab:happiest}{subsec:method_region}\par}
 \end{table}
 
 \begin{table}[p]
@@ -229,6 +235,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/fabre_regressions.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} OLS with country fixed effects, survey weights (normalized within country) and heteroskedasticity-robust standard errors in parentheses. \textit{Ladder wording}: Cantril ladder (vs.\ WVS life satisfaction). \textit{Scale 1--10}: answers from 1 to 10 (vs.\ 0 to 10). In columns 3, 5 and 6, 1--10 answers are linearly stretched to 0--10. Columns 5 and 6 interact the treatments with the respondent's income quartile within their country; in column 6, the interaction between income and wording is \interactionLadderIncomeFull ($p \pInteractionLadderIncomeFull$) and the triple interaction is \tripleInteraction ($p \pTripleInteraction$). * $p<.05$, ** $p<.01$, *** $p<.001$.\end{minipage}
+    {\footnotesize\backlink{tab:fabre_regressions}{subsec:fabre}\par}
 \end{table}
 
 \begin{table}[p]
@@ -238,6 +245,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/decomposition_by_country.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Mean answers on native scales (Gallup and ladder: 0--10; WVS/EVS and satisfaction: 1--10); columns (3) and (4): Fabre (2025). The Gallup year is given in parentheses when it differs from the WVS year. Survey: mode: source of the WVS/EVS data and main interview mode(s) (CAPI: computer-assisted personal interviews).\end{minipage}
+    {\footnotesize\backlink{tab:decomposition_country}{subsec:fabre}\par}
 \end{table}
 
 \begin{table}[p]
@@ -247,6 +255,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/decomposition_summary.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} \nDecompCountries countries. 95\% confidence intervals from 1,000 bootstrap replications resampling respondents within country $\times$ variant (Fabre) and within country (WVS). For Gallup, only the distribution of answers is available: in each country, the numbers of respondents giving each answer (0 to 10) are redrawn from a multinomial distribution with the observed shares and sample size, which is equivalent to resampling respondents.\end{minipage}
+    {\footnotesize\backlink{tab:decomposition_summary}{subsec:fabre}\par}
 \end{table}
 
 \begin{table}[p]
@@ -256,12 +265,14 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \input{../tables/main/sample_representativeness.tex}
     \end{adjustbox}
     \begin{minipage}{\textwidth}\footnotesize \textit{Note:} One observation per WVS or EVS survey. Ratios: weighted sample share divided by the population share, medians across surveys (a ratio above 1 indicates over-representation). Benchmarks (World Bank WDI): share of the population aged 25+ with at least short-cycle tertiary education (UNESCO), or with complete or incomplete tertiary education \citep{barro_new_2013} before 2011; urban population share (national definitions; sample: urban and peri-urban respondents, waves 4, 5 and 7 only); share aged 65+ among the population aged 15+ (sample: 65+ among respondents, usually 18+). Women among married: unweighted share of women among married or cohabiting respondents minus 0.5. Correlations with log GDP per capita (PPP) of the log ratios (or of the deviation).\end{minipage}
+    {\footnotesize\backlink{tab:representativeness}{subsec:data_quality}\par}
 \end{table}
 
 \begin{figure}[p]
     \centering
     \caption{Main classification of countries into five world regions.}\label{fig:regions}
     \includegraphics[width=.9\textwidth]{../figures/region_groupings.png}
+    {\footnotesize\backlink{fig:regions}{subsec:regions}\par}
 \end{figure}
 
 \begin{figure}[p]
@@ -269,6 +280,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \caption{Mean happiness vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:happiness_mean_gdp}
     \includegraphics[width=.95\textwidth]{../figures/main/wvs_happiness_mean_vs_gdp_ppp.pdf}
     \begin{minipage}{.95\textwidth}\footnotesize \textit{Note:} Answers coded $+3$ (\textit{Very happy}), $+1$, $-1$, $-3$ (\textit{Not at all happy}).\end{minipage}
+    {\footnotesize\backlink{fig:happiness_mean_gdp}{subsec:method_region}\par}
 \end{figure}
 
 \begin{figure}[p]
@@ -276,18 +288,21 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \caption{Observed WVS--Gallup gap, question effect and residual by country.}\label{fig:decomposition}
     \includegraphics[width=.9\textwidth]{../figures/main/decomposition_by_country.pdf}
     \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} $D$: mean satisfaction (WVS/EVS, 1--10) minus mean ladder (Gallup, 0--10), same year. $Q$: mean answer to satisfaction 1--10 minus mean answer to ladder 0--10, Fabre (2025). $R = D - Q$.\end{minipage}
+    {\footnotesize\backlink{fig:decomposition}{subsec:fabre}\par}
 \end{figure}
 
 \begin{figure}[p]
     \centering
     \caption{Share of \textit{Very happy} people vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:very_happy_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_happy_vs_gdp_ppp.pdf}
+    {\footnotesize\backlink{fig:very_happy_gdp}{subsec:method_region}\par}
 \end{figure}
 
 \begin{figure}[p]
     \centering
     \caption{\textit{Happy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:happy_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_happy_vs_gdp_ppp.pdf}
+    {\footnotesize\backlink{fig:happy_gdp}{subsec:method_region}\par}
 \end{figure}
 
 \begin{figure}[p]
@@ -295,24 +310,28 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \caption{\textit{Very Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:very_unhappy_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_unhappy_vs_gdp_ppp.pdf}
     \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Egypt 2013 (\veryUnhappyEGY\% of very unhappy people) is not shown, to keep the $y$-axis readable; the $R^2$ in the legend includes it.\end{minipage}
+    {\footnotesize\backlink{fig:very_unhappy_gdp}{subsec:method_region}\par}
 \end{figure}
 
 \begin{figure}[p]
     \centering
     \caption{\textit{V.~Happy -- V.~Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:vhmvu_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_happy_minus_very_unhappy_vs_gdp_ppp.pdf}
+    {\footnotesize\backlink{fig:vhmvu_gdp}{subsec:method_region}\par}
 \end{figure}
 
 \begin{figure}[p]
     \centering
     \caption{\textit{Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:satisfied_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_satisfied_vs_gdp_ppp.pdf}
+    {\footnotesize\backlink{fig:satisfied_gdp}{subsec:method_region}\par}
 \end{figure}
 
 \begin{figure}[p]
     \centering
     \caption{\textit{Happy + Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:layard_gdp}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_happiness_layard_vs_gdp_ppp.pdf}
+    {\footnotesize\backlink{fig:layard_gdp}{subsec:method_region}\par}
 \end{figure}
 
 \begin{figure}[p]
@@ -320,6 +339,7 @@ I test the representativeness of WVS/EVS samples directly (Table~\ref{tab:repres
     \caption{\textit{Happy} vs.\ GDP per capita (nominal), WVS/EVS wave 7 (2017--2023), weighted by population.}\label{fig:happy_gdp_w7_weighted}
     \includegraphics[width=.9\textwidth]{../figures/main/wvs_happy_vs_gdp_wave7_weighted.pdf}
     \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Point size and regression weights proportional to population.\end{minipage}
+    {\footnotesize\backlink{fig:happy_gdp_w7_weighted}{subsec:method_region}\par}
 \end{figure}
 
 \clearpage
