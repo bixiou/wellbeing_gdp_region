@@ -1,0 +1,169 @@
+\documentclass[12pt]{article}
+\newif\ifblind
+\blindfalse
+% \blindtrue
+\input{preamble_paper.tex}
+\externaldocument[M-]{build/wellbeing} % main paper (compile wellbeing.tex and this file twice)
+% Online Appendix of wellbeing.tex (Journal of Economic Psychology: supplementary material submitted as a single PDF titled "Online Appendix",
+% not counted in the 12,000-word limit). Compile from papers/:  latexmk -pdf -outdir=build wellbeing_online_appendix.tex
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+\title{Online Appendix:\\ Does Money Buy National Happiness? It Depends on Who You Ask}
+\ifblind
+  \author{}
+\else
+  \author{Adrien Fabre}
+\fi
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent Section numbers refer to the main paper.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Correlation between national well-being indicators (WVS country-years).}\label{tab:correlation}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/correlation_indicators.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \hfill(Back~to~Section~\ref{M-subsec:wvs}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Slope of national well-being indicators with respect to $\log_{10}$ GDP per capita (PPP).}\label{tab:slopes}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/slopes.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} OLS across country-years; standard errors clustered by country. Gallup: 2006--2023. \hfill(Back~to~Section~\ref{M-subsec:r2_income}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Out-of-sample predictive capacity: leave-one-country-out cross-validated $R^2$.}\label{tab:cv}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/cross_validated_r2.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Each country's observations are predicted with a model estimated on all other countries. Cross-validated $R^2 = 1 - \sum (y - \hat y_{\text{out-of-sample}})^2 / \sum (y - \bar y)^2$; it can be negative when a model predicts worse than the overall mean. In each row, the highest cross-validated $R^2$ among log GDP PPP, the best income variable and region is in bold. \hfill(Back~to~Section~\ref{M-subsec:region_wvs}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Robustness: income vs.\ region across specifications and datasets.}\label{tab:robustness}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/robustness.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Averages over well-being indicators (8 for the WVS; 7 satisfaction indicators for Gallup; mean ladder for the WHR). ``Best'' refers to the income measure with the highest average $R^2$ in the main WVS specification (\bestIncome). ``Region better'' is the share of indicator $\times$ income-measure combinations for which $s < 0.5$; values above 0.5 are in bold. Alternative region classifications and exclusions of regions: see Table~\ref{M-tab:region_classifications}. \hfill(Back~to~Section~\ref{M-subsec:region_wvs}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Other country-level correlates of national well-being: Shapley decomposition of $R^2$ (WVS).}\label{tab:correlates}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/correlates.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Country-year averages of WVS variables: perceived freedom of choice and control (1--10), importance of God in one's life (1--10), justifiability of homosexuality (1--10), importance of living in a democracy (1--10, waves 5--7), and average annual growth of real GDP per capita over the previous five years. Shapley decomposition of the $R^2$ of the regression on log GDP per capita, region dummies and the other variable. In each row, the largest contribution among income, region and the other variable is in bold. \hfill(Back~to~Section~\ref{M-subsec:correlates}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Within-country relation between national well-being and $\log_{10}$ GDP per capita (country fixed effects, WVS).}\label{tab:within}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/within_country.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Countries surveyed at least twice. Standard errors clustered by country. On average over the eight indicators, the within-country $R^2$ is \meanWithinRtwo. \hfill(Back~to~Section~\ref{M-subsec:correlates}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Countries most often ranked happiest (WVS, 8 indicators $\times$ 8 samples: each wave and all waves combined).}\label{tab:happiest}
+    \input{../tables/main/happiest_countries.tex}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Looking at all waves combined, the happiest country-year is: \happiestAllWaves. For \textit{Very Unhappy}, the happiest country-year is the one with the lowest share. \hfill(Back~to~Section~\ref{M-subsec:correlates}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Effects of question wording and scale on life evaluation, Fabre (2025) survey experiment.}\label{tab:fabre_regressions}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/fabre_regressions.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} OLS with country fixed effects, survey weights (normalized within country) and heteroskedasticity-robust standard errors in parentheses. \textit{Ladder wording}: Cantril ladder (vs.\ WVS life satisfaction). \textit{Scale 1--10}: answers from 1 to 10 (vs.\ 0 to 10). In columns 3, 5 and 6, 1--10 answers are linearly stretched to 0--10. Columns 5 and 6 interact the treatments with the respondent's income quartile within their country; in column 6, the interaction between income and wording is \interactionLadderIncomeFull ($p \pInteractionLadderIncomeFull$) and the triple interaction is \tripleInteraction ($p \pTripleInteraction$). * $p<.05$, ** $p<.01$, *** $p<.001$. \hfill(Back~to~Section~\ref{M-subsec:experiment}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Decomposition of the WVS--Gallup gap by country.}\label{tab:decomposition_country}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/decomposition_by_country.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Mean answers on native scales (Gallup and ladder: 0--10; WVS/EVS and satisfaction: 1--10); columns (3) and (4): Fabre (2025). The Gallup year is given in parentheses when it differs from the WVS year. Survey: mode: source of the WVS/EVS data and main interview mode(s) (CAPI: computer-assisted personal interviews). \hfill(Back~to~Section~\ref{M-subsec:experiment}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Decomposition of the WVS--Gallup gap: summary.}\label{tab:decomposition_summary}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/decomposition_summary.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} \nDecompCountries countries. 95\% confidence intervals from 1,000 bootstrap replications resampling respondents within country $\times$ variant (Fabre) and within country (WVS). For Gallup, only the distribution of answers is available: in each country, the numbers of respondents giving each answer (0 to 10) are redrawn from a multinomial distribution with the observed shares and sample size, which is equivalent to resampling respondents. \hfill(Back~to~Section~\ref{M-subsec:experiment}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Representativeness of WVS/EVS samples: sample shares relative to population benchmarks.}\label{tab:representativeness}
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/sample_representativeness.tex}
+    \end{adjustbox}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} One observation per WVS or EVS survey. Ratios: weighted sample share divided by the population share, medians across surveys (a ratio above 1 indicates over-representation). Benchmarks (World Bank WDI): share of the population aged 25+ with at least short-cycle tertiary education (UNESCO), or with complete or incomplete tertiary education \citep{barro_new_2013} before 2011; urban population share (national definitions; sample: urban and peri-urban respondents, waves 4, 5 and 7 only); share aged 65+ among the population aged 15+ (sample: 65+ among respondents, usually 18+). Women among married: unweighted share of women among married or cohabiting respondents minus 0.5. Correlations with log GDP per capita (PPP) of the log ratios (or of the deviation). \hfill(Back~to~Section~\ref{M-subsec:data_quality}.)\end{minipage}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{Share of \textit{Very happy} people vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:very_happy_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_happy_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Happy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:happy_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_happy_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Very Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:very_unhappy_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_unhappy_vs_gdp_ppp.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Egypt 2013 (\veryUnhappyEGY\% of very unhappy people) is not shown, to keep the $y$-axis readable; the $R^2$ in the legend includes it.\end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{V.~Happy -- V.~Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:vhmvu_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_happy_minus_very_unhappy_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:satisfied_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_satisfied_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Happy + Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:layard_gdp}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_happiness_layard_vs_gdp_ppp.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{\textit{Happy} vs.\ GDP per capita (nominal), WVS/EVS wave 7 (2017--2023), weighted by population.}\label{fig:happy_gdp_w7_weighted}
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_happy_vs_gdp_wave7_weighted.pdf}
+    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Point size and regression weights proportional to population. \hfill(Back~to~Section~\ref{M-subsec:r2_income}.)\end{minipage}
+\end{figure}
+
+\clearpage
+\bibliography{wellbeing}
+
+\end{document}

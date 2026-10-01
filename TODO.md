@@ -35,7 +35,7 @@ Legend: `[x]` done, `[ ]` to do, `[~]` partly done / see note. **(A)** = needs A
 - [x] **k-means clusters are not reproducible**: the k-means block in `create_gdp_vars` is commented out (so `run_regressions` fails as is), and there is no `set.seed()`; k-means with random starts can give different clusters across runs. Use `set.seed()` and `nstart = 50` (or 1-D exact clustering, e.g. `Ckmeans.1d.dp`).
 - [x] `plot_all()` is called (l. 457) before being defined (l. 459).
 - [x] Code depends on `.Rprofile` helpers and on `%>%`; `main.R` is self-contained and uses `|>`.
-- [ ] Presentation typo: "Region is a better predictor than region" → "than income".
+- [x] Presentation typo: "Region is a better predictor than region" → "than income".
 
 ## 2. TODOs from `presentations/wellbeing_prez.tex`
 
@@ -134,6 +134,10 @@ Submit the **combined paper** (`wellbeing.tex`) to the **Journal of Economic Psy
 If split: `wellbeing_discrepancy.tex` (novel experimental contribution) → JEP (or as a *Brief Report*, ≤ 4,000 words excluding abstract and references, after light trimming); `wellbeing_region.tex` → Journal of Happiness Studies (or Social Indicators Research).
 
 - [x] **Word count (JEP)**: shortened (Section 4 reordered, secondary tables moved to the appendix, discussion 5.1 condensed): ≈ 7,900 words main text + ≈ 1,350 references + ≈ 2,400 appendix (tables included, figures excluded) ≈ 11,700 words in total.
+- [x] **JEP compliance** (guide for authors: 12,000 words including abstract, text, references, tables, figures, captions and appendix, but not the Online Appendix; footnotes avoided; abstract ≤ 250 words; public data with download instructions in the title footnote): appendix moved to `papers/wellbeing_online_appendix.tex` (separate PDF titled "Online Appendix"); footnotes turned into text; data statement completed. Counted manuscript ≈ 8,100 words (text, tables, captions) + ≈ 1,450 references ≈ 9,500 words.
+- [ ] **(A)** Deposit data and code on OSF or Mendeley Data before submission (JEP asks for a repository URL, GitHub may not suffice).
+- [ ] **(A) PNAS** (`papers/wellbeing_pnas.tex` + `wellbeing_pnas_si.tex`): check the requirements on pnas.org (the draft follows: abstract ≤ 250 words, significance statement ≤ 120 words, ~6 pages / ~4,000 words, 4 display items, numbered references, Materials and Methods last); add ORCID; check the postal address of CIRED; choose the title; transfer to the official PNAS LaTeX template (Overleaf) after acceptance (format-neutral initial submission); decide Direct Submission vs. contributed/communicated by an NAS member.
+- [x] Paper TODOs of commit 1bd1ca6: datasets on equal footing (abstract, introduction); average R² of region in abstract and introduction; six continents (North America separate from Latin America; results unchanged: 48% of cases); bold highest R² per row (Table 1) and shares > 0.5 (ten-country table); CV R² of the best income measure; new subsection for Gallup; happiest country-years of all waves; shares of the R² difference in percent; Deaton (2008) growth test (growth not negatively related to satisfaction conditional on GDP: +0.039, p = .044 in the WVS; 0.001, p = .957 in Gallup).
 - [ ] Extend the representativeness test: reweight WVS samples jointly on education, urbanicity and age (raking), where benchmarks allow.
 
 ## 9. Submission strategy (answer to the TODO at the top of `wellbeing.tex`)
