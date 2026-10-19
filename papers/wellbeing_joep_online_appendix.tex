@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+\newif\ifblind
+\blindfalse % The Journal of Economic Psychology does not admit anonymized submissions
+\input{preamble_paper.tex}
+% Journal of Economic Psychology formatting, on top of the common preamble: no boldface, captions directly below figures and tables
+\captionsetup{font=small, labelfont=normal, skip=6pt}
+\captionsetup[table]{position=below}
+\setlength{\emergencystretch}{2em} % avoids lines overflowing into the margin
+\externaldocument[M-]{build/wellbeing_joep} % main paper: compile wellbeing_joep.tex, then this file, then wellbeing_joep.tex again
+% Online Appendix of wellbeing_joep.tex (Journal of Economic Psychology: single PDF uploaded as a "Supporting File", titled "Online Appendix:"
+% followed by the title of the paper and the author names, with independent pagination; not counted in the 12,000-word limit).
+% Compile from papers/:  latexmk -pdf -outdir=build wellbeing_joep_online_appendix.tex
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thesection}{OA.\arabic{section}}
+\renewcommand{\url}[1]{\href{#1}{Link}}
+
+\title{Online Appendix:\\ Does Money Buy National Happiness?\\It Depends on Who You Ask and How}
+\author{Adrien Fabre\\[.5ex] \normalsize CNRS, CIRED, France}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{plain}
+
+\noindent This Online Appendix complements the paper ``Does Money Buy National Happiness? It Depends on Who You Ask and How.'' References to sections, tables, figures and equations without the prefix ``OA'' or ``A'' refer to the main paper. Section~\ref{app:questionnaire} reproduces the part of the questionnaire of the survey experiment used in the paper, and Section~\ref{app:additional} presents additional results and robustness checks.
+
+\section{Questionnaire of the survey experiment}\label{app:questionnaire}
+
+The survey experiment is described in Section~\ref{M-subsec:fabre} of the paper. The survey was programmed in Qualtrics, written in English and translated into the national language(s) of each country. Its main purpose was to measure attitudes toward global policies, which are analyzed in a separate paper \citep{fabre_public_2025}; the full questionnaire, in all languages, is available in the replication files of that paper \citep{fabre_public_2025}. The survey was approved by the CIRED institutional review board (IRB-CIRED-2025-2) and pre-registered on OSF (\href{https://osf.io/7mzn4}{https://osf.io/7mzn4}).
+
+\subsection{Structure of the questionnaire}
+
+The questionnaire comprises, in this order: a welcome page; socio-demographic questions (used for the quotas and the weights: gender, age, income, education, region, urbanicity, as well as race in the U.S. and citizenship in Saudi Arabia) and voting; an open-ended question; questions on global policies (a conjoint analysis, global taxes and their revenue use, global climate policies, a global wealth tax, global redistribution, and a tool to choose one's preferred global redistribution); the \textit{well-being} block; comprehension questions (asked to a subsample); synthetic questions on global policies; and feedback on the survey. The well-being block displays a single question. Each respondent is randomly assigned, with equal probabilities, to one of the four variants below. No other question of the survey varies with the variant assigned, and no other condition of the survey is used in this paper.
+
+\subsection{The four variants of the life-evaluation question}
+
+\begin{enumerate}
+    \item \textit{Ladder 0--10 (Gallup's original question).} ``Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. On which step of the ladder would you say you personally feel you stand at this time?'' Answers: 0 (\textit{Worst possible}), 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 (\textit{Best possible}).
+    \item \textit{Ladder 1--10.} ``Please imagine a ladder, with steps numbered from 1 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. On which step of the ladder would you say you personally feel you stand at this time?'' Answers: 1 (\textit{Worst possible}), 2, 3, 4, 5, 6, 7, 8, 9, 10 (\textit{Best possible}).
+    \item \textit{Satisfaction 0--10.} ``All things considered, how satisfied are you with your life as a whole these days?'' Answers: 0 (\textit{Completely dissatisfied}), 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 (\textit{Completely satisfied}).
+    \item \textit{Satisfaction 1--10 (WVS's original question).} ``All things considered, how satisfied are you with your life as a whole these days?'' Answers: 1 (\textit{Completely dissatisfied}), 2, 3, 4, 5, 6, 7, 8, 9, 10 (\textit{Completely satisfied}).
+\end{enumerate}
+
+\section{Additional results}\label{app:additional}
+
+\begin{table}[htbp]
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/correlation_indicators.tex}
+    \end{adjustbox}
+    \caption{Correlation between national well-being indicators (WVS country-years).}\label{tab:correlation}
+    \begin{minipage}{\textwidth}\footnotesize \hfill(Back~to~Section~\ref{M-subsec:wvs}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/slopes_joep.tex}
+    \end{adjustbox}
+    \caption{Slope of national well-being indicators with respect to $\log_{10}$ GDP per capita (PPP).}\label{tab:slopes}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Each column is an OLS regression across country-years of a national well-being indicator on $\log_{10}$ GDP per capita (PPP, constant 2021 dollars), with a constant. Standard errors clustered by country in parentheses. * $p<.05$, ** $p<.01$, *** $p<.001$. \hfill(Back~to~Section~\ref{M-subsec:r2_income}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/cross_validated_r2_joep.tex}
+    \end{adjustbox}
+    \caption{Out-of-sample predictive capacity: leave-one-country-out cross-validated $R^2$.}\label{tab:cv}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Each country's observations are predicted with a model estimated on all other countries. Cross-validated $R^2 = 1 - \sum (y - \hat y_{\text{out-of-sample}})^2 / \sum (y - \bar y)^2$; it can be negative when a model predicts worse than the overall mean. \hfill(Back~to~Section~\ref{M-subsec:region_wvs}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/robustness_joep.tex}
+    \end{adjustbox}
+    \caption{Robustness: income vs.\ region across specifications and datasets.}\label{tab:robustness}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Averages over well-being indicators (8 for the WVS; 7 satisfaction indicators for Gallup; mean ladder for the WHR). ``Best'' refers to the income measure with the highest average $R^2$ in the main WVS specification (\bestIncome). ``Region better'' is the share of indicator $\times$ income-measure combinations for which $s < 0.5$. Alternative region classifications and exclusions of regions: see Table~\ref{M-tab:region_classifications}. \hfill(Back~to~Section~\ref{M-subsec:region_wvs}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/correlates_joep.tex}
+    \end{adjustbox}
+    \caption{Other country-level correlates of national well-being: Shapley decomposition of $R^2$ (WVS).}\label{tab:correlates}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Log of median daily income or consumption per capita (World Bank PIP line-up estimates) and of household final consumption expenditure per capita (constant 2015 dollars). Country-year averages of WVS variables: perceived freedom of choice and control (1--10), importance of God in one's life (1--10), justifiability of homosexuality (1--10), importance of living in a democracy (1--10, waves 5--7), and average annual growth of real GDP per capita over the previous five years. Shapley decomposition of the $R^2$ of the regression on log GDP per capita, region dummies and the other variable. \hfill(Back~to~Section~\ref{M-subsec:correlates}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/within_country_joep.tex}
+    \end{adjustbox}
+    \caption{Within-country relation between national well-being and $\log_{10}$ GDP per capita (country fixed effects, WVS).}\label{tab:within}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Each column is an OLS regression of a national well-being indicator on $\log_{10}$ GDP per capita (PPP) with country fixed effects, over the country-years of countries surveyed at least twice. Standard errors clustered by country in parentheses. * $p<.05$, ** $p<.01$, *** $p<.001$. On average over the eight indicators, the within-country $R^2$ is \meanWithinRtwo. \hfill(Back~to~Section~\ref{M-subsec:correlates}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \input{../tables/main/happiest_countries.tex}
+    \caption{Countries most often ranked happiest (WVS, 8 indicators $\times$ 8 samples: each wave and all waves combined).}\label{tab:happiest}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Looking at all waves combined, the happiest country-year is: \happiestAllWaves. For \textit{Very Unhappy}, the happiest country-year is the one with the lowest share. \hfill(Back~to~Section~\ref{M-subsec:happiest}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/fabre_regressions_joep.tex}
+    \end{adjustbox}
+    \caption{Effects of question wording and scale on life evaluation: survey experiment (\newsurvey).}\label{tab:fabre_regressions}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} OLS with country fixed effects and survey weights (normalized within country). \textit{Ladder wording}: Cantril ladder (vs.\ WVS life satisfaction). \textit{Scale 1--10}: answers from 1 to 10 (vs.\ 0 to 10). In columns 3, 5 and 6, 1--10 answers are linearly stretched to 0--10. Columns 5 and 6 interact the treatments with the respondent's income quartile within their country; in column 6, the interaction between income and wording is \interactionLadderIncomeFull ($p \pInteractionLadderIncomeFull$) and the triple interaction is \tripleInteraction ($p \pTripleInteraction$). Heteroskedasticity-robust standard errors in parentheses. * $p<.05$, ** $p<.01$, *** $p<.001$. \hfill(Back~to~Section~\ref{M-subsec:experiment}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/decomposition_by_country.tex}
+    \end{adjustbox}
+    \caption{Decomposition of the WVS--Gallup gap by country.}\label{tab:decomposition_country}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} Mean answers on native scales (Gallup and ladder: 0--10; WVS/EVS and satisfaction: 1--10); columns (3) and (4): \newsurvey. The Gallup year is given in parentheses when it differs from the WVS year. Survey: mode: source of the WVS/EVS data and main interview mode(s) (CAPI: computer-assisted personal interviews). \hfill(Back~to~Section~\ref{M-subsec:experiment}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/decomposition_summary.tex}
+    \end{adjustbox}
+    \caption{Decomposition of the WVS--Gallup gap: summary.}\label{tab:decomposition_summary}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} \nDecompCountries countries. 95\% confidence intervals from 1,000 bootstrap replications resampling respondents within country $\times$ variant (new survey) and within country (WVS). For Gallup, only the distribution of answers is available: in each country, the numbers of respondents giving each answer (0 to 10) are redrawn from a multinomial distribution with the observed shares and sample size, which is equivalent to resampling respondents. \hfill(Back~to~Section~\ref{M-subsec:experiment}.)\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \input{../tables/main/sample_representativeness.tex}
+    \end{adjustbox}
+    \caption{Representativeness of WVS/EVS samples: sample shares relative to population benchmarks.}\label{tab:representativeness}
+    \begin{minipage}{\textwidth}\footnotesize \textit{Note:} One observation per WVS or EVS survey. Ratios: weighted sample share divided by the population share, medians across surveys (a ratio above 1 indicates over-representation). Benchmarks (World Bank WDI): share of the population aged 25+ with at least short-cycle tertiary education (UNESCO), or with complete or incomplete tertiary education \citep{barro_new_2013} before 2011; urban population share (national definitions; sample: urban and peri-urban respondents, waves 4, 5 and 7 only); share aged 65+ among the population aged 15+ (sample: 65+ among respondents, usually 18+). Women among married: unweighted share of women among married or cohabiting respondents minus 0.5. Correlations with log GDP per capita (PPP) of the log ratios (or of the deviation). \hfill(Back~to~Section~\ref{M-subsec:data_quality}.)\end{minipage}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_happy_vs_gdp_ppp.pdf}
+    \caption{Share of \textit{Very happy} people vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:very_happy_gdp}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_happy_vs_gdp_ppp.pdf}
+    \caption{\textit{Happy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:happy_gdp}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_unhappy_vs_gdp_ppp.pdf}
+    \caption{\textit{Very Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:very_unhappy_gdp}
+    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Egypt 2013 (\veryUnhappyEGY\% of very unhappy people) is not shown, to keep the $y$-axis readable; the $R^2$ in the legend includes it.\end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_very_happy_minus_very_unhappy_vs_gdp_ppp.pdf}
+    \caption{\textit{V.~Happy -- V.~Unhappy} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:vhmvu_gdp}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_satisfied_vs_gdp_ppp.pdf}
+    \caption{\textit{Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:satisfied_gdp}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_happiness_layard_vs_gdp_ppp.pdf}
+    \caption{\textit{Happy + Satisfied} vs.\ GDP per capita (PPP), WVS/EVS 1981--2023.}\label{fig:layard_gdp}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{../figures/main/wvs_happy_vs_gdp_wave7_weighted.pdf}
+    \caption{\textit{Happy} vs.\ GDP per capita (nominal), WVS/EVS wave 7 (2017--2023), weighted by population.}\label{fig:happy_gdp_w7_weighted}
+    \begin{minipage}{.9\textwidth}\footnotesize \textit{Note:} Point size and regression weights proportional to population. \hfill(Back~to~Section~\ref{M-subsec:r2_income}.)\end{minipage}
+\end{figure}
+
+\clearpage
+\bibliography{wellbeing}
+
+\end{document}

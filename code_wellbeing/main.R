@@ -99,8 +99,10 @@ numbers <- list()
 #' @param align Column alignment string (default: l then c).
 #' @param header Optional custom header line (LaTeX, without trailing \\).
 #' @param midrule_before Row indices before which a \midrule is inserted.
-#' @param bold Optional logical matrix (same dimensions as df) of cells to print in bold.
+#' @param bold Optional logical matrix (same dimensions as df) of cells to print in bold. When given, a copy without bold
+#'   is also written with the suffix _joep (the Journal of Economic Psychology bans boldface in tables).
 write_latex_table <- function(df, file, digits = 2, align = NULL, header = NULL, midrule_before = c(), bold = NULL) {
+  if (!is.null(bold)) write_latex_table(df, sub("\\.tex$", "_joep.tex", file), digits, align, header, midrule_before)
   df <- as.data.frame(df)
   for (j in seq_along(df)) if (is.numeric(df[[j]])) df[[j]] <- ifelse(is.na(df[[j]]), "", latex_minus(formatC(df[[j]], format = "f", digits = digits)))
   if (!is.null(bold)) for (j in seq_along(df)) df[[j]] <- ifelse(!is.na(bold[, j]) & bold[, j] & df[[j]] != "", paste0("\\textbf{", df[[j]], "}"), df[[j]])
@@ -109,6 +111,43 @@ write_latex_table <- function(df, file, digits = 2, align = NULL, header = NULL,
   rows <- apply(df, 1, function(r) paste(r, collapse = " & "))
   body <- unlist(lapply(seq_along(rows), function(i) c(if (i %in% midrule_before) "\\midrule", paste(rows[i], "\\\\"))))
   writeLines(c(paste0("\\begin{tabular}{", align, "}"), "\\toprule", paste(header, "\\\\"), "\\midrule", body, "\\bottomrule", "\\end{tabular}"), paste0(tables_folder, file))
+}
+
+#' Format coefficients with significance stars, following the Journal of Economic Psychology convention (* p<.05, ** p<.01, *** p<.001)
+#' @param coef Coefficients.
+#' @param p p-values.
+#' @param digits Number of decimals.
+#' @return Character vector, e.g. "0.109$^{***}$".
+with_stars <- function(coef, p, digits = 3) paste0(latex_minus(formatC(coef, format = "f", digits = digits)), ifelse(p < 0.001, "$^{***}$", ifelse(p < 0.01, "$^{**}$", ifelse(p < 0.05, "$^{*}$", ""))))
+
+#' Break a column header over several lines (before parentheses, after " -- " and " + ") with \makecell
+#' @param x Character vector of headers.
+#' @return Character vector of \makecell{} headers.
+break_header <- function(x) paste0("\\makecell{", gsub(" \\(", "\\\\\\\\(", gsub(" (--|\\+) ", " \\1\\\\\\\\", x)), "}")
+
+#' Write a regression table in the Journal of Economic Psychology format (one regression per column, coefficient with
+#' significance stars, standard error in parentheses below, then number of observations and R²)
+#' @param panels List of data frames (one per panel), with one row per regression and columns label (dependent variable), coef, se, p, r2, n.
+#' @param file File name (without folder).
+#' @param regressor Label of the regressor.
+#' @param panel_titles Optional titles of the panels.
+#' @param r2_label Label of the R² row.
+#' @param digits Number of decimals of coefficients and standard errors.
+write_regression_table <- function(panels, file, regressor, panel_titles = NULL, r2_label = "$R^2$", digits = 3) {
+  n_col <- max(sapply(panels, nrow))
+  row <- function(...) paste(paste(c(...), collapse = " & "), "\\\\")
+  pad <- function(x) c(x, rep("", n_col - length(x)))
+  lines <- c(); first_column <- 0
+  for (k in seq_along(panels)) {
+    d <- panels[[k]]
+    if (k > 1) lines <- c(lines, "\\midrule")
+    if (!is.null(panel_titles)) lines <- c(lines, paste0("\\multicolumn{", n_col + 1, "}{l}{\\textit{", panel_titles[k], "}} \\\\"))
+    lines <- c(lines, row("Dependent variable:", pad(break_header(d$label))), row("", pad(paste0("(", first_column + seq_len(nrow(d)), ")"))), "\\midrule",
+               row(regressor, pad(with_stars(d$coef, d$p, digits))), row("", pad(paste0("(", formatC(d$se, format = "f", digits = digits), ")"))),
+               row("Observations", pad(format(d$n, big.mark = ","))), row(r2_label, pad(formatC(d$r2, format = "f", digits = 3))))
+    first_column <- first_column + nrow(d)
+  }
+  writeLines(c(paste0("\\begin{tabular}{l", strrep("c", n_col), "}"), "\\toprule", lines, "\\bottomrule", "\\end{tabular}"), paste0(tables_folder, file))
 }
 
 #' Use a frozen download (vintage data_vintage), or download a new vintage if refresh_downloads is TRUE
@@ -737,6 +776,8 @@ slopes <- bind_rows(lapply(wellbeing_variables, function(y) slope_of(wvs_main, y
 write.csv(slopes, paste0(tables_folder, "slopes.csv"), row.names = FALSE)
 write_latex_table(slopes |> transmute(data, indicator = wellbeing_names[indicator], slope, se, p_value, r2, n = as.character(n)), "slopes.tex", digits = 3,
                   header = "Data & Indicator & Slope & s.e. & $p$-value & $R^2$ & Obs.", align = "llccccc", midrule_before = length(wellbeing_variables) + 1)
+write_regression_table(lapply(c("WVS", "Gallup"), function(d) slopes |> filter(data == d) |> transmute(label = wellbeing_names[indicator], coef = slope, se, p = p_value, r2, n)), "slopes_joep.tex",
+                       regressor = "$\\log_{10}$ GDP p.c. (PPP)", panel_titles = c("Panel A: WVS/EVS, 1981--2023", "Panel B: Gallup World Poll, 2006--2023")) # Journal of Economic Psychology format
 add_number("slopeVeryHappy", slopes$slope[slopes$data == "WVS" & slopes$indicator == "very_happy"], 3)
 add_p("pVeryHappy", slopes$p_value[slopes$data == "WVS" & slopes$indicator == "very_happy"])
 
@@ -779,6 +820,8 @@ within <- bind_rows(lapply(wellbeing_variables, function(y) {
 write.csv(within, paste0(tables_folder, "within_country.csv"), row.names = FALSE)
 write_latex_table(within |> transmute(indicator = wellbeing_names[indicator], slope, se, p_value, within_r2, n = as.character(n)), "within_country.tex", digits = 3,
                   header = "Indicator & Slope & s.e. & $p$-value & Within $R^2$ & Obs.", align = "lccccc")
+write_regression_table(list(within |> transmute(label = wellbeing_names[indicator], coef = slope, se, p = p_value, r2 = within_r2, n)), "within_country_joep.tex",
+                       regressor = "$\\log_{10}$ GDP p.c. (PPP)", r2_label = "Within $R^2$") # Journal of Economic Psychology format
 add_number("withinRtwoSatisfiedMean", within$within_r2[within$indicator == "satisfied_mean"], 2)
 add_number("meanWithinRtwo", mean(within$within_r2), 2)
 add_number("withinSlopeSatisfiedMean", within$slope[within$indicator == "satisfied_mean"], 2); add_number("crossSlopeSatisfiedMean", slopes$slope[slopes$data == "WVS" & slopes$indicator == "satisfied_mean"], 2)
@@ -911,6 +954,11 @@ fabre_models <- list(
 etable(fabre_models, tex = TRUE, float = FALSE, file = paste0(tables_folder, "fabre_regressions.tex"), replace = TRUE, fitstat = ~ n + r2,
        dict = c(ladder = "Ladder wording (Gallup)", scale_1_10 = "Scale 1--10", income_quartile = "Income quartile (1--4)", code = "Country", well_being = "Answer", well_being_0_10 = "Answer (0--10 equiv.)", satisfied = "Satisfied (6+)"),
        depvar = TRUE, digits = 3, signif.code = c("***" = 0.001, "**" = 0.01, "*" = 0.05)) # Journal of Economic Psychology convention
+# Journal of Economic Psychology version: booktabs style, 3-digit R², proper minus signs (convention * p<.05 ** p<.01 *** p<.001 stated in the table note)
+etable(fabre_models, tex = TRUE, float = FALSE, file = paste0(tables_folder, "fabre_regressions_joep.tex"), replace = TRUE, fitstat = ~ n + r2,
+       dict = c(ladder = "Ladder wording (Gallup)", scale_1_10 = "Scale 1--10", income_quartile = "Income quartile (1--4)", code = "Country", well_being = "Answer", well_being_0_10 = "Answer (0--10 equiv.)", satisfied = "Satisfied (6+)"),
+       depvar = TRUE, digits = 3, digits.stats = 3, style.tex = style.tex("aer"), signif.code = c("***" = 0.001, "**" = 0.01, "*" = 0.05))
+writeLines(gsub("(^|[ (])-([0-9])", "\\1$-$\\2", readLines(paste0(tables_folder, "fabre_regressions_joep.tex"))), paste0(tables_folder, "fabre_regressions_joep.tex"))
 print(etable(fabre_models))
 add_number("effectLadder", coef(fabre_models[[1]])["ladder"], 2); add_number("seLadder", se(fabre_models[[1]])["ladder"], 2)
 add_number("effectScale", coef(fabre_models[[1]])["scale_1_10"], 2); add_number("seScale", se(fabre_models[[1]])["scale_1_10"], 2)
@@ -918,6 +966,10 @@ add_number("effectLadderZeroTen", coef(fabre_models[[3]])["ladder"], 2)
 add_number("effectScaleZeroTen", coef(fabre_models[[3]])["scale_1_10"], 2)
 add_number("effectLadderSatisfied", coef(fabre_models[[4]])["ladder"], 2, percent = TRUE)
 add_number("interactionLadderIncome", coef(fabre_models[[5]])["ladder:income_quartile"], 3); add_p("pInteractionLadderIncome", pvalue(fabre_models[[5]])["ladder:income_quartile"])
+ci_interaction_ladder_income <- confint(fabre_models[[5]])["ladder:income_quartile", ] # non-significant estimates are reported with their confidence interval
+add_number("ciLowInteractionLadderIncome", ci_interaction_ladder_income[[1]], 3); add_number("ciHighInteractionLadderIncome", ci_interaction_ladder_income[[2]], 3)
+add_number("interactionLadderScale", coef(fabre_models[[2]])["ladder:scale_1_10"], 3); add_number("seInteractionLadderScale", se(fabre_models[[2]])["ladder:scale_1_10"], 3)
+add_p("pInteractionLadderScale", pvalue(fabre_models[[2]])["ladder:scale_1_10"])
 add_number("gradientIncomeSatisfaction", coef(fabre_models[[5]])["income_quartile"], 2)
 add_number("tripleInteraction", coef(fabre_models[[6]])["income_quartile:ladder:scale_1_10"], 3); add_p("pTripleInteraction", pvalue(fabre_models[[6]])["income_quartile:ladder:scale_1_10"])
 add_number("interactionLadderIncomeFull", coef(fabre_models[[6]])["income_quartile:ladder"], 3); add_p("pInteractionLadderIncomeFull", pvalue(fabre_models[[6]])["income_quartile:ladder"])
@@ -1081,6 +1133,20 @@ save_figure(p_fabre_scatter, "fabre_mean_vs_gdp_ppp", width = 7, height = 4.5)
 ten_bold <- matrix(FALSE, nrow(ten_table), ncol(ten_table)); ten_bold[, ncol(ten_table)] <- ten_table$share_income > 0.5
 # Labels of the new survey use the LaTeX macro \newsurvey ("Fabre (2025)", or "New survey (2025)" in anonymized versions)
 write_latex_table(ten_table, "ten_countries.tex", bold = ten_bold, header = "Data & $R^2$ income & 95\\% CI & Slope on $\\log_{10}$ GDP & s.e. & $R^2$ region & Share due to income", align = "lcccccc", midrule_before = c(3, 7))
+# Journal of Economic Psychology version: one regression per column, with significance stars (overwrites the copy without bold written above)
+ten_p <- sapply(ten_series, function(v) { model <- lm(as.formula(paste(v[2], "~", v[3])), data = ten); coeftest(model, vcov = vcovHC(model, type = "HC1"))[2, 4] })
+for (i in seq_along(ten_p)) add_p(paste0("pSlopeTen", c("Gallup", "WVS", "FabreLadder", "FabreLadderOneTen", "FabreSatisfactionZeroTen", "FabreSatisfaction", "FabreLadderPooled", "FabreSatisfactionPooled", "FabreAll")[i]), ten_p[i])
+ten_row <- function(label, x) paste(paste(c(label, x), collapse = " & "), "\\\\")
+ten_number <- function(x) latex_minus(formatC(x, format = "f", digits = 2))
+writeLines(c("\\begin{tabular}{lccccccccc}", "\\toprule",
+             "& \\multicolumn{2}{c}{Past data} & \\multicolumn{7}{c}{\\newsurvey} \\\\ \\cmidrule(lr){2-3} \\cmidrule(lr){4-10}",
+             ten_row("Data", c("Gallup", "WVS/EVS", rep("", 7))),
+             ten_row("Question", break_header(c("Ladder 0--10", "Satisfaction 1--10", "Ladder 0--10", "Ladder 1--10", "Satisfaction 0--10", "Satisfaction 1--10", "Ladder (both scales)", "Satisfaction (both scales)", "All four variants"))),
+             ten_row("", paste0("(", 1:9, ")")), "\\midrule",
+             ten_row("$\\log_{10}$ GDP p.c. (PPP)", with_stars(ten_table$slope, ten_p, 2)), ten_row("", paste0("(", formatC(ten_table$se, format = "f", digits = 2), ")")),
+             ten_row("Observations (countries)", rep(nrow(ten), 9)), ten_row("$R^2$", ten_number(ten_table$r2_income)), ten_row("95\\% CI of $R^2$", gsub("; ", ";\\\\\\\\", paste0("\\makecell{", ten_table$r2_ci, "}"))),
+             "\\midrule", ten_row("$R^2$ region", ten_number(ten_table$r2_region)), ten_row("Share due to income", ten_number(ten_table$share_income)), "\\bottomrule", "\\end{tabular}"),
+           paste0(tables_folder, "ten_countries_joep.tex"))
 add_number("slopeTenGallup", ten_table$slope[1], 2); add_number("slopeTenWVS", ten_table$slope[2], 2)
 add_number("slopeTenFabreLadder", ten_table$slope[3], 2); add_number("slopeTenFabreSatisfaction", ten_table$slope[6], 2)
 add_number("RtwoTenGallup", ten_table$r2_income[1], 2); add_number("RtwoTenWVS", ten_table$r2_income[2], 2)
