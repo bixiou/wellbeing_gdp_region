@@ -1,7 +1,18 @@
 \documentclass[12pt]{article}
 \newif\ifblind
 \blindfalse % The Journal of Economic Psychology does not admit anonymized submissions
+% Bibliography: Elsevier author-year style (instead of the style of the common preamble), without page back-references
+\let\joeporiginalbibliographystyle\bibliographystyle
+\renewcommand{\bibliographystyle}[1]{} % ignore the style set in preamble_paper.tex
 \input{preamble_paper.tex}
+\let\bibliographystyle\joeporiginalbibliographystyle
+\bibliographystyle{elsarticle-harv-joep}
+\renewcommand*{\backrefalt}[4]{} % no "cited on page" back-references in the bibliography
+\renewcommand{\bibfont}{\raggedright} % no over-stretched lines because of long DOIs and URLs
+\urlstyle{same} % links in the text font
+\newcommand{\URLprefix}{}
+\newcommand{\DOIprefix}{}
+\newcommand{\doi}[1]{\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
 % Journal of Economic Psychology formatting, on top of the common preamble: no boldface, captions directly below figures and tables
 \captionsetup{font=small, labelfont=normal, skip=6pt}
 \captionsetup[table]{position=below}
@@ -13,7 +24,6 @@
 \renewcommand{\thetable}{A\arabic{table}}
 \renewcommand{\thefigure}{A\arabic{figure}}
 \renewcommand{\thesection}{OA.\arabic{section}}
-\renewcommand{\url}[1]{\href{#1}{Link}}
 
 \title{Online Appendix:\\ Does Money Buy National Happiness?\\It Depends on Who You Ask and How}
 \author{Adrien Fabre\\[.5ex] \normalsize CNRS, CIRED, France}

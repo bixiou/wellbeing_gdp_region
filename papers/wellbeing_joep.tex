@@ -8,7 +8,18 @@
 
 % Journals: PNAS (2000$, desk rejected), JEP (0$, 12k words; returned to author on 2026-10 for policy compliance), World Development (0$), JHS (0$), JWE (0$)
 
+% Bibliography: Elsevier author-year style (instead of the style of the common preamble), without page back-references
+\let\joeporiginalbibliographystyle\bibliographystyle
+\renewcommand{\bibliographystyle}[1]{} % ignore the style set in preamble_paper.tex
 \input{preamble_paper.tex}
+\let\bibliographystyle\joeporiginalbibliographystyle
+\bibliographystyle{elsarticle-harv-joep}
+\renewcommand*{\backrefalt}[4]{} % no "cited on page" back-references in the bibliography
+\renewcommand{\bibfont}{\raggedright} % no over-stretched lines because of long DOIs and URLs
+\urlstyle{same} % links in the text font
+\newcommand{\URLprefix}{}
+\newcommand{\DOIprefix}{}
+\newcommand{\doi}[1]{\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
 % Journal of Economic Psychology formatting, on top of the common preamble: no boldface, captions directly below figures and tables
 \captionsetup{font=small, labelfont=normal, skip=6pt}
 \captionsetup[table]{position=below}
@@ -30,7 +41,6 @@
   \author{}
   \date{}
 \else
-    \renewcommand{\url}[1]{\href{#1}{Link}}
     \author{Adrien Fabre\thanks{Corresponding author. CNRS, CIRED, 45 bis avenue de la Belle Gabrielle, 94736 Nogent-sur-Marne Cedex, France. E-mail: \href{mailto:adrien.fabre@cnrs.fr}{adrien.fabre@cnrs.fr}. ORCID: \href{https://orcid.org/0000-0001-5245-7772}{0000-0001-5245-7772}.}\\[.5ex] \normalsize CNRS, CIRED, France}
     \date{}
 \fi
